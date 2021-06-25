@@ -1,0 +1,14 @@
+{
+  "swaggerURL": [
+    "http://172.16.90.74:8093/v2/api-docs"
+  ],
+  "basicAuthor": true,
+  "username": "fk",
+  "password": "",
+  "version": "js",
+  "output": "src/api/api.js",
+  "axiosFrom": "@/utils/req.js",
+  "customResponse": "",
+  "addHostToBaseUrl": false,
+  "protocol": "https"
+}

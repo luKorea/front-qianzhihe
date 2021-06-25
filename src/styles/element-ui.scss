@@ -1,0 +1,204 @@
+// cover some element-ui styles
+
+.el-breadcrumb__inner,
+.el-breadcrumb__inner a {
+  font-weight: 400 !important;
+}
+
+.el-upload {
+  input[type="file"] {
+    display: none !important;
+  }
+}
+
+.el-upload__input {
+  display: none;
+}
+
+
+// to fixed https://github.com/ElemeFE/element/issues/2461
+.el-dialog {
+  transform: none;
+  left: 0;
+  position: relative;
+  margin: 0 auto;
+}
+
+// refine element ui upload
+.upload-container {
+  .el-upload {
+    width: 100%;
+
+    .el-upload-dragger {
+      width: 100%;
+      height: 200px;
+    }
+  }
+}
+
+// dropdown
+.el-dropdown-menu {
+  a {
+    display: block
+  }
+}
+
+// to fix el-date-picker css style
+.el-range-separator {
+  box-sizing: content-box;
+}
+
+//
+.el-input.is-disabled .el-input__inner {
+  color: #666;
+}
+
+//
+.el-image .el-icon-circle-close {
+  color: white;
+}
+
+//
+.el-form-item__label {
+  font-size: 12px;
+}
+
+.el-table .warning-row {
+  background: oldlace;
+}
+
+
+.el-table .success-row {
+  background: #f0f9eb;
+}
+
+.avue-crud.avue-crud--card {
+  .el-table__fixed {
+    pointer-events: none;
+
+    div {
+      pointer-events: auto;
+    }
+  }
+}
+
+//checkbox
+.avue-checkbox .el-checkbox-group {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  // justify-content: space-between;
+
+  label.el-checkbox {
+    width: 30%;
+    display: inline-block;
+    text-align: left;
+
+    .el-checkbox__label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      vertical-align: bottom
+    }
+
+    .el-checkbox__input {
+      vertical-align: bottom;
+    }
+  }
+}
+
+.el-checkbox__input.is-checked+.el-checkbox__label {
+  color: #666;
+}
+
+.avue-dialog .el-dialog {
+  max-width: 768px;
+}
+
+//弹框
+.avue-crud__dialog .el-dialog__body {
+  padding: 20px 11px 18px 10px;
+}
+
+//搜索栏 
+.avue-crud__search .avue-form__menu .el-form-item--mini.el-form-item,
+.avue-crud__search .avue-form__menu .el-form-item--small.el-form-item {
+  margin-left: 22px;
+}
+
+.avue-crud__search .avue-form__group .el-col {
+  min-width: 320px;
+  max-width: 320px;
+}
+
+.avue-crud__search .avue-form__row .el-form-item__label {
+  width: 70px !important;
+  padding-right: 5px;
+}
+
+.avue-crud__search .avue-form__row .el-form-item__content {
+  margin-left: 70px !important;
+}
+
+//时间选择
+@media screen and (max-width: 646px) {
+  .el-date-range-picker {
+    width: 300px;
+    overflow: hidden;
+    overflow-x: auto;
+  }
+}
+
+@media screen and (max-width: 646px) {
+  .app-breadcrumb {
+    display: none !important;
+  }
+}
+
+.levelbox1 {
+  margin-left: 24px;
+  line-height: 21px;
+}
+
+.levelbox2 {
+  margin-top: 0px;
+  margin-bottom: 5px;
+  margin-left: 24px;
+
+  .level2 {
+    width: 30%;
+    display: inline-block;
+    text-align: left;
+
+    .el-checkbox__label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      vertical-align: bottom
+    }
+
+    .el-checkbox__input {
+      vertical-align: bottom;
+    }
+  }
+
+}
+
+.rangeSearch .el-input__inner {
+  height: 24px !important;
+  line-height: 24px !important;
+  padding-right: 0;
+  border: none;
+  color: #606266;
+}
+
+
+
+
+@media only screen and (min-width: 768px) {
+  .el-col-24 {
+    width: 100%;
+  }
+}

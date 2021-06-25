@@ -1,0 +1,44 @@
+<template>
+  <div>
+    <template>
+      <span class="tip-info"></span>
+      <span class="tip-title">专业介绍</span>
+      <div class="desc">{{info.professional_concept}}</div>
+    </template>
+    <el-divider/>
+    <template>
+      <span class="tip-info"></span>
+      <span class="tip-title">学习课程</span>
+      <div class="desc">{{info.main_course	}}</div>
+    </template>
+    <el-divider/>
+    <template>
+      <span class="tip-info"></span>
+      <span class="tip-title">培养目标</span>
+      <div class="desc">{{info.profession_introduction}}</div>
+    </template>
+    <el-divider/>
+    <template>
+      <span class="tip-info"></span>
+      <span class="tip-title">培养要求</span>
+      <div class="desc">{{info.skills_profile}}</div>
+    </template>
+    <el-divider/>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "basicDesc",
+  props: {
+    info: {
+      type: Object,
+      default: () => {}
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>
