@@ -94,8 +94,9 @@ export default {
         margin: 20px 0 2px 0;
         .hobby-orange-title {
           width: 30%;
-          height: 65px;
-          line-height: 65px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           text-align: center;
           background: #FC9131;
           border-radius: 4px 0 0 0;
@@ -122,8 +123,9 @@ export default {
         margin: 2px;
         .hobby-blue-title {
           width: 30%;
-          height: 65px;
-          line-height: 65px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           text-align: center;
           background: #4D97FF;
           border-radius: 4px 0 0 0;

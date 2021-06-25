@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="study-right">
-        <span class="tip-info"></span>
+        <span classz="tip-info"></span>
         <span class="tip-title">相关证书</span>
         <div class="flex-img">
           <template v-if="info.certificateVoList && info.certificateVoList.length > 0">
@@ -68,7 +68,7 @@ export default {
             item[k] = itemmap[k][i] || ''
           }
           list.push(item)
-        };
+        }
         this.headers = fields;
         this.tableData = list;
         console.log('表头', fields)
