@@ -15,6 +15,14 @@ import basicContainerBack from './components/back/index';
 import basicPagination from './components/pagination/index';
 import basicNothing from './components/nothing/index';
 
+
+import * as filters from './utils/filters';
+
+Object.keys(filters).forEach(key => {
+  console.log(key, 'key');
+  Vue.filter(key, filters[key])
+})
+
 Vue.prototype.$echarts = echarts;
 Vue.component('basicContainer', basicContainer);
 Vue.component('basicContainerBack', basicContainerBack);

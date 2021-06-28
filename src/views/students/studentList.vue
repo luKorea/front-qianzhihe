@@ -23,9 +23,9 @@
           </el-col>
           <el-col :span="6">
             <span class="tip">班级:</span>
-            <el-select v-model="params.grade" placeholder="请选择" clearable>
-              <template v-if="gradeList && gradeList.length > 0">
-                <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
+            <el-select v-model="params.graduate" placeholder="请选择" clearable>
+              <template v-if="classList && classList.length > 0">
+                <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
               </template>
             </el-select>
           </el-col>
@@ -56,7 +56,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="username" label="手机号" align="center" />
-        <el-table-column prop="phone" label="激活日期" align="center" />
+        <el-table-column prop="activationDate" width="200" label="激活日期" align="center" />
         <el-table-column prop="educationLevel" label="年级" align="center" />
         <el-table-column prop="gradeName" label="所属班级" align="center" />
         <el-table-column prop="gradeType" label="班级类型" align="center" />
@@ -78,7 +78,7 @@
 
 <script>
 import {getStudentList} from "../../api/students";
-import {selectTypeList} from "../../api/search";
+import {selectTypeList, selectClassList} from "../../api/search";
 
 export default {
   name: "teacherList",
@@ -88,6 +88,7 @@ export default {
         page: 0,
         size: 10,
         gradeType: '', //	年级
+        graduate: '', // 班级
         grade: '', //班级类型
         queryOrIdOrNameOrPhone: '',
         total: 0
@@ -102,6 +103,7 @@ export default {
     this.getData(this.params);
     this.getGradeType();
     this.getGrade();
+    this.getClassType();
   },
   methods: {
     goOperationType(type, studentId, gradeId) {
@@ -140,6 +142,15 @@ export default {
         }
       })
     },
+    getClassType() {
+      selectClassList()
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.classList = res.data;
+            }
+          })
+    },
+
     getData(params) {
       getStudentList(params)
       .then(res => {

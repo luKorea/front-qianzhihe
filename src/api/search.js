@@ -26,3 +26,11 @@ export const searchUniversities = params => {
 export const selectTypeList = dictType => {
     return req(`/schoolApi/dictDetail?dictType=${dictType}`)
 }
+
+
+
+
+// 班级列表筛选
+export const selectClassList = () => {
+    return req(`/schoolApi/grade/getStudentGradeScreenList`)
+}

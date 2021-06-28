@@ -21,3 +21,13 @@ export const getEditInfo = teacherId => {
 export const getStudentInfo = params => {
     return req(`${basicUrl}/queryStudentUpdate?gradeId=${params.gradeId}&studentId=${params.studentId}`)
 }
+
+// 移除学生班级关联
+export const removeStudentToClass = studentId => {
+    return req(`${basicUrl}/updateStudentGradeBinding`, {studentId}, 'POST')
+}
+
+// 更新学生信息
+export const updateStudentInfo = data => {
+    return req(`${basicUrl}/update`, data, 'PUT')
+}

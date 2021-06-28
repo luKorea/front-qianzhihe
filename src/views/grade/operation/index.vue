@@ -7,37 +7,43 @@
         <div style="margin-top: 20px">
           <el-row :gutter="4">
             <el-col :span="10">
-              <el-form-item label="学生ID">
-                <el-input v-model="form._id" disabled/>
+              <el-form-item label="班级名称" required prop="name">
+                <el-input v-model="form.name"/>
               </el-form-item>
             </el-col>
             <el-col :span="10">
-              <el-form-item label="头像">
-                <el-avatar size="30" :src="form.profilePicture"></el-avatar>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row :gutter="4">
-            <el-col :span="10">
-              <el-form-item label="姓名" required prop="name">
-                <el-input v-model="form.name"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="10">
-              <el-form-item label="性别">
-                <el-input v-model="form.gender" disabled></el-input>
+              <el-form-item label="班级类型" required prop="gradeType">
+                <el-select v-model="form.gradeType" placeholder="请选择" clearable style="width: 100%">
+                  <el-option
+                      v-for="(item, index) in gradeTypeList"
+                      :key="index"
+                      :label="item.name"
+                      :value="item.name"/>
+                </el-select>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="4">
             <el-col :span="10">
-              <el-form-item label="手机号" required prop="username">
-                <el-input v-model="form.username"></el-input>
+              <el-form-item label="入学年份" required prop="enrollmentYear">
+                <el-select v-model="form.enrollmentYear" placeholder="请选择" clearable style="width: 100%">
+                  <el-option
+                      v-for="(item, index) in yearList"
+                      :key="index"
+                      :label="item.name"
+                      :value="item.name"/>
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="10">
-              <el-form-item label="激活日期">
-                <el-input v-model="form.time" disabled></el-input>
+              <el-form-item label="年级" required prop="grade">
+                <el-select v-model="form.grade" placeholder="请选择" clearable style="width: 100%">
+                  <el-option
+                      v-for="(item, index) in gradeList"
+                      :key="index"
+                      :label="item.name"
+                      :value="item.name"/>
+                </el-select>
               </el-form-item>
             </el-col>
           </el-row>
@@ -45,62 +51,149 @@
       </basic-container>
       <basic-container>
         <span class="tip-info"></span>
-        <span class="tip-title">班级信息</span>
+        <span class="tip-title">教师信息</span>
+        <div style="margin-top: 20px">
+          <el-row :gutter="4">
+            <el-col :span="10">
+              <el-form-item label="班主任">
+                <el-select v-model="form.teacherId" placeholder="请选择" clearable style="width: 100%">
+                  <el-option
+                      v-for="item in teacherList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="10">
+              <el-form-item label="生涯导师1">
+                <el-select v-model="form.teacher1Id" placeholder="请选择" clearable style="width: 100%">
+                  <el-option
+                      v-for="item in teacher1List"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="4">
+            <el-col :span="10">
+              <el-form-item label="生涯导师2">
+                <el-select v-model="form.teacher1Id" placeholder="请选择" clearable style="width: 100%">
+                  <el-option
+                      v-for="item in teacher2List"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </div>
       </basic-container>
       <basic-container>
         <span class="tip-info"></span>
-        <span class="tip-title">选科信息</span>
+        <span class="tip-title">其他</span>
+        <div class="m-top">
+          <el-switch v-model="form.switch" inactive-text="选科征集开关" />
+        </div>
       </basic-container>
     </el-form>
     <div class="footer-btn">
       <el-button style="color: #475B75" @click="goBack">取消</el-button>
-      <el-button type="primary" @click="operationData">保存</el-button>
+      <el-button type="primary" @click="operationData">{{ text }}</el-button>
     </div>
   </div>
 </template>
 
 <script>
 import {
-  validatePassword,
-  validatePhone,
-  validateTeacherName,
-  validateTeacherType,
-  validateUsername
+  validateClassType,
+  validateGradeType,
+  validateYear,
+  validateGrade
 } from "../../../utils/validate";
-import {getStudentInfo} from "../../../api/students";
+import {getEditInfo, addGrade, updateGrade} from "../../../api/grade";
+import {selectTypeList} from "../../../api/search";
 
 export default {
   name: "index",
   data() {
     return {
-      params: {
-        studentId: '',
-        gradeId: ''
-      },
+      text: '立即添加',
+      type: '',
+      id: '',
       form: {},
       rules: {
-        username: [{required: true, trigger: 'blur', validator: validatePhone}],
-        name: [{required: true, trigger: 'blur', validator: validateUsername}],
+        name: [{required: true, trigger: 'blur', validator: validateClassType}],
+        gradeType: [{required: true, trigger: 'blur', validator: validateGradeType}],
+        enrollmentYear: [{required: true, trigger: 'blur', validator: validateYear}],
+        grade: [{required: true, trigger: 'blur', validator: validateGrade}],
       },
-      teacherList: []
+      gradeTypeList: [],
+      gradeList: [],
+      yearList: [],
+      teacherList: [],
+      teacher1List: [],
+      teacher2List: []
     }
   },
   mounted() {
-    let {studentId, gradeId} = this.$route.query;
-    this.params.studentId = studentId;
-    this.params.gradeId = gradeId;
-    this.getEditData(this.params);
+    let {type, id} = this.$route.query;
+    this.type = type;
+    this.id = id;
+    this.text = type === 'add' ? '立即添加' : '保存';
+    this.$route.meta.title = type === 'add' ? '新增班级' : '编辑班级';
+    this.getGrade();
+    this.getYear();
+    this.getGradeType();
+    this.switchData();
   },
   methods: {
+    getGradeType() {
+      selectTypeList('gradeType')
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.gradeTypeList = res.data;
+            }
+          })
+    },
+    getGrade() {
+      selectTypeList('grade')
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.gradeList = res.data;
+            }
+          })
+    },
+    getYear() {
+      selectTypeList('vintage')
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.yearList = res.data;
+            }
+          })
+    },
+    switchData() {
+      switch (this.type) {
+        case "add":
+          break;
+        case "edit":
+          this.getEditData(this.id);
+          break;
+      }
+    },
     getEditData(params) {
-      getStudentInfo(params)
-      .then(res => {
-        if (res.errorCode === 200) {
-          this.form = res.data;
-          this.form['gender'] = this.form.gender == 'f' ? '男' : '女';
-
-        }
-      })
+      getEditInfo(params)
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.form = res.data;
+            }
+          })
     },
     goBack() {
       this.$router.go(-1);
@@ -109,8 +202,31 @@ export default {
       let that = this;
       that.$refs['form'].validate(valid => {
         if (valid) {
+          if (that.type === 'add') {
+            that.addData(that.form)
+          } else {
+            that.updateData(that.from)
+          }
         } else {
           return false;
+        }
+      })
+    },
+    addData(data) {
+      addGrade(data)
+      .then(res => {
+        if (res.errorCode === 200) {
+          this.$message.success('新增成功');
+          this.goBack();
+        }
+      })
+    },
+    updateData(data) {
+      updateGrade(data)
+      .then(res => {
+        if (res.errorCode === 200) {
+          this.$message.success('修改成功');
+          this.goBack();
         }
       })
     }

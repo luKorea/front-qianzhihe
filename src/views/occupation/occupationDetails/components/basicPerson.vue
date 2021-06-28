@@ -8,7 +8,7 @@
           <div class="person">
             <div class="person-img" v-for="person in info.personalityVoList" :key="person._id">
               <el-image
-                  style="width: 200px; height: 393px; margin-bottom: 20px;border-radius: 4px"
+                  style="width: 165px; height: 393px; margin-bottom: 20px;border-radius: 4px"
                   :src="person.image"
                   :preview-src-list="[person.image]"
                   fit="cover"/>
@@ -88,7 +88,8 @@ export default {
     display: flex;
     flex-direction: column;
     .top {
-      height: 50%;
+      height: 60%;
+      margin-bottom: 20px;
       .hobby {
         display: flex;
         margin: 20px 0 2px 0;
@@ -150,7 +151,7 @@ export default {
 
     }
     .bottom {
-       height: 50%;
+       height: 40%;
     }
   }
 }

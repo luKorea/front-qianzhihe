@@ -183,10 +183,8 @@ export default {
     width: 100%;
     .major-list {
       display: flex;
-      width: 350px;
+      width: 360px;
       margin: 0 20px 20px 0;
-      //margin-bottom: 20px;
-      //margin-right: 20px;
       flex-wrap: wrap;
       background: #FFFFFF;
       box-shadow: 0px 4px 16px 0px rgba(127, 137, 156, 0.3);

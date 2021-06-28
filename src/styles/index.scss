@@ -273,6 +273,7 @@ input:-webkit-autofill:active {
   font-weight: 500;
   color: #2E415B;
   line-height: 22px;
+  margin-right: 20px;
 }
 
 
@@ -298,6 +299,16 @@ input:-webkit-autofill:active {
 
 .m-bottom {
   margin-bottom: 20px;
+}
+
+.m-top {
+  margin-top: 20px;
+}
+.m-right {
+  margin-right: 20px;
+}
+.m-left {
+  margin-left: 20px;
 }
 .footer-btn {
   display: flex;

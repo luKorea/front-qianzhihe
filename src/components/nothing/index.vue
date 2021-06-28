@@ -11,7 +11,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: '没有任何内容'
+      default: '暂无数据'
     }
   },
   data() {

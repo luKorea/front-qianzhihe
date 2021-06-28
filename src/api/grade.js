@@ -13,11 +13,22 @@ export const getGradeList = params => {
 
 
 // 获取编辑信息
-export const getEditInfo = teacherId => {
-    return req(`${basicUrl}/queryTeacherUpdateInfo?teacherId=${teacherId}`)
+export const getEditInfo = _id => {
+    return req(`${basicUrl}/queryGradeById?_id=${_id}`)
 }
 
-// 查看学生信息
-export const getStudentInfo = params => {
-    return req(`${basicUrl}/queryStudentUpdate?gradeId=${params.gradeId}&studentId=${params.studentId}`)
+// 获取查看班级信息
+export const getGradeVisitInfo = params => {
+    return req(`${basicUrl}/queryGradeStudentPage?gradeId=${params.gradeId}&page=${params.page}&size=${params.size}`)
+}
+
+
+// 添加班级
+export const addGrade = data => {
+    return req(`${basicUrl}/create`, data, 'POST')
+}
+
+// 更新班级
+export const updateGrade = data => {
+    return req(`${basicUrl}/update`, data, 'PUT')
 }

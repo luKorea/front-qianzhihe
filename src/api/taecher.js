@@ -14,9 +14,15 @@ export const getTeacherList = params => {
 
 // 新增教师
 export const addTeacher = params => {
-    return req(`${basicUrl}/create?name=${params.name}&password=${params.password}&phone=${params.phone}&teacherType=${params.teacherType}&username=${params.username}`, '', 'POST'
-    )
+    return req(`${basicUrl}/create`, params, 'POST')
 }
+
+
+// 更新教师
+export const updateTeacher = params => {
+    return req(`${basicUrl}/update`, params, 'PUT')
+}
+
 
 // 获取编辑信息
 export const getEditInfo = teacherId => {

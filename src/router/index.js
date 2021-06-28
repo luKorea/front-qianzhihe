@@ -50,21 +50,21 @@ export const constantRoutesStart = [
         path: 'student',
         name: '班级管理',
         component:  () => import('./../views/grade/gradeList'),
-        meta: { title: '班级管理', icon: 'el-icon-s-custom', roles: ['grade'], breadcrumb: true },
+        meta: { title: '班级管理', icon: 'el-icon-s-data', roles: ['grade'], breadcrumb: true },
       },
       {
         path: 'gradeOperation',
         name: '编辑班级',
         hidden: true,
         component:  () => import('./../views/grade/operation/index'),
-        meta: { title: '编辑班级', icon: 'el-icon-s-custom', roles: ['grade'], breadcrumb: true },
+        meta: { title: '编辑班级', icon: 'el-icon-s-data', roles: ['grade'], breadcrumb: true },
       },
       {
         path: 'gradeDetails',
         name: '班级详情',
         hidden: true,
         component:  () => import('./../views/grade/operation/visit'),
-        meta: { title: '班级详情', icon: 'el-icon-s-custom', roles: ['grade'], breadcrumb: true },
+        meta: { title: '班级详情', icon: 'el-icon-s-data', roles: ['grade'], breadcrumb: true },
       }
     ]
   },

@@ -27,4 +27,17 @@ export function formatterFiltersFormatMoney(row, value, label, column) {
     return filtersFormatMoney(label)
 }
 
+export const sliceId = id => {
+    return id.slice(12);
+}
+
+// 百分比
+export const percentNumber = number => {
+    return (number * 100).toFixed(0) + '%'
+}
+
+// 日期格式化
+export const dateFormat = (date) => {
+    return moment(date).format("YYYY-MM-DD")
+}
 

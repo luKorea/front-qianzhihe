@@ -123,21 +123,21 @@ export default {
       this.getListData(this.params);
     },
     searchRegion(name, index) {
+      this.resetParams();
       this.selectRegion = index;
       this.params.region = name === '不限' ? '' : name;
-      this.resetParams();
       this.getListData(this.params);
     },
     searchSchool(name, index) {
+      this.resetParams();
       this.selectSchoolType = index;
       this.params.type = name === '全部' ? '' : name;
-      this.resetParams();
       this.getListData(this.params);
     },
     searchSchoolLevel(name, index) {
+      this.resetParams();
       this.selectSchoolLevel = index;
       this.params.education_level = name === '不限' ? '' : name;
-      this.resetParams();
       this.getListData(this.params);
     },
     resetParams() {

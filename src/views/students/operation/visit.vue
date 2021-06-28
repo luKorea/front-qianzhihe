@@ -31,7 +31,7 @@
           </el-col>
           <el-col :span="6">
             <span class="student-title">激活日期：</span>
-            <span class="student-info">{{ info.time }}</span>
+            <span class="student-info">{{ info.activationDate }}</span>
           </el-col>
         </el-row>
       </div>
@@ -85,7 +85,19 @@
     <basic-container style="margin-bottom: 100px">
       <span class="tip-info"></span>
       <span class="tip-title">选科信息</span>
-      <div style="margin-top: 20px" v-if="info.gradeDto">
+      <div style="margin-top: 20px" v-if="info.firstChoice">
+        <span class="tip-title">首选科目</span>
+        <el-select v-model="info.firstChoice" placeholder="请选择" clearable class="m-right" disabled>
+          <el-option v-for="(item, index) in firstList" :key="index" :label="item.name" :value="item.name"/>
+        </el-select>
+        <span class="tip-title">再选科目1</span>
+        <el-select v-model="info.recleaning1" placeholder="请选择" clearable class="m-right" disabled>
+          <el-option v-for="(item, index) in recleaning1List" :key="index" :label="item.name" :value="item.name"/>
+        </el-select>
+        <span class="tip-title">再选科目2</span>
+        <el-select v-model="info.recleaning2" placeholder="请选择" clearable class="m-right" disabled>
+          <el-option v-for="(item, index) in recleaning2List" :key="index" :label="item.name" :value="item.name"/>
+        </el-select>
       </div>
       <basic-nothing v-else title="该学生未填写选科信息"></basic-nothing>
     </basic-container>
@@ -97,6 +109,7 @@
 
 <script>
 import {getStudentInfo} from "../../../api/students";
+import {selectClassList, selectTypeList} from "../../../api/search";
 
 export default {
   name: "visit",
@@ -106,7 +119,10 @@ export default {
         studentId: '',
         gradeId: ''
       },
-      info: {}
+      info: {},
+      firstList: [],
+      recleaning1List: [],
+      recleaning2List: []
     }
   },
   mounted() {
@@ -114,8 +130,26 @@ export default {
     this.params.studentId = studentId;
     this.params.gradeId = gradeId;
     this.getInfo(this.params);
+    this.getFirstSelectData();
+    this.getRecleaningData();
   },
   methods: {
+    getFirstSelectData() {
+      selectTypeList('firstChoice')
+          .then(res => {
+            if (res.errorCode === 200) this.firstList = res.data;
+          })
+    },
+    getRecleaningData() {
+      selectTypeList('recleaning')
+          .then(res => {
+            console.log(res, 'sad');
+            if (res.errorCode === 200) {
+              this.recleaning1List = res.data;
+              this.recleaning2List = res.data;
+            }
+          })
+    },
     goBack() {
       this.$router.go(-1);
     },
@@ -161,5 +195,10 @@ export default {
   font-weight: 400;
   color: #506889;
   line-height: 22px;
+}
+
+
+.m-right {
+  margin-right: 20px;
 }
 </style>

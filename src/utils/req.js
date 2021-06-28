@@ -21,9 +21,10 @@ export function req(url, data, type = 'GET', tips, flag) {
         let headers = {
             Authorization: getToken() || ''
         }
-        if (type == "post") {
+        if (type === "POST" || type === 'PUT') {
             headers["Content-Type"] = "application/json";
             data = JSON.stringify(data);
+            console.log(data, 'post');
         }
         let success = function (res) {
             if (tips) {

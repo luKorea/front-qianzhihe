@@ -38,6 +38,7 @@
         <el-divider/>
       </div>
     </template>
+    <basic-nothing v-else></basic-nothing>
     <basic-pagination
         :total="params.total"
         :hidden="params.total<=0"

@@ -21,9 +21,9 @@
           </el-col>
           <el-col :span="6">
             <span class="tip">班级:</span>
-            <el-select v-model="params.grade" placeholder="请选择" clearable>
-              <template v-if="gradeList && gradeList.length > 0">
-                <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
+            <el-select v-model="params.graduate" placeholder="请选择" clearable>
+              <template v-if="classList && classList.length > 0">
+                <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
               </template>
             </el-select>
           </el-col>
@@ -57,10 +57,13 @@
         <el-table-column prop="teacherName" label="班主任" align="center" />
         <el-table-column prop="teacher1Name" label="生涯导师1" align="center" />
         <el-table-column prop="teacher2Name" label="生涯导师2" align="center" />
-        <el-table-column label="操作" align="center">
+        <el-table-column label="操作" align="center" width="250">
           <template slot-scope="scope">
-            <el-button type="text" size="small" @click="goOperationType('edit', scope.row._id, scope.row.gradeId)">编辑</el-button>
-            <el-button type="text" size="small" @click="goOperationType('visit', scope.row._id, scope.row.gradeId)">查看班级详情</el-button>
+            <el-button type="text" size="small" @click="goOperationType('edit', scope.row._id)">编辑</el-button>
+            <el-button type="text" size="small" @click="goOperationType('edit', scope.row._id)">
+              开启选科征集
+            </el-button>
+            <el-button type="text" size="small" @click="goOperationType('visit', scope.row._id)">查看班级详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -75,7 +78,7 @@
 
 <script>
 import {getGradeList} from "../../api/grade";
-import {selectTypeList} from "../../api/search";
+import {selectTypeList, selectClassList} from "../../api/search";
 export default {
   name: "teacherList",
   data() {
@@ -84,6 +87,7 @@ export default {
         page: 0,
         size: 10,
         gradeType: '', //	年级
+        graduate: '',
         grade: '', //班级类型
         searchText: '',
         total: 0
@@ -96,17 +100,17 @@ export default {
   },
   mounted() {
     this.getData(this.params);
+    this.getClassData();
     this.getGradeType();
     this.getGrade();
   },
   methods: {
-    goOperationType(type, studentId, gradeId) {
+    goOperationType(type, id) {
       if (type === 'visit') {
         this.$router.push({
           path: '/grade/gradeDetails',
           query: {
-            studentId: studentId,
-            gradeId: gradeId ? gradeId : ''
+            id: id
           }
         })
       } else {
@@ -114,8 +118,7 @@ export default {
           path: '/grade/gradeOperation',
           query: {
             type,
-            studentId,
-            gradeId: gradeId ? gradeId : ''
+            id
           }
         })
       }
@@ -133,6 +136,14 @@ export default {
       .then(res => {
         if (res.errorCode === 200) {
           this.gradeTypeList = res.data;
+        }
+      })
+    },
+    getClassData() {
+      selectClassList()
+      .then(res => {
+        if (res.errorCode === 200) {
+          this.classList = res.data;
         }
       })
     },

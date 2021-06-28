@@ -70,7 +70,7 @@ import {
   validateTeacherType,
   validateUsername
 } from "../../../utils/validate";
-import {addTeacher, getEditInfo} from "../../../api/taecher";
+import {addTeacher, getEditInfo, updateTeacher} from "../../../api/taecher";
 
 export default {
   name: "index",
@@ -158,7 +158,14 @@ export default {
       })
     },
     updateData(data) {
-
+      updateTeacher(data)
+      .then(res => {
+        console.log(res);
+        if (res.errorCode === 200) {
+          this.$message.success('修改成功');
+          this.goBack();
+        }
+      })
     }
   }
 }
