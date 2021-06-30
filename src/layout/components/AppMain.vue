@@ -44,8 +44,7 @@ export default {
       let matched = this.$route.matched.filter(item => item.meta && item.meta.title)
       const first = matched[0]
       if (!this.isDashboard(first)) {
-        console.log(first);
-        matched = [first.meta].concat(matched)
+        matched = [].concat(matched)
       }
       this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
     },

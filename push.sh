@@ -4,9 +4,10 @@ baseball=$(
   pwd
 )
 cd "$baseball" || exit
-#pnpm run build
-git add .
 remark=$(date +"%Y-%m-%d %H:%M:%S")
-git commit -m "zzf 费控系统 ${remark}"
-git pull origin dev
-git push origin dev
+read -p 'Please input the modified content of this version': note
+pnpm run build
+git add .
+git commit -m "${note} ${remark}"
+git push github master
+git push front master

@@ -34,23 +34,15 @@ const name = defaultSettings.title || 'vue_page' // page title
 // port = 9528 npm run dev OR npm run dev --port = 9528
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 
-// All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
-  /**
-   * You will need to set publicPath if you plan to deploy your site under a sub path,
-   * for example GitHub Pages. If you plan to deploy your site to https://foo.github.io/bar/,
-   * then publicPath should be set to "/bar/".
-   * In most cases please use '/' !!!
-   * Detail: https://cli.vuejs.org/config/#publicpath
-   */
-  // publicPath: process.env.VUE_APP_PUBLIC_PATH || '/',
-  publicPath: '/',
+  publicPath: './',
   outputDir: 'dist',
   assetsDir: '.',
 
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
+    disableHostCheck: true,
     port: port,
     open: true,
     host: getNetworkIp(),

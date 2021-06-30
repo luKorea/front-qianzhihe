@@ -29,7 +29,8 @@ router.beforeEach(async (to, from, next) => {
       store.dispatch('GenerateRoutes', { roles }).then(async () => { // 根据roles权限生成可访问的路由表
         router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
         store.dispatch('user/setInit').then(() => {
-          next({ ...to, replace: true })// hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+          next({ ...to, replace: true })// hack方法 确保addRoutes已完成 ,、
+          // set the replace: true so the navigation will not leave a history record
         }).catch((err) => {
           console.log(err);
         })
@@ -83,7 +84,8 @@ router.afterEach(() => {
 
 function getroles() {
   try {
-    return store.state.user.roles.menuList.filter(d => d)
+    console.log(store.state.user.roles, 'roles');
+    return store.state.user.roles.filter(d => d)
   } catch (error) {
     return []
   }
