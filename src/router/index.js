@@ -22,6 +22,23 @@ export const constantRoutesStart = [
         }]
     },
     {
+        path: '/search',
+        redirect: '/search/searchList',
+        component: Layout,
+        name: '搜索',
+        hidden: true,
+        meta: {title: '搜索', icon: 'el-icon-collection-tag', roles: ['search'], breadcrumb: true},
+        children: [
+            {
+                path: 'searchList',
+                name: '搜索',
+                hidden: true,
+                component: () => import('../views/public/search/searchList'),
+                meta: {title: '搜索', icon: 'el-icon-collection-tag', roles: ['search'], breadcrumb: true},
+            }
+        ]
+    },
+    {
         path: '',
         component: Layout,
         redirect: '/home'
@@ -40,22 +57,6 @@ export const constantRoutes = constantRoutesStart
 /** 异步加载Routes 根据权限 */
 export const asyncRouterMap = [
     // 共用模块
-    {
-        path: '/search',
-        redirect: '/search/searchList',
-        component: Layout,
-        name: '搜索',
-        meta: {title: '搜索', icon: 'el-icon-collection-tag', roles: ['search'], breadcrumb: true},
-        children: [
-            {
-                path: 'searchList',
-                name: '搜索',
-                hidden: true,
-                component: () => import('../views/public/search/searchList'),
-                meta: {title: '搜索', icon: 'el-icon-collection-tag', roles: ['search'], breadcrumb: true},
-            }
-        ]
-    },
     {
         path: '/major',
         redirect: '/major/majorList',

@@ -13,7 +13,7 @@
                 <router-view :key="key" />
             </keep-alive>
       </transition>
-      <back-to-top transition-name="fade"/>
+<!--      <back-to-top transition-name="fade"/>-->
     </section>
 </template>
 

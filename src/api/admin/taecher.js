@@ -1,7 +1,7 @@
 import {req} from '../../utils/req';
 
 
-let basicUrl = '/schoolApi/teacher';
+let basicUrl = '/biz/teacher';
 
 
 

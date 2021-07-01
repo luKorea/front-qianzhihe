@@ -1,7 +1,7 @@
 import {req} from '../../utils/req';
 
 
-let basicUrl = '/schoolApi/professional';
+let basicUrl = '/biz/professional';
 
 /**
  * @description 获取专业列表

@@ -24,7 +24,8 @@
         <div class="school-wrap">
           <span class="tip orange">A级</span>
           <template v-if="info.subjectA && info.subjectA.length > 0">
-            <div class="img-content" v-for="item in info.subjectA" :key="item._id">
+            <div class="img-content" v-for="item in info.subjectA" :key="item._id"
+                 @click="goUniversities(item.school_name)">
               <div class="info">
                 <div class="img-wrap"><img :src="item.image" alt=""></div>
                 <div class="title">{{ item.school_name }}</div>
@@ -35,7 +36,8 @@
         <div class="school-wrap">
           <span class="tip gray-orange">B级</span>
           <template v-if="info.subjectB && info.subjectB.length > 0">
-            <div class="img-content" v-for="item in info.subjectB" :key="item._id">
+            <div class="img-content" v-for="item in info.subjectB" :key="item._id"
+                 @click="goUniversities(item.school_name)">
               <div class="info">
                 <div class="img-wrap"><img :src="item.image" alt=""></div>
                 <div class="title">{{ item.school_name }}</div>
@@ -46,7 +48,8 @@
         <div class="school-wrap">
           <span class="tip blue">C级</span>
           <template v-if="info.subjectC && info.subjectC.length > 0">
-            <div class="img-content" v-for="item in info.subjectC" :key="item._id">
+            <div class="img-content" v-for="item in info.subjectC" :key="item._id"
+                 @click="goUniversities(item.school_name)">
               <div class="info">
                 <div class="img-wrap"><img :src="item.image" alt=""></div>
                 <div class="title">{{ item.school_name }}</div>
@@ -97,6 +100,24 @@ export default {
   },
   mounted() {
     console.log(this.info, 'info');
+  },
+  methods: {
+    goUniversities(academyName) {
+      this.$router.push({
+        path: '/universities/universitiesDetails',
+        query: {
+          academyName: academyName
+        }
+      })
+    },
+    goMajor(id) {
+      this.$router.push({
+        path: '/major/majorDetails',
+        query: {
+          _id: id
+        }
+      })
+    }
   }
 }
 </script>
@@ -187,6 +208,7 @@ export default {
       width: 170px;
       flex-wrap: wrap;
       justify-content: space-between;
+      cursor: pointer;
 
       .info {
         display: flex;

@@ -5,11 +5,11 @@
     <div class="desc">{{ info.exam_direction }}</div>
     <el-divider/>
     <span class="tip-info"></span>
-    <span class="tip-title">推荐专业</span>
+    <span class="tip-title">推荐职业</span>
     <template v-if="info.occupationVos && info.occupationVos.length > 0">
       <div class="wrap">
         <div class="major-wrap">
-          <div class="major-list" v-for="item in info.occupationVos" :key="item._id">
+          <div class="major-list" v-for="item in info.occupationVos" :key="item._id" @click="goOccupation(item._id)">
             <div class="img-wrap"><img :src="item.image" alt=""></div>
             <div class="major-info">
               <div class="major-title">{{ item.title }}</div>
@@ -71,6 +71,14 @@ export default {
     })
   },
   methods: {
+    goOccupation(occupationId) {
+      this.$router.push({
+        path: '/occupation/occupationDetails',
+        query: {
+          occupationId: occupationId
+        }
+      })
+    },
     drawPageOne() {
       this.chartsOne = this.$echarts.init(document.getElementById('charts-one'));
       let name = [],
@@ -187,6 +195,7 @@ export default {
     width: 100%;
 
     .major-list {
+      cursor: pointer;
       display: flex;
       width: 350px;
       margin: 0 20px 20px 0;

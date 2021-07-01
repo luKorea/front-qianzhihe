@@ -34,7 +34,6 @@
           <el-image
               style="width: 262px; height: 148px; border-radius: 8px; margin-bottom: 10px"
               :src="item"
-              lazy
               :preview-src-list="info.images"
               fit="fit"/>
         </div>

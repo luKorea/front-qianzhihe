@@ -3,11 +3,7 @@
     <div class="list-container">
       <div class="list-wrap">
         <div class="list-img">
-          <el-image
-              style="width: 180px; height: 102px"
-              :src="info.image"
-              :preview-src-list="[info.image]"
-              fit="fit"/>
+          <img style="width: 180px; height: 102px" :src="info.image"/>
         </div>
         <div class="list-info">
           <div class="list-message">
@@ -36,7 +32,8 @@ export default {
   props: {
     info: {
       type: Object,
-      default: () => {}
+      default: () => {
+      }
     }
   }
 }

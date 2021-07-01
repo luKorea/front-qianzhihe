@@ -187,7 +187,6 @@ export function xhrGetFile(url, name) {
                 }
                 resolve();
             } else {
-                debugger
                 Message({
                     message: '服务器端响应超时,请稍后再试',
                     type: 'error',

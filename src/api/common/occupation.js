@@ -1,7 +1,7 @@
 import {req} from '../../utils/req';
 
 
-let basicUrl = '/schoolApi/occupationMenu';
+let basicUrl = '/biz/occupationMenu';
 
 /**
  * @description 获取职业分类菜单

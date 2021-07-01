@@ -213,7 +213,7 @@ export default {
       this.getInfo(this.params);
     },
     exportData() {
-      exportStudent(this.params.gradeId, `${this.info.name}-学生名单`);
+      exportStudent(this.params.gradeId, `【${this.info.name}】-学生名册`);
     }
   }
 }

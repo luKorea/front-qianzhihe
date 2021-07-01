@@ -119,7 +119,7 @@ const actions = {
                 );
             } catch (error) {}
             try {
-                req("/schoolApi/menus/build", {}, "GET", false, true)
+                req("/menus/build", {}, "GET", false, true)
                     .then(function(res) {
                         console.log(res, '用户拥有的用户权限');
                         //把接口菜单转成权限数组

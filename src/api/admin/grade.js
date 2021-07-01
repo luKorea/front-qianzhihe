@@ -1,7 +1,7 @@
 import {req, xhrGetFile} from '../../utils/req';
 
 
-let basicUrl = '/schoolApi/grade';
+let basicUrl = '/biz/grade';
 
 
 
@@ -36,5 +36,5 @@ export const updateGrade = data => {
 
 // 导出学生名单
 export const exportStudent = (gradeId, fileName) => {
-    return xhrGetFile(`/schoolApi/student/download?gradeId=${gradeId}`, fileName)
+    return xhrGetFile(`/biz/student/download?gradeId=${gradeId}`, fileName)
 }

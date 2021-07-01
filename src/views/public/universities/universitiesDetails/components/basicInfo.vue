@@ -3,11 +3,10 @@
     <div class="list-container">
       <div class="list-wrap">
         <div class="list-img">
-          <el-image
+          <img
               style="width: 78px; height: 78px"
               :src="info.image"
-              :preview-src-list="[info.image]"
-              fit="fit"/>
+             />
         </div>
         <div class="list-info">
           <div class="list-message">

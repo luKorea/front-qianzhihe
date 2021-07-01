@@ -1,7 +1,7 @@
 import {req} from '../../utils/req';
 
 
-let basicUrl = '/schoolApi/academy';
+let basicUrl = '/biz/academy';
 
 /**
  * @description 获取院校分类菜单

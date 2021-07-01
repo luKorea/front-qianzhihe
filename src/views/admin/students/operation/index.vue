@@ -206,7 +206,7 @@ export default {
     operationData() {
       let that = this;
       that.form['gender'] = this.form.gender === '男' ? 'f' : 'm';
-      that.form['gradeId'] = this.params.gradeId;
+      that.form['gradeId'] = this.params.gradeId !== '' ? this.params.gradeId : this.form.gradeId;
       that.form['recleaning1'] = that.checkList[0];
       that.form['recleaning2'] = that.checkList[1];
       that.$refs['form'].validate(valid => {

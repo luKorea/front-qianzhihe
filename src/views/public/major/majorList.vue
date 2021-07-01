@@ -106,7 +106,7 @@ export default {
     },
     searchTip(name, index) {
       this.selectId = index;
-      this.params.study_category = name;
+      this.params.study_category = name === '不限' ? '' : name;
       this.resetParams();
       this.getListData(this.params);
     },
@@ -128,6 +128,7 @@ export default {
 
 <style scoped lang="scss">
 .major-wrap {
+
   .major-list {
     margin: 20px;
     display: flex;
