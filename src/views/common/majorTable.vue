@@ -1,7 +1,7 @@
 <template>
   <basic-container>
     <template v-if="list.length > 0">
-      <div class="list-container" v-for="item in list" :key="item._id">
+      <div class="list-container" v-for="item in list" :key="item._id" @click="goDetails(item._id)">
         <div class="list-wrap">
           <div class="list-img">
             <el-image

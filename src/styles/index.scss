@@ -175,7 +175,7 @@ input:-webkit-autofill:active {
   flex-direction: column;
   .list-wrap {
     display: flex;
-
+    cursor: pointer;
     .list-img {
       margin-right: 24px;
     }
