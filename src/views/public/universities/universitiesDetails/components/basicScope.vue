@@ -8,6 +8,8 @@
       <div class="right">
         <template v-if="info.calendarYearScoresVintage && info.calendarYearScoresVintage.length > 0">
           <el-select v-model="params.vintage"
+                     filterable
+                     clearable
                      @change="getList(params)"
                      placeholder="请选择" style="width: 100px; margin-right: 10px">
             <el-option v-for="(item, index) in info.calendarYearScoresVintage" :key="index" :label="item"
@@ -16,6 +18,7 @@
         </template>
         <template v-if="info.calendarYearScoresArtsSciences && info.calendarYearScoresArtsSciences.length > 0">
           <el-select v-model="params.artsSciences"
+                     filterable clearable
                      @change="getList(params)"
                      placeholder="请选择" style="width: 100px;">
             <el-option v-for="(item, index) in info.calendarYearScoresArtsSciences" :key="index" :label="item"

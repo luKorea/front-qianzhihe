@@ -13,7 +13,7 @@
             </el-col>
             <el-col :span="10">
               <el-form-item label="班级类型" required prop="gradeType">
-                <el-select v-model="form.gradeType" placeholder="请选择" clearable style="width: 100%">
+                <el-select v-model="form.gradeType" placeholder="请选择" filterable clearable style="width: 100%">
                   <el-option v-for="(item, index) in gradeTypeList" :key="index" :label="item.name" :value="item.name"/>
                 </el-select>
               </el-form-item>
@@ -22,7 +22,7 @@
           <el-row :gutter="4">
             <el-col :span="10">
               <el-form-item label="入学年份" required prop="enrollmentYear">
-                <el-select v-model="form.enrollmentYear" placeholder="请选择" clearable style="width: 100%">
+                <el-select filterable v-model="form.enrollmentYear" placeholder="请选择" clearable style="width: 100%">
                   <el-option
                       v-for="(item, index) in yearList"
                       :key="index"
@@ -33,7 +33,7 @@
             </el-col>
             <el-col :span="10">
               <el-form-item label="年级" required prop="grade">
-                <el-select v-model="form.grade" placeholder="请选择" clearable style="width: 100%">
+                <el-select v-model="form.grade" filterable placeholder="请选择" clearable style="width: 100%">
                   <el-option
                       v-for="(item, index) in gradeList"
                       :key="index"
@@ -52,14 +52,14 @@
           <el-row :gutter="4">
             <el-col :span="10">
               <el-form-item label="班主任">
-                <el-select v-model="form.teacherId" placeholder="请选择" clearable style="width: 100%">
+                <el-select v-model="form.teacherId" filterable placeholder="请选择" clearable style="width: 100%">
                   <el-option v-for="item in teacherList" :key="item._id" :label="item.name" :value="item._id" />
                 </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="10">
               <el-form-item label="生涯导师1">
-                <el-select v-model="form.teacher1Id" placeholder="请选择" clearable
+                <el-select v-model="form.teacher1Id" placeholder="请选择" clearable filterable
                            style="width: 100%">
                   <el-option v-for="item in teacher1List" :key="item._id" :label="item.name" :value="item._id" />
                 </el-select>
@@ -69,7 +69,7 @@
           <el-row :gutter="4">
             <el-col :span="10">
               <el-form-item label="生涯导师2">
-                <el-select v-model="form.teacher2Id" placeholder="请选择" clearable
+                <el-select v-model="form.teacher2Id" placeholder="请选择" clearable filterable
                            style="width: 100%">
                   <el-option v-for="item in teacher2List" :key="item._id" :label="item.name" :value="item._id" />
                 </el-select>

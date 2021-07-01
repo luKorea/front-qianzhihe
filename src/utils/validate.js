@@ -1,6 +1,7 @@
 export const validateCode = (rule, value, callback) => !value ? callback(new Error('请输入图形验证码')) : callback();
 export const validateUsername = (rule, value, callback) => !value ? callback(new Error('用户名不能为空')) : callback();
 export const validatePassword = (rule, value, callback) => !value ? callback(new Error('密码不能为空')) : callback();
+export const validateGender = (rule, value, callback) => !value ? callback(new Error('性别不能为空')) : callback();
 export const validateTeacherName = (rule, value, callback) => !value ? callback(new Error('教师名不能为空')) : callback();
 export const validateTeacherType = (rule, value, callback) => !value ? callback(new Error('教师类型不能为空')) : callback();
 export const validateClassType = (rule, value, callback) => !value ? callback(new Error('班级名称不能为空')) : callback();

@@ -1,12 +1,14 @@
 <template>
   <div>
     <basic-container>
-      <div class="search-wrap">
+      <span class="tip-info"></span>
+      <span class="tip-title">专业筛选</span>
+      <div class="search-wrap m-top">
         <el-input v-model="params.keywords" placeholder="请输入专业名称" clearable="true"/>
         <el-button type="primary" @click="goSearch('major', params.keywords)">搜索</el-button>
       </div>
       <div class="type-list">
-        <span class="type-title">职业分类:</span>
+        <span class="type-title">专业分类:</span>
         <div class="tip-wrap">
           <template v-if="menuList.length > 0">
           <span v-for="(item, index) in menuList" :key="index"

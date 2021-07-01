@@ -9,6 +9,8 @@
       <div class="right">
         <template v-if="info.professionalAdmissionsVintage && info.professionalAdmissionsVintage.length > 0">
           <el-select v-model="params.vintage"
+                     filterable
+                     clearable
                      @change="getList(params)"
                      placeholder="请选择" style="width: 100px; margin-right: 10px">
             <el-option v-for="(item, index) in info.professionalAdmissionsVintage" :key="index" :label="item"
@@ -17,6 +19,8 @@
         </template>
         <template v-if="info.professionalAdmissionsBatch && info.professionalAdmissionsBatch.length > 0">
           <el-select v-model="params.batch"
+                     filterable
+                     clearable
                      @change="getList(params)"
                      placeholder="请选择" style="width: 100px; margin-right: 10px">
             <el-option v-for="(item, index) in info.professionalAdmissionsBatch" :key="index" :label="item"
@@ -25,6 +29,8 @@
         </template>
         <template v-if="info.professionalAdmissionsArtsSciences && info.professionalAdmissionsArtsSciences.length > 0">
           <el-select v-model="params.artsSciences"
+                     filterable
+                     clearable
                      @change="getList(params)"
                      placeholder="请选择" style="width: 100px;">
             <el-option v-for="(item, index) in info.professionalAdmissionsArtsSciences" :key="index" :label="item"

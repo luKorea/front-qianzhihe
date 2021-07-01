@@ -63,9 +63,9 @@
     <el-divider/>
     <span class="tip-info"></span>
     <span class="tip-title">相近专业</span>
+    <template v-if="info.recommendProVos && info.recommendProVos.length > 0">
     <div class="flex-container">
-      <template v-if="info.recommendProVos && info.recommendProVos.length > 0">
-        <div class="flex-wrap" v-for="item in info.recommendProVos" :key="item._id">
+        <div class="flex-wrap" v-for="item in info.recommendProVos" :key="item._id" @click="goMajor(item._id)">
           <div class="top">
             <div class="img-wrap"><img :src="item.image" alt=""></div>
             <div class="info">
@@ -81,9 +81,9 @@
             <span>再选：{{ item.re_choice ? item.re_choice : '无' }}</span>
           </div>
         </div>
-      </template>
-      <basic-nothing v-else></basic-nothing>
     </div>
+    </template>
+    <basic-nothing v-else></basic-nothing>
     <el-divider/>
   </div>
 </template>
@@ -111,12 +111,7 @@ export default {
       })
     },
     goMajor(id) {
-      this.$router.push({
-        path: '/major/majorDetails',
-        query: {
-          _id: id
-        }
-      })
+      this.$emit('changeMajor', id)
     }
   }
 }

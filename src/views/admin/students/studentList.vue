@@ -7,7 +7,7 @@
         <el-row>
           <el-col :span="6">
             <span class="tip">班级类型:</span>
-            <el-select v-model="params.gradeType" placeholder="请选择" clearable>
+            <el-select v-model="params.gradeType" placeholder="请选择" clearable filterable>
               <template v-if="gradeTypeList && gradeTypeList.length > 0">
                 <el-option v-for="item in gradeTypeList" :label="item.name" :value="item.name"></el-option>
               </template>
@@ -15,7 +15,7 @@
           </el-col>
           <el-col :span="6">
             <span class="tip">年级:</span>
-            <el-select v-model="params.grade" placeholder="请选择" clearable>
+            <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
               <template v-if="gradeList && gradeList.length > 0">
                 <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
               </template>
@@ -23,7 +23,7 @@
           </el-col>
           <el-col :span="6">
             <span class="tip">班级:</span>
-            <el-select v-model="params.graduate" placeholder="请选择" clearable>
+            <el-select v-model="params.graduate" placeholder="请选择" clearable filterable>
               <template v-if="classList && classList.length > 0">
                 <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
               </template>

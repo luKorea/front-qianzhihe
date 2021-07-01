@@ -151,7 +151,7 @@ export default {
     width: 100%;
 
     .title {
-      width: 100px;
+      width: 130px;
       font-size: 14px;
       font-family: SourceHanSansSC-Regular, SourceHanSansSC;
       font-weight: 400;

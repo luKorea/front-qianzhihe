@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 <template>
   <div>
     <basic-container>

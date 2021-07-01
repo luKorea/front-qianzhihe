@@ -40,7 +40,9 @@
 </template>
 
 <script>
+import resize from "../../../../../mixins/resize";
 export default {
+  mixins: [resize],
   name: "basicEmployment",
   props: {
     info: {
@@ -71,7 +73,7 @@ export default {
     })
   },
   methods: {
-    goOccupation(occupationId) {
+      goOccupation(occupationId) {
       this.$router.push({
         path: '/occupation/occupationDetails',
         query: {
@@ -197,11 +199,11 @@ export default {
     .major-list {
       cursor: pointer;
       display: flex;
-      width: 350px;
+      //width: 350px;
       margin: 0 20px 20px 0;
       flex-wrap: wrap;
       background: #FFFFFF;
-      box-shadow: 0px 4px 16px 0px rgba(127, 137, 156, 0.3);
+      box-shadow: 0 4px 16px 0 rgba(127, 137, 156, 0.3);
       border-radius: 6px;
       padding: 10px;
 
@@ -225,7 +227,7 @@ export default {
           height: 24px;
           line-height: 24px;
           font-size: 16px;
-          font-family: SourceHanSansSC-Medium, SourceHanSansSC;
+          font-family: SourceHanSansSC-Medium, SourceHanSansSC,serif;
           font-weight: 500;
           color: #333333;
           //margin-bottom: 5px;
@@ -234,7 +236,7 @@ export default {
         .major-business, .major-money {
           height: 19px;
           font-size: 13px;
-          font-family: SourceHanSansSC-Regular, SourceHanSansSC;
+          font-family: SourceHanSansSC-Regular, SourceHanSansSC,serif;
           font-weight: 400;
           color: #666666;
           line-height: 19px;

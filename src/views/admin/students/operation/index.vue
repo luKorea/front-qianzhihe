@@ -75,7 +75,7 @@
         <template v-else>
           <div style="margin-top: 20px">
             <span class="tip-title" style="margin-right: 20px">选择班级</span>
-            <el-select v-model="form.gradeId" placeholder="请选择" clearable>
+            <el-select v-model="form.gradeId" placeholder="请选择" clearable filterable>
               <el-option v-for="item in classList" :key="item._id" :label="item.name" :value="item._id"/>
             </el-select>
           </div>

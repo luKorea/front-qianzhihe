@@ -1,9 +1,6 @@
-
-
-
 <template>
   <div class="login-container">
-<!--教师管理员登录-->
+    <!--教师管理员登录-->
     <div class="login-wrap" v-if="showLoginContainer">
       <div class="img-wrap" v-if="showLoginImg">
         <img :src="loginImg" alt="img">
@@ -63,7 +60,7 @@
                 </el-col>
                 <el-col :span="8">
                   <div class="codeContainer">
-                    <img :src="captureImg" alt class="codeImg" @click="getCodeData" />
+                    <img :src="captureImg" alt class="codeImg" @click="getCodeData"/>
                   </div>
                 </el-col>
               </el-row>
@@ -74,7 +71,8 @@
               <el-button
                   type="primary"
                   style="width: 100%; margin: 20px 0 30px 0;"
-                  @click.native.prevent="handleLogin">登录</el-button>
+                  @click.native.prevent="handleLogin">登录
+              </el-button>
             </el-form>
           </el-tab-pane>
           <el-tab-pane label="学生登录" name="student">
@@ -126,7 +124,7 @@
                 </el-col>
                 <el-col :span="8">
                   <div class="codeContainer">
-                    <img :src="captureImg" alt class="codeImg" @click="getCodeData" />
+                    <img :src="captureImg" alt class="codeImg" @click="getCodeData"/>
                   </div>
                 </el-col>
               </el-row>
@@ -137,62 +135,62 @@
               <el-button
                   type="primary"
                   style="width: 100%; margin: 20px 0 30px 0;"
-                  @click.native.prevent="handleStudentLogin">登录</el-button>
+                  @click.native.prevent="handleStudentLogin">登录
+              </el-button>
             </el-form>
           </el-tab-pane>
         </el-tabs>
       </div>
     </div>
 
-<!--学生信息认证-->
+    <!--学生信息认证-->
     <div class="info-wrap" v-else>
       <div class="info-img-wrap">
         <div class="img">
           <img :src="logo" alt="">
         </div>
-        <div class="title">欢迎登陆{{defaultSettingsTitle}}</div>
+        <div class="title">欢迎登陆{{ defaultSettingsTitle }}</div>
       </div>
       <div class="info-form-wrap">
         <div class="form-container">
           <div class="title">请完善个人资料</div>
           <el-form ref="infoForm" :label-width="labelWidth"
-                   :model="loginForm" :rules="loginRules" label-position="left" style="width: 50%">
-            <el-form-item prop="username" label='用户名'>
-              <el-input
-                  style="width: 447px"
-                  ref="username"
-                  v-model="loginForm.username"
-                  placeholder="请输入用户名"
-                  :clearable="true"
-                  name="username"
+                   :model="infoFrom" :rules="infoRules" label-position="right" style="width: 50%">
+            <el-form-item prop="name" label='用户名'>
+              <el-input style="width: 447px" ref="username" v-model="infoFrom.name" placeholder="请输入姓名"
+                        :clearable="true"
+                        name="name"
               />
             </el-form-item>
-            <el-form-item prop="username" label="性别">
-              <el-select v-model="loginForm.gender" placeholder="请选择性别" style="width: 100%">
-                <el-option label="男" value="f" />
-                <el-option label="女" value="m" />
+            <el-form-item prop="gender" label="性别">
+              <el-select v-model="infoFrom.gender" placeholder="请选择性别" style="width: 100%" clearable filterable>
+                <el-option label="男" value="f"/>
+                <el-option label="女" value="m"/>
               </el-select>
             </el-form-item>
-            <el-form-item prop="username" label='手机号'>
+            <el-form-item prop="phone" label='手机号'>
               <el-input
                   style="width: 447px"
                   ref="username"
-                  v-model="loginForm.username"
+                  v-model="infoFrom.phone"
                   placeholder="请输入手机号"
                   :clearable="true"
                   name="username"
               />
+              <span class="tip">·请填写真实有效手机号，手机号可用于电脑端生涯管理系统及千职鹤App账号登录</span>
             </el-form-item>
-            <el-form-item prop="username" label="班级">
-              <el-select v-model="loginForm.gender" placeholder="请选择班级" style="width: 100%">
-                <el-option label="高一班" value="f" />
-                <el-option label="高二班" value="m" />
+            <el-form-item prop="grade" label="班级">
+              <el-select v-model="infoFrom.grade" placeholder="请选择班级" style="width: 100%" clearable filterable>
+                <el-option label="高一班" value="f"/>
+                <el-option label="高二班" value="m"/>
               </el-select>
             </el-form-item>
             <el-button
                 type="primary"
                 style="width: 100%; margin: 20px 0 30px 0;"
-                @click.native.prevent="handleLogin">登录</el-button>
+                :disabled='isOK(infoFrom)'
+                @click.native.prevent="handleLogin">确认登录
+            </el-button>
           </el-form>
         </div>
       </div>
@@ -208,7 +206,15 @@
 <script>
 import defaultSettings from '@/settings.js';
 import {getCode} from "../../../api/common/login";
-import {validateUsername, validatePassword, validateCode} from "../../../utils/validate";
+import {
+  validateUsername,
+  validatePassword,
+  validateCode,
+  validatePhone,
+  validateClassType,
+  validateGender
+} from "../../../utils/validate";
+import {isFormReady} from "../../../utils";
 
 /**
  * TODO:登录页面
@@ -218,7 +224,7 @@ export default {
   data() {
     return {
       activeName: 'teacher',
-      showLoginContainer: true, // 显示登录界面，控制显示学生登录时信息填写弹框切换
+      showLoginContainer: false, // 显示登录界面，控制显示学生登录时信息填写弹框切换
       labelWidth: '80px',
       showLoginImg: true,
       screenWidth: document.body.clientWidth, // 屏幕宽度
@@ -228,11 +234,23 @@ export default {
         code: '',
         uuid: ''
       },
+      infoFrom: {
+        name: '',
+        gender: '',
+        phone: '',
+        grade: ''
+      },
       captureImg: '',
       loginRules: {
         username: [{required: true, trigger: 'blur', validator: validateUsername}],
         password: [{required: true, trigger: 'blur', validator: validatePassword}],
         code: [{required: true, trigger: 'blur', validator: validateCode}]
+      },
+      infoRules: {
+        name: [{required: true, trigger: 'blur', validator: validateUsername}],
+        gender: [{required: true, trigger: 'blur', validator: validateGender}],
+        phone: [{required: true, trigger: 'blur', validator: validatePhone}],
+        grade: [{required: true, trigger: 'blur', validator: validateClassType}]
       },
       loading: false,
       passwordType: 'password',
@@ -269,7 +287,7 @@ export default {
         this.showLoginImg = this.screenWidth >= 1154;
         this.timer = true;
         let that = this;
-        setTimeout(function() {
+        setTimeout(function () {
           that.timer = false;
         }, 0);
       }
@@ -284,6 +302,9 @@ export default {
     this.loginForm.password = window.localStorage.getItem('password_' + defaultSettings.KEY) || '';
   },
   methods: {
+    isOK(data) {
+      return isFormReady(data);
+    },
     getCodeData() {
       getCode()
           .then(res => {
@@ -312,7 +333,7 @@ export default {
           that.$store.dispatch('user/login', params).then(() => {
             //获取权限
             that.$store.dispatch('user/getControl', {}).then(() => {
-              that.$router.push({ path: '/' })
+              that.$router.push({path: '/'})
             }).catch(() => {
               that.loading = false
             })
@@ -374,6 +395,7 @@ export default {
       .form-logo {
         @include flexContainer();
       }
+
       .form-title {
         height: 28px;
         font-size: 20px;
@@ -394,6 +416,7 @@ export default {
         color: #2E415B;
         line-height: 20px;
       }
+
       .form-info {
         display: flex;
         justify-content: space-between;
@@ -406,20 +429,24 @@ export default {
     flex-direction: column;
     width: 100%;
     height: 100%;
+
     .info-img-wrap {
       display: flex;
       justify-content: flex-start;
       align-items: center;
       width: 1056px;
       margin-bottom: 20px;
+
       .img {
         width: 60px;
         height: 48px;
+
         img {
           width: 100%;
           height: 100%;
         }
       }
+
       .title {
         font-size: 20px;
         font-family: PingFangSC-Semibold, PingFang SC;
@@ -427,18 +454,21 @@ export default {
         color: #FFFFFF;
       }
     }
+
     .info-form-wrap {
       width: 1056px;
       height: 500px;
       background: #FFFFFF;
       border-radius: 12px;
       border: 1px solid #D9E0E6;
+
       .form-container {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         margin: 40px 0;
+
         .title {
           height: 22px;
           font-size: 16px;
@@ -447,6 +477,13 @@ export default {
           color: #2E415B;
           line-height: 22px;
           margin-bottom: 20px;
+        }
+
+        .tip {
+          font-size: 12px;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: #B8C3D6;
         }
       }
     }

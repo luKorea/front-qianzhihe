@@ -1,7 +1,9 @@
 <template>
   <div>
     <basic-container-back>
-      <div class="search-wrap">
+      <span class="tip-info"></span>
+      <span class="tip-title">搜索筛选</span>
+      <div class="search-wrap m-top">
         <el-input v-model="params.keywords" placeholder="" clearable="true"/>
         <el-button type="primary" @click="switchData">搜索</el-button>
       </div>
@@ -72,6 +74,7 @@ export default {
       ]
     }
   },
+
   mounted() {
     let {url, keywords} = this.$route.query;
     this.params.keywords = keywords;

@@ -1,7 +1,9 @@
 <template>
   <div>
     <basic-container>
-      <div class="search-wrap">
+      <span class="tip-info"></span>
+      <span class="tip-title">职业筛选</span>
+      <div class="search-wrap m-top">
         <el-input v-model="params.keywords" placeholder="请输入职业名称" clearable="true"/>
         <el-button type="primary" @click="goSearch('occupation', params.keywords)">搜索</el-button>
       </div>

@@ -13,7 +13,7 @@
             </el-col>
             <el-col :span="10">
               <el-form-item label="教师类型" required prop="teacherType">
-                <el-select v-model="form.teacherType" placeholder="请选择" clearable style="width: 100%">
+                <el-select v-model="form.teacherType" placeholder="请选择" filterable clearable style="width: 100%">
                   <template v-if="teacherList && teacherList.length > 0">
                     <el-option v-for="item in teacherList" :label="item.name" :value="item.name"></el-option>
                   </template>

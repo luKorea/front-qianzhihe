@@ -3,7 +3,7 @@
     <basic-info :info="info"/>
     <basic-container>
       <basic-desc :info="descInfo"/>
-      <basic-proposal :info="proposalInfo"/>
+      <basic-proposal :info="proposalInfo" @changeMajor="getProposalFromComponents"/>
       <basic-employment :info="employmentInfo"/>
     </basic-container>
   </div>
@@ -35,12 +35,15 @@ export default {
   mounted() {
     let {_id} = this.$route.query;
     this._id = _id;
-    this.getData(_id);
-    this.getDesc(_id);
-    this.getProposal(_id);
-    this.getEmployment(_id);
+    this.switchData(this._id);
   },
   methods: {
+    switchData(_id) {
+      this.getData(_id);
+      this.getDesc(_id);
+      this.getProposal(_id);
+      this.getEmployment(_id);
+    },
     getData(id) {
       getBasicInfo(id)
       .then(res => {
@@ -63,7 +66,6 @@ export default {
       getBasicProposal(id)
       .then(res => {
         if (res.errorCode === 200) {
-          console.log(res);
           this.proposalInfo = res.data;
         }
       })
@@ -77,6 +79,9 @@ export default {
         }
       })
     },
+    getProposalFromComponents(id) {
+      // this.switchData(id);
+    }
   }
 }
 </script>

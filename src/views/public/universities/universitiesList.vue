@@ -1,7 +1,9 @@
 <template>
   <div>
     <basic-container>
-      <div class="search-wrap">
+      <span class="tip-info"></span>
+      <span class="tip-title">院校筛选</span>
+      <div class="search-wrap m-top">
         <el-input v-model="params.keywords" placeholder="请输入院校名称" clearable="true"/>
         <el-button type="primary" @click="goSearch('universities', params.keywords)">搜索</el-button>
       </div>
@@ -48,7 +50,7 @@
 <script>
 import {getMenu, getList} from '../../../api/common/universities';
 import ListTable from '../../common/universitiesTable';
-import {regionList, schoolLevelList, schoolList} from "../../../utils/basicData";
+import {regionList, schoolLevelList, undergraduateList, specialtyList} from "../../../utils/basicData";
 
 export default {
   name: "universitiesList",
@@ -62,7 +64,7 @@ export default {
         _id: '',
         region: '', // 地区
         type: '', // 院校类型
-        education_level: '', // 院校层次
+        education_level: '本科', // 院校层次
         size: 10,
         page: 0,
         total: 0
@@ -71,7 +73,7 @@ export default {
       selectRegion: 0,
       regionList: regionList,
       selectSchoolType: 0,
-      schoolList: schoolList,
+      schoolList: undergraduateList,
       selectSchoolLevel: 0,
       schoolLevelList: schoolLevelList,
     }
@@ -137,7 +139,7 @@ export default {
     searchSchoolLevel(name, index) {
       this.resetParams();
       this.selectSchoolLevel = index;
-      this.params.education_level = name === '不限' ? '' : name;
+      this.params.education_level = name === '全部' ? '' : name;
       this.getListData(this.params);
     },
     resetParams() {

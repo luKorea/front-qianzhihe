@@ -5,7 +5,6 @@ let basicUrl = '/biz/academy';
 
 /**
  * @description 获取院校分类菜单
- * @param _
  * @returns {*}
  */
 export const getMenu = () => {

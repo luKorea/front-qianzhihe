@@ -7,7 +7,7 @@ let basicUrl = '/biz/grade';
 
 // 获取班级列表
 export const getGradeList = params => {
-    return req(`${basicUrl}/queryGradePage?page=${params.page}&size=${params.size}&gradeType=${params.gradeType}&grade=${params.grade}&searchText=${params.searchText}`
+    return req(`${basicUrl}/queryGradePage?page=${params.page}&size=${params.size}&gradeType=${params.gradeType}&grade=${params.grade}&searchText=${params.searchText}&graduate=${params.graduate}`
     )
 }
 
