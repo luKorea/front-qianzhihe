@@ -28,11 +28,11 @@
     <el-divider/>
     <template>
       <span class="tip-info"></span>
-      <span class="tip-title">班级风光</span>
+      <span class="tip-title">院校风光</span>
       <div class="img-wrap">
         <div v-if="info.images && info.images.length > 0" v-for="(item, index) in info.images" :key="index">
           <el-image
-              style="width: 262px; height: 148px; border-radius: 8px; margin-bottom: 10px"
+              style="width: 262px; height: 148px; border-radius: 8px; margin-bottom: 20px; margin-right: 20px"
               :src="item"
               :preview-src-list="info.images"
               fit="fit"/>
@@ -115,6 +115,6 @@ export default {
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  //justify-content: space-between;
 }
 </style>

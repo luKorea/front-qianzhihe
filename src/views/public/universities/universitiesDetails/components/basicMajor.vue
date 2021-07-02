@@ -54,7 +54,9 @@
               <div class="major-scope">最低分/位次：{{item.lowestMark}}/{{item.theMinimumNumber}}</div>
             </div>
             <div class="major-progress">
-              <el-progress style="margin-bottom: 20px" :percentage="item.averageScore / 10" :show-text="false" stroke-width="20"/>
+              <el-progress style="margin-bottom: 20px"
+                           :percentage="setPercent(item.averageScore)"
+                           :show-text="false" stroke-width="20"/>
             </div>
           </div>
         </template>
@@ -110,6 +112,12 @@ export default {
     })
   },
   methods: {
+    setPercent(number) {
+      let res = 0;
+      res = number === 750 ? 100 : number / 10;
+      console.log(res);
+      return number === 750 ? 100 : number / 7.5;
+    },
     setParams() {
       return new Promise((resolve, reject) => {
         this.params.vintage = this.info.chineseCalendarVintage ? this.info.chineseCalendarVintage[0] : '';

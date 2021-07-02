@@ -1,7 +1,7 @@
 <template>
   <div>
     <span class="tip-info"></span>
-    <span class="tip-title">专业学什么</span>
+    <span class="tip-title">专业做什么</span>
     <div class="desc">{{ info.exam_direction }}</div>
     <el-divider/>
     <span class="tip-info"></span>

@@ -39,7 +39,8 @@ export function req(url, data, type = 'GET') {
                     type: 'error'
                 });
                 store.dispatch('user/logout').then(() => {
-                    this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+                    this.$router.push(`/login?redirect=${this.$route.fullPath}`);
+                    location.reload();
                 })
             } else {
                 Message({

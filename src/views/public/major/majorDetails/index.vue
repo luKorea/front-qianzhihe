@@ -80,7 +80,13 @@ export default {
       })
     },
     getProposalFromComponents(id) {
-      // this.switchData(id);
+      let query = this.$router.history.current.query;
+      let path = this.$router.history.current.path;
+      // //对象的拷贝
+      let newQuery = JSON.parse(JSON.stringify(query));
+      newQuery._id = id;
+      this.$router.push({ path, query: newQuery });
+      this.switchData(id);
     }
   }
 }

@@ -4,6 +4,7 @@
       <div class="list-wrap">
         <div class="list-img">
           <img style="width: 78px; height: 78px" :src="info.image"/>
+          <span class="img-tip">{{info.name.slice(0, 2)}}</span>
         </div>
         <div class="list-info">
           <div class="list-message" style="margin-top: 6px">
@@ -42,6 +43,23 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.list-img {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  .img-tip {
+    width: 78px;
+    position: absolute;
+    top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 17px;
+    font-family: SourceHanSansSC-Bold, SourceHanSansSC;
+    font-weight: bold;
+    color: #FFFFFF;
+  }
+}
 </style>

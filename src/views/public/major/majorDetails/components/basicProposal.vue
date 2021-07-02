@@ -65,9 +65,12 @@
     <span class="tip-title">相近专业</span>
     <template v-if="info.recommendProVos && info.recommendProVos.length > 0">
     <div class="flex-container">
-        <div class="flex-wrap" v-for="item in info.recommendProVos" :key="item._id" @click="goMajor(item._id)">
+        <div class="flex-wrap"  v-for="item in info.recommendProVos" :key="item._id" @click="goMajor(item._id)">
           <div class="top">
-            <div class="img-wrap"><img :src="item.image" alt=""></div>
+            <div class="img-wrap">
+              <img :src="item.image" alt="">
+              <span class="img-tip">{{item.name && item.name.slice(0, 2)}}</span>
+            </div>
             <div class="info">
               <div class="title">
                 <span class="title-info">{{ item.name }}</span>
@@ -170,6 +173,7 @@ export default {
     border-radius: 8px;
     flex-wrap: wrap;
     margin-right: 20px;
+    margin-bottom: 20px;
 
     .tip {
       position: absolute;
@@ -241,6 +245,7 @@ export default {
     border-radius: 6px;
     margin-right: 20px;
     margin-bottom: 20px;
+    cursor: pointer;
 
     .top {
       display: flex;
@@ -251,6 +256,20 @@ export default {
         width: 48px;
         height: 48px;
         margin-right: 10px;
+        position: relative;
+          .img-tip {
+            width: 48px;
+            position: absolute;
+            top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 11px;
+            font-family: SourceHanSansSC-Bold, SourceHanSansSC;
+            font-weight: bold;
+            color: #FFFFFF;
+          }
 
         img {
           width: 100%;

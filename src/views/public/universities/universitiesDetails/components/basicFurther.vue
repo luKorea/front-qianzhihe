@@ -10,7 +10,7 @@
                        stroke-width="12"/>
         </div>
       </div>
-      <div class="further- center">
+      <div class="further-center">
         <span class="tip-info"></span>
         <span class="tip-title">国外升学率</span>
         <div class="cricle">
@@ -50,8 +50,10 @@
 </template>
 
 <script>
+import resize from "../../../../../mixins/resize";
 export default {
   name: "basicFurther",
+  mixins: [resize],
   props: {
     info: {
       type: Object,
@@ -74,7 +76,7 @@ export default {
   },
   data() {
     return {
-      charts: ''
+      chart: ''
     }
   },
   methods: {
@@ -88,7 +90,7 @@ export default {
             })
           })
       console.log(data);
-      this.charts = this.$echarts.init(document.getElementById('company-charts'));
+      this.chart = this.$echarts.init(document.getElementById('company-charts'));
       let option = {
         tooltip: {
           trigger: 'item'
@@ -121,7 +123,7 @@ export default {
           }
         ]
       };
-      this.charts && this.charts.setOption(option);
+      this.chart && this.chart.setOption(option);
     }
   }
 }
@@ -130,13 +132,13 @@ export default {
 <style scoped lang="scss">
 .further {
   display: flex;
-  justify-content: space-evenly;
   margin-bottom: 20px;
 
   .cricle {
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
+    margin-right: 200px;
   }
 }
 

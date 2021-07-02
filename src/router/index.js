@@ -119,7 +119,11 @@ export const asyncRouterMap = [
                 name: '院校详情',
                 hidden: true,
                 component: () => import('../views/public/universities/universitiesDetails/index'),
-                meta: {title: '院校详情', icon: 'el-icon-office-building', roles: ['academy'], breadcrumb: true},
+                meta: {
+                    title: '院校详情',
+                    keepAlive: true,
+                    icon: 'el-icon-office-building', roles: ['academy'], breadcrumb: true
+                },
             }
         ]
     },

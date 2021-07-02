@@ -7,7 +7,7 @@
       <div class="table-content">
           <div class="table-info">
             <template v-if="info.courseList && info.courseList.length > 0">
-              <span v-for="item in info.courseList" :key="item._id">{{ item.subject }}</span>
+              <span style="height: 54px; line-height: 54px; padding: 0" v-for="item in info.courseList" :key="item._id">{{ item.subject }}</span>
             </template>
           </div>
       </div>
@@ -15,19 +15,11 @@
     <template>
       <span class="tip-info"></span>
       <span class="tip-title">学科评估</span>
-      <div class="table-wrap">
-        <div class="table-title">
-          <span style="width: 50%">学科</span>
-          <span style="width: 50%;">评级</span>
-        </div>
-        <div class="table-info">
-          <template v-if="info.subjectList && info.subjectList.length > 0">
-            <template v-for="item in info.subjectList">
-              <span style="width: 50%;border-top: 1px solid #E6E7EC" :key="item._id">{{item.name}}</span>
-              <span style="width: 50%;border-top: 1px solid #E6E7EC" :key="item._id">{{item.type}}</span>
-            </template>
-          </template>
-        </div>
+      <div class="tableClass" style="margin-bottom: 20px">
+        <el-table :data="info.subjectList" style="width: 100%; margin-top: 20px" border>
+          <el-table-column prop="name" label="学科" align="center" />
+          <el-table-column prop="type" label="评级" align="center" />
+        </el-table>
       </div>
     </template>
     <template>
@@ -58,6 +50,17 @@ export default {
 }
 </script>
 
+
+
+
+<style>
+.tableClass .el-table thead {
+  background-color: #E6E7EC !important;
+}
+.tableClass .el-table th {
+  background-color: #E6E7EC !important;
+}
+</style>
 <style scoped lang="scss">
 
 .table-content {
@@ -75,13 +78,15 @@ export default {
     background-color: #FFFFFF;
     span {
       width: 33.33%;
-      height: 54px;
-      line-height: 54px;
+      padding: 20px 0;
+      //height: 54px;
+      //line-height: 54px;
       font-size: 14px;
       font-family: PingFangSC-Regular, PingFang SC;
       font-weight: 400;
       color: #475B75;
-      border: 1px solid #E6E7EC;
+      border-right: 1px solid #E6E7EC;
+      border-bottom: 1px solid #E6E7EC;
       border-left: none;
     }
   }

@@ -3,7 +3,7 @@
     <el-card>
       <div @click="goBack" style="display: flex;justify-content: flex-end">
         <el-tooltip class="item" effect="dark" content="关闭" placement="top-start">
-          <i class="el-icon-close" style="color: #CCCCCC; cursor: pointer "></i>
+          <i class="el-icon-circle-close" style="cursor: pointer; font-size: 24px"></i>
         </el-tooltip>
       </div>
       <slot></slot>

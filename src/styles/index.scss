@@ -353,7 +353,7 @@ input:-webkit-autofill:active {
   .table-info {
     display: flex;
     justify-content: space-around;
-    text-align: center;
+    //text-align: center;
     align-items: center;
     flex-wrap: wrap;
     box-sizing: border-box;
@@ -362,16 +362,18 @@ input:-webkit-autofill:active {
     background-color: #FFFFFF;
     span {
       width: 33.33%;
-      height: 54px;
-      line-height: 54px;
+      padding: 20px 2px;
+      text-align: center;
+      //height: 54px;
+      //line-height: 54px;
       font-size: 14px;
       font-family: PingFangSC-Regular, PingFang SC;
       font-weight: 400;
       color: #475B75;
       border-right: 1px solid #E6E7EC;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+      //overflow: hidden;
+      //white-space: nowrap;
+      //text-overflow: ellipsis;
     }
   }
 }

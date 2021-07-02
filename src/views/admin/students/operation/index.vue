@@ -31,8 +31,8 @@
           </el-row>
           <el-row :gutter="4">
             <el-col :span="10">
-              <el-form-item label="手机号" required prop="username">
-                <el-input v-model="form.username"></el-input>
+              <el-form-item label="手机号">
+                <el-input v-model="form.username" disabled></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="10">
@@ -109,7 +109,6 @@
 
 <script>
 import {
-  validatePhone,
   validateUsername
 } from "../../../../utils/validate";
 import {getStudentInfo, removeStudentToClass, updateStudentInfo} from "../../../../api/admin/students";
@@ -125,7 +124,6 @@ export default {
       },
       form: {},
       rules: {
-        username: [{required: true, trigger: 'blur', validator: validatePhone}],
         name: [{required: true, trigger: 'blur', validator: validateUsername}],
       },
       teacherList: [],

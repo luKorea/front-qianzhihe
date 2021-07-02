@@ -27,23 +27,15 @@
         </template>
       </div>
     </div>
-    <div class="table-wrap">
-      <div class="table-title">
-        <span>批次</span>
-        <span>招生类型</span>
-        <span>最低分数</span>
-        <span>最低位次</span>
-      </div>
-      <div class="table-info">
-        <template v-if="list && list.length > 0">
-          <template v-for="(item, index) in list">
-            <span class="scope" :key="index">{{item.admission}}</span>
-            <span class="scope" :key="index">{{item.admissionsNote}}</span>
-            <span class="scope" :key="index">{{item.castArchivesPoints}}</span>
-            <span class="scope" :key="index">{{item.theLowestRanking}}</span>
-          </template>
-        </template>
-      </div>
+
+
+    <div class="tableClass" style="margin-bottom: 20px">
+      <el-table :data="list" style="width: 100%; margin-top: 20px" border>
+        <el-table-column prop="admission" label="批次" align="center" />
+        <el-table-column prop="admissionsNote" label="招生类型" align="center" />
+        <el-table-column prop="castArchivesPoints" label="最低分数" align="center" />
+        <el-table-column prop="theLowestRanking" label="最低位次" align="center" />
+      </el-table>
     </div>
   </div>
 </template>
@@ -114,6 +106,17 @@ export default {
   }
 }
 </script>
+
+
+
+<style>
+.tableClass .el-table thead {
+  background-color: #F1F3F5 !important;
+}
+.tableClass .el-table th {
+  background-color: #F1F3F5 !important;
+}
+</style>
 
 <style scoped lang="scss">
 .scope {

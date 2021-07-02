@@ -7,7 +7,6 @@
             <el-image
                 style="width: 78px; height: 78px"
                 :src="item.image"
-                :preview-src-list="[item.image]"
                 fit="fit"/>
           </div>
           <div class="list-info">

@@ -39,24 +39,17 @@
         </template>
       </div>
     </div>
-    <div class="table-wrap">
-      <div class="table-title">
-        <span style="width: 60%">专业名称</span>
-        <span style="width: 20%;">学制</span>
-        <span style="width: 20%;">招生人数</span>
-      </div>
-      <div class="table-info" style="width: 100%;">
-        <template v-if="list && list.length > 0">
-          <template v-for="(item, index) in list">
-            <template v-if="item.isProfessional">
-              <span style="width: 60%" class="scope blue" :key="index" @click="goMajor(item.professionalId)">{{item.name}}</span>
-            </template>
-            <template v-else><span style="width: 60%" class="scope" :key="index">{{item.name}}</span></template>
-            <span style="width: 20%" class="scope" :key="index">{{ item.schoolSystem }}</span>
-            <span style="width: 20%" class="scope" :key="index">{{ item.admissions }}</span>
+    <div class="tableClass">
+      <el-table :data="list" style="width: 100%; margin-top: 20px" border>
+        <el-table-column prop="name" label="专业名称">
+          <template slot-scope="scope">
+            <span v-if="scope.row.isProfessional" class="blue" @click="goMajor(scope.row.professionalId)">{{scope.row.name}}</span>
+            <span v-else>{{scope.row.name}}</span>
           </template>
-        </template>
-      </div>
+        </el-table-column>
+        <el-table-column prop="schoolSystem" label="学制" align="center" width="200px" />
+        <el-table-column prop="admissions" label="招生人数" align="center" width="200px" />
+      </el-table>
     </div>
   </div>
 </template>
@@ -138,6 +131,17 @@ export default {
 }
 </script>
 
+
+<style>
+.tableClass .el-table thead {
+  background-color: #E6E7EC !important;
+}
+.tableClass .el-table th {
+  background-color: #E6E7EC !important;
+}
+</style>
+
+
 <style scoped lang="scss">
 .flex {
   display: flex;
@@ -147,6 +151,7 @@ export default {
 
 .scope {
   border-top: 1px solid #E6E7EC;
+  line-height: 20px;
 }
 .blue {
   font-size: 14px;

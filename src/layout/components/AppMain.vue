@@ -9,9 +9,12 @@
         </transition-group>
       </el-breadcrumb>
       <transition name="fade-transform" mode="out-in">
-            <keep-alive :include="cachedViews">
+            <keep-alive :include="cachedViews" v-if="$route.meta.keepAlive">
                 <router-view :key="key" />
             </keep-alive>
+        <keep-alive :include="cachedViews" v-else=>
+          <router-view :key="key" />
+        </keep-alive>
       </transition>
 <!--      <back-to-top transition-name="fade"/>-->
     </section>

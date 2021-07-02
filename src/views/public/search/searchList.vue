@@ -74,7 +74,6 @@ export default {
       ]
     }
   },
-
   mounted() {
     let {url, keywords} = this.$route.query;
     this.params.keywords = keywords;
@@ -83,6 +82,14 @@ export default {
   },
   methods: {
     switchData() {
+      let query = this.$router.history.current.query;
+      let path = this.$router.history.current.path;
+      //对象的拷贝
+      let newQuery = JSON.parse(JSON.stringify(query));
+      // 地址栏的参数值赋值
+      newQuery.url = this.url;
+      newQuery.keywords = this.params.keywords;
+      this.$router.push({ path, query: newQuery });
       switch (this.url) {
         case 'occupation':
           this.$route.meta.title = '搜索职业';
@@ -90,7 +97,6 @@ export default {
           break;
         case 'major':
           this.$route.meta.title = '搜索专业';
-          this.$route.query.keywords = this.params.keywords;
           console.log(this.$route);
           this.getMajor(this.params);
           break;
