@@ -23,7 +23,10 @@
           </el-col>
           <el-col :span='8'>
             <div style="display:flex;">
-              <el-input style="margin-right: 10px" v-model="params.queryOrTeacherNameOrPhone" placeholder="请输入教师名称、手机号" clearable="true"/>
+              <el-input style="margin-right: 10px"
+                        @keyup.enter.native="getData(params)"
+                        v-model="params.queryOrTeacherNameOrPhone" placeholder="请输入教师名称、手机号"
+                        clearable="true"/>
               <el-button type="primary" @click="getData(params)">筛选</el-button>
             </div>
           </el-col>

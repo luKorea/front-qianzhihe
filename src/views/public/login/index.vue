@@ -16,6 +16,7 @@
             :rules="loginRules"
             class="login-form"
             auto-complete="on"
+            status-icon
             label-position="left"
         >
           <el-form-item prop="username">
@@ -57,7 +58,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <div class="codeContainer">
+              <div class="codeContainer" style="cursor: pointer">
                 <img :src="captureImg" alt class="codeImg" @click="getCodeData" />
               </div>
             </el-col>

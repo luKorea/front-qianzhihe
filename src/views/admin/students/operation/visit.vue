@@ -114,6 +114,7 @@
     </basic-container>
     <div class="footer-btn">
       <el-button style="color: #475B75" @click="goBack">返回</el-button>
+      <el-button type="primary" @click="goEdit(params.studentId, params.gradeId)">编辑</el-button>
     </div>
   </div>
 </template>
@@ -163,6 +164,16 @@ export default {
     },
     goBack() {
       this.$router.go(-1);
+    },
+    goEdit(studentId, gradeId) {
+      this.$router.push({
+        path: '/students/studentOperation',
+        query: {
+          type: 'edit',
+          studentId,
+          gradeId: gradeId ? gradeId : ''
+        }
+      })
     },
     getInfo(params) {
       getStudentInfo(params)

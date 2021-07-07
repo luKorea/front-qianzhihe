@@ -21,3 +21,15 @@
 |-- babel.config.js[兼容低版本浏览器]
 |-- vue.config.js [webpack配置]
 
+
+
+dataAnalysis 数据分析
+    1. browseDataStatistics 浏览数据统计
+    2. careerStatistics 生涯统计报告
+    3. evaluationStatistics 测评统计
+    4. subjectSelectionStatistics 选科统计
+    5. usageStatistics App使用情况
+evaluation 测评中心
+    1. evaluationList 学生测评记录
+    2. evaluationSeries 测评系列
+

@@ -32,6 +32,7 @@
           <el-col :span="6">
             <div style="display: flex">
               <el-input style="margin-right: 10px" v-model="params.searchText"
+                        @keyup.enter.native="getData(params)"
                         placeholder="请输入班主任、生涯导师" clearable="true"/>
               <el-button type="primary" @click="getData(params)">筛选</el-button>
             </div>
@@ -62,7 +63,12 @@
         <el-table-column label="操作" align="center" width="250">
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="goOperationType('edit', scope.row._id)">编辑</el-button>
-            <el-button type="text" size="small" @click="openOrClose(scope.row._id)">开启选科征集</el-button>
+            <el-button type="text" size="small" style="color: red" @click="openOrClose(scope.row._id, false)" v-if="scope.row.openCourseSelectionFor">
+             关闭选科征集
+            </el-button>
+            <el-button type="text" size="small" @click="openOrClose(scope.row._id, true)" v-else>
+              开启选科征集
+            </el-button>
             <el-button type="text" size="small" @click="goOperationType('visit', scope.row._id)">查看班级详情</el-button>
           </template>
         </el-table-column>
@@ -77,10 +83,11 @@
 </template>
 
 <script>
-import {getGradeList} from "../../../api/admin/grade";
+import {getGradeList, updateCourseSelectionFor} from "../../../api/admin/grade";
 import {selectTypeList, selectClassList} from "../../../api/common/search";
+import {operationTip, successTip} from "../../../utils/tip";
 export default {
-  name: "teacherList",
+  name: "gradeList",
   data() {
     return {
       params: {
@@ -105,8 +112,22 @@ export default {
     this.getGrade();
   },
   methods: {
-    openOrClose(id) {
-      console.log(id);
+    openOrClose(id, flag) {
+      let that = this;
+      operationTip({
+        message: flag ? '是否开启选科征集' : '是否关闭选科征集',
+        title: '选科征集'
+      }, () => {
+        updateCourseSelectionFor({
+          _id: id,
+          openCourseSelectionFor: flag
+        }).then(res => {
+          if (res.errorCode === 200) {
+            successTip();
+            that.getData(this.params);
+          }
+        })
+      })
     },
     goOperationType(type, id) {
       if (type === 'visit') {

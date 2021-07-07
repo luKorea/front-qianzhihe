@@ -77,6 +77,7 @@
           </el-tab-pane>
           <el-tab-pane label="学生登录" name="student">
             <el-form
+                status-icon
                 ref="loginForm"
                 :model="loginForm"
                 :rules="loginRules"
@@ -155,6 +156,7 @@
         <div class="form-container">
           <div class="title">请完善个人资料</div>
           <el-form ref="infoForm" :label-width="labelWidth"
+                   status-icon
                    :model="infoFrom" :rules="infoRules" label-position="right" style="width: 50%">
             <el-form-item prop="name" label='用户名'>
               <el-input style="width: 447px" ref="username" v-model="infoFrom.name" placeholder="请输入姓名"

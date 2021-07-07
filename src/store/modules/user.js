@@ -6,6 +6,7 @@ const getDefaultState = () => {
         token: getToken(),
         name: "",
         avatar: "",
+        user_type: '',
         roles: [],
         uuid: "",
         init: false,
@@ -23,6 +24,9 @@ const mutations = {
     },
     SET_NAME: (state, name) => {
         state.name = name;
+    },
+    SET_USER_TYPE: (state, user_type) => {
+        state.user_type = user_type
     },
     SET_AVATAR: (state, avatar) => {
         state.avatar = avatar;
@@ -44,12 +48,13 @@ const actions = {
         return new Promise((resolve, reject) => {
             req("/auth/login", userInfo, "POST")
                 .then(function(res) {
-                    console.log(res);
+                    console.log(res, '用户信息');
                     const { user } = res;
                     commit("SET_NAME", user.nickName);
                     commit("SET_AVATAR", user.avatarPath);
-                    commit("SET_UUID", user.id);
+                    commit("SET_UUID", user.teacher_id);
                     commit("SET_TOKEN", res.token);
+                    commit('SET_USER_TYPE', user.role);
                     window.localStorage.setItem(
                         "USERINFO_" + defaultSettings.KEY,
                         JSON.stringify(user)
@@ -74,9 +79,10 @@ const actions = {
             } catch (error) {}
             if (state.token && USERINFO) {
                 commit("SET_NAME", USERINFO.nickName);
-                commit("SET_AVATAR", "");
-                commit("SET_UUID", USERINFO.id);
+                commit("SET_AVATAR", USERINFO.avatarPath);
+                commit("SET_UUID", USERINFO.teacher_id);
                 commit("SET_ROLES", USERINFO.ROLES);
+                commit('SET_USER_TYPE', USERINFO.role)
                 resolve(state);
             } else {
                 reject("登录失效，重新登录");

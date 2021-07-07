@@ -62,7 +62,7 @@
             </template>
           </el-table-column>
         </el-table>
-        <basic-pagination
+          <basic-pagination
             :total="params.total"
             @handleCurrentChange="handleCurrentChange"
             @handleSizeChange="handleSizeChange"
@@ -72,6 +72,7 @@
     </basic-container>
     <div class="footer-btn">
       <el-button style="color: #475B75" @click="goBack">返回</el-button>
+      <el-button type="primary" @click="goEdit(params.teacherId)">编辑</el-button>
     </div>
   </div>
 </template>
@@ -113,6 +114,15 @@ export default {
               this.params.total = data.pageResult.total || 0;
             }
           })
+    },
+    goEdit(id) {
+      this.$router.push({
+        path: '/teachers/teacherOperation',
+        query: {
+          type: 'edit',
+          id
+        }
+      })
     },
     goOperationType(type, id) {
       if (type === 'visit') {

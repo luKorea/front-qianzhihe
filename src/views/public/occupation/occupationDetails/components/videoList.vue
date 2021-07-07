@@ -7,8 +7,16 @@
     </div>
     <div class="video-right">
       <div class="video-title">相关视频</div>
-      <div v-for="item in videoList" :key="item._id">
-      </div>
+      <template v-if="videoList && videoList.length > 0">
+        <div class="video-item">
+          <div v-for="(item, index) in videoList"
+               :class="index === selectIndex ? 'select' : ''"
+               :key="item._id" class="item" @click="changeVideo(item.videos, index)">
+            <div class="item-img"><img :src="item.image" alt=""></div>
+            <div class="item-title">{{item.describe}}</div>
+          </div>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -32,7 +40,14 @@ export default {
   },
   data() {
     return {
-      defaultSrc: ''
+      defaultSrc: '',
+      selectIndex: 0
+    }
+  },
+  methods: {
+    changeVideo(video, index) {
+      this.defaultSrc = video;
+      this.selectIndex = index;
     }
   }
 }
@@ -45,16 +60,62 @@ export default {
   overflow: hidden;
   margin-top: 10px;
   .video-left {
-    width: 80%;
+    width: 73%;
     .my-video {
       width: 100%;
       height: 100%;
     }
   }
   .video-right{
-    width: 20%;
+    width: 27%;
     background: #2E415B;
     border-radius: 0 4px 4px 0;
+    .video-title {
+      margin: 20px 20px 10px 20px;
+      height: 25px;
+      font-size: 18px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: #FFFFFF;
+      line-height: 25px;
+    }
+    .video-item {
+      display: flex;
+      flex-direction: column;
+      height: 479px;
+      overflow-y: scroll;
+      padding-bottom: 90px;
+      .item {
+        display: flex;
+        //justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+        cursor: pointer;
+        height: 90px;
+        .item-img {
+          width: 124px;
+          height: 70px;
+          margin: 10px 10px 10px 20px;
+          img {
+            //width: 100%;
+            height: 100%;
+          }
+        }
+        .item-title {
+          font-size: 16px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: #FFFFFF;
+          margin-right: 10px;
+          line-height: 30px;
+        }
+      }
+      .select {
+        width: 100%;
+        height: 90px;
+        background: rgba(58, 99, 156, 1)
+      }
+    }
   }
 }
 </style>

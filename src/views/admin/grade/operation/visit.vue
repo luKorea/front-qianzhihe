@@ -8,7 +8,8 @@
         </div>
         <div class="right">
           <el-button @click="goEditGrade">编辑班级信息</el-button>
-          <el-button @click="goEditGrade">开启选科征集</el-button>
+          <el-button @click="openOrClose(info._id, false)"  type="danger" plain  v-if="info.openCourseSelectionFor">关闭选科征集</el-button>
+          <el-button @click="openOrClose(info._id, true)" v-else>开启选科征集</el-button>
         </div>
       </div>
       <div style="margin-top: 20px">
@@ -116,8 +117,9 @@
 </template>
 
 <script>
-import {getGradeVisitInfo, exportStudent} from "../../../../api/admin/grade";
+import {getGradeVisitInfo, exportStudent, updateCourseSelectionFor} from "../../../../api/admin/grade";
 import {removeStudentToClass} from "../../../../api/admin/students";
+import {operationTip, successTip} from "../../../../utils/tip";
 
 export default {
   name: "visit",
@@ -140,6 +142,23 @@ export default {
     this.getInfo(this.params);
   },
   methods: {
+    openOrClose(id, flag) {
+      let that = this;
+      operationTip({
+        message: flag ? '是否开启选科征集' : '是否关闭选科征集',
+        title: '选科征集'
+      }, () => {
+        updateCourseSelectionFor({
+          _id: id,
+          openCourseSelectionFor: flag
+        }).then(res => {
+          if (res.errorCode === 200) {
+            successTip();
+            that.getInfo(this.params);
+          }
+        })
+      })
+    },
     goEditGrade() {
       this.$router.push({
         path: '/grade/gradeOperation',
@@ -184,25 +203,18 @@ export default {
     },
     removeClassInfo(studentId) {
       let that = this;
-      that.$confirm('此操作将会将该名学生移出当前班级, 是否继续?', '移除学生', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
+      operationTip({
+        message: '此操作将会将该名学生移出当前班级, 是否继续?',
+        title: '移除学生'
+      }, () => {
         removeStudentToClass(studentId)
             .then(res => {
               if (res.errorCode === 200) {
-                that.$message({
-                  type: 'success',
-                  message: '移除成功!'
-                });
+                successTip();
                 that.goBack();
-                // that.getInfo(that.params);
               }
             })
-      }).catch(() => {
-      });
-      console.log(studentId);
+      })
     },
     handleCurrentChange(val) {
       this.params.page = val;

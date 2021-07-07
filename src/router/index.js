@@ -21,6 +21,119 @@ export const constantRoutesStart = [
             meta: {title: '首页', icon: 'el-icon-s-home', affix: true}
         }]
     },
+
+    // 管理员 教师 公用模块 区分列表数据展示以及筛选条件
+    {
+        path: '/dataAnalysis',
+        component: Layout,
+        redirect: '/dataAnalysis/evaluationStatistics',
+        alwaysShow: true,
+        name: '统计分析',
+        meta: {title: '统计分析', icon: 'el-icon-pie-chart', roles: ['']},
+        children: [
+            {
+                path: 'evaluationStatistics',
+                component: () => import('../views/public/dataAnalysis/evaluationStatistics'),
+                name: '测评统计',
+                meta: {title: '测评统计', icon: 'el-icon-star-off', roles: ['']}
+            },
+            {
+                path: 'subjectSelectionStatistics',
+                component: () => import('../views/public/dataAnalysis/subjectSelectionStatistics'),
+                name: '选科统计',
+                meta: {title: '选科统计', icon: 'el-icon-star-off', roles: ['']}
+            },
+            {
+                path: 'browseDataStatistics',
+                component: () => import('../views/public/dataAnalysis/browseDataStatistics'),
+                name: '浏览数据统计',
+                meta: {title: '浏览数据统计', icon: 'el-icon-star-off', roles: ['']}
+            },
+            {
+                path: 'usageStatistics',
+                component: () => import('../views/public/dataAnalysis/usageStatistics'),
+                name: 'App使用情况',
+                meta: {title: 'App使用情况', icon: 'el-icon-star-off', roles: ['']}
+            },
+            {
+                path: 'careerStatistics',
+                component: () => import('../views/public/dataAnalysis/careerStatistics'),
+                name: '生涯统计报告',
+                meta: {title: '生涯统计报告', icon: 'el-icon-star-off', roles: ['']}
+            }
+        ]
+    },
+    {
+        path: '/evaluation',
+        component: Layout,
+        redirect: '/evaluation/evaluationSeries',
+        alwaysShow: true,
+        name: '测评中心',
+        meta: {title: '测评中心', icon: 'el-icon-s-order', roles: ['']},
+        children: [
+            {
+                path: '/evaluation/evaluationSeries',
+                component: {render(c) { return c('router-view') }},
+                redirect: '/evaluation/evaluationSeries',
+                name: '测评系列',
+                meta: {title: '测评系列', icon: 'el-icon-star-off', roles: ['']},
+                children: [
+                    {
+                        path: '/evaluation/evaluationSeries',
+                        hidden: true,
+                        component: () => import('../views/public/evaluation/evaluationSeries'),
+                    },
+                    {
+                        path: '/evaluation/evaluationSeries/mbit',
+                        hidden: true,
+                        component: () => import('../views/public/evaluation/evaluationSeries/mbit'),
+                        name: '性格测试',
+                        meta: {title: '性格测试', icon: 'el-icon-star-off', roles: ['']}
+                    },
+                    {
+                        path: '/evaluation/evaluationSeries/holland',
+                        hidden: true,
+                        component: () => import('../views/public/evaluation/evaluationSeries/holland'),
+                        name: '兴趣测试',
+                        meta: {title: '兴趣测试', icon: 'el-icon-star-off', roles: ['']}
+                    },
+                ]
+            },
+            {
+                path: '/evaluation/evaluationList',
+                component: {render(c) { return c('router-view') }},
+                redirect: '/evaluation/evaluationList',
+                name: '学生测评记录',
+                meta: {title: '学生测评记录', icon: 'el-icon-star-off', roles: ['']},
+                children: [
+                    {
+                        path: '/evaluation/evaluationList',
+                        hidden: true,
+                        component: () => import('../views/public/evaluation/evaluationList'),
+                    },
+                    {
+                        path: '/evaluation/evaluationList/evaluationDetails',
+                        hidden: true,
+                        component: () => import('@/views/public/evaluation/evaluationList/evaluationDetails/index'),
+                        name: '学生测评详情',
+                        meta: {title: '学生测评详情', icon: 'el-icon-star-off', roles: ['']}
+                    },
+                ]
+            },
+        ]
+    },
+    {
+        path: '/changePassword',
+        component: Layout,
+        redirect: '/changePassword/info',
+        hidden: true,
+        children: [{
+            path: 'info',
+            name: '修改密码',
+            component: () => import('../views/public/changePassword/index'),
+            meta: {title: '修改密码', icon: 'el-icon-s-home', affix: true}
+        }]
+    },
     {
         path: '/search',
         redirect: '/search/searchList',

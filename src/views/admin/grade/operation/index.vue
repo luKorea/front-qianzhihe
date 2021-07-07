@@ -84,7 +84,7 @@
         <span class="tip-info"></span>
         <span class="tip-title">其他</span>
         <div class="m-top">
-          <el-switch v-model="form.switch" inactive-text="选科征集开关"/>
+          <el-switch v-model="form.openCourseSelectionFor" inactive-text="选科征集开关"/>
         </div>
       </basic-container>
     </el-form>
@@ -104,6 +104,7 @@ import {
 } from "../../../../utils/validate";
 import {getEditInfo, addGrade, updateGrade} from "../../../../api/admin/grade";
 import {selectTypeList, selectTeacherOrTutorList} from "../../../../api/common/search";
+import {successTip} from "../../../../utils/tip";
 
 export default {
   name: "index",
@@ -219,7 +220,7 @@ export default {
       addGrade(data)
           .then(res => {
             if (res.errorCode === 200) {
-              this.$message.success('新增成功');
+              successTip('新增成功');
               this.goBack();
             }
           })
@@ -228,7 +229,7 @@ export default {
       updateGrade(data)
           .then(res => {
             if (res.errorCode === 200) {
-              this.$message.success('修改成功');
+              successTip('修改成功')
               this.goBack();
             }
           })

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form label-width="80px" :model="form" :rules="rules" ref="form">
+    <el-form status-icon label-width="80px" :model="form" :rules="rules" ref="form">
       <basic-container>
         <span class="tip-info"></span>
         <span class="tip-title">基本信息</span>
@@ -71,6 +71,7 @@ import {
   validateUsername
 } from "../../../../utils/validate";
 import {addTeacher, getEditInfo, updateTeacher} from "../../../../api/admin/taecher";
+import {successTip} from "../../../../utils/tip";
 
 export default {
   name: "index",
@@ -152,7 +153,7 @@ export default {
       addTeacher(data)
       .then(res => {
         if (res.errorCode === 200) {
-          this.$message.success('新增成功');
+          successTip('新增成功');
           this.goBack();
         }
       })
@@ -162,7 +163,7 @@ export default {
       .then(res => {
         console.log(res);
         if (res.errorCode === 200) {
-          this.$message.success('修改成功');
+          successTip('修改成功')
           this.goBack();
         }
       })

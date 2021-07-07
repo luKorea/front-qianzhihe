@@ -20,6 +20,7 @@
   </div>
 </template>
 <script>
+import { scrollTo } from '../../utils/scroll-to'
 export default {
   props: {
     hidden: { // 控制 分页是否出现，这里一般设置total小于等于0的时候，将分页组件隐藏。
@@ -57,7 +58,11 @@ export default {
     pagerCount: {  //页码按钮的数量， 默认显示7个数，当总页数超过该值时会折叠,注意这里：它必须是 大于等于 5 且小于等于 21 的奇数
       type: Number,
       default: 7
-    }
+    },
+    autoScroll: {
+      type: Boolean,
+      default: true
+    },
   },
   computed: {
     currentPage: {  // 计算属性返回当前页 （会改变）
@@ -76,9 +81,15 @@ export default {
   methods: {
     handleSizeChange(val) {
       this.$emit("handleSizeChange", val);
+      if (this.autoScroll) {
+        scrollTo(0, 800)
+      }
     },
     handleCurrentChange(val) {
       this.$emit("handleCurrentChange", val - 1);
+      if (this.autoScroll) {
+        scrollTo(0, 800)
+      }
     },
   }
 };

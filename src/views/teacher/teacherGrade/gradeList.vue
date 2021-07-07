@@ -16,7 +16,12 @@
         <el-table-column prop="teacher2Name" label="生涯导师2" align="center" />
         <el-table-column label="操作" align="center" width="250">
           <template slot-scope="scope">
-            <el-button type="text" size="small" @click="openOrClose(scope.row._id)">开启选科征集</el-button>
+            <el-button type="text" size="small" style="color: red" @click="openOrClose(scope.row._id, false)" v-if="scope.row.openCourseSelectionFor">
+              关闭选科征集
+            </el-button>
+            <el-button type="text" size="small" @click="openOrClose(scope.row._id, true)" v-else>
+              开启选科征集
+            </el-button>
             <el-button type="text" size="small" @click="goOperationType('visit', scope.row._id)">查看班级详情</el-button>
           </template>
         </el-table-column>
@@ -31,7 +36,8 @@
 </template>
 
 <script>
-import {getGradeList} from "../../../api/teacher/teacherGrade";
+import {getGradeList, updateCourseSelectionFor} from "../../../api/teacher/teacherGrade";
+import {operationTip, successTip} from "../../../utils/tip";
 export default {
   name: "teacherList",
   data() {
@@ -48,8 +54,22 @@ export default {
     this.getData(this.params);
   },
   methods: {
-    openOrClose(id) {
-      console.log(id);
+    openOrClose(id, flag) {
+      let that = this;
+      operationTip({
+        message: flag ? '是否开启选科征集' : '是否关闭选科征集',
+        title: '选科征集'
+      }, () => {
+        updateCourseSelectionFor({
+          _id: id,
+          openCourseSelectionFor: flag
+        }).then(res => {
+          if (res.errorCode === 200) {
+            successTip();
+            that.getData(this.params);
+          }
+        })
+      })
     },
     goOperationType(type, id) {
       if (type === 'visit') {

@@ -1,7 +1,7 @@
 import {req} from '../../utils/req';
 
 
-let basicUrl = '/biz/student';
+let basicUrl = '/biz/myTeacherGrade';
 
 
 
@@ -30,4 +30,10 @@ export const removeStudentToClass = studentId => {
 // 更新学生信息
 export const updateStudentInfo = data => {
     return req(`${basicUrl}/update`, data, 'PUT')
+}
+
+
+// 班级列表筛选
+export const selectClassList = () => {
+    return req(`${basicUrl}/getStudentGradeScreenList`)
 }

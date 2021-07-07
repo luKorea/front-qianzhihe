@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form label-width="80px" :model="form" :rules="rules" ref="form">
+    <el-form status-icon label-width="80px" :model="form" :rules="rules" ref="form">
       <basic-container>
         <span class="tip-info"></span>
         <span class="tip-title">基本信息</span>
@@ -113,6 +113,7 @@ import {
 } from "../../../../utils/validate";
 import {getStudentInfo, removeStudentToClass, updateStudentInfo} from "../../../../api/admin/students";
 import {selectClassList, selectTypeList} from "../../../../api/common/search";
+import {operationTip, successTip} from "../../../../utils/tip";
 
 export default {
   name: "index",
@@ -181,25 +182,18 @@ export default {
     },
     removeClassInfo(studentId) {
       let that = this;
-      that.$confirm('此操作将会将该名学生移出当前班级, 是否继续?', '移除学生', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
+      operationTip({
+        message: '此操作将会将该名学生移出当前班级, 是否继续?',
+        title: '移除学生'
+      }, () => {
         removeStudentToClass(studentId)
             .then(res => {
               if (res.errorCode === 200) {
-                that.$message({
-                  type: 'success',
-                  message: '移除成功!'
-                });
+                successTip();
                 that.goBack();
-                // that.getEditData(that.params);
               }
             })
-      }).catch(() => {
-      });
-      console.log(studentId);
+      })
     },
     operationData() {
       let that = this;
@@ -212,7 +206,7 @@ export default {
           updateStudentInfo(that.form)
               .then(res => {
                 if (res.errorCode === 200) {
-                  this.$message.success('修改成功');
+                  successTip()
                   this.goBack();
                 }
               })

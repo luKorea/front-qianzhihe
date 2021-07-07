@@ -32,6 +32,7 @@
           <el-col :span="6">
             <div style="display: flex">
               <el-input style="margin-right: 10px" v-model="params.queryOrIdOrNameOrPhone"
+                        @keyup.enter.native="getData(params)"
                         placeholder="请输入学生ID、名称、手机号" clearable="true"/>
               <el-button type="primary" @click="getData(params)">筛选</el-button>
             </div>

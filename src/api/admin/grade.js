@@ -38,3 +38,8 @@ export const updateGrade = data => {
 export const exportStudent = (gradeId, fileName) => {
     return xhrGetFile(`/biz/student/download?gradeId=${gradeId}`, fileName)
 }
+
+// 开启选课征集 我的班级 班级管理
+export const updateCourseSelectionFor = params => {
+    return req(`${basicUrl}/updateCourseSelectionFor?_id=${params._id}&openCourseSelectionFor=${params.openCourseSelectionFor}`, '', 'PUT')
+}

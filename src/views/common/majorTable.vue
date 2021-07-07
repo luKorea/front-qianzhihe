@@ -4,10 +4,8 @@
       <div class="list-container" v-for="item in list" :key="item._id" @click="goDetails(item._id)">
         <div class="list-wrap">
           <div class="list-img">
-            <el-image
-                style="width: 78px; height: 78px"
-                :src="item.image"
-                fit="fit"/>
+            <img style="width: 78px; height: 78px" :src="item.image"/>
+            <span class="img-tip">{{item.name.slice(0, 2)}}</span>
           </div>
           <div class="list-info">
             <div class="list-message" style="margin-top: 6px">
@@ -75,6 +73,23 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.list-img {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  .img-tip {
+    width: 78px;
+    position: absolute;
+    top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 17px;
+    font-family: SourceHanSansSC-Bold, SourceHanSansSC;
+    font-weight: bold;
+    color: #FFFFFF;
+  }
+}
 </style>

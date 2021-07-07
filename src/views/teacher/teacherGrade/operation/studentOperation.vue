@@ -1,6 +1,6 @@
-  <template>
+<template>
   <div>
-    <el-form label-width="80px" :model="form" :rules="rules" ref="form">
+    <el-form status-icon label-width="80px" :model="form" :rules="rules" ref="form">
       <basic-container>
         <span class="tip-info"></span>
         <span class="tip-title">基本信息</span>
@@ -88,13 +88,14 @@
           <div class="m-bottom">
             <span class="tip-title">首选科目（2选1）</span>
             <el-radio-group v-model="form.firstChoice">
-              <el-radio v-for="(item, index) in firstList" :label="item.name" />
+              <el-radio v-for="(item, index) in firstList" :label="item.name"/>
             </el-radio-group>
           </div>
           <div style="display: flex; align-items: center">
             <span class="tip-title">再选科目（4选2）</span>
             <el-checkbox-group v-model="checkList" :max="2">
-              <el-checkbox v-for="(item, index) in recleaningList" :label="item.name" :key="index">{{item.name}}</el-checkbox>
+              <el-checkbox v-for="(item, index) in recleaningList" :label="item.name" :key="index">{{ item.name }}
+              </el-checkbox>
             </el-checkbox-group>
           </div>
         </div>
@@ -111,8 +112,14 @@
 import {
   validateUsername
 } from "../../../../utils/validate";
-import {getStudentInfo, removeStudentToClass, updateStudentInfo} from "../../../../api/admin/students";
-import {selectClassList, selectTypeList} from "../../../../api/common/search";
+import {
+  getStudentInfo,
+  removeStudentToClass,
+  updateStudentInfo,
+  selectClassList
+} from "../../../../api/teacher/teacherStudents";
+import {selectTypeList} from "../../../../api/common/search";
+import {operationTip, successTip} from "../../../../utils/tip";
 
 export default {
   name: "index",
@@ -181,25 +188,18 @@ export default {
     },
     removeClassInfo(studentId) {
       let that = this;
-      that.$confirm('此操作将会将该名学生移出当前班级, 是否继续?', '移除学生', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
+      operationTip({
+        message: '此操作将会将该名学生移出当前班级, 是否继续?',
+        title: '移除学生'
+      }, () => {
         removeStudentToClass(studentId)
             .then(res => {
               if (res.errorCode === 200) {
-                that.$message({
-                  type: 'success',
-                  message: '移除成功!'
-                });
+                successTip();
                 that.goBack();
-                // that.getEditData(that.params);
               }
             })
-      }).catch(() => {
-      });
-      console.log(studentId);
+      })
     },
     operationData() {
       let that = this;
@@ -212,7 +212,7 @@ export default {
           updateStudentInfo(that.form)
               .then(res => {
                 if (res.errorCode === 200) {
-                  this.$message.success('修改成功');
+                  successTip()
                   this.goBack();
                 }
               })

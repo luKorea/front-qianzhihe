@@ -1,4 +1,4 @@
-import { MessageBox, Message } from 'element-ui'
+import { Message } from 'element-ui'
 import { getToken } from '@/utils/auth'
 import {showFullScreenLoading, tryHideFullScreenLoading} from './loading';
 import store from "../store";
@@ -106,6 +106,10 @@ export function xhrGetFile(url, name) {
                     document.body.appendChild(elink);
                     elink.click();
                     document.body.removeChild(elink);
+                    Message({
+                        message: '导出成功',
+                        type: 'success'
+                    })
                 }
                 resolve();
             } else {

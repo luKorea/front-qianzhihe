@@ -4,7 +4,9 @@
       <span class="tip-info"></span>
       <span class="tip-title">搜索筛选</span>
       <div class="search-wrap m-top">
-        <el-input v-model="params.keywords" placeholder="" clearable="true"/>
+        <el-input v-model="params.keywords"
+                  @keyup.enter.native="switchData"
+                  placeholder="" clearable="true"/>
         <el-button type="primary" @click="switchData">搜索</el-button>
       </div>
     </basic-container-back>

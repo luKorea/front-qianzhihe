@@ -114,13 +114,14 @@
     </basic-container>
     <div class="footer-btn">
       <el-button style="color: #475B75" @click="goBack">返回</el-button>
+      <el-button type="primary" @click="goEdit(params.studentId, params.gradeId)">编辑</el-button>
     </div>
   </div>
 </template>
 
 <script>
-import {getStudentInfo} from "../../../../api/admin/students";
-import {selectClassList, selectTypeList} from "../../../../api/common/search";
+import {getStudentInfo, selectClassList} from "../../../../api/teacher/teacherStudents";
+import {selectTypeList} from "../../../../api/common/search";
 
 export default {
   name: "visit",
@@ -163,6 +164,16 @@ export default {
     },
     goBack() {
       this.$router.go(-1);
+    },
+    goEdit(studentId, gradeId) {
+      this.$router.push({
+        path: '/teacherGrade/studentOperation',
+        query: {
+          type: 'edit',
+          studentId,
+          gradeId: gradeId ? gradeId : ''
+        }
+      })
     },
     getInfo(params) {
       getStudentInfo(params)

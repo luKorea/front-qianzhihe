@@ -18,11 +18,11 @@
                 </template>
               </div>
               <div class="list-money">
-                <span style="margin-right: 15px">高校层次：{{info.education_level}}</span>
-                <span style="margin-right: 15px">高校类型：{{info.type}}</span>
-                <span style="margin-right: 15px">办学性质：{{info.school_type}}</span>
-                <span style="margin-right: 15px">所属地区：{{info.location}}</span>
-                <span style="margin-right: 15px">主管部门：{{info.competent_department}}</span>
+                <span class="m-right">高校层次：{{info.education_level}}</span>
+                <span class="m-right">高校类型：{{info.type}}</span>
+                <span class="m-right">办学性质：{{info.school_type}}</span>
+                <span class="m-right">所属地区：{{info.location}}</span>
+                <span class="m-right">主管部门：{{info.competent_department}}</span>
               </div>
             </div>
           </div>

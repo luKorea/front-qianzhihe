@@ -2,14 +2,17 @@
     <div class="navbar">
         <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
         <div class="right-menu">
-            <el-dropdown class="avatar-container" trigger="click">
+            <el-dropdown class="avatar-container" trigger="hover">
                 <div class="avatar-wrapper">
                   <el-avatar :size="30" :src="imgUrl + avatar"></el-avatar>
                     <span> {{name}}</span>
                     <i class="el-icon-caret-bottom" />
                 </div>
                 <el-dropdown-menu slot="dropdown" class="user-dropdown">
-                    <el-dropdown-item @click.native="logout">
+                  <el-dropdown-item @click.native="editPassword">
+                    <span style="display:block;">修改密码</span>
+                  </el-dropdown-item>
+                    <el-dropdown-item @click.native="logout" divided>
                         <span style="display:block;">退出登录</span>
                     </el-dropdown-item>
                 </el-dropdown-menu>
@@ -21,6 +24,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import Hamburger from '@/components/Hamburger'
+import {operationTip} from "../../utils/tip";
 
 export default {
   components: {
@@ -42,10 +46,20 @@ export default {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
     },
-    async logout() {
-      await this.$store.dispatch('user/logout')
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    logout() {
+      operationTip({
+        message: '您确定退出该系统吗',
+        title: '退出登录'
+      }, async () => {
+        await this.$store.dispatch('user/logout')
+        this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      })
       //location.reload();//刷新页面，重置vue-router
+    },
+    editPassword() {
+      this.$router.push({
+        path: '/changePassword/info'
+      })
     }
   }
 }
@@ -112,6 +126,7 @@ export default {
         position: relative;
         display: flex;
         align-items: center;
+        cursor: pointer;
 
         .user-avatar {
           cursor: pointer;

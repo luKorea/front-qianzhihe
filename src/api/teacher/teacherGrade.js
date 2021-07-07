@@ -1,13 +1,13 @@
 import {req, xhrGetFile} from '../../utils/req';
 
 
-let basicUrl = '/biz/grade';
+let basicUrl = '/biz/myTeacherGrade';
 
 
 
 // 获取班级列表
 export const getGradeList = params => {
-    return req(`${basicUrl}/queryGradePage?page=${params.page}&size=${params.size}`
+    return req(`${basicUrl}/getTeacherGradePage?page=${params.page}&size=${params.size}`
     )
 }
 
@@ -37,4 +37,9 @@ export const updateGrade = data => {
 // 导出学生名单
 export const exportStudent = (gradeId, fileName) => {
     return xhrGetFile(`/biz/student/download?gradeId=${gradeId}`, fileName)
+}
+
+// 开启选课征集 我的班级 班级管理
+export const updateCourseSelectionFor = params => {
+    return req(`${basicUrl}/updateCourseSelectionFor?_id=${params._id}&openCourseSelectionFor=${params.openCourseSelectionFor}`, '', 'PUT')
 }
