@@ -29,14 +29,12 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="测试结果类型">
-
           <template v-if="typeList && typeList.length > 0">
             <div class="list-flex">
               <div class="list" v-for="item in typeList" :key="item._id">
                 <div class="title">{{item.name}}</div>
-                <el-tooltip placement="top" effect="dark" :content="item.describe">
-                  <div class="desc">{{item.describe.slice(0, 80)}}</div>
-                </el-tooltip>
+                <div class="block"></div>
+                <div class="describe">{{item.describe}}</div>
               </div>
             </div>
           </template>
@@ -74,7 +72,7 @@
 </template>
 
 <script>
-import {mbitList, listType} from "../list";
+import {mbitList, listType} from "../../../../utils/list";
 import {getEvaluationType} from "../../../../api/common/evaluation";
 
 export default {
@@ -205,15 +203,14 @@ export default {
     display: flex;
     align-items: center;
     width: 46%;
-    height: 80px;
     background: #FFF3E6;
     border-radius: 2px;
     margin: 0 20px 20px 20px;
 
     .title {
       width: 108px;
-      height: 80px;
-      line-height: 80px;
+      height: 100px;
+      line-height: 100px;
       text-align: center;
       background: #FFA31A;
       border-radius: 2px;
@@ -222,30 +219,26 @@ export default {
       font-weight: 500;
       color: #FFFFFF;
       position: relative;
-
-      &:after {
-        content: "";
-        display: block;
-        position: absolute;
-        left: 108px; //给小三角定位，更具实际需求调整
-        top: 34px; //给小三角定位，更具实际需求调整
-        border-width: 8px;
-        border-style: dashed solid dashed dashed; //四个参数分别代表向下，左，上右的小三角(对应方向的小三角设置为solid，其他的为dashed。我这里演示向左的小三角，所以设置第二个）
-        border-color: transparent transparent transparent #FFA31A;
-      }
+    }
+    .block {
+      width: 10px;
+      height: 10px;
+      border-width: 8px;
+      border-style: dashed solid dashed dashed; //四个参数分别代表向下，左，上右的小三角(对应方向的小三角设置为solid，其他的为dashed。我这里演示向左的小三角，所以设置第二个）
+      border-color: transparent transparent transparent #FFA31A;
     }
 
-    .desc {
+    .describe {
       display: flex;
       justify-content: center;
       align-items: center;
       margin-left: 40px;
       width: 409px;
-      height: 80px;
       font-size: 14px;
       font-family: PingFangSC-Regular, PingFang SC;
       font-weight: 400;
       color: #475B75;
+      line-height: 22px;
     }
   }
 }

@@ -75,7 +75,7 @@
           <span class="tip-info"></span>
           <span class="tip-title">学生名单</span>
         </div>
-        <div class="right">
+        <div class="right" v-if="list && list.length > 0">
           <el-button icon="el-icon-printer" @click="exportData">导出EXCEL</el-button>
         </div>
       </div>

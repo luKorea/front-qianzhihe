@@ -3,12 +3,14 @@
     <template v-if="list.length > 0">
       <div class="list-container" v-for="item in list" :key="item._id" @click="goDetails(item._id)">
         <div class="list-wrap">
-          <div class="list-img">
-            <el-image
-                style="width: 240px; height: 135px"
-                :src="item.image"
-                fit="fit"/>
-          </div>
+          <el-tooltip :content="item.title" placement="top">
+            <div class="list-img">
+              <el-image
+                  style="width: 240px; height: 135px"
+                  :src="item.image"
+                  fit="fit"/>
+            </div>
+          </el-tooltip>
           <div class="list-info">
             <div class="list-message">
               <div class="list-left">

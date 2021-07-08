@@ -37,9 +37,8 @@
               <div class="list-flex">
                 <div class="list" v-for="item in list.typeResult" :key="item._id">
                   <div class="title">{{item.name}}</div>
-                  <el-tooltip placement="top" effect="dark" :content="item.describe">
-                    <div class="desc">{{item.describe.slice(0, 80)}}</div>
-                  </el-tooltip>
+                  <div class="block"></div>
+                  <div class="describe">{{item.describe}}</div>
                 </div>
               </div>
             </template>
@@ -56,7 +55,7 @@
 
 <script>
 import {getEvaluationType} from "../../../../api/common/evaluation";
-import {hollandList} from "../list";
+import {hollandList} from "../../../../utils/list";
 
 export default {
   name: "holland",
@@ -184,15 +183,14 @@ export default {
     display: flex;
     align-items: center;
     width: 48%;
-    height: 80px;
     background: #E6F1FF;
     border-radius: 2px;
     margin-right: 20px;
     margin-bottom: 20px;
     .title {
       width: 108px;
-      height: 80px;
-      line-height: 80px;
+      height: 170px;
+      line-height: 170px;
       text-align: center;
       background: #4D97FF;
       border-radius: 2px;
@@ -201,28 +199,25 @@ export default {
       font-weight: 500;
       color: #FFFFFF;
       position: relative;
-      &:after {
-        content: "";
-        display: block;
-        position: absolute;
-        left: 108px; //给小三角定位，更具实际需求调整
-        top: 34px; //给小三角定位，更具实际需求调整
-        border-width: 8px;
-        border-style: dashed solid dashed dashed; //四个参数分别代表向下，左，上右的小三角(对应方向的小三角设置为solid，其他的为dashed。我这里演示向左的小三角，所以设置第二个）
-        border-color: transparent transparent transparent  #4D97FF;
-      }
     }
-    .desc {
+    .block {
+      width: 10px;
+      height: 10px;
+      border-width: 8px;
+      border-style: dashed solid dashed dashed; //四个参数分别代表向下，左，上右的小三角(对应方向的小三角设置为solid，其他的为dashed。我这里演示向左的小三角，所以设置第二个）
+      border-color: transparent transparent transparent #4D97FF;
+    }
+    .describe {
       display: flex;
       justify-content: center;
       align-items: center;
       margin-left: 40px;
       width: 409px;
-      height: 80px;
       font-size: 14px;
       font-family: PingFangSC-Regular, PingFang SC;
       font-weight: 400;
       color: #475B75;
+      line-height: 22px;
     }
   }
 }

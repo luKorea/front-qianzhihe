@@ -1,10 +1,11 @@
 <template>
-  <div class="m-top">
+  <div>
     <basic-container>
+      <div class="tip-title m-bottom" style="text-align: center">兴趣测试（结果）</div>
       <span class="tip-info"></span>
-      <span class="tip-title">测评结果</span>
+      <span class="tip-title">兴趣分析</span>
       <div class="flex m-top" style="width: 100%">
-        <div id="random-charts" style="height: 300px; width: 50%"></div>
+        <div id="random-charts" style=" height: 300px; width: 50%"></div>
         <div class="type-list">
           <div v-for="item in typeList" :key="item.id"
                :style="listStyle"

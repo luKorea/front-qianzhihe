@@ -1,6 +1,6 @@
 <template>
   <div>
-    <basic-container-back>
+    <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">基本信息</span>
       <div style="margin-top: 20px">
@@ -35,7 +35,7 @@
           </el-col>
         </el-row>
       </div>
-    </basic-container-back>
+    </basic-container>
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">班级信息</span>
@@ -81,109 +81,39 @@
       </div>
       <basic-nothing v-else title="该学生未绑定任何班级"></basic-nothing>
     </basic-container>
-
     <basic-container style="margin-bottom: 100px">
       <span class="tip-info"></span>
       <span class="tip-title">选科信息</span>
       <div style="margin-top: 20px" v-if="info.firstChoice">
         <el-row :gutter="4">
-         <el-col :span="8">
-           <span class="student-title">首选科目: </span>
-           <span class="student-info">{{info.firstChoice}}</span>
-         </el-col>
+          <el-col :span="8">
+            <span class="student-title">首选科目: </span>
+            <span class="student-info">{{info.firstChoice}}</span>
+          </el-col>
           <el-col :span="8">
             <span class="student-title">再选科目: </span>
             <span class="student-info">{{info.recleaning1}}、{{info.recleaning2}}</span>
-            </el-col>
+          </el-col>
         </el-row>
       </div>
       <basic-nothing v-else title="该学生未填写选科信息"></basic-nothing>
     </basic-container>
-    <div class="footer-btn">
-      <el-button style="color: #475B75" @click="goBack">返回</el-button>
-      <el-button type="primary" @click="goEdit(params.studentId, params.gradeId)">编辑</el-button>
-    </div>
   </div>
 </template>
 
 <script>
-import {getStudentInfo} from "../../../../api/admin/students";
-import {selectClassList, selectTypeList} from "../../../../api/common/search";
-
 export default {
   name: "visit",
-  data() {
-    return {
-      params: {
-        studentId: '',
-        gradeId: ''
-      },
-      info: {},
-      firstList: [],
-      recleaning1List: [],
-      recleaning2List: []
-    }
-  },
-  mounted() {
-    let {studentId, gradeId} = this.$route.query;
-    this.params.studentId = studentId;
-    this.params.gradeId = gradeId;
-    this.getInfo(this.params);
-    this.getFirstSelectData();
-    this.getRecleaningData();
-  },
-  methods: {
-    getFirstSelectData() {
-      selectTypeList('firstChoice')
-          .then(res => {
-            if (res.errorCode === 200) this.firstList = res.data;
-          })
-    },
-    getRecleaningData() {
-      selectTypeList('recleaning')
-          .then(res => {
-            console.log(res, 'sad');
-            if (res.errorCode === 200) {
-              this.recleaning1List = res.data;
-              this.recleaning2List = res.data;
-            }
-          })
-    },
-    goBack() {
-      this.$router.go(-1);
-    },
-    goEdit(studentId, gradeId) {
-      this.$router.push({
-        path: '/students/studentOperation',
-        query: {
-          type: 'edit',
-          studentId,
-          gradeId: gradeId ? gradeId : ''
-        }
-      })
-    },
-    getInfo(params) {
-      getStudentInfo(params)
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.info = res.data;
-            }
-          })
-    },
-    goOperationType(type, id) {
-      console.log(type, id);
-    },
-    handleCurrentChange(val) {
-      this.params.page = val;
-      this.getInfo(this.params);
-    },
-    handleSizeChange(val) {
-      this.params.size = val;
-      this.getInfo(this.params);
+  props: {
+    info: {
+      type: Object,
+      default: () => {}
     }
   }
 }
 </script>
+
+
 
 <style scoped lang="scss">
 .student-title {

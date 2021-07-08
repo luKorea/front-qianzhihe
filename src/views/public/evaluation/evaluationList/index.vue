@@ -110,7 +110,7 @@ export default {
     }
     this.getData(this.params);
     this.getGrade();
-    this.getClassData(this.teacherId);
+    this.getClassData();
   },
   methods: {
     goDetail(id, type) {
@@ -130,8 +130,8 @@ export default {
             }
           })
     },
-    getClassData(teacherId) {
-      selectClassList(teacherId)
+    getClassData() {
+      selectClassList()
           .then(res => {
             if (res.errorCode === 200) {
               this.classList = res.data;

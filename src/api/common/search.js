@@ -28,8 +28,8 @@ export const selectTypeList = dictType => {
 
 
 // 班级列表筛选
-export const selectClassList = teacherId => {
-    return req(`/biz/grade/getStudentGradeScreenList?teacherId=${teacherId}`)
+export const selectClassList = () => {
+    return req(`/biz/grade/getStudentGradeScreenList`)
 }
 
 // 班主任，生涯导师下拉数据获取

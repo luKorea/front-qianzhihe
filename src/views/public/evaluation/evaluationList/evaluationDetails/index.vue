@@ -34,24 +34,26 @@
             </el-col>
             <el-col :span="8">
               <span class="student-title">班级：</span>
-              <span class="student-info">{{ info.grade }}</span>
+              <span class="student-info">{{ info.gradeName }}</span>
             </el-col>
           </el-row>
           <el-row :gutter="4" class="m-bottom">
             <el-col :span="8">
               <span class="student-title">测评类型：</span>
-              <span class="student-info">{{ info.enrollmentYear }}</span>
+              <span class="student-info">{{ info.type }}</span>
             </el-col>
             <el-col :span="8">
               <div>
                 <span class="student-title">测评时间：</span>
-                <span class="student-info">{{ info.teacherName }}</span>
+                <span class="student-info">{{ info.testTime }}</span>
               </div>
             </el-col>
           </el-row>
         </div>
       </basic-container-back>
-      <holland-detail :major-list="majorList" :random-info="randomInfo" v-if="params.type === 'holland'"/>
+      <holland-detail :major-list="majorList"
+                      :type-list="typeList"
+                      :random-info="randomInfo" v-if="params.type === 'holland'"/>
       <mbit-detail v-else :major-list="majorList"/>
     </div>
     <div class="footer-btn-no-fixed">
@@ -79,7 +81,8 @@ export default {
       },
       info: {},
       majorList: [],
-      randomInfo: {}
+      randomInfo: {},
+      typeList: []
     }
   },
   mounted() {
@@ -97,6 +100,7 @@ export default {
             if (res.errorCode === 200) {
               this.info = res.data.user;
               this.randomInfo = res.data.hollandType;
+              this.typeList = res.data.result;
               console.log(res, 'randomInfo');
             }
           })
