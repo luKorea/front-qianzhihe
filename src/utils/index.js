@@ -373,3 +373,49 @@ export const isFormReady = (form, except) => {
   }
   return false
 }
+
+/**
+ *
+ * @method downloadFile
+ * @desc 下载文件
+ * @param url
+ * @param filename
+ */
+export function downloadFile (url, filename) {
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.setAttribute("download", filename);
+  anchor.innerHTML = "downloading...";
+  anchor.style.display = "none";
+  document.body.appendChild(anchor);
+  setTimeout(() => {
+    anchor.click();
+    document.body.removeChild(anchor);
+    setTimeout(() => { self.URL.revokeObjectURL(anchor.href); }, 250);
+  }, 66);
+}
+
+
+export function scrollElement(selector) {
+  // 当前窗口正中心位置到指定dom位置的距离
+  //页面滚动了的距离
+  let height = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+  //指定dom到页面顶端的距离
+  let dom = document.getElementById(selector);
+  let domHeight = dom.offsetTop - 80;
+  //滚动距离计算
+  var S = Number(height) - Number(domHeight);
+  //判断上滚还是下滚
+  if (S < 0) {
+    //下滚
+    S = Math.abs(S);
+    window.scrollBy({top: S, behavior: "smooth"});
+  } else if (S == 0) {
+    //不滚
+    window.scrollBy({top: 0, behavior: "smooth"});
+  } else {
+    //上滚
+    S = -S
+    window.scrollBy({top: S, behavior: "smooth"});
+  }
+}

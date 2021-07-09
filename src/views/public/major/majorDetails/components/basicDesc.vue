@@ -1,27 +1,28 @@
 <template>
   <div>
     <template>
+
       <span class="tip-info"></span>
-      <span class="tip-title">专业介绍</span>
-      <div class="desc">{{info.professional_concept}}</div>
+      <span class="tip-title" id="desc">专业介绍</span>
+      <div class="desc">{{ info.professional_concept }}</div>
     </template>
     <el-divider/>
     <template>
       <span class="tip-info"></span>
-      <span class="tip-title">学习课程</span>
-      <div class="desc">{{info.main_course	}}</div>
+      <span class="tip-title" id="studyList">学习课程</span>
+      <div class="desc">{{ info.main_course }}</div>
     </template>
     <el-divider/>
     <template>
       <span class="tip-info"></span>
-      <span class="tip-title">培养目标</span>
-      <div class="desc">{{info.profession_introduction}}</div>
+      <span class="tip-title" id="mubiao">培养目标</span>
+      <div class="desc">{{ info.profession_introduction }}</div>
     </template>
     <el-divider/>
     <template>
       <span class="tip-info"></span>
-      <span class="tip-title">培养要求</span>
-      <div class="desc">{{info.skills_profile}}</div>
+      <span class="tip-title" id="yaoqiu">培养要求</span>
+      <div class="desc">{{ info.skills_profile }}</div>
     </template>
     <el-divider/>
   </div>
@@ -33,7 +34,8 @@ export default {
   props: {
     info: {
       type: Object,
-      default: () => {}
+      default: () => {
+      }
     }
   }
 }

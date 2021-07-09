@@ -75,7 +75,7 @@
               </el-button>
             </el-form>
           </el-tab-pane>
-          <el-tab-pane label="学生登录" name="student">
+          <el-tab-pane label="学生登录" name="student" disabled>
             <el-form
                 status-icon
                 ref="loginForm"
@@ -217,6 +217,7 @@ import {
   validateGender
 } from "../../../utils/validate";
 import {isFormReady} from "../../../utils";
+import {ruleUserType} from "../../../utils/rules";
 
 /**
  * TODO:登录页面
@@ -226,7 +227,7 @@ export default {
   data() {
     return {
       activeName: 'teacher',
-      showLoginContainer: false, // 显示登录界面，控制显示学生登录时信息填写弹框切换
+      showLoginContainer: true, // 显示登录界面，控制显示学生登录时信息填写弹框切换
       labelWidth: '80px',
       showLoginImg: true,
       screenWidth: document.body.clientWidth, // 屏幕宽度
@@ -279,7 +280,7 @@ export default {
     $route: {
       handler: function (route) {
         //重定向
-        this.redirect = route.query && route.query.redirect
+        // this.redirect = route.query && route.query.redirect
       },
       immediate: true
     },
@@ -332,10 +333,12 @@ export default {
             code: that.loginForm.code,
             uuid: that.loginForm.uuid
           }
-          that.$store.dispatch('user/login', params).then(() => {
+          that.$store.dispatch('user/login', params).then((res) => {
+            const {user} = res;
+            console.log(user, '用户登录信息');
             //获取权限
             that.$store.dispatch('user/getControl', {}).then(() => {
-              that.$router.push({path: '/'})
+              that.$router.push({ path: '/' })
             }).catch(() => {
               that.loading = false
             })

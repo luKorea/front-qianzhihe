@@ -16,6 +16,7 @@
 import PanelGroup from './components/PanelGroup'
 import PieChart from './components/PieChart';
 import LineChart from "./components/LineChart";
+import {ruleUserType} from "../../../utils/rules";
 
 const lineChartData = {
   newVisitis: {
@@ -47,6 +48,13 @@ export default {
     return {
       lineChartData: lineChartData.newVisitis
     }
+  },
+  mounted() {
+    // TODO 根据不同角色，跳转到不同的页面
+    let {user_type} = this.$store.state.user;
+    this.$router.push({
+      path: ruleUserType(user_type)
+    })
   },
   methods: {
     handleSetLineChartData(type) {

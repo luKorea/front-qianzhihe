@@ -2,7 +2,7 @@
   <div>
     <template>
       <span class="tip-info"></span>
-      <span class="tip-title">院校排行</span>
+      <span class="tip-title" id="uni-sort">院校排行</span>
     </template>
     <div class="table-wrap">
       <div class="table-title">

@@ -2,13 +2,13 @@
   <div>
     <template>
       <span class="tip-info"></span>
-      <span class="tip-title">院校介绍</span>
+      <span class="tip-title" id="uni-desc">院校介绍</span>
       <div class="desc">{{ info.depict }}</div>
     </template>
     <el-divider/>
     <template>
       <span class="tip-info"></span>
-      <span class="tip-title">招生办信息</span>
+      <span class="tip-title" id="uni-info">招生办信息</span>
       <div style="margin-top: 10px; display: flex">
         <template v-if="info.recruit_phone && info.recruit_phone.length > 0">
           <div class="desc-tip" style="margin-right: 100px">
@@ -22,13 +22,13 @@
     <el-divider/>
     <template>
       <span class="tip-info"></span>
-      <span class="tip-title">男女比例</span>
+      <span class="tip-title" id="uni-gender">男女比例</span>
       <div id="sex-charts" style="width: 200px; height: 200px"></div>
     </template>
     <el-divider/>
     <template>
       <span class="tip-info"></span>
-      <span class="tip-title">院校风光</span>
+      <span class="tip-title" id="uni-photo">院校风光</span>
       <div class="img-wrap">
         <div v-if="info.images && info.images.length > 0" v-for="(item, index) in info.images" :key="index">
           <el-image

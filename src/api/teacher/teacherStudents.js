@@ -34,6 +34,6 @@ export const updateStudentInfo = data => {
 
 
 // 班级列表筛选
-export const selectClassList = () => {
-    return req(`${basicUrl}/getStudentGradeScreenList`)
+export const selectClassList = (grade = '') => {
+    return req(`${basicUrl}/getStudentGradeScreenList?grade=${grade}`)
 }

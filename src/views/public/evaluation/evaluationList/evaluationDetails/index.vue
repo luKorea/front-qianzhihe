@@ -7,8 +7,8 @@
         <div style="margin-top: 20px">
           <el-row :gutter="4" class="m-bottom">
             <el-col :span="8">
-              <span class="student-title">学生ID：</span>
-              <span class="student-info">{{ info._id }}</span>
+              <span class="student-title">学号：</span>
+              <span class="student-info">{{ info.studentId }}</span>
             </el-col>
             <el-col :span="8">
               <div style="display: flex;align-items: center; margin-top: -10px">

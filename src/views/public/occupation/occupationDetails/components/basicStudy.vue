@@ -3,7 +3,7 @@
     <div class="study-wrap">
       <div class="study-left">
         <span class="tip-info"></span>
-        <span class="tip-title">知识储备</span>
+        <span class="tip-title" id="occ-zhishi">知识储备</span>
         <div class="tableClass">
           <el-table :data="tableData" style="width: 100%" border>
             <el-table-column align="center"
@@ -13,7 +13,7 @@
       </div>
       <div class="study-right">
         <span classz="tip-info"></span>
-        <span class="tip-title">相关证书</span>
+        <span class="tip-title" id="occ-zhengshu">相关证书</span>
         <template v-if="info.certificateVoList && info.certificateVoList.length > 0">
         <div class="flex-img">
             <template v-for="(item, index) in info.certificateVoList">

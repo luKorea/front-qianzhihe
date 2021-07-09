@@ -73,19 +73,20 @@
       <span class="tip-title">学生名单</span>
       <template v-if="list && list.length > 0">
         <el-table :data="list" border style="width: 100%;margin: 20px 0">
-          <el-table-column prop="_id" label="学生ID" align="center" />
+          <el-table-column prop="studentId" label="学号" align="center" />
           <el-table-column label="头像" align="center">
             <template slot-scope="scope">
               <el-avatar size="32" :src="scope.row.profilePicture"></el-avatar>
             </template>
           </el-table-column>
-          <el-table-column prop="name" label="姓名" align="center" />
+          <el-table-column prop="schoolUserName" label="姓名" align="center" />
           <el-table-column label="性别" align="center">
             <template slot-scope="scope">
               <span>{{scope.row.gender   == 'f' ? '女' : '男'}}</span>
             </template>
           </el-table-column>
           <el-table-column prop="username" label="手机号" align="center" />
+          <el-table-column prop="enrollmentYear" label="入学年份" align="center" />
           <el-table-column prop="firstChoice" label="首选科目" align="center" />
           <el-table-column prop="recleaning1" label="再选科目1" align="center" />
           <el-table-column prop="recleaning2" label="再选科目2" align="center" />

@@ -60,7 +60,7 @@ const actions = {
                         JSON.stringify(user)
                     );
                     setToken(res.token);
-                    resolve();
+                    resolve(res);
                 })
                 .catch(function(error) {
                     reject(error);

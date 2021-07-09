@@ -6,34 +6,45 @@
       <div style="margin-top: 20px">
         <el-row :gutter="4" class="m-bottom">
           <el-col :span="8">
-            <span class="student-title">学生ID：</span>
-            <span class="student-info">{{ info._id }}</span>
+            <span class="student-title">学号：</span>
+            <span class="student-info">{{ info.studentId }}</span>
           </el-col>
           <el-col :span="8">
             <div style="display: flex;align-items: center">
               <span class="student-title">头像：</span>
-              <el-avatar size="30" :src="info.profilePicture" style="margin-top: -20px" />
+              <el-avatar size="30" :src="info.profilePicture" style="margin-top: -20px"/>
             </div>
           </el-col>
           <el-col :span="8">
             <span class="student-title">姓名：</span>
-            <span class="student-info">{{ info.username }}</span>
+            <span class="student-info">{{ info.schoolUserName }}</span>
           </el-col>
         </el-row>
-        <el-row :gutter="4">
+        <el-row :gutter="4" style="margin-bottom: 30px">
           <el-col :span="8">
             <span class="student-title">性别：</span>
             <span class="student-info">{{ info.gender == 'f' ? '男' : '女' }}</span>
           </el-col>
           <el-col :span="8">
             <span class="student-title">手机号：</span>
-            <span class="student-info">{{info.username}}</span>
+            <span class="student-info">{{ info.username }}</span>
           </el-col>
           <el-col :span="8">
             <span class="student-title">激活日期：</span>
             <span class="student-info">{{ info.activationDate }}</span>
           </el-col>
         </el-row>
+        <el-row :gutter="4">
+          <el-col :span="8">
+            <span class="student-title">年级：</span>
+            <span class="student-info">{{ info.gradeDto.grade }}</span>
+          </el-col>
+          <el-col :span="8">
+            <span class="student-title">入学年份：</span>
+            <span class="student-info">{{ info.gradeDto.enrollmentYear }}</span>
+          </el-col>
+        </el-row>
+
       </div>
     </basic-container-back>
     <basic-container>
@@ -47,7 +58,7 @@
           </el-col>
           <el-col :span="8">
             <span class="student-title">班级名称：</span>
-            <span class="student-info">{{info.gradeDto.name}}</span>
+            <span class="student-info">{{ info.gradeDto.name }}</span>
           </el-col>
           <el-col :span="8">
             <span class="student-title">班级类型：</span>
@@ -61,7 +72,7 @@
           </el-col>
           <el-col :span="8">
             <span class="student-title">入学年份：</span>
-            <span class="student-info">{{info.gradeDto.enrollmentYear}}</span>
+            <span class="student-info">{{ info.gradeDto.enrollmentYear }}</span>
           </el-col>
           <el-col :span="8">
             <span class="student-title">班主任：</span>
@@ -75,7 +86,7 @@
           </el-col>
           <el-col :span="8">
             <span class="student-title">生涯导师2：</span>
-            <span class="student-info">{{info.gradeDto.teacher2Name}}</span>
+            <span class="student-info">{{ info.gradeDto.teacher2Name }}</span>
           </el-col>
         </el-row>
       </div>
@@ -87,14 +98,14 @@
       <span class="tip-title">选科信息</span>
       <div style="margin-top: 20px" v-if="info.firstChoice">
         <el-row :gutter="4">
-         <el-col :span="8">
-           <span class="student-title">首选科目: </span>
-           <span class="student-info">{{info.firstChoice}}</span>
-         </el-col>
+          <el-col :span="8">
+            <span class="student-title">首选科目: </span>
+            <span class="student-info">{{ info.firstChoice }}</span>
+          </el-col>
           <el-col :span="8">
             <span class="student-title">再选科目: </span>
-            <span class="student-info">{{info.recleaning1}}、{{info.recleaning2}}</span>
-            </el-col>
+            <span class="student-info">{{ info.recleaning1 }}、{{ info.recleaning2 }}</span>
+          </el-col>
         </el-row>
       </div>
       <basic-nothing v-else title="该学生未填写选科信息"></basic-nothing>

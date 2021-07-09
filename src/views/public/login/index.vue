@@ -192,10 +192,18 @@ export default {
             code: that.loginForm.code,
             uuid: that.loginForm.uuid
           }
-          that.$store.dispatch('user/login', params).then(() => {
+          that.$store.dispatch('user/login', params).then((res) => {
+            const {user} = res;
+            console.log(user, '用户登录信息');
             //获取权限
             that.$store.dispatch('user/getControl', {}).then(() => {
-              that.$router.push({ path: '/' })
+              if (user.role === '学校管理员') {
+                that.$router.push({ path: '/grade' })
+              } else if (user.role === '教师账号') {
+                that.$router.push({ path: '/teacherGrade' })
+              } else if (user.role === '学生账号') {
+                that.$router.push({ path: '/studentArchives' })
+              }
             }).catch(() => {
               that.loading = false
             })

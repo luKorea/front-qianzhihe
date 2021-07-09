@@ -39,8 +39,7 @@ export function req(url, data, type = 'GET') {
                     type: 'error'
                 });
                 store.dispatch('user/logout').then(() => {
-                    this.$router.push(`/login?redirect=${this.$route.fullPath}`);
-                    location.reload();
+                    window.location.href = '/';
                 })
             } else {
                 Message({
@@ -80,7 +79,7 @@ export function req(url, data, type = 'GET') {
     });
 }
 
-export function xhrGetFile(url, name) {
+export function xhrGetFile(url, name, message = '导出成功') {
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url, true);
@@ -107,7 +106,7 @@ export function xhrGetFile(url, name) {
                     elink.click();
                     document.body.removeChild(elink);
                     Message({
-                        message: '导出成功',
+                        message: message,
                         type: 'success'
                     })
                 }

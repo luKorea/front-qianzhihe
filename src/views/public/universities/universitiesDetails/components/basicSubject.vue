@@ -3,7 +3,7 @@
     <el-divider/>
     <template>
       <span class="tip-info"></span>
-      <span class="tip-title">双一流学科</span>
+      <span class="tip-title" id="uni-subject">双一流学科</span>
       <div class="table-content">
           <div class="table-info">
             <template v-if="info.courseList && info.courseList.length > 0">
@@ -14,7 +14,7 @@
     </template>
     <template>
       <span class="tip-info"></span>
-      <span class="tip-title">学科评估</span>
+      <span class="tip-title" id="uni-pre">学科评估</span>
       <div class="tableClass" style="margin-bottom: 20px">
         <el-table :data="info.subjectList" style="width: 100%; margin-top: 20px" border>
           <el-table-column prop="name" label="学科" align="center" />
@@ -24,7 +24,7 @@
     </template>
     <template>
     <span class="tip-info"></span>
-    <span class="tip-title">特色专业</span>
+    <span class="tip-title" id="uni-major">特色专业</span>
     <div class="table-content">
       <div class="table-info">
         <template v-if="info.characteristicSpecialtyList && info.characteristicSpecialtyList.length > 0">

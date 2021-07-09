@@ -102,6 +102,13 @@ export default {
         });
       }
       console.log(this.list);
+      this.$router.push({
+        path: '/studentEvaluation/evaluationList/evaluationDetails',
+        query: {
+          hollandId: '',
+          type: 'holland'
+        }
+      })
     },
   },
 };

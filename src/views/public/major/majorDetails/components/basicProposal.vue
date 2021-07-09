@@ -1,7 +1,7 @@
 <template>
   <div>
     <span class="tip-info"></span>
-    <span class="tip-title">3+1+2选科推荐（广东地区）</span>
+    <span class="tip-title" id="tuijian">3+1+2选科推荐（广东地区）</span>
     <template v-if="info.courseSelectionVos && info.courseSelectionVos.length > 0">
       <div class="flex-container">
         <div class="subject-wrap" v-for="(item, index) in info.courseSelectionVos" :key="index">
@@ -18,7 +18,7 @@
 
     <el-divider/>
     <span class="tip-info"></span>
-    <span class="tip-title">推荐院校</span>
+    <span class="tip-title" id="school">推荐院校</span>
     <template v-if="info.subjectA || info.subjectB || info.subjectC">
       <div class="flex-container">
         <div class="school-wrap">
@@ -62,7 +62,7 @@
     <basic-nothing v-else></basic-nothing>
     <el-divider/>
     <span class="tip-info"></span>
-    <span class="tip-title">相近专业</span>
+    <span class="tip-title" id="major">相近专业</span>
     <template v-if="info.recommendProVos && info.recommendProVos.length > 0">
     <div class="flex-container">
         <div class="flex-wrap"  v-for="item in info.recommendProVos" :key="item._id" @click="goMajor(item._id)">

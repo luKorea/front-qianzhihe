@@ -7,8 +7,8 @@
         <div style="margin-top: 20px">
           <el-row :gutter="4">
             <el-col :span="10">
-              <el-form-item label="学生ID">
-                <el-input v-model="form._id" disabled/>
+              <el-form-item label="学号">
+                <el-input v-model="form.studentId" disabled/>
               </el-form-item>
             </el-col>
             <el-col :span="10">

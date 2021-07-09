@@ -3,7 +3,7 @@
     <div class="person-wrap">
       <div class="person-left">
         <span class="tip-info"></span>
-        <span class="tip-title">代表人物</span>
+        <span class="tip-title" id="occ-person">代表人物</span>
         <template  v-if="info.personalityVoList && info.personalityVoList.length > 0">
           <div class="person">
             <div class="person-img" v-for="person in info.personalityVoList" :key="person._id">
@@ -21,7 +21,7 @@
       <div class="person-right">
         <div class="top">
           <span class="tip-info"></span>
-          <span class="tip-title">兴趣测试</span>
+          <span class="tip-title" id="occ-ceshi">兴趣测试</span>
           <div class="hobby">
             <span class="hobby-orange-title">{{info.hollands1.name}}</span>
             <span class="hobby-orange-desc">{{info.hollands1.describe}}</span>
@@ -33,7 +33,7 @@
         </div>
         <div class="bottom">
           <span class="tip-info"></span>
-          <span class="tip-title">特质</span>
+          <span class="tip-title" id="occ-tezhi">特质</span>
           <template v-if="info.characteristics && info.characteristics.length > 0">
             <div class="desc-tip" v-for="(tip, index) in info.characteristics" :key="index">{{tip}}</div>
           </template>

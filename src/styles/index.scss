@@ -478,3 +478,41 @@ input:-webkit-autofill:active {
     }
   }
 }
+
+
+.flex-search {
+  margin-top: 20px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.flex-right {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  margin-top: -250px;
+  z-index: 999;
+  width: 110px;
+  background: #FFFFFF;
+  box-shadow: 0 0 20px 0 rgba(57, 57, 61, 0.1);
+  border-radius: 10px;
+  .item {
+    height: 36px;
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #475B75;
+    line-height: 36px;
+    text-align: center;
+    cursor: pointer;
+
+  }
+  .select {
+    width: 110px;
+    height: 36px;
+    line-height: 36px;
+    color: #FFFFFF;
+    background: #4D97FF;
+  }
+}

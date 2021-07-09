@@ -27,6 +27,11 @@ export const removeStudentToClass = studentId => {
     return req(`${basicUrl}/updateStudentGradeBinding`, studentId, 'PUT')
 }
 
+
+// 新增学生信息
+export const createStudentInfo = data => {
+    return req(`${basicUrl}/create`, data, 'POST')
+}
 // 更新学生信息
 export const updateStudentInfo = data => {
     return req(`${basicUrl}/update`, data, 'PUT')

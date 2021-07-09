@@ -25,7 +25,7 @@
         <div class="search-item">
           <el-input style="width: 280px" v-model="params.searchText"
                     @keyup.enter.native="getData(params)"
-                    placeholder="请输入学生ID、名称、手机号"/>
+                    placeholder="请输入学号、名称、手机号"/>
         </div>
         <div class="search-item">
           <el-button type="primary" @click="getData(params)">筛选</el-button>
@@ -36,7 +36,7 @@
       <span class="tip-info"></span>
       <span class="tip-title">测评记录列表</span>
       <el-table :data="list" border style="width: 100%;margin: 20px 0">
-        <el-table-column prop="user._id" label="学生ID" align="center"/>
+        <el-table-column prop="user.studentId" label="学号" align="center"/>
         <el-table-column label="头像" align="center">
           <template slot-scope="scope">
             <el-avatar size="32" :src="scope.row.user.profilePicture"></el-avatar>

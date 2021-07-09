@@ -1,19 +1,20 @@
 Vue.use(VueRouter)
 
 /* Layout */
-import Layout from '@/layout'
+import Layout from '@/layout';
 
 export const constantRoutesStart = [
     {
         path: '/login',
         name: 'login',
-        component: () => import('../views/public/login/index'),
+        component: () => import('../views/public/login/indexBack'),
         hidden: true
     },
     {
         path: '/',
         component: Layout,
         redirect: '/home',
+        hidden: true,
         children: [{
             path: 'home',
             name: '首页',
@@ -33,66 +34,6 @@ export const constantRoutesStart = [
             meta: {title: '修改密码', icon: 'el-icon-s-home', affix: true}
         }]
     },
-
-    // {
-    //     path: '/studentEvaluation',
-    //     component: Layout,
-    //     redirect: '/studentEvaluation/evaluationSeries',
-    //     alwaysShow: true,
-    //     name: '测评中心',
-    //     meta: {title: '测评中心', icon: 'el-icon-s-order', roles: ['']},
-    //     children: [
-    //         {
-    //             path: '/studentEvaluation/evaluationSeries',
-    //             component: {render(c) { return c('router-view') }},
-    //             redirect: '/studentEvaluation/evaluationSeries',
-    //             name: '测评系列',
-    //             meta: {title: '测评系列', icon: 'el-icon-star-off', roles: ['']},
-    //             children: [
-    //                 {
-    //                     path: '/studentEvaluation/evaluationSeries',
-    //                     hidden: true,
-    //                     component: () => import('../views/student/evaluation/evaluationSeries'),
-    //                 },
-    //                 {
-    //                     path: '/studentEvaluation/evaluationSeries/mbit',
-    //                     hidden: true,
-    //                     component: () => import('../views/student/evaluation/evaluationSeries/mbit'),
-    //                     name: '性格测试',
-    //                     meta: {title: '性格测试', icon: 'el-icon-star-off', roles: ['']}
-    //                 },
-    //                 {
-    //                     path: '/studentEvaluation/evaluationSeries/holland',
-    //                     hidden: true,
-    //                     component: () => import('../views/student/evaluation/evaluationSeries/holland'),
-    //                     name: '兴趣测试',
-    //                     meta: {title: '兴趣测试', icon: 'el-icon-star-off', roles: ['']}
-    //                 },
-    //             ]
-    //         },
-    //         {
-    //             path: '/studentEvaluation/evaluationList',
-    //             component: {render(c) { return c('router-view') }},
-    //             redirect: '/studentEvaluation/evaluationList',
-    //             name: '测评记录',
-    //             meta: {title: '测评记录', icon: 'el-icon-star-off', roles: ['']},
-    //             children: [
-    //                 {
-    //                     path: '/studentEvaluation/evaluationList',
-    //                     hidden: true,
-    //                     component: () => import('../views/student/evaluation/evaluationList'),
-    //                 },
-    //                 {
-    //                     path: '/studentEvaluation/evaluationList/evaluationDetails',
-    //                     hidden: true,
-    //                     component: () => import('@/views/student/evaluation/evaluationList/evaluationDetails/index'),
-    //                     name: '测评详情',
-    //                     meta: {title: '测评详情', icon: 'el-icon-star-off', roles: ['']}
-    //                 },
-    //             ]
-    //         },
-    //     ]
-    // },
     {
         path: '/search',
         redirect: '/search/searchList',
@@ -128,77 +69,6 @@ export const constantRoutes = constantRoutesStart
 
 /** 异步加载Routes 根据权限 */
 export const asyncRouterMap = [
-    // 共用模块
-    {
-        path: '/major',
-        redirect: '/major/majorList',
-        component: Layout,
-        name: '专业库',
-        meta: {title: '专业库', icon: 'el-icon-medal', roles: ['professional'], breadcrumb: true},
-        children: [
-            {
-                path: 'majorList',
-                name: '专业库',
-                component: () => import('../views/public/major/majorList'),
-                meta: {title: '专业库', icon: 'el-icon-medal', roles: ['professional'], breadcrumb: true},
-            },
-            {
-                path: 'majorDetails',
-                name: '专业详情',
-                hidden: true,
-                component: () => import('../views/public/major/majorDetails/index'),
-                meta: {title: '专业详情', icon: 'el-icon-medal', roles: ['professional'], breadcrumb: true},
-            }
-        ]
-    },
-    {
-        path: '/occupation',
-        redirect: '/occupation/occupationList',
-        component: Layout,
-        name: '职业库',
-        meta: {title: '职业库', icon: 'el-icon-collection-tag', roles: ['occupationMenu'], breadcrumb: true},
-        children: [
-            {
-                path: 'occupationList',
-                name: '职业库',
-                component: () => import('../views/public/occupation/occupationList'),
-                meta: {title: '职业库', icon: 'el-icon-collection-tag', roles: ['occupationMenu'], breadcrumb: true},
-            },
-            {
-                path: 'occupationDetails',
-                name: '职业详情',
-                hidden: true,
-                component: () => import('../views/public/occupation/occupationDetails/index'),
-                meta: {title: '职业详情', icon: 'el-icon-collection-tag', roles: ['occupationMenu'], breadcrumb: true},
-            }
-        ]
-    },
-    {
-        path: '/universities',
-        redirect: '/universities/universitiesList',
-        component: Layout,
-        name: '院校库',
-        meta: {title: '院校库', icon: 'el-icon-office-building', roles: ['academy'], breadcrumb: true},
-        children: [
-            {
-                path: 'universitiesList',
-                name: '院校库',
-                component: () => import('../views/public/universities/universitiesList'),
-                meta: {title: '院校库', icon: 'el-icon-office-building', roles: ['academy'], breadcrumb: true},
-            },
-            {
-                path: 'universitiesDetails',
-                name: '院校详情',
-                hidden: true,
-                component: () => import('../views/public/universities/universitiesDetails/index'),
-                meta: {
-                    title: '院校详情',
-                    keepAlive: true,
-                    icon: 'el-icon-office-building', roles: ['academy'], breadcrumb: true
-                },
-            }
-        ]
-    },
     // 管理员
     {
         path: '/grade',
@@ -275,8 +145,15 @@ export const asyncRouterMap = [
                 path: 'studentOperation',
                 name: '编辑学生',
                 hidden: true,
-                component: () => import('../views/admin/students/operation/index'),
+                component: () => import('../views/admin/students/operation/edit'),
                 meta: {title: '编辑学生', icon: 'el-icon-s-custom', roles: ['student'], breadcrumb: true},
+            },
+            {
+                path: 'studentOperationAdd',
+                name: '新增学生',
+                hidden: true,
+                component: () => import('../views/admin/students/operation/add'),
+                meta: {title: '新增学生', icon: 'el-icon-s-custom', roles: ['student'], breadcrumb: true},
             },
             {
                 path: 'studentDetails',
@@ -332,8 +209,148 @@ export const asyncRouterMap = [
             }
         ]
     },
-
-
+    // 学生
+    {
+        path: '/studentArchives',
+        component: Layout,
+        redirect: '/studentArchives',
+        children: [{
+            path: 'studentArchives',
+            name: '我的档案',
+            component: () => import('../views/student/archives/index'),
+            meta: {title: '我的档案', icon: 'el-icon-s-home', affix: true, roles: ['']}
+        }]
+    },
+    {
+        path: '/studentEvaluation',
+        component: Layout,
+        redirect: '/studentEvaluation/evaluationSeries',
+        alwaysShow: true,
+        name: '测评中心',
+        meta: {title: '测评中心', icon: 'el-icon-s-order', roles: ['']},
+        children: [
+            {
+                path: '/studentEvaluation/evaluationSeries',
+                component: {render(c) { return c('router-view') }},
+                redirect: '/studentEvaluation/evaluationSeries',
+                name: '测评系列',
+                meta: {title: '测评系列', icon: 'el-icon-star-off', roles: ['']},
+                children: [
+                    {
+                        path: '/studentEvaluation/evaluationSeries',
+                        hidden: true,
+                        component: () => import('../views/student/evaluation/evaluationSeries'),
+                    },
+                    {
+                        path: '/studentEvaluation/evaluationSeries/mbit',
+                        hidden: true,
+                        component: () => import('../views/student/evaluation/evaluationSeries/mbit'),
+                        name: '性格测试',
+                        meta: {title: '性格测试', icon: 'el-icon-star-off', roles: ['']}
+                    },
+                    {
+                        path: '/studentEvaluation/evaluationSeries/holland',
+                        hidden: true,
+                        component: () => import('../views/student/evaluation/evaluationSeries/holland'),
+                        name: '兴趣测试',
+                        meta: {title: '兴趣测试', icon: 'el-icon-star-off', roles: ['']}
+                    },
+                ]
+            },
+            {
+                path: '/studentEvaluation/evaluationList',
+                component: {render(c) { return c('router-view') }},
+                redirect: '/studentEvaluation/evaluationList',
+                name: '测评记录',
+                meta: {title: '测评记录', icon: 'el-icon-star-off', roles: ['']},
+                children: [
+                    {
+                        path: '/studentEvaluation/evaluationList',
+                        hidden: true,
+                        component: () => import('../views/student/evaluation/evaluationList'),
+                    },
+                    {
+                        path: '/studentEvaluation/evaluationList/evaluationDetails',
+                        hidden: true,
+                        component: () => import('@/views/student/evaluation/evaluationList/evaluationDetails/index'),
+                        name: '测评详情',
+                        meta: {title: '测评详情', icon: 'el-icon-star-off', roles: ['']}
+                    },
+                ]
+            },
+        ]
+    },
+    // 共用模块
+    {
+        path: '/major',
+        redirect: '/major/majorList',
+        component: Layout,
+        name: '专业库',
+        meta: {title: '专业库', icon: 'el-icon-medal', roles: ['professional'], breadcrumb: true},
+        children: [
+            {
+                path: 'majorList',
+                name: '专业库',
+                component: () => import('../views/public/major/majorList'),
+                meta: {title: '专业库', icon: 'el-icon-medal', roles: ['professional'], breadcrumb: true},
+            },
+            {
+                path: 'majorDetails',
+                name: '专业详情',
+                hidden: true,
+                component: () => import('../views/public/major/majorDetails/index'),
+                meta: {title: '专业详情', icon: 'el-icon-medal', roles: ['professional'], breadcrumb: true},
+            }
+        ]
+    },
+    {
+        path: '/occupation',
+        redirect: '/occupation/occupationList',
+        component: Layout,
+        name: '职业库',
+        meta: {title: '职业库', icon: 'el-icon-collection-tag', roles: ['occupationMenu'], breadcrumb: true},
+        children: [
+            {
+                path: 'occupationList',
+                name: '职业库',
+                component: () => import('../views/public/occupation/occupationList'),
+                meta: {title: '职业库', icon: 'el-icon-collection-tag', roles: ['occupationMenu'], breadcrumb: true},
+            },
+            {
+                path: 'occupationDetails',
+                name: '职业详情',
+                hidden: true,
+                component: () => import('../views/public/occupation/occupationDetails/index'),
+                meta: {title: '职业详情', icon: 'el-icon-collection-tag', roles: ['occupationMenu'], breadcrumb: true},
+            }
+        ]
+    },
+    {
+        path: '/universities',
+        redirect: '/universities/universitiesList',
+        component: Layout,
+        name: '院校库',
+        meta: {title: '院校库', icon: 'el-icon-office-building', roles: ['academy'], breadcrumb: true},
+        children: [
+            {
+                path: 'universitiesList',
+                name: '院校库',
+                component: () => import('../views/public/universities/universitiesList'),
+                meta: {title: '院校库', icon: 'el-icon-office-building', roles: ['academy'], breadcrumb: true},
+            },
+            {
+                path: 'universitiesDetails',
+                name: '院校详情',
+                hidden: true,
+                component: () => import('../views/public/universities/universitiesDetails/index'),
+                meta: {
+                    title: '院校详情',
+                    keepAlive: true,
+                    icon: 'el-icon-office-building', roles: ['academy'], breadcrumb: true
+                },
+            }
+        ]
+    },
     {
         path: '/dataAnalysis',
         component: Layout,
@@ -374,10 +391,7 @@ export const asyncRouterMap = [
             }
         ]
     },
-
-
     // 管理员 教师 公用模块 区分列表数据展示以及筛选条件
-
     {
         path: '/evaluation',
         component: Layout,
@@ -436,18 +450,6 @@ export const asyncRouterMap = [
                 ]
             },
         ]
-    },
-    // 学生
-    {
-        path: '/studentArchives',
-        component: Layout,
-        redirect: '/studentArchives',
-        children: [{
-            path: 'studentArchives',
-            name: '我的档案',
-            component: () => import('../views/student/archives/index'),
-            meta: {title: '我的档案', icon: 'el-icon-s-home', affix: true, roles: ['']}
-        }]
     },
     {path: '*', redirect: '/404', hidden: true, meta: {title: '404'}}
 ];

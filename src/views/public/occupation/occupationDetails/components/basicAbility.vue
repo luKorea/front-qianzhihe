@@ -1,7 +1,7 @@
 <template>
   <div>
     <span class="tip-info"></span>
-    <span class="tip-title">能力要求</span>
+    <span class="tip-title" id="occ-yaoqiu">能力要求</span>
     <div id="ability-charts" style="height: 300px; width: 500px"></div>
     <el-divider />
   </div>

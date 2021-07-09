@@ -1,11 +1,21 @@
 <template>
-  <div>
+  <div id="major-container">
     <basic-info :info="info"/>
     <basic-container>
       <basic-desc :info="descInfo"/>
       <basic-proposal :info="proposalInfo" @changeMajor="getProposalFromComponents"/>
       <basic-employment :info="employmentInfo"/>
     </basic-container>
+    <div class="flex-right">
+      <div class="item"
+           @click="changeIndex(index, item.id)"
+           :class="selectIndex === index ? 'select' : ''"
+           v-for="(item, index) in nameList" :key="index">
+        {{ item.name }}
+      </div>
+    </div>
+
+
   </div>
 </template>
 
@@ -15,6 +25,8 @@ import basicDesc from "./components/basicDesc";
 import basicProposal from "./components/basicProposal";
 import basicEmployment from "./components/basicEmployment";
 import {getBasicInfo, getBasicDesc, getBasicProposal, getBasicEmployment} from '../../../../api/common/major';
+import {scrollElement} from "../../../../utils";
+
 export default {
   name: "index",
   components: {
@@ -25,6 +37,53 @@ export default {
   },
   data() {
     return {
+      nameList: [
+        {
+          name: '专业介绍',
+          id: 'desc'
+        },
+        {
+          name: '学习课程',
+          id: 'studyList'
+        },
+        {
+          name: '培养目标',
+          id: 'mubiao'
+        },
+        {
+          name: '培养要求',
+          id: 'yaoqiu'
+        },
+        {
+          name: '3+1+2选科推荐',
+          id: 'tuijian'
+        },
+        {
+          name: '推荐院校',
+          id: 'school'
+        },
+        {
+          name: '相近专业',
+          id: 'major'
+        },
+        {
+          name: '专业做什么',
+          id: 'majorDo'
+        },
+        {
+          name: '推荐职业',
+          id: 'zhiye'
+        },
+        {
+          name: '就业行业分布',
+          id: 'hangye'
+        },
+        {
+          name: '就业地区分布',
+          id: 'address'
+        },
+      ],
+      selectIndex: 0,
       info: {},
       descInfo: {},
       proposalInfo: {},
@@ -38,6 +97,10 @@ export default {
     this.switchData(this._id);
   },
   methods: {
+    changeIndex(index, selector) {
+      this.selectIndex = index;
+      scrollElement(selector);
+    },
     switchData(_id) {
       this.getData(_id);
       this.getDesc(_id);
@@ -46,38 +109,38 @@ export default {
     },
     getData(id) {
       getBasicInfo(id)
-      .then(res => {
-        if (res.errorCode === 200) {
-          console.log(res);
-          this.info = res.data;
-        }
-      })
+          .then(res => {
+            if (res.errorCode === 200) {
+              console.log(res);
+              this.info = res.data;
+            }
+          })
     },
     getDesc(id) {
       getBasicDesc(id)
-      .then(res => {
-        if (res.errorCode === 200) {
-          console.log(res);
-          this.descInfo = res.data;
-        }
-      })
+          .then(res => {
+            if (res.errorCode === 200) {
+              console.log(res);
+              this.descInfo = res.data;
+            }
+          })
     },
     getProposal(id) {
       getBasicProposal(id)
-      .then(res => {
-        if (res.errorCode === 200) {
-          this.proposalInfo = res.data;
-        }
-      })
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.proposalInfo = res.data;
+            }
+          })
     },
     getEmployment(id) {
       getBasicEmployment(id)
-      .then(res => {
-        if (res.errorCode === 200) {
-          console.log(res);
-          this.employmentInfo = res.data;
-        }
-      })
+          .then(res => {
+            if (res.errorCode === 200) {
+              console.log(res);
+              this.employmentInfo = res.data;
+            }
+          })
     },
     getProposalFromComponents(id) {
       let query = this.$router.history.current.query;
@@ -85,13 +148,12 @@ export default {
       // //对象的拷贝
       let newQuery = JSON.parse(JSON.stringify(query));
       newQuery._id = id;
-      this.$router.push({ path, query: newQuery });
+      this.$router.push({path, query: newQuery});
       this.switchData(id);
     }
   }
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
 </style>

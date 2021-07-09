@@ -52,9 +52,9 @@ export default {
         title: '退出登录'
       }, async () => {
         await this.$store.dispatch('user/logout')
-        this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+        this.$router.push(`/login`);
+        location.reload();//刷新页面，重置vue-router
       })
-      //location.reload();//刷新页面，重置vue-router
     },
     editPassword() {
       this.$router.push({

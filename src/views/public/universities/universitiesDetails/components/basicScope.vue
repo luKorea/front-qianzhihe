@@ -3,7 +3,7 @@
     <div class="flex">
       <div class="left">
         <span class="tip-info"></span>
-        <span class="tip-title">录取分数线(广东地区)</span>
+        <span class="tip-title" id="uni-number">录取分数线(广东地区)</span>
       </div>
       <div class="right">
         <template v-if="info.calendarYearScoresVintage && info.calendarYearScoresVintage.length > 0">

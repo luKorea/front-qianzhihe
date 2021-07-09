@@ -2,13 +2,13 @@
   <div>
     <template>
       <span class="tip-info"></span>
-      <span class="tip-title">职业介绍</span>
+      <span class="tip-title" id="occ-desc">职业介绍</span>
       <div class="desc">{{info.description}}</div>
     </template>
     <el-divider/>
     <template>
       <span class="tip-info"></span>
-      <span class="tip-title">推荐专业</span>
+      <span class="tip-title" id="occ-major">推荐专业</span>
       <div class="flex-img">
         <template v-if="info.professionalArrayList && info.professionalArrayList.length > 0">
           <template v-for="item in info.professionalArrayList">

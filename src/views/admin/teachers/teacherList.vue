@@ -3,34 +3,30 @@
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">教师筛选</span>
-      <div style="margin-top: 20px">
-        <el-row >
-         <el-col :span="6">
-           <span class="tip">教师类型:</span>
-           <el-select v-model="params.teacherType" placeholder="请选择" clearable filterable>
-             <template v-if="teacherList && teacherList.length > 0">
-               <el-option v-for="item in teacherList" :label="item.name" :value="item.name"></el-option>
-             </template>
-           </el-select>
-         </el-col>
-          <el-col :span="6">
-            <span class="tip">代课年级:</span>
-            <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
-              <template v-if="gradeList && gradeList.length > 0">
-                <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
-              </template>
-            </el-select>
-          </el-col>
-          <el-col :span='8'>
-            <div style="display:flex;">
-              <el-input style="margin-right: 10px"
-                        @keyup.enter.native="getData(params)"
-                        v-model="params.queryOrTeacherNameOrPhone" placeholder="请输入教师名称、手机号"
-                        clearable="true"/>
-              <el-button type="primary" @click="getData(params)">筛选</el-button>
-            </div>
-          </el-col>
-        </el-row>
+      <div class="flex-search">
+        <div>
+          <span class="tip">教师类型:</span>
+          <el-select v-model="params.teacherType" placeholder="请选择" clearable filterable>
+            <template v-if="teacherList && teacherList.length > 0">
+              <el-option v-for="item in teacherList" :label="item.name" :value="item.name"></el-option>
+            </template>
+          </el-select>
+        </div>
+        <div>
+          <span class="tip">代课年级:</span>
+          <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
+            <template v-if="gradeList && gradeList.length > 0">
+              <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
+            </template>
+          </el-select>
+        </div>
+        <div style="display:flex; justify-content: space-between">
+          <el-input style="margin-right: 10px"
+                    @keyup.enter.native="getData(params)"
+                    v-model="params.queryOrTeacherNameOrPhone" placeholder="请输入教师名称、手机号"
+                    clearable="true"/>
+          <el-button type="primary" @click="getData(params)">筛选</el-button>
+        </div>
       </div>
     </basic-container>
     <basic-container>

@@ -4,7 +4,7 @@
     <div class="flex">
       <div class="left">
         <span class="tip-info"></span>
-        <span class="tip-title">历年录取专业(广东地区)</span>
+        <span class="tip-title" id="uni-year-number">历年录取专业(广东地区)</span>
       </div>
       <div class="right">
         <template v-if="info.chineseCalendarVintage && info.chineseCalendarVintage.length > 0">

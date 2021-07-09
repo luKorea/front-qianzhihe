@@ -3,7 +3,7 @@
     <div class="further">
       <div class="further-left">
         <span class="tip-info"></span>
-        <span class="tip-title">国内升学率</span>
+        <span class="tip-title" id="uni-zhong">国内升学率</span>
         <div class="cricle">
           <el-progress type="circle" :percentage="info.inland_enrolment_rate"
                        color="#FC9131"
@@ -12,7 +12,7 @@
       </div>
       <div class="further-center">
         <span class="tip-info"></span>
-        <span class="tip-title">国外升学率</span>
+        <span class="tip-title" id="uni-wai">国外升学率</span>
         <div class="cricle">
           <el-progress type="circle" color="#FF6A53"
                        stroke-width="12"
@@ -21,7 +21,7 @@
       </div>
       <div class="further-right">
         <span class="tip-info"></span>
-        <span class="tip-title">就业率</span>
+        <span class="tip-title" id="uni-jiu">就业率</span>
         <div style="margin-top: 20px">
           <el-progress type="circle" color="#FF6A53"
                        stroke-width="12"
@@ -31,7 +31,7 @@
     </div>
     <div>
       <span class="tip-info"></span>
-      <span class="tip-title">就业地区流向</span>
+      <span class="tip-title" id="uni-address">就业地区流向</span>
       <template v-if="info.obtainRegionEmploymenList && info.obtainRegionEmploymenList.length > 0">
         <div class="wrap">
           <div class="address" v-for="(item, index) in info.obtainRegionEmploymenList" :key="index">
@@ -43,7 +43,7 @@
     </div>
     <div class="company">
       <span class="tip-info"></span>
-      <span class="tip-title">就业单位性质</span>
+      <span class="tip-title" id="uni-company">就业单位性质</span>
       <div id="company-charts" style="height: 400px; width: 500px; margin-top: 20px"></div>
     </div>
   </div>

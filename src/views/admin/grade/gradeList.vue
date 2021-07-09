@@ -3,41 +3,37 @@
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">班级筛选</span>
-      <div style="margin-top: 20px">
-        <el-row>
-          <el-col :span="6">
-            <span class="tip">班级类型:</span>
-            <el-select v-model="params.gradeType" placeholder="请选择" clearable filterable>
-              <template v-if="gradeTypeList && gradeTypeList.length > 0">
-                <el-option v-for="item in gradeTypeList" :label="item.name" :value="item.name"></el-option>
-              </template>
-            </el-select>
-          </el-col>
-          <el-col :span="6">
-            <span class="tip">年级:</span>
-            <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
-              <template v-if="gradeList && gradeList.length > 0">
-                <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
-              </template>
-            </el-select>
-          </el-col>
-          <el-col :span="6">
-            <span class="tip">班级:</span>
-            <el-select v-model="params.graduate" placeholder="请选择" clearable filterable>
-              <template v-if="classList && classList.length > 0">
-                <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
-              </template>
-            </el-select>
-          </el-col>
-          <el-col :span="6">
-            <div style="display: flex">
-              <el-input style="margin-right: 10px" v-model="params.searchText"
-                        @keyup.enter.native="getData(params)"
-                        placeholder="请输入班主任、生涯导师" clearable="true"/>
-              <el-button type="primary" @click="getData(params)">筛选</el-button>
-            </div>
-          </el-col>
-        </el-row>
+      <div class="flex-search">
+        <div>
+          <span class="tip">班级类型:</span>
+          <el-select v-model="params.gradeType" placeholder="请选择" clearable filterable>
+            <template v-if="gradeTypeList && gradeTypeList.length > 0">
+              <el-option v-for="item in gradeTypeList" :label="item.name" :value="item.name"></el-option>
+            </template>
+          </el-select>
+        </div>
+        <div>
+          <span class="tip">年级:</span>
+          <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
+            <template v-if="gradeList && gradeList.length > 0">
+              <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
+            </template>
+          </el-select>
+        </div>
+        <div>
+          <span class="tip">班级:</span>
+          <el-select v-model="params.graduate" placeholder="请选择" clearable filterable>
+            <template v-if="classList && classList.length > 0">
+              <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
+            </template>
+          </el-select>
+        </div>
+        <div style="display: flex; justify-content: space-between">
+          <el-input style="margin-right: 10px; " v-model="params.searchText"
+                    @keyup.enter.native="getData(params)"
+                    placeholder="请输入班主任、生涯导师" clearable="true"/>
+          <el-button type="primary" @click="getData(params)">筛选</el-button>
+        </div>
       </div>
     </basic-container>
     <basic-container>

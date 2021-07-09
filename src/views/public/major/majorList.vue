@@ -27,16 +27,16 @@
           <div v-for="item in list" :key="item._id" class="major-content">
             <div class="m-bottom">
               <span class="tip-info"></span>
-              <span class="tip-title">{{item.study_category}}</span>
+              <span class="tip-title">{{ item.study_category }}</span>
             </div>
             <template v-if="item.professionalVo1s && item.professionalVo1s.length > 0">
               <div v-for="one in item.professionalVo1s" :key="one._id" class="major-content">
                 <div class="m-bottom">
-                  <span class="tip-title">{{one.subject_category}}</span>
+                  <span class="tip-title">{{ one.subject_category }}</span>
                   <template v-if="one.professionalVo2s && one.professionalVo2s.length > 0">
                     <div class="major-list">
                       <div class="major-item" v-for="two in one.professionalVo2s" :key="two._id">
-                        <span class="item" @click="goDetails(two._id)">{{two.name}}</span>
+                        <span class="item" @click="goDetails(two._id)">{{ two.name }}</span>
                       </div>
                     </div>
                   </template>
@@ -59,6 +59,7 @@ export default {
   name: "occupationList",
   data() {
     return {
+
       params: {
         keywords: '',
         study_category: '',
@@ -139,9 +140,11 @@ export default {
     //justify-content: space-between;
     flex-wrap: wrap;
     width: 100%;
+
     .major-item {
       width: 25%;
       margin-bottom: 20px;
+
       .item {
         //margin: 0 10px 10px 0;
         color: #4D97FF;

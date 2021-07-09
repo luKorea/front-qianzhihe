@@ -22,7 +22,7 @@
           </div>
           <div class="right-search">
             <span class="tip">班级:</span>
-            <el-select v-model="timeParams.checkGraduate" placeholder="请选择" clearable filterable>
+            <el-select v-model="timeParams.graduate" placeholder="请选择" clearable filterable>
               <template v-if="classList && classList.length > 0">
                 <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
               </template>
@@ -38,7 +38,7 @@
       <div style="margin-top: 20px; display: flex">
         <div class="right-search">
           <span class="tip">班级:</span>
-          <el-select v-model="params.checkGraduate" placeholder="请选择" clearable filterable>
+          <el-select v-model="params.graduate" placeholder="请选择" clearable filterable>
             <template v-if="classList && classList.length > 0">
               <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
             </template>
@@ -49,7 +49,7 @@
                     clearable
                     @keyup.enter.native="getHistoryData(params)"
                     style="margin-right: 20px; width: 300px"
-                    placeholder="请输入学生ID、名称、手机号"/>
+                    placeholder="请输入学号、名称、手机号"/>
           <el-button type="primary" @click="getHistoryData(params)">筛选</el-button>
         </div>
       </div>
@@ -58,7 +58,7 @@
       <span class="tip-info"></span>
       <span class="tip-title">APP使用记录</span>
       <el-table :data="list" border style="width: 100%;margin: 20px 0">
-        <el-table-column prop="user._id" label="学生ID" align="center" />
+        <el-table-column prop="user.studentId" label="学号" align="center" />
         <el-table-column label="头像" align="center" width="80">
           <template slot-scope="scope">
             <el-avatar size="32" :src="scope.row.user.profilePicture"></el-avatar>
@@ -102,11 +102,11 @@ export default {
       classList: [],
       gradeList: [],
       timeParams: {
-        checkGraduate: '',
+        graduate: '',
         grade: '',
       },
       params: {
-        checkGraduate: '',
+        graduate: '',
         grade: '',
         page: 0,
         size: 10,

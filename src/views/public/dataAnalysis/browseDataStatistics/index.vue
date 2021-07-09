@@ -15,7 +15,7 @@
           </el-col>
           <el-col :span="6">
             <span class="tip">班级:</span>
-            <el-select v-model="params.checkGraduate" placeholder="请选择" clearable filterable>
+            <el-select v-model="params.graduate" placeholder="请选择" clearable filterable>
               <template v-if="classList && classList.length > 0">
                 <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
               </template>
@@ -51,7 +51,7 @@ export default {
       params: {
         type: '',
         grade: '',
-        checkGraduate: ''
+        graduate: ''
       },
       classList: [],
       gradeList: [],

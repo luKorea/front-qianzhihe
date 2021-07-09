@@ -1,11 +1,11 @@
 <template>
   <div>
     <span class="tip-info"></span>
-    <span class="tip-title">专业做什么</span>
+    <span class="tip-title" id="majorDo">专业做什么</span>
     <div class="desc">{{ info.exam_direction }}</div>
     <el-divider/>
     <span class="tip-info"></span>
-    <span class="tip-title">推荐职业</span>
+    <span class="tip-title" id="zhiye">推荐职业</span>
     <template v-if="info.occupationVos && info.occupationVos.length > 0">
       <div class="wrap">
         <div class="major-wrap">
@@ -28,12 +28,12 @@
     <basic-nothing v-else></basic-nothing>
     <el-divider/>
     <span class="tip-info"></span>
-    <span class="tip-title">就业行业分布</span>
+    <span class="tip-title" id="hangye">就业行业分布</span>
     <div id="charts-one" style="width: 100%; height: 400px"></div>
 <!--    <basic-nothing v-show="!info.industry"></basic-nothing>-->
     <el-divider/>
     <span class="tip-info"></span>
-    <span class="tip-title">就业地区分布</span>
+    <span class="tip-title" id="address">就业地区分布</span>
     <div id="charts-two" style="width: 100%; height: 400px"></div>
 <!--    <basic-nothing v-show="!info.region"></basic-nothing>-->
   </div>

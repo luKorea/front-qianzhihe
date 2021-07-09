@@ -12,3 +12,20 @@ export function required(title) {
 }
 
 
+
+export function ruleUserType(type) {
+    let url = '';
+    switch (type) {
+        case '学校管理员':
+            url = '/grade';
+            break;
+        case '教师账号':
+            url = '/teacherGrade';
+            break;
+        case '学生账号':
+            url = '/studentArchives/studentArchives';
+            break;
+    }
+    return url;
+}
+

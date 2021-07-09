@@ -15,14 +15,14 @@
           </el-col>
           <el-col :span="6">
             <span class="tip">班级:</span>
-            <el-select v-model="params.checkGraduate" placeholder="请选择" clearable filterable>
+            <el-select v-model="params.graduate" placeholder="请选择" clearable filterable>
               <template v-if="classList && classList.length > 0">
                 <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
               </template>
             </el-select>
           </el-col>
           <el-col :span="6">
-            <el-button type="primary" @click="switchData(params)">筛选</el-button>
+            <el-button type="primary" @click="getData(params)">筛选</el-button>
           </el-col>
         </el-row>
       </div>
@@ -37,13 +37,13 @@
           <div class="tip-number">
             <div class="title">查询次数</div>
             <div class="number-wrap">
-              <span v-for="(item, index) in number" :key="index">{{ item }}次</span>
+              <span v-for="(item, index) in list" :key="index">{{ item.count }}次</span>
             </div>
           </div>
           <div class="tip-number">
             <div class="title">查询占比</div>
             <div class="number-wrap">
-              <span v-for="(item, index) in percent" :key="index">{{ item }}%</span>
+              <span v-for="(item, index) in list" :key="index">{{ item.contentProportion }}</span>
             </div>
           </div>
         </div>
@@ -61,16 +61,13 @@ export default {
   data() {
     return {
       params: {
-        type: '',
         grade: '',
-        checkGraduate: ''
+        graduate: ''
       },
       classList: [],
       gradeList: [],
       charts: null,
       list: [],
-      number: [1, 2, 3, 4, 45, 65, 6, 57, 66, 7, 6],
-      percent: [1, 2, 3, 4, 45, 65, 6, 57, 66, 7, 6],
     }
   },
   watch: {
@@ -127,7 +124,16 @@ export default {
       this.setOptions(this.list);
     },
     setOptions(data = []) {
-      console.log(this.charts);
+      console.log(data, 'data');
+      let nameList = [],
+          valueList = [];
+      data && data.length > 0 && data.forEach(item => {
+        nameList.push(item.content);
+        valueList.push({
+          value: item.proportion,
+          name: item.content
+        })
+      })
       this.charts.setOption({
         tooltip: {
           trigger: 'item',
@@ -138,7 +144,7 @@ export default {
           top: 30,
           bottom: 20,
           orient: 'vertical',
-          data: ['物理+化学+生物', '物理+化学+历史', '物理+化学+生物', '物理+历史+生物', '物理+化学+地理']
+          data: nameList
         },
         series: [
           {
@@ -146,14 +152,8 @@ export default {
             type: 'pie',
             roseType: 'radius',
             radius: [15, 95],
-            center: ['50%', '38%'],
-            data: [
-              {value: 320, name: '物理+化学+生物'},
-              {value: 240, name: '物理+化学+历史'},
-              {value: 149, name: '物理+化学+生物'},
-              {value: 100, name: '物理+历史+生物'},
-              {value: 59, name: '物理+化学+地理'}
-            ],
+            center: ['50%', '40%'],
+            data: valueList,
             animationEasing: 'cubicInOut',
             animationDuration: 2600
           }
@@ -178,10 +178,10 @@ export default {
 .charts-flex {
   display: flex;
   width: 100%;
-  height: 500px;
+  height: 400px;
 
   .charts {
-    width: 80%;
+    width: 70%;
     height: 100%;
   }
 

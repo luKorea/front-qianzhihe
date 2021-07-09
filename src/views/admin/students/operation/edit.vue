@@ -7,8 +7,8 @@
         <div style="margin-top: 20px">
           <el-row :gutter="4">
             <el-col :span="10">
-              <el-form-item label="学生ID">
-                <el-input v-model="form._id" disabled/>
+              <el-form-item label="学号">
+                <el-input v-model="form.studentId" disabled/>
               </el-form-item>
             </el-col>
             <el-col :span="10">
@@ -19,8 +19,8 @@
           </el-row>
           <el-row :gutter="4">
             <el-col :span="10">
-              <el-form-item label="姓名" required prop="name">
-                <el-input v-model="form.name"></el-input>
+              <el-form-item label="姓名" required prop="schoolUserName">
+                <el-input v-model="form.schoolUserName"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="10">
@@ -38,6 +38,26 @@
             <el-col :span="10">
               <el-form-item label="激活日期">
                 <el-input v-model="form.activationDate" disabled></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="4">
+            <el-col :span="10">
+              <el-form-item label="年级" required
+                            prop="educationLevel">
+                <el-select v-model="form.educationLevel"
+                           @change="getClassData(form.educationLevel)"
+                           clearable filterable placeholder="请输入年级" style="width: 100%">
+                  <el-option v-for="(item, index) in gradeList" :key="index" :label="item.name" :value="item.name"/>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="10">
+              <el-form-item label="入学年份" required prop="enrollmentYear">
+                <el-select v-model="form.enrollmentYear"  clearable filterable placeholder="请输入入学年份" style="width: 100%">
+                  <el-option v-for="(item, index) in yearList" :key="index" :label="item.name" :value="item.name"/>
+                </el-select>
               </el-form-item>
             </el-col>
           </el-row>
@@ -94,7 +114,7 @@
           <div style="display: flex; align-items: center">
             <span class="tip-title">再选科目（4选2）</span>
             <el-checkbox-group v-model="checkList" :max="2">
-              <el-checkbox v-for="(item, index) in recleaningList" :label="item.name" :key="index">{{item.name}}</el-checkbox>
+              <el-checkbox v-for="(item, index) in recleaningList" :label="item.name" :key="edit">{{item.name}}</el-checkbox>
             </el-checkbox-group>
           </div>
         </div>
@@ -125,12 +145,24 @@ export default {
       },
       form: {},
       rules: {
-        name: [{required: true, trigger: 'blur', validator: validateUsername}],
+        schoolUserName: [{required: true, trigger: 'blur', validator: validateUsername}],
+        enrollmentYear: [{
+          required: true, trigger: 'blur', validator: (rule, value, callback) => {
+            !value ? callback(new Error('入学年份不能为空')) : callback()
+          }
+        }],
+        educationLevel: [{
+          required: true, trigger: 'blur', validator: (rule, value, callback) => {
+            !value ? callback(new Error('年级不能为空')) : callback()
+          }
+        }],
       },
       teacherList: [],
       classList: [],
       firstList: [],
       recleaningList: [],
+      gradeList: [],
+      yearList: [],
       checkList: []
     }
   },
@@ -139,11 +171,29 @@ export default {
     this.params.studentId = studentId;
     this.params.gradeId = gradeId;
     this.getEditData(this.params);
-    this.getClassData();
+    // this.getClassData();
     this.getFirstSelectData();
     this.getRecleaningData();
+    this.getYearList();
+    this.getGradeList();
   },
   methods: {
+    getGradeList() {
+      selectTypeList('grade')
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.gradeList = res.data;
+            }
+          })
+    },
+    getYearList() {
+      selectTypeList('vintage')
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.yearList = res.data;
+            }
+          })
+    },
     getFirstSelectData() {
       selectTypeList('firstChoice')
           .then(res => {
@@ -158,8 +208,8 @@ export default {
             }
           })
     },
-    getClassData() {
-      selectClassList()
+    getClassData(grade) {
+      selectClassList(grade)
           .then(res => {
             if (res.errorCode === 200) {
               this.classList = res.data;
@@ -173,7 +223,7 @@ export default {
               this.form = res.data;
               this.checkList = [this.form.recleaning1, this.form.recleaning2];
               this.form['gender'] = this.form.gender == 'f' ? '男' : '女';
-
+              this.getClassData(this.form.educationLevel);
             }
           })
     },

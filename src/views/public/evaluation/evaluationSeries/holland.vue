@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 <template>
   <div>
     <basic-container-back>
@@ -33,15 +34,13 @@
         </el-tab-pane>
         <el-tab-pane label="测试结果类型">
           <div style="margin: 20px">
-            <template v-if="list.typeResult && list.typeResult.length > 0">
-              <div class="list-flex">
-                <div class="list" v-for="item in list.typeResult" :key="item._id">
-                  <div class="title">{{item.name}}</div>
-                  <div class="block"></div>
-                  <div class="describe">{{item.describe}}</div>
-                </div>
+            <div class="list-flex">
+              <div class="list" v-for="item in typeList" :key="item._id">
+                <div class="title">{{item.name}}</div>
+                <div class="block"></div>
+                <div class="describe">{{item.describe}}</div>
               </div>
-            </template>
+            </div>
             <el-table border :data="list.result" style="width: 100%; margin-top: 20px" :show-header='false'>
               <el-table-column prop="name" width="150" align="center"></el-table-column>
               <el-table-column prop="describe"></el-table-column>
@@ -55,7 +54,7 @@
 
 <script>
 import {getEvaluationType} from "../../../../api/common/evaluation";
-import {hollandList} from "../../../../utils/list";
+import {hollandList, hollandType} from "../../../../utils/list";
 
 export default {
   name: "holland",
@@ -63,6 +62,7 @@ export default {
     return {
       list: [],
       dataList: hollandList,
+      typeList: hollandType,
       holland: {
         type: 'holland',
         name: '兴趣测试',
@@ -189,8 +189,8 @@ export default {
     margin-bottom: 20px;
     .title {
       width: 108px;
-      height: 170px;
-      line-height: 170px;
+      height: 80px;
+      line-height: 80px;
       text-align: center;
       background: #4D97FF;
       border-radius: 2px;

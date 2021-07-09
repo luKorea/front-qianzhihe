@@ -4,7 +4,7 @@
     <div class="flex">
       <div class="left">
         <span class="tip-info"></span>
-        <span class="tip-title">招生计划(广东地区)</span>
+        <span class="tip-title" id="uni-plain">招生计划(广东地区)</span>
       </div>
       <div class="right">
         <template v-if="info.professionalAdmissionsVintage && info.professionalAdmissionsVintage.length > 0">
