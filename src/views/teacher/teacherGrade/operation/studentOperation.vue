@@ -216,7 +216,9 @@ export default {
           .then(res => {
             if (res.errorCode === 200) {
               this.form = res.data;
-              this.checkList = [this.form.recleaning1, this.form.recleaning2];
+              this.form.recleaning1 && this.form.recleaning2
+                  ? this.checkList = [this.form.recleaning1, this.form.recleaning2]
+                  : this.checkList = [];
               this.form['gender'] = this.form.gender == 'f' ? '男' : '女';
               this.getClassData(this.form.educationLevel);
             }

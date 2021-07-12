@@ -182,10 +182,7 @@
               <span class="tip">·请填写真实有效手机号，手机号可用于电脑端生涯管理系统及千职鹤App账号登录</span>
             </el-form-item>
             <el-form-item prop="grade" label="班级">
-              <el-select v-model="infoFrom.grade" placeholder="请选择班级" style="width: 100%" clearable filterable>
-                <el-option label="高一班" value="f"/>
-                <el-option label="高二班" value="m"/>
-              </el-select>
+              <el-input v-model="infoFrom.grade" disabled></el-input>
             </el-form-item>
             <el-button
                 type="primary"

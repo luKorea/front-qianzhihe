@@ -18,7 +18,7 @@
             </el-col>
             <el-col :span="8">
               <span class="student-title">姓名：</span>
-              <span class="student-info">{{ info.name }}</span>
+              <span class="student-info">{{ info.schoolUserName }}</span>
             </el-col>
           </el-row>
           <el-row :gutter="4" style="margin-bottom: 30px">

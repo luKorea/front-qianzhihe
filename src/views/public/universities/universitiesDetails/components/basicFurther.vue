@@ -1,5 +1,6 @@
 <template>
   <div>
+    <el-divider />
     <div class="further">
       <div class="further-left">
         <span class="tip-info"></span>
@@ -29,6 +30,7 @@
         </div>
       </div>
     </div>
+    <el-divider />
     <div>
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-address">就业地区流向</span>
@@ -40,17 +42,21 @@
           </div>
         </div>
       </template>
+      <basic-nothing v-else></basic-nothing>
     </div>
+    <el-divider />
     <div class="company">
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-company">就业单位性质</span>
-      <div id="company-charts" style="height: 400px; width: 500px; margin-top: 20px"></div>
+      <div id="company-charts" style="height: 400px; width: 50%; margin-top: 20px" v-show="showChart"></div>
+      <basic-nothing v-show="!showChart"></basic-nothing>
     </div>
   </div>
 </template>
 
 <script>
 import resize from "../../../../../mixins/resize";
+
 export default {
   name: "basicFurther",
   mixins: [resize],
@@ -64,41 +70,52 @@ export default {
   watch: {
     info: {
       deep: true,
-      handler() {
-        this.draw();
-      }
+      handler(val) {
+        if (val === undefined) {
+          this.showChart = false;
+        } else {
+          this.showChart = true;
+          this.draw(val);
+        }
+        }
     }
   },
   mounted() {
     this.$nextTick(() => {
-      this.draw();
+      this.initDraw();
     })
   },
   data() {
     return {
-      chart: ''
+      chart: '',
+      showChart: true
     }
   },
   methods: {
-    draw() {
-      let data = [];
-      this.info.obtainIndustryEmploymenList && this.info.obtainIndustryEmploymenList.length > 0 &&
-          this.info.obtainIndustryEmploymenList.forEach(item => {
-            data.push({
-              value: item.data,
-              name: item.industry_region
-            })
-          })
-      console.log(data);
+    initDraw() {
       this.chart = this.$echarts.init(document.getElementById('company-charts'));
+      this.draw(this.info);
+    },
+    draw(info) {
+      let data = [];
+      info.obtainIndustryEmploymenList && info.obtainIndustryEmploymenList.length > 0 &&
+      info.obtainIndustryEmploymenList.forEach(item => {
+        data.push({
+          value: item.data,
+          name: item.industry_region
+        })
+      })
+      console.log(data);
       let option = {
         tooltip: {
           trigger: 'item'
         },
         legend: {
+          type: 'scroll',
           orient: 'vertical',
-          x: 'right',
-          top: '25%'
+          right: 0,
+          top: 100,
+          bottom: 20,
         },
         series: [
           {

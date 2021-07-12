@@ -32,10 +32,12 @@
       <span class="tip-title">浏览数据统计</span>
       <el-divider/>
       <span class="tip-title">浏览次数Top20专业</span>
-      <div id="major-charts" style="width: 100%; height: 500px"></div>
+      <div id="major-charts" style="width: 100%; height: 500px" v-show="showMajorCharts"></div>
+      <basic-nothing v-show="!showMajorCharts"></basic-nothing>
       <el-divider/>
       <span class="tip-title">浏览次数Top20职业</span>
-      <div id="occupation-charts" style="width: 100%; height: 500px"></div>
+      <div id="occupation-charts" style="width: 100%; height: 500px" v-show="showOccupationCharts"></div>
+      <basic-nothing v-show="!showOccupationCharts"></basic-nothing>
     </basic-container>
   </div>
 </template>
@@ -56,22 +58,37 @@ export default {
       classList: [],
       gradeList: [],
       majorCharts: null,
+      showMajorCharts: true,
       majorList: [],
       occupationList: [],
-      occupationCharts: null
+      occupationCharts: null,
+      showOccupationCharts: true
     }
   },
   watch: {
     majorList: {
       deep: true,
       handler(val) {
-        this.setMajorOptions(val)
+        // console.log(val, 'val');
+        if (val === undefined) {
+          this.showMajorCharts = false;
+          return false;
+        } else {
+          this.showMajorCharts = true;
+          this.setMajorOptions(val)
+        }
       }
     },
     occupationList: {
       deep: true,
       handler(val) {
-        this.setOccupations(val)
+        if (val === undefined) {
+          this.showOccupationCharts = false;
+          return false;
+        } else {
+          this.showOccupationCharts = true;
+          this.setOccupations(val)
+        }
       }
     }
   },
@@ -135,7 +152,7 @@ export default {
     setMajorOptions(data = []) {
       let nameList = [],
           valueList = [];
-      data && data.length > 0 && data.forEach(item => {
+      data.forEach(item => {
         nameList.push(item.name);
         valueList.push(item.count)
       })
@@ -183,51 +200,51 @@ export default {
     setOccupations(data = []) {
       let nameList = [],
           valueList = [];
-      data && data.length > 0 && data.forEach(item => {
+      data.forEach(item => {
         nameList.push(item.name);
         valueList.push(item.count)
       })
       this.occupationCharts.setOption({
-        color: ['#FC9131'],
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-          }
-        },
-        xAxis: {
-          type: 'category',
-          data: nameList,
-          axisLabel: {
-            show: true,
-            textStyle: {
-              color: '#999999',  //更改坐标轴文字颜色
-              fontSize: 10      //更改坐标轴文字大小
-            }
-          },
-        },
-        yAxis: {
-          type: 'value'
-        },
-        series: [{
-          data: valueList,
-          type: 'bar',
-          barMaxWidth: '30%',
-          itemStyle: {
-            normal: {
-              label: {
-                show: true,		//开启显示
-                position: 'top',	//在上方显示
-                textStyle: {	    //数值样式
-                  color: '#2E415B',
-                  fontSize: 14
-                },
+            color: ['#FC9131'],
+            tooltip: {
+              trigger: 'axis',
+              axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
               }
-            }
+            },
+            xAxis: {
+              type: 'category',
+              data: nameList,
+              axisLabel: {
+                show: true,
+                textStyle: {
+                  color: '#999999',  //更改坐标轴文字颜色
+                  fontSize: 10      //更改坐标轴文字大小
+                }
+              },
+            },
+            yAxis: {
+              type: 'value'
+            },
+            series: [{
+              data: valueList,
+              type: 'bar',
+              barMaxWidth: '30%',
+              itemStyle: {
+                normal: {
+                  label: {
+                    show: true,		//开启显示
+                    position: 'top',	//在上方显示
+                    textStyle: {	    //数值样式
+                      color: '#2E415B',
+                      fontSize: 14
+                    },
+                  }
+                }
+              }
+            }]
           }
-        }]
-      }
-    )
+      )
     }
   }
 }

@@ -29,18 +29,19 @@
     <el-divider/>
     <span class="tip-info"></span>
     <span class="tip-title" id="hangye">就业行业分布</span>
-    <div id="charts-one" style="width: 100%; height: 400px"></div>
-<!--    <basic-nothing v-show="!info.industry"></basic-nothing>-->
+    <div id="charts-one" style="width: 100%; height: 400px" v-show="showChartsOne"></div>
+    <basic-nothing v-show="!showChartsOne"></basic-nothing>
     <el-divider/>
     <span class="tip-info"></span>
     <span class="tip-title" id="address">就业地区分布</span>
-    <div id="charts-two" style="width: 100%; height: 400px"></div>
-<!--    <basic-nothing v-show="!info.region"></basic-nothing>-->
+    <div id="charts-two" style="width: 100%; height: 400px" v-show="showChartsTwo"></div>
+    <basic-nothing v-show="!showChartsTwo"></basic-nothing>
   </div>
 </template>
 
 <script>
 import resize from "../../../../../mixins/resize";
+
 export default {
   mixins: [resize],
   name: "basicEmployment",
@@ -54,15 +55,23 @@ export default {
   data() {
     return {
       chartsOne: '',
-      chartsTwo: ''
+      showChartsOne: true,
+      chartsTwo: '',
+      showChartsTwo: true
     }
   },
   watch: {
     info: {
       deep: true,
-      handler() {
-        this.drawPageOne();
-        this.drawPageTwo();
+      handler(val) {
+        val.industry === undefined ? this.showChartsOne = false : (
+            this.showChartsOne = true,
+            this.drawPageOne()
+        );
+        val.region === undefined ? this.showChartsTwo = false : (
+            this.showChartsTwo = true,
+            this.drawPageTwo()
+        );
       }
     }
   },
@@ -73,7 +82,7 @@ export default {
     })
   },
   methods: {
-      goOccupation(occupationId) {
+    goOccupation(occupationId) {
       this.$router.push({
         path: '/occupation/occupationDetails',
         query: {
@@ -227,7 +236,7 @@ export default {
           height: 24px;
           line-height: 24px;
           font-size: 16px;
-          font-family: SourceHanSansSC-Medium, SourceHanSansSC,serif;
+          font-family: SourceHanSansSC-Medium, SourceHanSansSC, serif;
           font-weight: 500;
           color: #333333;
           //margin-bottom: 5px;
@@ -236,7 +245,7 @@ export default {
         .major-business, .major-money {
           height: 19px;
           font-size: 13px;
-          font-family: SourceHanSansSC-Regular, SourceHanSansSC,serif;
+          font-family: SourceHanSansSC-Regular, SourceHanSansSC, serif;
           font-weight: 400;
           color: #666666;
           line-height: 19px;

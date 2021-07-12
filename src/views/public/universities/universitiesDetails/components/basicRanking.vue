@@ -11,9 +11,9 @@
         <span>武书连</span>
       </div>
       <div class="table-info">
-        <span>{{ info.chineseUniversityTopCount }}</span>
-        <span>{{ info.softSeccoCount }}</span>
-        <span>{{ info.wuShuTopCount }}</span>
+        <span>{{ info.chineseUniversityTopCount || 0 }}</span>
+        <span>{{ info.softSeccoCount || 0 }}</span>
+        <span>{{ info.wuShuTopCount || 0}}</span>
       </div>
     </div>
   </div>

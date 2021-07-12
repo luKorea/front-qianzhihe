@@ -2,7 +2,8 @@
   <div>
     <span class="tip-info"></span>
     <span class="tip-title" id="occ-yaoqiu">能力要求</span>
-    <div id="ability-charts" style="height: 300px; width: 500px"></div>
+    <div id="ability-charts" style="height: 300px; width: 500px" v-show="showCharts"></div>
+    <basic-nothing v-show="!showCharts"></basic-nothing>
     <el-divider />
   </div>
 </template>
@@ -19,7 +20,7 @@ export default {
   watch: {
     info: {
       deep: true,
-      handler() {
+      handler(val) {
         this.draw();
       }
     }
@@ -31,7 +32,8 @@ export default {
   },
   data() {
     return {
-      charts: ''
+      charts: '',
+      showCharts: true
     }
   },
   methods: {

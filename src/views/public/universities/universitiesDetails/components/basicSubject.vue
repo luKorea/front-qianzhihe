@@ -5,35 +5,39 @@
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-subject">双一流学科</span>
       <div class="table-content">
-          <div class="table-info">
-            <template v-if="info.courseList && info.courseList.length > 0">
-              <span style="height: 54px; line-height: 54px; padding: 0" v-for="item in info.courseList" :key="item._id">{{ item.subject }}</span>
-            </template>
-          </div>
+        <div class="table-info">
+          <template v-if="info.courseList && info.courseList.length > 0">
+            <span style="height: 54px; line-height: 54px; padding: 0" v-for="item in info.courseList"
+                  :key="item._id">{{ item.subject }}</span>
+          </template>
+          <basic-nothing v-else></basic-nothing>
+        </div>
       </div>
     </template>
+    <el-divider/>
     <template>
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-pre">学科评估</span>
       <div class="tableClass" style="margin-bottom: 20px">
         <el-table :data="info.subjectList" style="width: 100%; margin-top: 20px" border>
-          <el-table-column prop="name" label="学科" align="center" />
-          <el-table-column prop="type" label="评级" align="center" />
+          <el-table-column prop="name" label="学科" align="center"/>
+          <el-table-column prop="type" label="评级" align="center"/>
         </el-table>
       </div>
     </template>
+    <el-divider />
     <template>
-    <span class="tip-info"></span>
-    <span class="tip-title" id="uni-major">特色专业</span>
-    <div class="table-content">
-      <div class="table-info">
-        <template v-if="info.characteristicSpecialtyList && info.characteristicSpecialtyList.length > 0">
-          <span v-for="item in info.characteristicSpecialtyList" :key="item._id">{{ item.profession_name }}</span>
-        </template>
+      <span class="tip-info"></span>
+      <span class="tip-title" id="uni-major">特色专业</span>
+      <div class="table-content">
+        <div class="table-info">
+          <template v-if="info.characteristicSpecialtyList && info.characteristicSpecialtyList.length > 0">
+            <span v-for="item in info.characteristicSpecialtyList" :key="item._id">{{ item.profession_name }}</span>
+          </template>
+          <basic-nothing v-else></basic-nothing>
+        </div>
       </div>
-    </div>
-  </template>
-
+    </template>
   </div>
 </template>
 
@@ -51,12 +55,11 @@ export default {
 </script>
 
 
-
-
 <style>
 .tableClass .el-table thead {
   background-color: #E6E7EC !important;
 }
+
 .tableClass .el-table th {
   background-color: #E6E7EC !important;
 }
@@ -71,11 +74,13 @@ export default {
   border: 1px solid #E6E7EC;
   border-radius: 4px;
   margin: 20px 0;
+
   .table-info {
     display: flex;
     text-align: center;
     flex-wrap: wrap;
     background-color: #FFFFFF;
+
     span {
       width: 33.33%;
       padding: 20px 0;

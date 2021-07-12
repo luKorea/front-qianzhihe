@@ -64,7 +64,7 @@
             <el-avatar size="32" :src="scope.row.user.profilePicture"></el-avatar>
           </template>
         </el-table-column>
-        <el-table-column prop="user.name" label="姓名" align="center" />
+        <el-table-column prop="user.schoolUserName" label="姓名" align="center" />
         <el-table-column label="性别" align="center">
           <template slot-scope="scope">
             <span>{{scope.row.user.gender   == 'f' ? '女' : '男'}}</span>

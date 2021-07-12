@@ -23,7 +23,9 @@ export function ruleUserType(type) {
             url = '/teacherGrade';
             break;
         case '学生账号':
-            url = '/studentArchives/studentArchives';
+            // TODO 未返回我的档案接口，暂时使用专业库作为首页
+            // url = '/studentArchives/studentArchives';
+            url = '/major/majorList';
             break;
     }
     return url;

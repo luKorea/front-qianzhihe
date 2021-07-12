@@ -23,6 +23,11 @@ export const updateTeacher = params => {
     return req(`${basicUrl}/update`, params, 'PUT')
 }
 
+// 删除教师
+export const deleteTeacher = params => {
+    return req(`${basicUrl}/delete`)
+}
+
 
 // 获取编辑信息
 export const getEditInfo = teacherId => {

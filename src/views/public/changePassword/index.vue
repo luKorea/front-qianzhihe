@@ -2,7 +2,10 @@
   <basic-container>
     <div class="password-container">
       <template v-if="showInfo">
-        <el-alert title="您已成功修改密码，现将在三秒内跳转到班级管理页面" type="success" center :closable="false" show-icon/>
+        <div class="success-wrap">
+          <i class="el-icon-circle-check green"></i>
+          <span>您已成功修改密码，现将在三秒内跳转到登录页面</span>
+        </div>
       </template>
       <template v-else>
         <el-form ref="form" status-icon :model="form" label-width="120px" :rules="formRules">
@@ -68,9 +71,9 @@ export default {
       this.form['name'] = this.name;
       this.showInfo = true;
       setTimeout(() => {
-        this.$router.push({
-          path: '/'
-        })
+        this.$store.dispatch('user/logout')
+        this.$router.push(`/login`);
+        location.reload();//刷新页面，重置vue-router
       },  3000)
       console.log(this.form);
     }
@@ -85,7 +88,7 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
-
+  height: 500px;
   .el-form {
     width: 800px;
   }
@@ -103,6 +106,25 @@ export default {
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
     color: #B8C3D6;
+  }
+}
+.success-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .green {
+    font-size: 60px;
+    color: #52C41A;
+    margin-bottom: 40px;
+  }
+  span {
+    height: 22px;
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #475B75;
+    line-height: 22px;
   }
 }
 </style>

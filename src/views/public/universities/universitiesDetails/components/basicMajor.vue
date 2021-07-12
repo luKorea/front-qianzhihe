@@ -60,6 +60,7 @@
             </div>
           </div>
         </template>
+        <basic-nothing v-else></basic-nothing>
       </div>
     </div>
   </div>

@@ -16,7 +16,12 @@
                          :key="index">{{ item }}</span>
           </div>
         </template>
-        <span class="desc-tip">招生办网址: {{ info.recruit_url }}</span>
+        <span class="desc-tip">
+          招生办网址:
+          <el-tooltip content="点击跳转到学校官网" placement="top">
+             <span style="cursor: pointer" @click="goUrlPage(info.recruit_url)">{{ info.recruit_url }}</span>
+          </el-tooltip>
+        </span>
       </div>
     </template>
     <el-divider/>
@@ -29,15 +34,18 @@
     <template>
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-photo">院校风光</span>
-      <div class="img-wrap">
-        <div v-if="info.images && info.images.length > 0" v-for="(item, index) in info.images" :key="index">
-          <el-image
-              style="width: 262px; height: 148px; border-radius: 8px; margin-bottom: 20px; margin-right: 20px"
-              :src="item"
-              :preview-src-list="info.images"
-              fit="fit"/>
+      <template v-if="info.images && info.images.length > 0">
+        <div class="img-wrap">
+          <div v-for="(item, index) in info.images" :key="index">
+            <el-image
+                style="width: 262px; height: 148px; border-radius: 8px; margin-bottom: 20px; margin-right: 20px"
+                :src="item"
+                :preview-src-list="info.images"
+                fit="fit"/>
+          </div>
         </div>
-      </div>
+      </template>
+      <basic-nothing v-else></basic-nothing>
       <el-divider/>
     </template>
   </div>
@@ -50,7 +58,8 @@ export default {
     info: {
       type: {
         type: Object,
-        default: () => {}
+        default: () => {
+        }
       }
     }
   },
@@ -74,6 +83,9 @@ export default {
   },
 
   methods: {
+    goUrlPage(url) {
+      window.open(url);
+    },
     draw() {
       this.charts = this.$echarts.init(document.getElementById('sex-charts'));
       let options = {
