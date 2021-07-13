@@ -82,7 +82,7 @@ export default {
       deep: true,
       handler(val) {
         if (this.typeList.length > 2) {
-          this.listStyle.width = '300px'
+          this.listStyle.width = '41%'
         } else {
           this.listStyle.width = '100%'
         }
@@ -198,16 +198,15 @@ export default {
 
   .major-wrap {
     display: flex;
-    //justify-content: space-between;
     flex-wrap: wrap;
     width: 100%;
 
     .major-list {
       cursor: pointer;
       display: flex;
-      width: 400px;
-      margin-right: 30px;
-      margin-bottom: 30px;
+      width: 340px;
+      margin-right: 20px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
       background: #FFFFFF;
       box-shadow: 0 4px 16px 0 rgba(127, 137, 156, 0.3);
@@ -215,8 +214,8 @@ export default {
       padding: 10px;
 
       .img-wrap {
-        width: 170px;
-        height: 96px;
+        width: 120px;
+        height: 80px;
         margin-right: 16px;
 
         img {

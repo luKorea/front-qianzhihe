@@ -3,7 +3,9 @@
     <holland-detail :major-list="majorList"
                     :type-list="typeList"
                     :random-info="randomInfo" v-if="params.type === 'holland'"/>
-    <mbit-detail v-else :major-list="majorList"/>
+    <mbit-detail v-else
+                 :mbit-info="mbitInfo"
+                 :major-list="majorList"/>
   </div>
 </template>
 <script>
@@ -24,6 +26,7 @@ export default {
         hollandId: ''
       },
       info: {},
+      mbitInfo: {},
       majorList: [],
       randomInfo: {},
       typeList: []
@@ -43,6 +46,7 @@ export default {
           .then(res => {
             if (res.errorCode === 200) {
               this.info = res.data.user;
+              this.mbitInfo = res.data.personality;
               this.randomInfo = res.data.hollandType;
               this.typeList = res.data.result;
               console.log(res, 'randomInfo');

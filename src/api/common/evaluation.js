@@ -12,7 +12,7 @@ export const getEvaluationType = type => {
 
 // 获取学生测评记录列表
 export const getStudentEvaluationList = params => {
-    return req(`${basicUrl}/getUserEvaluationList?page=${params.page}&searchText=${params.searchText}&size=${params.size}&type=${params.type}`)
+    return req(`${basicUrl}/getUserEvaluationList?page=${params.page}&searchText=${params.searchText}&size=${params.size}&type=${params.type}&graduate=${params.graduate}`)
 }
 // 获取测评结果
 export const getEvaluationDetails = params => {

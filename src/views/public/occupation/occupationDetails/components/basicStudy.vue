@@ -5,7 +5,7 @@
         <span class="tip-info"></span>
         <span class="tip-title" id="occ-zhishi">知识储备</span>
         <div class="tableClass">
-          <el-table :data="tableData" style="width: 100%" border>
+          <el-table stripe :data="tableData" style="width: 100%" border>
             <el-table-column align="center"
                              v-for="(key, index) in headers" :prop="key" :key="index" :label="key"></el-table-column>
           </el-table>

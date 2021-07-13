@@ -22,7 +22,7 @@
             </el-select>
           </el-col>
           <el-col :span="6">
-            <el-button type="primary" @click="switchData(params)">筛选</el-button>
+            <el-button type="primary" @click="switchData">筛选</el-button>
           </el-col>
         </el-row>
       </div>
@@ -31,78 +31,70 @@
       <span class="tip-info"></span>
       <span class="tip-title">测评数据统计</span>
       <el-divider/>
-      <character-charts :list="list" :major-list="majorList" :occupation-list="occupationList"/>
+      <mbit-charts :list="mbitResultList"
+                   :percent-info="mbitInfo"
+                   :major-list="majorList" :occupation-list="occupationList"/>
       <el-divider/>
-      <interest-charts :list="list" :major-list="majorList" :occupation-list="occupationList"/>
+      <holland-charts :list="hollandResultList"
+                      :percent-info="hollandInfo"
+                      :major-list="majorList" :occupation-list="occupationList"/>
     </basic-container>
   </div>
 </template>
 
 <script>
 import {selectTypeList, selectClassList} from "../../../../api/common/search";
-import {getList} from "../../../../api/common/dataAnalysis/subjectSelectionStatistics";
-import characterCharts from "./copmonents/character";
-import interestCharts from "./copmonents/interest";
+import {getList, getPercentageType} from "../../../../api/common/dataAnalysis/evaluationStatistics";
+import mbitCharts from "./copmonents/mbit";
+import hollandCharts from "./copmonents/holland";
 
 export default {
   name: "evaluationStatistics",
   components: {
-    characterCharts,
-    interestCharts
+    mbitCharts,
+    hollandCharts
   },
   data() {
     return {
       params: {
         type: '',
         grade: '',
-        checkGraduate: ''
+        graduate: ''
       },
       classList: [],
       gradeList: [],
-      list: [],
+      mbitResultList: [],
+      hollandResultList: [],
       majorList: [
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
+        {_id: '1', name: '经济学'},
+        {_id: '2', name: '经济学'},
+        {_id: '3', name: '经济学'},
+        {_id: '4', name: '经济学'},
+        {_id: '5', name: '经济学'},
+        {_id: '6', name: '经济学'},
+        {_id: '7', name: '经济学'},
+        {_id: '8', name: '经济学'},
+        {_id: '9', name: '经济学'},
+        {_id: '10', name: '经济学'},
       ],
+      mbitInfo: {},
+      hollandInfo: {},
       occupationList: [
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
-        {_id: '12', name: '经济学'},
+        {_id: '1', name: '经济学'},
+        {_id: '2', name: '经济学'},
+        {_id: '3', name: '经济学'},
+        {_id: '4', name: '经济学'},
+        {_id: '5', name: '经济学'},
+        {_id: '6', name: '经济学'},
+        {_id: '7', name: '经济学'},
+        {_id: '8', name: '经济学'},
+        {_id: '9', name: '经济学'},
+        {_id: '10', name: '经济学'},
       ],
     }
-  },
-  watch: {
-    list: {
-      deep: true,
-      handler(val) {
-        this.setOptions(val)
-      }
-    }
-  },
-  beforeDestroy() {
-    if (!this.charts) {
-      return
-    }
-    this.charts.dispose();
-    this.charts = null;
   },
   mounted() {
-    this.getData(this.params);
+    this.switchData();
     this.getGrade();
     this.getClassData();
     this.$nextTick(() => {
@@ -110,6 +102,24 @@ export default {
     })
   },
   methods: {
+    switchData() {
+      this.getData({
+        ...this.params,
+        type: 'holland'
+      });
+      this.getData({
+        ...this.params,
+        type: 'mbti'
+      });
+      this.getPercentData({
+        ...this.params,
+        type: 'mbti'
+      });
+      this.getPercentData({
+        ...this.params,
+        type: 'holland'
+      })
+    },
     getGrade() {
       selectTypeList('grade')
           .then(res => {
@@ -126,53 +136,26 @@ export default {
             }
           })
     },
+    getPercentData(params) {
+      getPercentageType(params)
+      .then(res => {
+        if (res.errorCode === 200) {
+          params.type === 'mbti' ? this.mbitInfo = res.data : this.hollandInfo = res.data;
+        }
+      })
+    },
     getData(params) {
       getList(params)
           .then(res => {
             if (res.errorCode === 200) {
-              console.log(res, 'data');
-              this.list = res.data;
+              if (params.type === 'holland') {
+                this.hollandResultList = res.data;
+              } else {
+                this.mbitResultList = res.data;
+              }
             }
           })
     },
-    initCharts() {
-      this.charts = this.$echarts.init(document.getElementById('charts'));
-      this.setOptions(this.list);
-    },
-    setOptions(data = []) {
-      console.log(this.charts);
-      this.charts.setOption({
-        tooltip: {
-          trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)'
-        },
-        legend: {
-          right: 10,
-          top: 30,
-          bottom: 20,
-          orient: 'vertical',
-          data: ['物理+化学+生物', '物理+化学+历史', '物理+化学+生物', '物理+历史+生物', '物理+化学+地理']
-        },
-        series: [
-          {
-            name: 'WEEKLY WRITE ARTICLES',
-            type: 'pie',
-            roseType: 'radius',
-            radius: [15, 95],
-            center: ['50%', '38%'],
-            data: [
-              {value: 320, name: '物理+化学+生物'},
-              {value: 240, name: '物理+化学+历史'},
-              {value: 149, name: '物理+化学+生物'},
-              {value: 100, name: '物理+历史+生物'},
-              {value: 59, name: '物理+化学+地理'}
-            ],
-            animationEasing: 'cubicInOut',
-            animationDuration: 2600
-          }
-        ]
-      })
-    }
   }
 }
 </script>

@@ -57,7 +57,7 @@
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">APP使用记录</span>
-      <el-table :data="list" border style="width: 100%;margin: 20px 0">
+      <el-table stripe  :data="list" border style="width: 100%;margin: 20px 0">
         <el-table-column prop="user.studentId" label="学号" align="center" />
         <el-table-column label="头像" align="center" width="80">
           <template slot-scope="scope">

@@ -6,24 +6,25 @@
       <div class="m-top search">
         <div class="search-item">
           <span class="search-title">测评类型:</span>
-          <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
-            <template v-if="gradeList && evaluationTypeList.length > 0">
+          <el-select v-model="params.type" placeholder="请选择" clearable filterable>
+            <template v-if="evaluationTypeList && evaluationTypeList.length > 0">
               <el-option v-for="(item, index) in evaluationTypeList"
                          :key="index"
-                         :label="item.label" :value="item.value"></el-option>
+                         :label="item.label" :value="item.label"></el-option>
             </template>
           </el-select>
         </div>
         <div class="search-item">
           <span class="search-title">班级:</span>
-          <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
-            <template v-if="gradeList && classList.length > 0">
+          <el-select v-model="params.graduate" placeholder="请选择" clearable filterable>
+            <template v-if="classList && classList.length > 0">
               <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
             </template>
           </el-select>
         </div>
         <div class="search-item">
           <el-input style="width: 280px" v-model="params.searchText"
+                    clearable
                     @keyup.enter.native="getData(params)"
                     placeholder="请输入学号、名称、手机号"/>
         </div>
@@ -35,7 +36,7 @@
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">测评记录列表</span>
-      <el-table :data="list" border style="width: 100%;margin: 20px 0">
+      <el-table stripe :data="list" border style="width: 100%;margin: 20px 0">
         <el-table-column prop="user.studentId" label="学号" align="center"/>
         <el-table-column label="头像" align="center">
           <template slot-scope="scope">
@@ -70,7 +71,6 @@
 <script>
 import {selectTypeList, selectClassList} from "../../../../api/common/search";
 import {getStudentEvaluationList} from "../../../../api/common/evaluation";
-import {mapGetters} from 'vuex';
 
 export default {
   name: "index",
@@ -82,6 +82,7 @@ export default {
         searchText: '',
         type: '',
         total: 0,
+        graduate: ''
       },
       teacherId: '',
       classList: [],
@@ -101,13 +102,7 @@ export default {
       list: []
     }
   },
-  computed: {
-    ...mapGetters(['user_type', 'uuid'])
-  },
   mounted() {
-    if (this.user_type === '教师账号') {
-      this.teacherId = this.uuid
-    }
     this.getData(this.params);
     this.getGrade();
     this.getClassData();
@@ -118,7 +113,7 @@ export default {
         path: '/evaluation/evaluationList/evaluationDetails',
         query: {
           hollandId: id,
-          type: type === '兴趣测试' ? 'holland' : 'mbit'
+          type: type === '兴趣测试' ? 'holland' : 'mbti'
         }
       })
     },

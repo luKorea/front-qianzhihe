@@ -46,7 +46,7 @@
       <span class="tip-info"></span>
       <span class="tip-title">代课班级列表</span>
       <template v-if="list && list.length > 0">
-        <el-table :data="list" border style="width: 100%;margin: 20px 0">
+        <el-table stripe  :data="list" border style="width: 100%;margin: 20px 0">
           <el-table-column prop="_id" label="班级ID" align="center" width="300"/>
           <el-table-column prop="name" label="班级名称" align="center"/>
           <el-table-column prop="gradeType" label="班级类型" align="center"/>

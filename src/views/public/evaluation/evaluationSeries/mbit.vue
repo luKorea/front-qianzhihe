@@ -16,7 +16,7 @@
       <el-tabs type="card" stretch>
         <el-tab-pane label="测试题目">
           <div style="margin: 20px">
-            <el-table border :data="dataList" style="width: 100%; margin-top: 20px" :show-header='false'>
+            <el-table stripe border :data="dataList" style="width: 100%; margin-top: 20px" :show-header='false'>
               <el-table-column>
                 <template slot-scope="scope">
                   <span class="number-index">{{ scope.row.id }}</span>
@@ -195,22 +195,23 @@ export default {
 
 .list-flex {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
   width: 100%;
 
   .list {
     display: flex;
     align-items: center;
-    width: 46%;
+    width: 48%;
     background: #FFF3E6;
     border-radius: 2px;
-    margin: 0 20px 20px 20px;
+    margin-bottom: 20px;
 
     .title {
       width: 108px;
       height: 100px;
       line-height: 100px;
+      //padding: 30px;
       text-align: center;
       background: #FFA31A;
       border-radius: 2px;
@@ -232,13 +233,13 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-left: 40px;
       width: 409px;
       font-size: 14px;
       font-family: PingFangSC-Regular, PingFang SC;
       font-weight: 400;
       color: #475B75;
       line-height: 22px;
+      padding-right: 10px;
     }
   }
 }

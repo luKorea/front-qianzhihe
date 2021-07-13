@@ -30,7 +30,7 @@
 
 
     <div class="tableClass" style="margin-bottom: 20px">
-      <el-table :data="list" style="width: 100%; margin-top: 20px" border>
+      <el-table stripe :data="list" style="width: 100%; margin-top: 20px" border>
         <el-table-column prop="admission" label="批次" align="center" />
         <el-table-column prop="admissionsNote" label="招生类型" align="center" />
         <el-table-column prop="castArchivesPoints" label="最低分数" align="center" />

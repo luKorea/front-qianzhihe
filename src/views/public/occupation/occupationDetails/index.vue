@@ -8,7 +8,7 @@
       <basic-desc :info="info"/>
       <basic-ability :info="info"/>
       <basic-study :info="info"/>
-      <basic-person :info="info"/>
+      <basic-person-desc :info="info"/>
       <basic-tip :info="info"/>
     </basic-container>
 
@@ -31,7 +31,7 @@ import basicInfo from './components/basicInfo';
 import basicDesc from "./components/basicDesc";
 import basicAbility from "./components/basicAbility";
 import basicStudy from "./components/basicStudy";
-import basicPerson from "./components/basicPerson";
+import basicPersonDesc from "./components/basicPerson";
 import basicTip from "./components/basicTip";
 import {getDetail} from '../../../../api/common/occupation';
 import {scrollElement} from "../../../../utils";
@@ -43,7 +43,7 @@ export default {
     basicDesc,
     basicAbility,
     basicStudy,
-    basicPerson,
+    basicPersonDesc,
     basicTip
   },
   data() {

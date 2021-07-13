@@ -46,7 +46,7 @@
 
 <script>
 export default {
-  name: "basicPerson",
+  name: "basicPersons",
   props: {
     info: {
       type: Object,

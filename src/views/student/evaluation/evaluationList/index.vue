@@ -2,7 +2,7 @@
   <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">测评列表</span>
-      <el-table :data="list" border style="width: 100%;margin: 20px 0">
+      <el-table  stripe :data="list" border style="width: 100%;margin: 20px 0">
         <el-table-column prop="name" label="测评内容" align="center"/>
         <el-table-column prop="testTime" label="测评时间" align="center"/>
         <el-table-column label="操作" align="center">

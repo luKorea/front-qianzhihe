@@ -19,7 +19,7 @@
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-pre">学科评估</span>
       <div class="tableClass" style="margin-bottom: 20px">
-        <el-table :data="info.subjectList" style="width: 100%; margin-top: 20px" border>
+        <el-table stripe :data="info.subjectList" style="width: 100%; margin-top: 20px" border>
           <el-table-column prop="name" label="学科" align="center"/>
           <el-table-column prop="type" label="评级" align="center"/>
         </el-table>

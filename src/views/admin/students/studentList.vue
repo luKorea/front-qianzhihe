@@ -55,7 +55,7 @@
           ></upload-excel>
         </div>
       </div>
-      <el-table :data="list" border style="width: 100%;margin: 20px 0">
+      <el-table stripe :data="list" border style="width: 100%;margin: 20px 0">
         <el-table-column prop="studentId" label="学号" align="center"/>
         <el-table-column label="头像" align="center">
           <template slot-scope="scope">

@@ -7,7 +7,7 @@ function startLoading () {
         text: '加载中',
         spinner: 'el-icon-loading',
         color: '#fff',
-        background: 'rgba(0, 0, 0, 0.4)'
+        background: 'hsla(0,0%,100%,.8)'
     })
 }
 

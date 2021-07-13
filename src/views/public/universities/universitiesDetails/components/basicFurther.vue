@@ -48,7 +48,7 @@
     <div class="company">
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-company">就业单位性质</span>
-      <div id="company-charts" style="height: 400px; width: 50%; margin-top: 20px" v-show="showChart"></div>
+      <div id="company-charts" style="height: 400px; width: 60%; margin-top: 20px" v-show="showChart"></div>
       <basic-nothing v-show="!showChart"></basic-nothing>
     </div>
   </div>

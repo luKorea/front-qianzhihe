@@ -46,8 +46,8 @@
           <el-button type="primary" @click="goOperationType('add')">新增班级</el-button>
         </div>
       </div>
-      <el-table :data="list" border style="width: 100%;margin: 20px 0">
-        <el-table-column prop="_id" label="班级ID" align="center" />
+      <el-table stripe :data="list" border style="width: 100%;margin: 20px 0">
+        <el-table-column prop="_id" label="班级ID" align="center" width="260px" />
         <el-table-column prop="name" label="班级名称" align="center" />
         <el-table-column prop="gradeCount" label="班级人数" align="center" />
         <el-table-column prop="gradeType" label="班级类型" align="center" />

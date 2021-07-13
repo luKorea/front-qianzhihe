@@ -17,7 +17,7 @@
       <el-tabs type="card" stretch>
         <el-tab-pane label="测试题目">
           <div style="margin: 20px">
-            <el-table border :data="dataList" style="width: 100%; margin-top: 20px" :show-header='false'>
+            <el-table stripe border :data="dataList" style="width: 100%; margin-top: 20px" :show-header='false'>
               <el-table-column width="350">
                 <template slot-scope="scope">
                   <span class="number-index">{{ scope.row.id }}</span>
@@ -41,7 +41,7 @@
                 <div class="describe">{{item.describe}}</div>
               </div>
             </div>
-            <el-table border :data="list.result" style="width: 100%; margin-top: 20px" :show-header='false'>
+            <el-table stripe border :data="list.result" style="width: 100%; margin-top: 20px" :show-header='false'>
               <el-table-column prop="name" width="150" align="center"></el-table-column>
               <el-table-column prop="describe"></el-table-column>
             </el-table>
@@ -176,7 +176,7 @@ export default {
 }
 .list-flex {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
   width: 100%;
   .list {
@@ -185,12 +185,9 @@ export default {
     width: 48%;
     background: #E6F1FF;
     border-radius: 2px;
-    margin-right: 20px;
     margin-bottom: 20px;
     .title {
-      width: 108px;
-      height: 80px;
-      line-height: 80px;
+      //width: 108px;
       text-align: center;
       background: #4D97FF;
       border-radius: 2px;
@@ -199,6 +196,7 @@ export default {
       font-weight: 500;
       color: #FFFFFF;
       position: relative;
+      padding: 30px;
     }
     .block {
       width: 10px;
@@ -211,13 +209,13 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-left: 40px;
       width: 409px;
       font-size: 14px;
       font-family: PingFangSC-Regular, PingFang SC;
       font-weight: 400;
       color: #475B75;
       line-height: 22px;
+      padding-right: 10px;
     }
   }
 }

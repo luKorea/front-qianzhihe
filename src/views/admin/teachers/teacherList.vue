@@ -37,12 +37,12 @@
         </div>
         <el-button type="primary" @click="goOperationType('add')">添加老师</el-button>
       </div>
-      <el-table :data="list" border style="width: 100%;margin-bottom: 20px">
+      <el-table stripe :data="list" border style="width: 100%;margin-bottom: 20px">
         <el-table-column prop="_id" label="教师ID" align="center" width="300" />
         <el-table-column prop="name" label="教师名称" align="center" />
         <el-table-column prop="teacherType" label="教师类型" align="center" />
         <el-table-column prop="phone" label="手机号" align="center" />
-        <el-table-column label="代课班级" align="center">
+        <el-table-column :show-overflow-tooltip="true"  label="代课班级" align="center">
           <template slot-scope="scope" v-if="scope.row.teacherGradeDtoList && scope.row.teacherGradeDtoList.length > 0">
             <span v-for="item in scope.row.teacherGradeDtoList" :key="item._id">{{item.name}}；</span>
           </template>

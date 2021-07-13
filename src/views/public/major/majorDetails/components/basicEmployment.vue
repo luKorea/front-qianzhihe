@@ -122,7 +122,7 @@ export default {
         series: [{
           data: data,
           type: 'bar',
-          barMaxWidth: '40%',
+          barMaxWidth: '20%',
           itemStyle: {
             normal: {
               color(params) {
@@ -171,7 +171,7 @@ export default {
         series: [{
           data: data,
           type: 'bar',
-          barMaxWidth: '40%',
+          barMaxWidth: '20%',
           itemStyle: {
             normal: {
               color(params) {
@@ -201,15 +201,15 @@ export default {
 
   .major-wrap {
     display: flex;
-    //justify-content: space-evenly;
     flex-wrap: wrap;
     width: 100%;
 
     .major-list {
       cursor: pointer;
       display: flex;
-      //width: 350px;
-      margin: 0 20px 20px 0;
+      width: 340px;
+      margin-right: 20px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
       background: #FFFFFF;
       box-shadow: 0 4px 16px 0 rgba(127, 137, 156, 0.3);
@@ -217,8 +217,8 @@ export default {
       padding: 10px;
 
       .img-wrap {
-        width: 170px;
-        height: 96px;
+        width: 120px;
+        height: 80px;
         margin-right: 16px;
 
         img {

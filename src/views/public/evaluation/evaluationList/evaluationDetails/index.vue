@@ -54,7 +54,10 @@
       <holland-detail :major-list="majorList"
                       :type-list="typeList"
                       :random-info="randomInfo" v-if="params.type === 'holland'"/>
-      <mbit-detail v-else :major-list="majorList"/>
+      <mbit-detail v-else
+                   :major-list="majorList"
+                   :mbit-info="mbitInfo"
+      />
     </div>
     <div class="footer-btn-no-fixed">
       <el-button style="color: #475B75" @click="goBack">取消</el-button>
@@ -80,6 +83,7 @@ export default {
         hollandId: ''
       },
       info: {},
+      mbitInfo: {},
       majorList: [],
       randomInfo: {},
       typeList: []
@@ -99,6 +103,7 @@ export default {
           .then(res => {
             if (res.errorCode === 200) {
               this.info = res.data.user;
+              this.mbitInfo = res.data.personality;
               this.randomInfo = res.data.hollandType;
               this.typeList = res.data.result;
               console.log(res, 'randomInfo');
