@@ -43,44 +43,44 @@
           </el-row>
         </div>
       </basic-container>
-      <basic-container>
-        <span class="tip-info"></span>
-        <span class="tip-title">班级信息</span>
-        <template v-if="form.gradeDto">
-          <div class="table-wrap">
-            <div class="table-title" style="background-color: #FFFFFF">
-              <span>班级ID</span>
-              <span>班级名称</span>
-              <span>班级类型</span>
-              <span>年级</span>
-              <span>入学年份</span>
-              <span>班主任</span>
-              <span>生涯导师1</span>
-              <span>生涯导师2</span>
-              <span>操作</span>
-            </div>
-            <div class="student-table-title">
-              <span>{{ form.gradeDto._id.slice(0, 12) }}</span>
-              <span>{{ form.gradeDto.name }}</span>
-              <span>{{ form.gradeDto.gradeType }}</span>
-              <span>{{ form.gradeDto.grade }}</span>
-              <span>{{ form.gradeDto.enrollmentYear }}</span>
-              <span>{{ form.gradeDto.teacherName }}</span>
-              <span>{{ form.gradeDto.teacher1Name }}</span>
-              <span>{{ form.gradeDto.teacher2Name }}</span>
-              <span style="color: #FF0000; cursor:pointer;" @click="removeClassInfo(form._id)">解除班级绑定</span>
-            </div>
-          </div>
-        </template>
-        <template v-else>
-          <div style="margin-top: 20px">
-            <span class="tip-title" style="margin-right: 20px">选择班级</span>
-            <el-select v-model="form.gradeId" placeholder="请选择" clearable filterable>
-              <el-option v-for="item in classList" :key="item._id" :label="item.name" :value="item._id"/>
-            </el-select>
-          </div>
-        </template>
-      </basic-container>
+<!--      <basic-container>-->
+<!--        <span class="tip-info"></span>-->
+<!--        <span class="tip-title">班级信息</span>-->
+<!--        <template v-if="form.gradeDto">-->
+<!--          <div class="table-wrap">-->
+<!--            <div class="table-title" style="background-color: #FFFFFF">-->
+<!--              <span>班级ID</span>-->
+<!--              <span>班级名称</span>-->
+<!--              <span>班级类型</span>-->
+<!--              <span>年级</span>-->
+<!--              <span>入学年份</span>-->
+<!--              <span>班主任</span>-->
+<!--              <span>生涯导师1</span>-->
+<!--              <span>生涯导师2</span>-->
+<!--              <span>操作</span>-->
+<!--            </div>-->
+<!--            <div class="student-table-title">-->
+<!--              <span>{{ form.gradeDto._id.slice(0, 12) }}</span>-->
+<!--              <span>{{ form.gradeDto.name }}</span>-->
+<!--              <span>{{ form.gradeDto.gradeType }}</span>-->
+<!--              <span>{{ form.gradeDto.grade }}</span>-->
+<!--              <span>{{ form.gradeDto.enrollmentYear }}</span>-->
+<!--              <span>{{ form.gradeDto.teacherName }}</span>-->
+<!--              <span>{{ form.gradeDto.teacher1Name }}</span>-->
+<!--              <span>{{ form.gradeDto.teacher2Name }}</span>-->
+<!--              <span style="color: #FF0000; cursor:pointer;" @click="removeClassInfo(form._id)">解除班级绑定</span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </template>-->
+<!--        <template v-else>-->
+<!--          <div style="margin-top: 20px">-->
+<!--            <span class="tip-title" style="margin-right: 20px">选择班级</span>-->
+<!--            <el-select v-model="form.gradeId" placeholder="请选择" clearable filterable>-->
+<!--              <el-option v-for="item in classList" :key="item._id" :label="item.name" :value="item._id"/>-->
+<!--            </el-select>-->
+<!--          </div>-->
+<!--        </template>-->
+<!--      </basic-container>-->
       <basic-container style="margin-bottom: 60px">
         <span class="tip-info"></span>
         <span class="tip-title">选科信息</span>
@@ -180,7 +180,7 @@ export default {
             if (res.errorCode === 200) {
               this.form = res.data;
               this.checkList = [this.form.recleaning1, this.form.recleaning2];
-              this.form['gender'] = this.form.gender == 'f' ? '男' : '女';
+              this.form['gender'] = this.form.gender === 'F' ? '女' : '男';
 
             }
           })
@@ -205,7 +205,7 @@ export default {
     },
     operationData() {
       let that = this;
-      that.form['gender'] = this.form.gender === '男' ? 'f' : 'm';
+      that.form['gender'] = this.form.gender === '男' ? 'M' : 'F';
       that.form['gradeId'] = this.params.gradeId !== '' ? this.params.gradeId : this.form.gradeId;
       that.form['recleaning1'] = that.checkList[0];
       that.form['recleaning2'] = that.checkList[1];

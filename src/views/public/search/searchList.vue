@@ -11,7 +11,7 @@
       </div>
     </basic-container-back>
     <div class="tabs">
-      <el-tabs type="card" v-model="url" :stretch="true" @tab-click="switchData">
+      <el-tabs type="card" v-model="url" :stretch="true" @tab-click="changeData">
         <el-tab-pane v-for="item in tabList" :key="item.url" :label="item.name" :name="item.url">
           <occupation-table v-if="url === 'occupation'"
                             :list="list" :params="params"
@@ -83,7 +83,8 @@ export default {
     this.switchData();
   },
   methods: {
-    switchData() {
+    resetUrl() {
+      this.list = [];
       let query = this.$router.history.current.query;
       let path = this.$router.history.current.path;
       //对象的拷贝
@@ -92,6 +93,25 @@ export default {
       newQuery.url = this.url;
       newQuery.keywords = this.params.keywords;
       this.$router.push({ path, query: newQuery });
+    },
+    changeData(e) {
+      this.resetUrl();
+      this.params = {
+        keywords: this.params.keywords,
+        page: 0,
+        size: 10,
+        total: 0
+      }
+      if (e.name === 'occupation') {
+        this.getOccupation(this.params);
+      } else if (e.name === 'major') {
+        this.getMajor(this.params);
+      } else if (e.name === 'universities') {
+        this.getUniversities(this.params);
+      }
+    },
+    switchData() {
+      this.resetUrl();
       switch (this.url) {
         case 'occupation':
           this.$route.meta.title = '搜索职业';

@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import {FacebookLoader} from 'vue-content-loader';
 import basicInfo from "./components/basicInfo";
 import basicDesc from "./components/basicDesc";
 import basicProposal from "./components/basicProposal";
@@ -30,6 +31,7 @@ import {scrollElement} from "../../../../utils";
 export default {
   name: "index",
   components: {
+    FacebookLoader,
     basicInfo,
     basicDesc,
     basicProposal,
@@ -91,6 +93,12 @@ export default {
       _id: ''
     }
   },
+  watch:{
+    $route(to,from){
+      this._id = to.query._id;
+      return this.switchData(this._id);
+    }
+  },
   mounted() {
     let {_id} = this.$route.query;
     this._id = _id;
@@ -143,12 +151,12 @@ export default {
           })
     },
     getProposalFromComponents(id) {
-      let query = this.$router.history.current.query;
-      let path = this.$router.history.current.path;
-      // //对象的拷贝
-      let newQuery = JSON.parse(JSON.stringify(query));
-      newQuery._id = id;
-      this.$router.push({path, query: newQuery});
+      this.$router.push({
+        path: '/major/majorDetails',
+        query: {
+          _id: id
+        }
+      });
       this.switchData(id);
     }
   }

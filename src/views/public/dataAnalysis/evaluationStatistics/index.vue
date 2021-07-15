@@ -44,7 +44,11 @@
 
 <script>
 import {selectTypeList, selectClassList} from "../../../../api/common/search";
-import {getList, getPercentageType} from "../../../../api/common/dataAnalysis/evaluationStatistics";
+import {
+  getList,
+  getPercentageType,
+  getUserEvaluationOccupationOrProfession
+} from "../../../../api/common/dataAnalysis/evaluationStatistics";
 import mbitCharts from "./copmonents/mbit";
 import hollandCharts from "./copmonents/holland";
 
@@ -65,32 +69,10 @@ export default {
       gradeList: [],
       mbitResultList: [],
       hollandResultList: [],
-      majorList: [
-        {_id: '1', name: '经济学'},
-        {_id: '2', name: '经济学'},
-        {_id: '3', name: '经济学'},
-        {_id: '4', name: '经济学'},
-        {_id: '5', name: '经济学'},
-        {_id: '6', name: '经济学'},
-        {_id: '7', name: '经济学'},
-        {_id: '8', name: '经济学'},
-        {_id: '9', name: '经济学'},
-        {_id: '10', name: '经济学'},
-      ],
+      majorList: [],
       mbitInfo: {},
       hollandInfo: {},
-      occupationList: [
-        {_id: '1', name: '经济学'},
-        {_id: '2', name: '经济学'},
-        {_id: '3', name: '经济学'},
-        {_id: '4', name: '经济学'},
-        {_id: '5', name: '经济学'},
-        {_id: '6', name: '经济学'},
-        {_id: '7', name: '经济学'},
-        {_id: '8', name: '经济学'},
-        {_id: '9', name: '经济学'},
-        {_id: '10', name: '经济学'},
-      ],
+      occupationList: [],
     }
   },
   mounted() {
@@ -118,6 +100,14 @@ export default {
       this.getPercentData({
         ...this.params,
         type: 'holland'
+      });
+      this.getMajorOccupation({
+        ...this.params,
+        type: 'holland'
+      });
+      this.getMajorOccupation({
+        ...this.params,
+        type: 'mbti'
       })
     },
     getGrade() {
@@ -138,11 +128,11 @@ export default {
     },
     getPercentData(params) {
       getPercentageType(params)
-      .then(res => {
-        if (res.errorCode === 200) {
-          params.type === 'mbti' ? this.mbitInfo = res.data : this.hollandInfo = res.data;
-        }
-      })
+          .then(res => {
+            if (res.errorCode === 200) {
+              params.type === 'mbti' ? this.mbitInfo = res.data : this.hollandInfo = res.data;
+            }
+          })
     },
     getData(params) {
       getList(params)
@@ -156,6 +146,21 @@ export default {
             }
           })
     },
+    getMajorOccupation(params) {
+      getUserEvaluationOccupationOrProfession(params)
+          .then(res => {
+            if (res.errorCode === 200) {
+              console.log(res);
+              if (params.type === 'holland') {
+                this.occupationList = res.data.occupationEvaluationVoList;
+                this.majorList= res.data.professionEvaluationVoList;
+              } else {
+                this.occupationList = res.data.occupationEvaluationVoList;
+                this.majorList= res.data.professionEvaluationVoList;
+              }
+            }
+          })
+    }
   }
 }
 </script>

@@ -148,7 +148,7 @@ export default {
         },
         series: [
           {
-            name: 'WEEKLY WRITE ARTICLES',
+            name: '选科统计',
             type: 'pie',
             roseType: 'radius',
             radius: [15, 95],

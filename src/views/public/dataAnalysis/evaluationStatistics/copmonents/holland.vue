@@ -6,6 +6,7 @@
         <el-progress :percentage="percentInfo.proportion"
                      :stroke-width="12"
                      :format="format"
+                     color="rgba(252, 145, 49, 1)"
                      type="circle" class="m-bottom pre"></el-progress>
         <div class="info">
           <span class="blue-tip"></span>
@@ -14,58 +15,61 @@
           <span class="orange-title">完成人数： {{percentInfo.achieveCount || 0}}</span>
         </div>
       </div>
-      <div id="interest-charts" style="width: 100%; height: 500px"></div>
+      <div id="interest-charts" style="width: 100%; height: 350px"></div>
     </div>
     <div class="tip">
       <div class="tip-number">
         <div class="title">推荐次数Top20专业</div>
-        <div class="number-wrap">
-          <div v-for="(item, index) in majorList" :key="index" @click="goMajor(item._id)">
-           <span v-if="index === 0">
+        <template v-if="majorList && majorList.length > 0">
+          <div class="number-wrap">
+            <div v-for="(item, index) in majorList" :key="index" @click="goMajor(item._id)">
+            <span v-if="index === 0">
               <img :src="one" class="img-number"/>
               <span class="title-line">{{ item.name }}</span>
             </span>
-            <span v-else-if="index === 1">
+              <span v-else-if="index === 1">
               <img :src="two" alt="" class="img-number"/>
              <span class="title-line">{{ item.name }}</span>
             </span>
-            <span v-else-if="index === 2">
+              <span v-else-if="index === 2">
               <img :src="three" alt="" class="img-number"/>
              <span class="title-line">{{ item.name }}</span>
             </span>
-            <span v-else>
+              <span v-else>
               <span>{{ index + 1 }}.</span>
               <span class="title-line">{{ item.name }}</span>
             </span>
+            </div>
           </div>
-        </div>
+        </template>
       </div>
       <div class="divider"></div>
-      <div class="tip-number">
-        <div class="title">推荐次数Top20职业</div>
-        <div class="number-wrap">
-          <div v-for="(item, index) in occupationList" :key="index" @click="goOccupation(item._id)">
-           <span v-if="index === 0">
+        <div class="tip-number">
+          <div class="title">推荐次数Top20职业</div>
+          <template v-if="occupationList && occupationList.length > 0">
+          <div class="number-wrap">
+            <div v-for="(item, index) in occupationList" :key="index" @click="goOccupation(item._id)">
+            <span v-if="index === 0">
               <img :src="one" class="img-number"/>
-              <span class="title-line">{{ item.name }}</span>
+              <span class="title-line">{{ item.title }}</span>
             </span>
-            <span v-else-if="index === 1">
+              <span v-else-if="index === 1">
               <img :src="two" alt="" class="img-number"/>
-             <span class="title-line">{{ item.name }}</span>
+             <span class="title-line">{{ item.title }}</span>
             </span>
-            <span v-else-if="index === 2">
+              <span v-else-if="index === 2">
               <img :src="three" alt="" class="img-number"/>
-             <span class="title-line">{{ item.name }}</span>
+             <span class="title-line">{{ item.title }}</span>
             </span>
-            <span v-else>
+              <span v-else>
               <span>{{ index + 1 }}.</span>
-              <span class="title-line">{{ item.name }}</span>
+              <span class="title-line">{{ item.title }}</span>
             </span>
+            </div>
           </div>
+          </template>
         </div>
-      </div>
     </div>
-
 
   </div>
 </template>
@@ -168,8 +172,8 @@ export default {
           formatter: '{a} <br/>{b} : {c} ({d}%)'
         },
         legend: {
-          left: '80',
-          bottom: '40',
+          left: 'center',
+          bottom: '0',
           data: nameList
         },
         series: [
@@ -178,7 +182,7 @@ export default {
             type: 'pie',
             roseType: 'radius',
             radius: [15, 95],
-            center: ['50%', '35%'],
+            center: ['50%', '50%'],
             data: valueList,
             animationEasing: 'cubicInOut',
             animationDuration: 2600
@@ -194,7 +198,8 @@ export default {
 
 <style scoped>
 .el-progress >>> path:first-child {
-  stroke: rgba(252, 145, 49, 1);
+  //stroke: rgba(252, 145, 49, 1);
+  stroke: #3995FF;
 }
 </style>
 
@@ -271,6 +276,7 @@ export default {
     flex-direction: column;
     align-items: center;
     margin-top: 10px;
+    width: 100%;
 
     .img-number {
       width: 17px;
@@ -278,6 +284,7 @@ export default {
     }
 
     div {
+      width: 100%;
       margin-bottom: 15px;
       font-size: 14px;
       font-family: PingFang-SC-Medium, PingFang-SC;

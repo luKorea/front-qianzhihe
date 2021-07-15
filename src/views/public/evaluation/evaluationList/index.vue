@@ -46,7 +46,7 @@
         <el-table-column prop="user.schoolUserName" label="姓名" align="center"/>
         <el-table-column label="性别" align="center">
           <template slot-scope="scope">
-            <span>{{ scope.row.user.gender == 'f' ? '女' : '男' }}</span>
+            <span>{{ scope.row.user.gender === 'F' ? '女' : '男' }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="user.username" label="手机号" align="center"/>
@@ -80,7 +80,7 @@ export default {
         page: 0,
         size: 10,
         searchText: '',
-        type: '',
+        type: '不限',
         total: 0,
         graduate: ''
       },
@@ -89,7 +89,7 @@ export default {
       evaluationTypeList: [
         {
           label: '不限',
-          value: ''
+          value: '不限'
         },
         {
           label: '性格测试',

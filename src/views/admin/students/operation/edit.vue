@@ -225,7 +225,7 @@ export default {
               this.form.recleaning1 && this.form.recleaning2
                   ? this.checkList = [this.form.recleaning1, this.form.recleaning2]
                   : this.checkList = [];
-              this.form['gender'] = this.form.gender == 'f' ? '男' : '女';
+              this.form['gender'] = this.form.gender === 'F' ? '女' : '男';
               this.getClassData(this.form.educationLevel);
             }
           })
@@ -250,7 +250,7 @@ export default {
     },
     operationData() {
       let that = this;
-      that.form['gender'] = this.form.gender === '男' ? 'f' : 'm';
+      that.form['gender'] = this.form.gender === '男' ? 'M' : 'F';
       that.form['gradeId'] = this.params.gradeId !== '' ? this.params.gradeId : this.form.gradeId;
       that.form['recleaning1'] = that.checkList[0];
       that.form['recleaning2'] = that.checkList[1];

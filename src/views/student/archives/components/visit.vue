@@ -23,7 +23,7 @@
         <el-row :gutter="4">
           <el-col :span="8">
             <span class="student-title">性别：</span>
-            <span class="student-info">{{ info.gender == 'f' ? '男' : '女' }}</span>
+            <span class="student-info">{{ info.gender === 'M' ? '男' : '女' }}</span>
           </el-col>
           <el-col :span="8">
             <span class="student-title">手机号：</span>

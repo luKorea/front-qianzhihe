@@ -90,7 +90,7 @@
           <el-table-column prop="schoolUserName" label="姓名" align="center" />
           <el-table-column label="性别" align="center">
             <template slot-scope="scope">
-              <span>{{scope.row.gender   == 'f' ? '女' : '男'}}</span>
+              <span>{{scope.row.gender   === 'F' ? '女' : '男'}}</span>
             </template>
           </el-table-column>
           <el-table-column prop="username" label="手机号" align="center" />

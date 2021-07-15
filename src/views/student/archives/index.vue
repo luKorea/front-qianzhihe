@@ -2,7 +2,7 @@
   <div>
     <visit-component v-if="showEdit" :info="info"/>
     <edit-component v-else :info="info" @changeShowEdit="showEdit = !showEdit" />
-    <div class="footer-btn-no-fixed">
+    <div class="footer-btn-no-fixed" v-if="showEdit">
       <el-button style="color: #475B75" v-if="!showEdit" @click="showEdit = !showEdit">取消</el-button>
       <el-button type="primary" @click="goEdit">编辑</el-button>
     </div>

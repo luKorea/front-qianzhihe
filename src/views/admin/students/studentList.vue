@@ -45,7 +45,9 @@
         <div>
           <el-button type="primary" @click="goOperationType('add')">新增学生账号</el-button>
           <el-button type="warning" style="margin-right: 10px" @click="showDialog = !showDialog">批量导入学生账号</el-button>
-          <el-link @click="downFile" icon="el-icon-download" :underline="false" class="link-btn">
+          <el-link
+              href="https://www.careershe.com/xls/%E5%AD%A6%E7%94%9F%E6%89%B9%E9%87%8F%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx"
+              icon="el-icon-download" :underline="false" class="link-btn">
             下载学生批量导入模版
           </el-link>
 
@@ -65,7 +67,7 @@
         <el-table-column prop="schoolUserName" label="姓名" align="center"/>
         <el-table-column label="性别" align="center">
           <template slot-scope="scope">
-            <span>{{ scope.row.gender == 'f' ? '女' : '男' }}</span>
+            <span>{{ scope.row.gender === 'F' ? '女' : '男' }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="username" label="手机号" align="center"/>
@@ -198,7 +200,7 @@ export default {
       this.getData(this.params);
     },
     downFile() {
-      xhrGetFile('./studentsFile.xlsx', '学生批量导入模板', '下载成功')
+      xhrGetFile('https://www.careershe.com/xls/%E5%AD%A6%E7%94%9F%E6%89%B9%E9%87%8F%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx', '学生批量导入模板', '下载成功')
           .then(res => {
             console.log(res);
           })

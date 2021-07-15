@@ -7,7 +7,7 @@ export const constantRoutesStart = [
     {
         path: '/login',
         name: 'login',
-        component: () => import('../views/public/login/indexBack'),
+        component: () => import('../views/public/login/index'),
         hidden: true
     },
     {

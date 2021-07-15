@@ -2,7 +2,7 @@
   <div>
     <basic-container>
       <span class="tip-info"></span>
-      <span class="tip-title">生涯统计报告筛选</span>
+      <span class="tip-title">生涯统计筛选</span>
       <div style="margin-top: 20px">
         <el-row :gutter="2">
           <el-col :span="6">
@@ -22,7 +22,7 @@
             </el-select>
           </el-col>
           <el-col :span="6">
-            <el-button type="primary" @click="switchData(params)">筛选</el-button>
+            <el-button type="primary" @click="switchData">筛选</el-button>
           </el-col>
         </el-row>
       </div>
@@ -31,65 +31,52 @@
       <span class="tip-info"></span>
       <span class="tip-title">生涯统计报告</span>
       <el-divider/>
-      <mbit-charts :list="list" :major-list="majorList" :occupation-list="occupationList"/>
+      <mbit-charts :list="mbitResultList"
+                   :percent-info="mbitInfo"
+                   :major-list="majorList" :occupation-list="occupationList"/>
       <el-divider/>
-      <holland-charts :list="list" :major-list="majorList" :occupation-list="occupationList"/>
+      <holland-charts :list="hollandResultList"
+                      :percent-info="hollandInfo"
+                      :major-list="majorList" :occupation-list="occupationList"/>
     </basic-container>
-    <browser-charts :major-list="browserMajorList"  :occupation-list="browserOccupationList"/>
   </div>
 </template>
 
 <script>
 import {selectTypeList, selectClassList} from "../../../../api/common/search";
+import {
+  getList,
+  getPercentageType,
+  getUserEvaluationOccupationOrProfession
+} from "../../../../api/common/dataAnalysis/evaluationStatistics";
 import mbitCharts from "./copmonents/mbit";
 import hollandCharts from "./copmonents/holland";
-import browserCharts from "./copmonents/browser";
 
 export default {
   name: "evaluationStatistics",
   components: {
     mbitCharts,
-    hollandCharts,
-    browserCharts
+    hollandCharts
   },
   data() {
     return {
       params: {
+        type: '',
         grade: '',
-        checkGraduate: ''
+        graduate: ''
       },
       classList: [],
       gradeList: [],
-      list: [],
-      majorList: [
-        {_id: '1', name: '经济学'},
-        {_id: '2', name: '经济学'},
-        {_id: '3', name: '经济学'},
-        {_id: '4', name: '经济学'},
-        {_id: '5', name: '经济学'},
-        {_id: '6', name: '经济学'},
-        {_id: '7', name: '经济学'},
-        {_id: '8', name: '经济学'},
-        {_id: '9', name: '经济学'},
-        {_id: '10', name: '经济学'},
-      ],
-      occupationList: [
-        {_id: '1', name: '经济学'},
-        {_id: '2', name: '经济学'},
-        {_id: '3', name: '经济学'},
-        {_id: '4', name: '经济学'},
-        {_id: '5', name: '经济学'},
-        {_id: '6', name: '经济学'},
-        {_id: '7', name: '经济学'},
-        {_id: '8', name: '经济学'},
-        {_id: '9', name: '经济学'},
-        {_id: '10', name: '经济学'},
-      ],
-      browserMajorList: [],
-      browserOccupationList: [],
+      mbitResultList: [],
+      hollandResultList: [],
+      majorList: [],
+      mbitInfo: {},
+      hollandInfo: {},
+      occupationList: [],
     }
   },
   mounted() {
+    this.switchData();
     this.getGrade();
     this.getClassData();
     this.$nextTick(() => {
@@ -97,6 +84,32 @@ export default {
     })
   },
   methods: {
+    switchData() {
+      this.getData({
+        ...this.params,
+        type: 'holland'
+      });
+      this.getData({
+        ...this.params,
+        type: 'mbti'
+      });
+      this.getPercentData({
+        ...this.params,
+        type: 'mbti'
+      });
+      this.getPercentData({
+        ...this.params,
+        type: 'holland'
+      });
+      this.getMajorOccupation({
+        ...this.params,
+        type: 'holland'
+      });
+      this.getMajorOccupation({
+        ...this.params,
+        type: 'mbti'
+      })
+    },
     getGrade() {
       selectTypeList('grade')
           .then(res => {
@@ -113,6 +126,41 @@ export default {
             }
           })
     },
+    getPercentData(params) {
+      getPercentageType(params)
+          .then(res => {
+            if (res.errorCode === 200) {
+              params.type === 'mbti' ? this.mbitInfo = res.data : this.hollandInfo = res.data;
+            }
+          })
+    },
+    getData(params) {
+      getList(params)
+          .then(res => {
+            if (res.errorCode === 200) {
+              if (params.type === 'holland') {
+                this.hollandResultList = res.data;
+              } else {
+                this.mbitResultList = res.data;
+              }
+            }
+          })
+    },
+    getMajorOccupation(params) {
+      getUserEvaluationOccupationOrProfession(params)
+          .then(res => {
+            if (res.errorCode === 200) {
+              console.log(res);
+              if (params.type === 'holland') {
+                this.occupationList = res.data.occupationEvaluationVoList;
+                this.majorList= res.data.professionEvaluationVoList;
+              } else {
+                this.occupationList = res.data.occupationEvaluationVoList;
+                this.majorList= res.data.professionEvaluationVoList;
+              }
+            }
+          })
+    }
   }
 }
 </script>

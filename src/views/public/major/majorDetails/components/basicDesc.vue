@@ -1,7 +1,6 @@
 <template>
   <div>
     <template>
-
       <span class="tip-info"></span>
       <span class="tip-title" id="desc">专业介绍</span>
       <div class="desc">{{ info.professional_concept }}</div>
