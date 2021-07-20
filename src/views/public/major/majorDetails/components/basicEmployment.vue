@@ -1,31 +1,34 @@
 <template>
   <div>
-    <span class="tip-info"></span>
-    <span class="tip-title" id="majorDo">专业做什么</span>
-    <div class="desc">{{ info.exam_direction }}</div>
+    <template v-if="info.exam_direction">
+      <span class="tip-info"></span>
+      <span class="tip-title" id="majorDo">专业做什么</span>
+      <div class="desc">{{ info.exam_direction }}</div>
+    </template>
     <el-divider/>
-    <span class="tip-info"></span>
-    <span class="tip-title" id="zhiye">推荐职业</span>
-    <template v-if="info.occupationVos && info.occupationVos.length > 0">
-      <div class="wrap">
-        <div class="major-wrap">
-          <div class="major-list" v-for="item in info.occupationVos" :key="item._id" @click="goOccupation(item._id)">
-            <div class="img-wrap"><img :src="item.image" alt=""></div>
-            <div class="major-info">
-              <div class="major-title">{{ item.title }}</div>
-              <div class="major-business">行业：{{ item.business }}</div>
-              <div class="major-money">平均薪资：{{ item.compensation }}</div>
-              <div class="major-tip">
-                <template v-if="item.tags && item.tags.length > 0">
-                  <span class="tip" v-for="(tip, index) in item.tags" :key="index">{{ tip }}</span>
-                </template>
+    <template v-if="info.occupationVos">
+      <span class="tip-info"></span>
+      <span class="tip-title" id="zhiye">推荐职业</span>
+      <template v-if="info.occupationVos && info.occupationVos.length > 0">
+        <div class="wrap">
+          <div class="major-wrap">
+            <div class="major-list" v-for="item in info.occupationVos" :key="item._id" @click="goOccupation(item._id)">
+              <div class="img-wrap"><img :src="item.image" alt=""></div>
+              <div class="major-info">
+                <div class="major-title">{{ item.title }}</div>
+                <div class="major-business">行业：{{ item.business }}</div>
+                <div class="major-money">平均薪资：{{ item.compensation }}</div>
+                <div class="major-tip">
+                  <template v-if="item.tags && item.tags.length > 0">
+                    <span class="tip" v-for="(tip, index) in item.tags" :key="index">{{ tip }}</span>
+                  </template>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </template>
     </template>
-    <basic-nothing v-else></basic-nothing>
     <el-divider/>
     <span class="tip-info"></span>
     <span class="tip-title" id="hangye">就业行业分布</span>

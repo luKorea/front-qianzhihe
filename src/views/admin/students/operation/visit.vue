@@ -153,7 +153,6 @@ export default {
     getRecleaningData() {
       selectTypeList('recleaning')
           .then(res => {
-            console.log(res, 'sad');
             if (res.errorCode === 200) {
               this.recleaning1List = res.data;
               this.recleaning2List = res.data;

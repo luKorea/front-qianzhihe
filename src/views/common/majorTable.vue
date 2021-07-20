@@ -63,7 +63,6 @@ export default {
       this.$emit('goDetails', id)
     },
     handleCurrentChange(val) {
-      console.log(val);
       this.$emit('handleCurrentChange', val)
     },
     handleSizeChange(val) {

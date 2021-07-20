@@ -110,7 +110,6 @@ export default {
               let data = res.data;
               this.info = data.object;
               this.list = data.result;
-              console.log(this.info);
               this.params.total = data.pageResult.total || 0;
             }
           })

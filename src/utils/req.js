@@ -2,20 +2,26 @@ import { Message } from 'element-ui'
 import { getToken } from '@/utils/auth'
 import {showFullScreenLoading, tryHideFullScreenLoading} from './loading';
 import store from "../store";
+
+import NProgress from 'nprogress' // progress bar
+
+NProgress.configure({
+    showSpinner: true,
+    speed: 100,
+    trickleSpeed: 1
+}) // NProgress Configuration
+
+
 /**
-* 请求
-* @param {String} url 
-* @param {Object} data 
-* @param {String} type [get|post]
-* @returns 
-* @example
-* 
-* req("", {}, "post").then(function (res) {
-    console.log(res)
-}).catch(function (err) { });
-*/
+ *
+ * @param url
+ * @param data
+ * @param type
+ * @returns {Promise<unknown>}
+ */
 export function req(url, data, type = 'GET') {
     showFullScreenLoading();
+    NProgress.start();
     return new Promise(function (resolve, reject) {
         let headers = {
             Authorization: getToken() || ''
@@ -25,19 +31,21 @@ export function req(url, data, type = 'GET') {
             data = JSON.stringify(data);
         }
         let success = function (res) {
-            tryHideFullScreenLoading()
+            NProgress.done();
+            tryHideFullScreenLoading();
             resolve(res)
         }
 
         let error = function (err) {
             let data = JSON.parse(err.responseText);
+            NProgress.done();
             tryHideFullScreenLoading();
             // 用户TOKEN已过期，重新登录
             if (data.status === 401) {
-                Message({
-                    message: '登录信息已过期，请重新登录',
-                    type: 'error'
-                });
+                // Message({
+                //     message: '登录信息已过期，请重新登录',
+                //     type: 'error'
+                // });
                 store.dispatch('user/logout').then(() => {
                     window.location.href = '/';
                 })

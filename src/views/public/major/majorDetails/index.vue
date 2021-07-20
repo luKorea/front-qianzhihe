@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import {FacebookLoader} from 'vue-content-loader';
 import basicInfo from "./components/basicInfo";
 import basicDesc from "./components/basicDesc";
 import basicProposal from "./components/basicProposal";
@@ -31,7 +30,6 @@ import {scrollElement} from "../../../../utils";
 export default {
   name: "index",
   components: {
-    FacebookLoader,
     basicInfo,
     basicDesc,
     basicProposal,
@@ -119,7 +117,6 @@ export default {
       getBasicInfo(id)
           .then(res => {
             if (res.errorCode === 200) {
-              console.log(res);
               this.info = res.data;
             }
           })
@@ -128,7 +125,6 @@ export default {
       getBasicDesc(id)
           .then(res => {
             if (res.errorCode === 200) {
-              console.log(res);
               this.descInfo = res.data;
             }
           })
@@ -145,7 +141,6 @@ export default {
       getBasicEmployment(id)
           .then(res => {
             if (res.errorCode === 200) {
-              console.log(res);
               this.employmentInfo = res.data;
             }
           })

@@ -55,7 +55,6 @@ export default {
     this.dataList.forEach((v) => {
       this.oData[v.id] = { ...v, selectedIndex: -1 };
     });
-    console.log(this.oData);
     this.initUserSelectList(this.startNumber);
   },
   methods: {
@@ -90,7 +89,6 @@ export default {
     },
     //   提交用户所答的题
     submitForm() {
-      console.log(this.oData);
       this.list = [];
       for (let key in this.oData) {
         let selectedIndex = this.oData[key].selectedIndex;
@@ -101,7 +99,6 @@ export default {
           saveIndex: selectedIndex,
         });
       }
-      console.log(this.list);
       this.$router.push({
         path: '/studentEvaluation/evaluationList/evaluationDetails',
         query: {

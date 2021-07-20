@@ -49,7 +49,6 @@ export default {
               this.mbitInfo = res.data.personality;
               this.randomInfo = res.data.hollandType;
               this.typeList = res.data.result;
-              console.log(res, 'randomInfo');
             }
           })
     },

@@ -170,7 +170,6 @@ export default {
           let data = res.data && res.data.length > 0 ? res.data : [];
           data.forEach(item => {
             if (item.teacherType === '班主任') {
-              console.log(item);
               that.teacherList.push(item);
             } else if (item.teacherType === '生涯导师') {
               that.teacher1List.push(item);

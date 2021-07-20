@@ -198,7 +198,6 @@ export default {
          * @param {*} expanded 
          */
         toggleRowExpansion(row, expanded) {
-            console.log('toggleRowExpansion');
             console.log(row, expanded);
         },
         /**
@@ -207,7 +206,6 @@ export default {
          * @param {*} type 
          */
         async beforeOpen(done, type) {
-            console.log('beforeOpen', type);
             let that = this;
             const callback = async () => {
                 if (that.config['detail']) {

@@ -19,7 +19,6 @@ import basicNothing from './components/nothing/index';
 import * as filters from './utils/filters';
 
 Object.keys(filters).forEach(key => {
-  console.log(key, 'key');
   Vue.filter(key, filters[key])
 })
 

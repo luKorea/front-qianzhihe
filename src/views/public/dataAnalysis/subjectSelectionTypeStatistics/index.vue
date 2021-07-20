@@ -2,7 +2,7 @@
   <div>
     <basic-container>
       <span class="tip-info"></span>
-      <span class="tip-title">选科统计筛选</span>
+      <span class="tip-title">选科征集统计筛选</span>
       <div class="search-wrap m-top">
         <div>
           <span class="tip">年级:</span>
@@ -26,36 +26,27 @@
       </div>
     </basic-container>
     <basic-container>
-      <span class="tip-info"></span>
-      <span class="tip-title">选科数据统计</span>
-      <el-divider/>
-      <div class="charts-flex">
-        <div id="charts" class="charts"></div>
-        <div class="tip">
-          <div class="tip-number">
-            <div class="title">查询次数</div>
-            <div class="number-wrap">
-              <span v-for="(item, index) in list" :key="index">{{ item.count }}次</span>
-            </div>
-          </div>
-          <div class="tip-number">
-            <div class="title">查询占比</div>
-            <div class="number-wrap">
-              <span v-for="(item, index) in list" :key="index">{{ item.contentProportion }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      选科完成率
+    </basic-container>
+    <basic-container>
+      <student-components></student-components>
     </basic-container>
   </div>
 </template>
 
 <script>
-import {selectTypeList, selectClassList} from "../../../../api/common/search";
-import {getList} from "../../../../api/common/dataAnalysis/subjectSelectionStatistics";
+import {selectClassList, selectTypeList} from "../../../../api/common/search";
+import {getList} from "../../../../api/common/dataAnalysis/subjectSelectionTypeStatistics";
+
+
+import studentComponents from "./components/student";
+
 
 export default {
-  name: "subjectSelectionStatistics",
+  name: "index",
+  components: {
+    studentComponents
+  },
   data() {
     return {
       params: {
@@ -64,24 +55,8 @@ export default {
       },
       classList: [],
       gradeList: [],
-      charts: null,
       list: [],
     }
-  },
-  watch: {
-    list: {
-      deep: true,
-      handler(val) {
-        this.setOptions(val)
-      }
-    }
-  },
-  beforeDestroy() {
-    if (!this.charts) {
-      return
-    }
-    this.charts.dispose();
-    this.charts = null;
   },
   mounted() {
     this.getData(this.params);
@@ -161,6 +136,7 @@ export default {
   }
 }
 </script>
+
 
 <style scoped lang="scss">
 .tip {

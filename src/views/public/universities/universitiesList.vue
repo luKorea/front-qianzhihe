@@ -113,7 +113,6 @@ export default {
             if (res.errorCode === 200) {
               let data = res.data;
               this.list = data.result;
-              console.log(res);
               this.params.total = data.pageResult.total || 0;
             }
           })
@@ -154,7 +153,15 @@ export default {
         query: {
           academyName: academyName
         }
-      })
+      });
+      // const {href} = this.$router.resolve({
+      //     path: '/universities/universitiesDetails',
+      //     query: {
+      //       academyName: academyName
+      //     }
+      // });
+      // console.log(href);
+      // window.open(href,'_blank')
     }
   }
 }

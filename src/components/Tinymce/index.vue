@@ -95,7 +95,6 @@ export default {
       }
     },
     timestamp() {
-      console.log('timestamp')
       this.destroyTinymce();
       this.init()
     }

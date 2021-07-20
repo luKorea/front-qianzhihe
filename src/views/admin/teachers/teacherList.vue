@@ -3,7 +3,7 @@
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">教师筛选</span>
-      <div class="flex-search">
+      <div class="search-wrap m-top">
         <div>
           <span class="tip">教师类型:</span>
           <el-select v-model="params.teacherType" placeholder="请选择" clearable filterable>
@@ -142,7 +142,6 @@ export default {
         if (res.errorCode === 200) {
           let data = res.data;
           this.list = data.result;
-          console.log(res);
           this.params.total = data.pageResult.total || 0;
         }
       })

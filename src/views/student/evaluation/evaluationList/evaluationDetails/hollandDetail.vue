@@ -92,7 +92,6 @@ export default {
     randomInfo: {
       deep: true,
       handler(val) {
-        console.log(val);
         this.setOptions(val)
       }
     }

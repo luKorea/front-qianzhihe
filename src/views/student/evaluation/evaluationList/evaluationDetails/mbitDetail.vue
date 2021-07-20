@@ -90,7 +90,6 @@ export default {
         list[2] =  res[2] === 'R' ? listType[5] : listType[4];
         list[3] =  res[3] === 'R' ? listType[7] : listType[6];
         this.result = list;
-        console.log(this.result, 'result');
       }
     }
   },

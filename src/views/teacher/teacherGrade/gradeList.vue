@@ -5,8 +5,8 @@
       <span class="tip-info"></span>
       <span class="tip-title">班级列表</span>
       <el-table  stripe :data="list" border style="width: 100%;margin: 20px 0">
-        <el-table-column prop="_id" label="班级ID" align="center" />
-        <el-table-column prop="name" label="班级名称" align="center" />
+        <el-table-column prop="_id" label="班级ID" align="center" width="270px" />
+        <el-table-column prop="name" label="班级名称" align="center" width="120px" />
         <el-table-column prop="gradeCount" label="班级人数" align="center" />
         <el-table-column prop="gradeType" label="班级类型" align="center" />
         <el-table-column prop="grade" label="年级" align="center" />
@@ -95,7 +95,6 @@ export default {
         if (res.errorCode === 200) {
           let data = res.data;
           this.list = data.result;
-          console.log(res);
           this.params.total = data.pageResult.total || 0;
         }
       })

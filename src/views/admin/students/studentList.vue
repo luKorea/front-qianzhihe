@@ -124,7 +124,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.filePath);
     this.getData(this.params);
     this.getGradeType();
     this.getGrade();
@@ -186,7 +185,6 @@ export default {
             if (res.errorCode === 200) {
               let data = res.data;
               this.list = data.result;
-              console.log(res);
               this.params.total = data.pageResult.total || 0;
             }
           })
@@ -202,7 +200,6 @@ export default {
     downFile() {
       xhrGetFile('https://www.careershe.com/xls/%E5%AD%A6%E7%94%9F%E6%89%B9%E9%87%8F%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx', '学生批量导入模板', '下载成功')
           .then(res => {
-            console.log(res);
           })
     }
   }

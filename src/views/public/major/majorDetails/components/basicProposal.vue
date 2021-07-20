@@ -1,20 +1,21 @@
 <template>
   <div>
-    <span class="tip-info"></span>
-    <span class="tip-title" id="tuijian">3+1+2选科推荐（广东地区）</span>
     <template v-if="info.courseSelectionVos && info.courseSelectionVos.length > 0">
-      <div class="flex-container">
-        <div class="subject-wrap" v-for="(item, index) in info.courseSelectionVos" :key="index">
-          <div class="title">
-            <span>首选：{{ item.first_choice }}</span>
-            <span>再选：{{ item.re_choice }}</span>
-          </div>
-          <div class="info">覆盖{{ item.proportion | percentNumber }}院校
+      <span class="tip-info"></span>
+      <span class="tip-title" id="tuijian">3+1+2选科推荐（广东地区）</span>
+      <template>
+        <div class="flex-container">
+          <div class="subject-wrap" v-for="(item, index) in info.courseSelectionVos" :key="index">
+            <div class="title">
+              <span>首选：{{ item.first_choice }}</span>
+              <span>再选：{{ item.re_choice }}</span>
+            </div>
+            <div class="info">覆盖{{ item.proportion | percentNumber }}院校
+            </div>
           </div>
         </div>
-      </div>
+      </template>
     </template>
-    <basic-nothing v-else></basic-nothing>
 
     <el-divider/>
     <span class="tip-info"></span>
@@ -61,32 +62,33 @@
     </template>
     <basic-nothing v-else></basic-nothing>
     <el-divider/>
-    <span class="tip-info"></span>
-    <span class="tip-title" id="major">相近专业</span>
     <template v-if="info.recommendProVos && info.recommendProVos.length > 0">
-    <div class="flex-container">
-        <div class="flex-wrap"  v-for="item in info.recommendProVos" :key="item._id" @click="goMajor(item._id)">
-          <div class="top">
-            <div class="img-wrap">
-              <img :src="item.image" alt="">
-              <span class="img-tip">{{item.name && item.name.slice(0, 2)}}</span>
-            </div>
-            <div class="info">
-              <div class="title">
-                <span class="title-info">{{ item.name }}</span>
-                <span class="title-orange">{{ item.profession_type }}</span>
+      <span class="tip-info"></span>
+      <span class="tip-title" id="major">相近专业</span>
+      <template>
+        <div class="flex-container">
+          <div class="flex-wrap"  v-for="item in info.recommendProVos" :key="item._id" @click="goMajor(item._id)">
+            <div class="top">
+              <div class="img-wrap">
+                <img :src="item.image" alt="">
+                <span class="img-tip">{{item.name && item.name.slice(0, 2)}}</span>
               </div>
-              <div class="type">专业门类：{{ item.subject_category }}</div>
+              <div class="info">
+                <div class="title">
+                  <span class="title-info">{{ item.name }}</span>
+                  <span class="title-orange">{{ item.profession_type }}</span>
+                </div>
+                <div class="type">专业门类：{{ item.subject_category }}</div>
+              </div>
             </div>
-          </div>
-          <div class="bottom">
-            <span style="margin-right: 20px">首选：{{ item.first_choice ? item.first_choice : '无' }}</span>
-            <span>再选：{{ item.re_choice ? item.re_choice : '无' }}</span>
+            <div class="bottom">
+              <span style="margin-right: 20px">首选：{{ item.first_choice ? item.first_choice : '无' }}</span>
+              <span>再选：{{ item.re_choice ? item.re_choice : '无' }}</span>
+            </div>
           </div>
         </div>
-    </div>
+      </template>
     </template>
-    <basic-nothing v-else></basic-nothing>
     <el-divider/>
   </div>
 </template>
@@ -102,7 +104,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.info, 'info');
   },
   methods: {
     goUniversities(academyName) {

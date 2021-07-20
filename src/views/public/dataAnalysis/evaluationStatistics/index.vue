@@ -3,28 +3,26 @@
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">测评统计筛选</span>
-      <div style="margin-top: 20px">
-        <el-row :gutter="2">
-          <el-col :span="6">
-            <span class="tip">年级:</span>
-            <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
-              <template v-if="gradeList && gradeList.length > 0">
-                <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
-              </template>
-            </el-select>
-          </el-col>
-          <el-col :span="6">
-            <span class="tip">班级:</span>
-            <el-select v-model="params.checkGraduate" placeholder="请选择" clearable filterable>
-              <template v-if="classList && classList.length > 0">
-                <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
-              </template>
-            </el-select>
-          </el-col>
-          <el-col :span="6">
-            <el-button type="primary" @click="switchData">筛选</el-button>
-          </el-col>
-        </el-row>
+      <div class="search-wrap m-top">
+        <div>
+          <span class="tip">年级:</span>
+          <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
+            <template v-if="gradeList && gradeList.length > 0">
+              <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
+            </template>
+          </el-select>
+        </div>
+        <div>
+          <span class="tip">班级:</span>
+          <el-select v-model="params.graduate" placeholder="请选择" clearable filterable>
+            <template v-if="classList && classList.length > 0">
+              <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
+            </template>
+          </el-select>
+        </div>
+        <div>
+          <el-button type="primary" @click="switchData">筛选</el-button>
+        </div>
       </div>
     </basic-container>
     <basic-container>
@@ -33,7 +31,7 @@
       <el-divider/>
       <mbit-charts :list="mbitResultList"
                    :percent-info="mbitInfo"
-                   :major-list="majorList" :occupation-list="occupationList"/>
+                   :major-list="majorMbtiList" :occupation-list="occupationMbtiList"/>
       <el-divider/>
       <holland-charts :list="hollandResultList"
                       :percent-info="hollandInfo"
@@ -73,6 +71,8 @@ export default {
       mbitInfo: {},
       hollandInfo: {},
       occupationList: [],
+      occupationMbtiList: [],
+      majorMbtiList: [],
     }
   },
   mounted() {
@@ -154,9 +154,9 @@ export default {
               if (params.type === 'holland') {
                 this.occupationList = res.data.occupationEvaluationVoList;
                 this.majorList= res.data.professionEvaluationVoList;
-              } else {
-                this.occupationList = res.data.occupationEvaluationVoList;
-                this.majorList= res.data.professionEvaluationVoList;
+              } else if (params.type === 'mbti'){
+                this.occupationMbtiList = res.data.occupationEvaluationVoList;
+                this.majorMbtiList = res.data.professionEvaluationVoList;
               }
             }
           })

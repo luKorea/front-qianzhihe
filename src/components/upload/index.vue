@@ -80,7 +80,6 @@ export default {
         headers: headers,
         data: fileData
       }).then(res => {
-        console.log("res:", res);
         if (res == 200) {
           this.$message.success("读取成功");
           this.closeFile();

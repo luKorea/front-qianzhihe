@@ -1,28 +1,31 @@
 <template>
-    <section class="app-main">
-      <el-breadcrumb class="app-breadcrumb" separator="/">
-        <transition-group name="breadcrumb">
-          <el-breadcrumb-item v-for="(item,index) in levelList" :key="item.path">
-            <span v-if="item.redirect==='noRedirect'||index==levelList.length-1" class="no-redirect">{{ item.meta.title }}</span>
-            <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
-          </el-breadcrumb-item>
-        </transition-group>
-      </el-breadcrumb>
-      <transition name="fade-transform" mode="out-in">
-            <keep-alive :include="cachedViews" v-if="$route.meta.keepAlive">
-                <router-view :key="key" />
-            </keep-alive>
-        <keep-alive :include="cachedViews" v-else=>
-          <router-view :key="key" />
-        </keep-alive>
-      </transition>
-<!--      <back-to-top transition-name="fade"/>-->
-    </section>
+  <section class="app-main">
+<!--    <el-breadcrumb class="app-breadcrumb" separator="/">-->
+<!--      <transition-group name="breadcrumb">-->
+<!--        <el-breadcrumb-item v-for="(item,index) in levelList" :key="item.path">-->
+<!--          <span v-if="item.redirect==='noRedirect'||index==levelList.length-1" class="no-redirect">{{-->
+<!--              item.meta.title-->
+<!--            }}</span>-->
+<!--          <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>-->
+<!--        </el-breadcrumb-item>-->
+<!--      </transition-group>-->
+<!--    </el-breadcrumb>-->
+    <transition name="fade-transform" mode="out-in">
+      <keep-alive v-if="$route.meta.keepAlive">
+        <router-view :key="key"/>
+      </keep-alive>
+      <keep-alive v-else>
+        <router-view :key="key"/>
+      </keep-alive>
+    </transition>
+    <!--      <back-to-top transition-name="fade"/>-->
+  </section>
 </template>
 
 <script>
 import BackToTop from './../../components/BackToTop/index';
 import pathToRegexp from 'path-to-regexp'
+
 export default {
   name: 'AppMain',
   components: {
@@ -60,12 +63,12 @@ export default {
     },
     pathCompile(path) {
       // To solve this problem https://github.com/PanJiaChen/vue-element-admin/issues/561
-      const { params } = this.$route
+      const {params} = this.$route
       var toPath = pathToRegexp.compile(path)
       return toPath(params)
     },
     handleLink(item) {
-      const { redirect, path } = item
+      const {redirect, path} = item
       if (redirect) {
         this.$router.push(redirect)
         return
@@ -96,6 +99,7 @@ export default {
     cursor: text;
   }
 }
+
 .app-main {
   /*50 = navbar  */
   min-height: 100vh;
@@ -105,8 +109,9 @@ export default {
   overflow: hidden;
   background-color: #F4F7FB;
 }
+
 .fixed-header + .app-main {
-  padding-top: 50px;
+  padding-top: 120px;
 }
 
 .hasTagsView {
@@ -115,8 +120,8 @@ export default {
     min-height: 100vh;
   }
 
-  .fixed-header+.app-main {
-    padding-top: 50px;
+  .fixed-header + .app-main {
+    padding-top: 120px;
   }
 }
 </style>

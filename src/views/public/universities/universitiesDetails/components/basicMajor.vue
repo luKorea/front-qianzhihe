@@ -98,7 +98,6 @@ export default {
       deep: true,
       handler() {
         this.setParams().then(res => {
-          console.log(res);
           this.getList(this.params)
         })
       }
@@ -107,7 +106,6 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.setParams().then(res => {
-        console.log(res);
         this.getList(this.params)
       })
     })
@@ -116,7 +114,6 @@ export default {
     setPercent(number) {
       let res = 0;
       res = number === 750 ? 100 : number / 10;
-      console.log(res);
       return number === 750 ? 100 : number / 7.5;
     },
     setParams() {
@@ -133,7 +130,6 @@ export default {
           .then(res => {
             if (res.errorCode === 200) {
               this.list = res.data;
-              console.log(this.list, '111212');
             }
           })
     },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <basic-container-back>
+    <basic-container-back v-if="info.videoList && info.videoList.length > 0">
       <video-list :video-list="info.videoList"></video-list>
     </basic-container-back>
     <basic-info :info="info"/>
@@ -106,7 +106,6 @@ export default {
       .then(res => {
         if (res.errorCode === 200) {
           this.info = res.data;
-          console.log(this.info);
         }
       })
     }

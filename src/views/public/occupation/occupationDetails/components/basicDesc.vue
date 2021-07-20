@@ -12,7 +12,7 @@
       <div class="flex-img">
         <template v-if="info.professionalArrayList && info.professionalArrayList.length > 0">
           <template v-for="item in info.professionalArrayList">
-            <div class="flex-wrap" @click="goMajor(item._id)">
+            <div class="flex-wrap" @click="goMajor(item._id, item.name)">
               <div class="img" :key="item._id">
                 <img :src="item.image" alt="">
                 <span class="img-tip">{{item.name && item.name.slice(0, 2)}}</span>
@@ -37,7 +37,8 @@ export default {
     }
   },
   methods: {
-    goMajor(id) {
+    goMajor(id, name) {
+      if (name === '专业不限') return false;
       this.$router.push({
         path: '/major/majorDetails',
         query: {

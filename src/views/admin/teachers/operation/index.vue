@@ -161,7 +161,6 @@ export default {
     updateData(data) {
       updateTeacher(data)
       .then(res => {
-        console.log(res);
         if (res.errorCode === 200) {
           successTip('修改成功')
           this.goBack();

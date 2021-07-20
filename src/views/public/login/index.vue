@@ -230,8 +230,8 @@ export default {
       showLoginImg: true,
       screenWidth: document.body.clientWidth, // 屏幕宽度
       loginForm: {
-        username: '北京大学',
-        password: '123456',
+        username: '',
+        password: '',
         code: '',
         uuid: ''
       },
@@ -296,7 +296,6 @@ export default {
     }
   },
   created() {
-    console.log(this.screenWidth);
     if (this.screenWidth <= 1154) {
       this.showLoginImg = false;
     }
@@ -317,10 +316,8 @@ export default {
     getCodeData() {
       getCode()
           .then(res => {
-            console.log(res);
             this.captureImg = res.img;
             this.loginForm.uuid = res.uuid;
-            console.log(this.loginForm.uuid, this.captureImg);
           }).catch(err => {
         console.log(err);
       })
@@ -341,7 +338,6 @@ export default {
           }
           that.$store.dispatch('user/login', params).then((res) => {
             const {user} = res;
-            console.log(user, '用户登录信息');
             //获取权限
             that.$store.dispatch('user/getControl', {}).then(() => {
               that.$router.push({ path: '/' })
@@ -352,7 +348,6 @@ export default {
           })
         } else {
           //验证失败
-          console.log('错误提交')
           return false
         }
       })
@@ -371,7 +366,6 @@ export default {
           }
           that.$store.dispatch('user/login', params).then((res) => {
             const {user} = res;
-            console.log(user, '用户登录信息');
             if (res.isBindingPhone) {
               getStudentInfo(params.username)
               .then(res => {
@@ -395,13 +389,11 @@ export default {
           })
         } else {
           //验证失败
-          console.log('错误提交')
           return false
         }
       });
     },
     studentLogin() {
-      console.log(this.infoFrom);
       bindPhone({
         phone: this.infoFrom.phone,
         username: this.infoFrom.username,

@@ -51,15 +51,19 @@ export default {
   },
   methods: {
     goDetail(type) {
-      if (type === 'mbti') {
-        this.$router.push({
-          path: '/studentEvaluation/evaluationSeries/mbit'
-        })
-      } else {
-        this.$router.push({
-          path: '/studentEvaluation/evaluationSeries/holland'
-        })
-      }
+      this.$notify.info({
+        title: '即将更新',
+        message: '该功能即将更新上线'
+      });
+      // if (type === 'mbti') {
+      //   this.$router.push({
+      //     path: '/studentEvaluation/evaluationSeries/mbit'
+      //   })
+      // } else {
+      //   this.$router.push({
+      //     path: '/studentEvaluation/evaluationSeries/holland'
+      //   })
+      // }
     }
   }
 }

@@ -82,10 +82,11 @@ export default {
     background-color: #FFFFFF;
 
     span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 33.33%;
-      padding: 20px 0;
-      //height: 54px;
-      //line-height: 54px;
+      padding: 12px 0;
       font-size: 14px;
       font-family: PingFangSC-Regular, PingFang SC;
       font-weight: 400;
@@ -93,6 +94,7 @@ export default {
       border-right: 1px solid #E6E7EC;
       border-bottom: 1px solid #E6E7EC;
       border-left: none;
+      box-sizing: border-box;
     }
   }
 }

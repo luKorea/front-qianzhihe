@@ -88,7 +88,6 @@ export default {
             if (res.errorCode === 200) {
               let data = res.data;
               this.list = data.result;
-              console.log(res);
               this.params.total = data.pageResult.total;
             }
           })
@@ -117,7 +116,7 @@ export default {
         query: {
           occupationId: occupationId
         }
-      })
+      });
     }
   }
 }

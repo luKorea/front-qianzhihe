@@ -96,7 +96,6 @@ export default {
             if (res.errorCode === 200) {
               let data = res.data;
               this.list = data.oneLevels;
-              console.log(res);
               // this.params.total = data.pageResult.total || 0;
             }
           })
@@ -120,12 +119,19 @@ export default {
       this.params.page = 0;
     },
     goDetails(id) {
+      // const {href} = this.$router.resolve({
+      //   path: '/major/majorDetails',
+      //   query: {
+      //     _id: id
+      //   }
+      // });
+      // window.open(href, '_blank')
       this.$router.push({
         path: '/major/majorDetails',
         query: {
           _id: id
         }
-      })
+      });
     }
   }
 }

@@ -1,6 +1,6 @@
 'use strict'
 const path = require('path')
-const defaultSettings = require('./src/settings.js')
+const defaultSettings = require('./src/settings.js');
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -45,6 +45,7 @@ module.exports = {
     disableHostCheck: true,
     port: port,
     open: true,
+    hot: true,
     host: getNetworkIp(),
     overlay: {
       warnings: false,

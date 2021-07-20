@@ -105,7 +105,6 @@ export default {
           name: item.industry_region
         })
       })
-      console.log(data);
       let option = {
         tooltip: {
           trigger: 'item'

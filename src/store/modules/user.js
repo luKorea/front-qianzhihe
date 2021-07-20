@@ -48,7 +48,6 @@ const actions = {
         return new Promise((resolve, reject) => {
             req("/auth/login", userInfo, "POST")
                 .then(function(res) {
-                    console.log(res, '用户信息');
                     const { user } = res;
                     commit("SET_NAME", user.nickName);
                     commit("SET_AVATAR", user.avatarPath);
@@ -127,7 +126,6 @@ const actions = {
             try {
                 req("/menus/build", {}, "GET", false, true)
                     .then(function(res) {
-                        console.log(res, '用户拥有的用户权限');
                         //把接口菜单转成权限数组
                         let rolesSet = new Set();
                         function filterAsyncRouter(asyncRouterMap) {
@@ -142,13 +140,11 @@ const actions = {
                                 return true;
                             });
                             return accessedRouters;
-                            console.log(accessedRouters, 'accessedRouters');
                         }
                         filterAsyncRouter(res);
 
                         const data =Array.from(rolesSet||[])  ;
                         commit("SET_ROLES", data);
-                        console.log("SET_ROLES", data);
                         USERINFO.ROLES = data;
                         window.localStorage.setItem(
                             "USERINFO_" + defaultSettings.KEY,

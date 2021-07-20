@@ -243,7 +243,9 @@ export default {
             .then(res => {
               if (res.errorCode === 200) {
                 successTip();
-                that.goBack();
+                // that.goBack();
+                that.params.gradeId = '';
+                that.getEditData(that.params)
               }
             })
       })
@@ -254,6 +256,7 @@ export default {
       that.form['gradeId'] = this.params.gradeId !== '' ? this.params.gradeId : this.form.gradeId;
       that.form['recleaning1'] = that.checkList[0];
       that.form['recleaning2'] = that.checkList[1];
+      console.log(that.form);
       that.$refs['form'].validate(valid => {
         if (valid) {
           updateStudentInfo(that.form)

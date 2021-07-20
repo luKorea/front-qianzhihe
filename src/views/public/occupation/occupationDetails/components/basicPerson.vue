@@ -13,7 +13,6 @@
                   :preview-src-list="[person.image]"
                   fit="cover"/>
               <div class="person-title">{{person.title}}</div>
-
             </div>
           </div>
         </template>
@@ -152,6 +151,7 @@ export default {
     }
     .bottom {
        height: 40%;
+      margin-bottom: 20px;
     }
   }
 }

@@ -119,7 +119,6 @@ export default {
           break;
         case 'major':
           this.$route.meta.title = '搜索专业';
-          console.log(this.$route);
           this.getMajor(this.params);
           break;
         case 'universities':

@@ -4,7 +4,7 @@
         <div class="right-menu">
             <el-dropdown class="avatar-container" trigger="hover">
                 <div class="avatar-wrapper">
-                  <el-avatar :size="30" :src="imgUrl + avatar"></el-avatar>
+                  <el-avatar :size="30" :src="avatar"></el-avatar>
                     <span> {{name}}</span>
                     <i class="el-icon-caret-bottom" />
                 </div>
@@ -130,17 +130,18 @@ export default {
 
         .user-avatar {
           cursor: pointer;
-          width: 20px;
-          height: 20px;
+          width: 30px;
+          height: 30px;
           border-radius: 10px;
         }
         span {
           height: 50px;
-          padding-left: 5px;
+          //padding-left: 5px;
           font-size: 14px;
           font-family: PingFangSC-Regular, PingFang SC;
           font-weight: 400;
           color: #A2B1C9;
+          margin-right: 3px;
         }
 
         .el-icon-caret-bottom {

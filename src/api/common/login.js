@@ -19,3 +19,8 @@ export const bindPhone = (params) => {
     return req(`/auth/bindingPhone?phone=${params.phone}&username=${params.username}&gender=${params.gender}`,
         '', 'PUT')
 }
+
+// 修改密码
+export const changePassword = params => {
+    return req(`/biz/student/updateUserPassword`, params, 'PUT')
+}

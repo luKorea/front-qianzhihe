@@ -71,7 +71,6 @@ export default {
       deep: true,
       handler() {
         this.setParams().then(res => {
-          console.log(res);
           this.getList(this.params)
         })
       }
@@ -80,7 +79,6 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.setParams().then(res => {
-        console.log(res);
         this.getList(this.params)
       })
     })
@@ -99,7 +97,6 @@ export default {
       .then(res => {
         if (res.errorCode === 200) {
           this.list = res.data;
-          console.log(this.list);
         }
       })
     }

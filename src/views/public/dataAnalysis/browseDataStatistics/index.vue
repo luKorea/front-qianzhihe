@@ -3,28 +3,26 @@
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">浏览数据统计筛选</span>
-      <div style="margin-top: 20px">
-        <el-row :gutter="2">
-          <el-col :span="6">
-            <span class="tip">年级:</span>
-            <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
-              <template v-if="gradeList && gradeList.length > 0">
-                <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
-              </template>
-            </el-select>
-          </el-col>
-          <el-col :span="6">
-            <span class="tip">班级:</span>
-            <el-select v-model="params.graduate" placeholder="请选择" clearable filterable>
-              <template v-if="classList && classList.length > 0">
-                <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
-              </template>
-            </el-select>
-          </el-col>
-          <el-col :span="6">
-            <el-button type="primary" @click="switchData(params)">筛选</el-button>
-          </el-col>
-        </el-row>
+      <div class="search-wrap m-top">
+        <div>
+          <span class="tip">年级:</span>
+          <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
+            <template v-if="gradeList && gradeList.length > 0">
+              <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
+            </template>
+          </el-select>
+        </div>
+        <div>
+          <span class="tip">班级:</span>
+          <el-select v-model="params.graduate" placeholder="请选择" clearable filterable>
+            <template v-if="classList && classList.length > 0">
+              <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
+            </template>
+          </el-select>
+        </div>
+        <div>
+          <el-button type="primary" @click="switchData(params)">筛选</el-button>
+        </div>
       </div>
     </basic-container>
     <basic-container>
@@ -171,7 +169,7 @@ export default {
             show: true,
             textStyle: {
               color: '#999999',  //更改坐标轴文字颜色
-              fontSize: 13      //更改坐标轴文字大小
+              fontSize: 6   //更改坐标轴文字大小
             }
           },
         },
@@ -181,7 +179,7 @@ export default {
         series: [{
           data: valueList,
           type: 'bar',
-          barMaxWidth: '40%',
+          barMaxWidth: '30%',
           itemStyle: {
             normal: {
               label: {
@@ -219,7 +217,7 @@ export default {
                 show: true,
                 textStyle: {
                   color: '#999999',  //更改坐标轴文字颜色
-                  fontSize: 10      //更改坐标轴文字大小
+                  fontSize: 4      //更改坐标轴文字大小
                 }
               },
             },

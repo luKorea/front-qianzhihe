@@ -72,9 +72,6 @@ export default {
         }
         this.headers = fields;
         this.tableData = list;
-        console.log('表头', fields)
-        console.log('表体', list)
-        console.log(this.headers);
       }
     }
   }

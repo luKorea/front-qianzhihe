@@ -9,7 +9,7 @@ NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['/login'] // no redirect whitelist
 router.beforeEach(async (to, from, next) => {
-  NProgress.start()
+  // NProgress.start()
   document.title = getPageTitle(to.meta.title)
   async function rolesfun() {
     let roles = getroles();
@@ -31,10 +31,8 @@ router.beforeEach(async (to, from, next) => {
           next({ ...to, replace: true })// hack方法 确保addRoutes已完成 ,、
           // set the replace: true so the navigation will not leave a history record
         }).catch((err) => {
-          console.log(err);
         })
       }).catch((err) => {
-        console.log(err);
       })
     }
   }
@@ -44,7 +42,7 @@ router.beforeEach(async (to, from, next) => {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
       next({ path: '/' })
-      NProgress.done()
+      // NProgress.done()
     } else {
       if (store.getters.name) {//还没获取
         //登录页面进来
@@ -58,7 +56,6 @@ router.beforeEach(async (to, from, next) => {
           await store.dispatch('user/logout')
           next(`/login?redirect=${to.path}`)
           location.reload();
-          console.log(err);
         })
       }
     }
@@ -70,14 +67,14 @@ router.beforeEach(async (to, from, next) => {
     } else {
       // other pages that do not have permission to access are redirected to the login page.
       next(`/login?redirect=${to.path}`)
-      NProgress.done()
+      // NProgress.done()
     }
   }
 })
 
 router.afterEach(() => {
   // finish progress bar
-  NProgress.done()
+  // NProgress.done()
 })
 
 

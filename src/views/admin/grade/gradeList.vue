@@ -47,8 +47,8 @@
         </div>
       </div>
       <el-table stripe :data="list" border style="width: 100%;margin: 20px 0">
-        <el-table-column prop="_id" label="班级ID" align="center" width="260px" />
-        <el-table-column prop="name" label="班级名称" align="center" />
+        <el-table-column prop="_id" label="班级ID" align="center" width="280px" />
+        <el-table-column prop="name" label="班级名称" align="center" width="150px"/>
         <el-table-column prop="gradeCount" label="班级人数" align="center" />
         <el-table-column prop="gradeType" label="班级类型" align="center" />
         <el-table-column prop="grade" label="年级" align="center" />
@@ -173,7 +173,6 @@ export default {
         if (res.errorCode === 200) {
           let data = res.data;
           this.list = data.result;
-          console.log(res);
           this.params.total = data.pageResult.total || 0;
         }
       })

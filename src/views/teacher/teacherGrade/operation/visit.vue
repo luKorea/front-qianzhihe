@@ -204,7 +204,9 @@ export default {
             .then(res => {
               if (res.errorCode === 200) {
                 successTip();
-                that.goBack();
+                // that.goBack();
+                that.params.gradeId = '';
+                that.getEditData(that.params)
               }
             })
       })
