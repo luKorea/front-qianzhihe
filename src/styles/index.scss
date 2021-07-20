@@ -85,6 +85,7 @@ div:focus {
 .app-container {
   padding: 20px;
 }
+
 @media screen and (max-width: 768px) {
   .app-container {
     padding: 10px;
@@ -109,6 +110,7 @@ input:-webkit-autofill:active {
   transition-delay: 111111s;
   transition: color 11111s ease-out, background-color 111111s ease-out;
 }
+
 /* swiper */
 
 .swiper-pagination-bullet-active {
@@ -122,10 +124,10 @@ input:-webkit-autofill:active {
 }
 
 
-
 .search-wrap {
   display: flex;
   margin-bottom: 24px;
+
   .el-input {
     width: 280px;
     margin-right: 32px;
@@ -136,6 +138,7 @@ input:-webkit-autofill:active {
 .type-list {
   display: flex;
   width: 100%;
+
   .type-title {
     width: 80px;
     font-size: 14px;
@@ -144,6 +147,7 @@ input:-webkit-autofill:active {
     color: #475B75;
     line-height: 22px;
   }
+
   .tip-wrap {
     display: flex;
     flex-wrap: wrap;
@@ -163,32 +167,37 @@ input:-webkit-autofill:active {
     padding: 0 10px;
     margin-bottom: 10px;
   }
+
   .select_tip {
     color: #4D97FF;
   }
 }
 
 
-
 .list-container {
   display: flex;
   flex-direction: column;
+
   .list-wrap {
     display: flex;
     cursor: pointer;
+
     .list-img {
       margin-right: 24px;
     }
 
     .list-info {
       width: 100%;
+
       .list-message {
         display: flex;
         justify-content: space-between;
+
         .list-left {
-          display:flex;
+          display: flex;
           flex-direction: column;
         }
+
         .list-right {
           cursor: pointer;
           display: flex;
@@ -205,8 +214,10 @@ input:-webkit-autofill:active {
           padding: 0 10px;
         }
       }
+
       .list-tip {
         margin-bottom: 12px;
+
         .list-title {
           height: 28px;
           font-size: 20px;
@@ -215,6 +226,7 @@ input:-webkit-autofill:active {
           color: #2E415B;
           line-height: 28px;
         }
+
         .list-tag {
           margin: 0 8px;
           padding: 0 10px;
@@ -232,6 +244,7 @@ input:-webkit-autofill:active {
           white-space: nowrap;
         }
       }
+
       .list-money {
         margin-bottom: 12px;
         height: 22px;
@@ -241,6 +254,7 @@ input:-webkit-autofill:active {
         color: #475B75;
         line-height: 22px;
       }
+
       .list-desc {
         height: 44px;
         font-size: 14px;
@@ -304,12 +318,15 @@ input:-webkit-autofill:active {
 .m-top {
   margin-top: 20px;
 }
+
 .m-right {
   margin-right: 20px;
 }
+
 .m-left {
   margin-left: 20px;
 }
+
 .footer-btn {
   display: flex;
   position: fixed;
@@ -345,6 +362,7 @@ input:-webkit-autofill:active {
   border: 1px solid #E6E7EC;
   border-radius: 4px;
   margin: 20px 0;
+
   .table-title {
     display: flex;
     justify-content: space-around;
@@ -352,6 +370,7 @@ input:-webkit-autofill:active {
     align-items: center;
     height: 54px;
     background-color: #E6E7EC;
+
     span {
       width: 33.33%;
       height: 54px;
@@ -363,6 +382,7 @@ input:-webkit-autofill:active {
       border-right: 1px solid #dddee2;
     }
   }
+
   .table-info {
     display: flex;
     justify-content: space-around;
@@ -373,6 +393,7 @@ input:-webkit-autofill:active {
     width: 100%;
     //height: 54px;
     background-color: #FFFFFF;
+
     span {
       width: 33.33%;
       padding: 20px 2px;
@@ -452,6 +473,7 @@ input:-webkit-autofill:active {
   margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
+
   .item {
     display: flex;
     flex-direction: column;
@@ -463,6 +485,7 @@ input:-webkit-autofill:active {
     padding: 10px;
     margin-right: 20px;
     margin-bottom: 20px;
+
     .title {
       font-size: 16px;
       font-family: PingFangSC-Medium, PingFang SC;
@@ -470,6 +493,7 @@ input:-webkit-autofill:active {
       color: #4D97FF;
       line-height: 22px;
     }
+
     .describe {
       margin-top: 10px;
       font-size: 14px;
@@ -487,16 +511,37 @@ input:-webkit-autofill:active {
   justify-content: space-between;
 }
 
+
+.flex-right-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 30px;
+  top: 48%;
+  margin-top: -220px;
+  z-index: 999;
+  width: 24px;
+  height: 24px;
+  background: #FFFFFF;
+  box-shadow: 0 0 20px 0 rgba(57, 57, 61, 0.1);
+  border-radius: 4px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+
 .flex-right {
   position: fixed;
   right: 30px;
-  top: 50%;
-  margin-top: -250px;
+  top: 51%;
+  margin-top: -220px;
   z-index: 999;
   width: 110px;
   background: #FFFFFF;
   box-shadow: 0 0 20px 0 rgba(57, 57, 61, 0.1);
   border-radius: 10px;
+
   .item {
     height: 36px;
     font-size: 14px;
@@ -508,6 +553,7 @@ input:-webkit-autofill:active {
     cursor: pointer;
 
   }
+
   .select {
     width: 110px;
     height: 36px;

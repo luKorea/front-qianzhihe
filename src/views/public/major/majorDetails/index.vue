@@ -6,7 +6,15 @@
       <basic-proposal :info="proposalInfo" @changeMajor="getProposalFromComponents"/>
       <basic-employment :info="employmentInfo"/>
     </basic-container>
-    <div class="flex-right">
+
+
+    <el-tooltip :content="showBackInfo ? '关闭' : '打开'" placement="top-start">
+      <i
+          class="flex-right-icon"
+          :class="showBackInfo ? 'el-icon-right' : 'el-icon-back'"
+          @click="showBackInfo = !showBackInfo"></i>
+    </el-tooltip>
+    <div class="flex-right" v-if="showBackInfo">
       <div class="item"
            @click="changeIndex(index, item.id)"
            :class="selectIndex === index ? 'select' : ''"
@@ -14,8 +22,6 @@
         {{ item.name }}
       </div>
     </div>
-
-
   </div>
 </template>
 
@@ -37,6 +43,7 @@ export default {
   },
   data() {
     return {
+      showBackInfo: true,
       nameList: [
         {
           name: '专业介绍',
@@ -91,8 +98,8 @@ export default {
       _id: ''
     }
   },
-  watch:{
-    $route(to,from){
+  watch: {
+    $route(to, from) {
       this._id = to.query._id;
       return this.switchData(this._id);
     }
@@ -159,4 +166,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 </style>

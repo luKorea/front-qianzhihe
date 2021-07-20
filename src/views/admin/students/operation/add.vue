@@ -28,8 +28,8 @@
             </el-col>
             <el-col :span="10">
               <el-form-item label="入学年份" required prop="enrollmentYear">
-                <el-select v-model="form.enrollmentYear"  clearable filterable placeholder="请输入入学年份" style="width: 100%">
-                    <el-option v-for="(item, index) in yearList" :key="index" :label="item.name" :value="item.name"/>
+                <el-select v-model="form.enrollmentYear" clearable filterable placeholder="请输入入学年份" style="width: 100%">
+                  <el-option v-for="(item, index) in yearList" :key="index" :label="item.name" :value="item.name"/>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -97,7 +97,18 @@ export default {
             }
           }
         ],
-        name: [{required: true, trigger: 'blur', validator: validateUsername}],
+        name: [{
+          required: true, trigger: 'blur', validator: (rule, value, callback) => {
+            if (!value) {
+              callback(new Error('姓名不能为空'))
+            }
+            if (!/[^\u4E00-\u9FA5]/g.test(value)) {
+              callback()
+            } else {
+              callback(new Error('输入的姓名只能是中文'))
+            }
+          }
+        }],
         gender: [{
           required: true, trigger: 'blur', validator: (rule, value, callback) => {
             !value ? callback(new Error('性别不能为空')) : callback()
@@ -134,11 +145,11 @@ export default {
     },
     getYearList() {
       selectTypeList('vintage')
-      .then(res => {
-        if (res.errorCode === 200) {
-          this.yearList = res.data;
-        }
-      })
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.yearList = res.data;
+            }
+          })
     },
     getClassData(grade) {
       selectClassList(grade)

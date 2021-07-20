@@ -36,3 +36,8 @@ export const createStudentInfo = data => {
 export const updateStudentInfo = data => {
     return req(`${basicUrl}/update`, data, 'PUT')
 }
+
+// 导入学生数据
+export const importData = (file) => {
+    return req(`${basicUrl}/importStudent`, file, 'upload')
+}

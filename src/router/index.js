@@ -355,19 +355,19 @@ export const asyncRouterMap = [
                     breadcrumb: true,
                 }
             },
-            // {
-            //     path: 'subjectSelectionTypeStatistics',
-            //     component: () => import('../views/public/dataAnalysis/subjectSelectionTypeStatistics'),
-            //     name: '选科征集统计',
-            //     meta: {
-            //         title: '选科征集统计',
-            //         showTag: true,
-            //         keepAlive: true,
-            //         icon: 'el-icon-star-off',
-            //         roles: ['统计分析'],
-            //         breadcrumb: true,
-            //     }
-            // },
+            {
+                path: 'subjectSelectionTypeStatistics',
+                component: () => import('../views/public/dataAnalysis/subjectSelectionTypeStatistics'),
+                name: '选科征集统计',
+                meta: {
+                    title: '选科征集统计',
+                    showTag: true,
+                    keepAlive: true,
+                    icon: 'el-icon-star-off',
+                    roles: ['统计分析'],
+                    breadcrumb: true,
+                }
+            },
             {
                 path: 'browseDataStatistics',
                 component: () => import('../views/public/dataAnalysis/browseDataStatistics'),
@@ -394,15 +394,15 @@ export const asyncRouterMap = [
                     breadcrumb: true,
                 }
             },
-            {
-                path: 'careerStatistics',
-                component: () => import('../views/public/dataAnalysis/careerStatistics'),
-                name: '生涯统计报告',
-                meta: {
-                    title: '生涯统计报告', showTag: true,
-                    keepAlive: true, icon: 'el-icon-star-off', roles: ['统计分析'], breadcrumb: true,
-                }
-            }
+            // {
+            //     path: 'careerStatistics',
+            //     component: () => import('../views/public/dataAnalysis/careerStatistics'),
+            //     name: '生涯统计报告',
+            //     meta: {
+            //         title: '生涯统计报告', showTag: true,
+            //         keepAlive: true, icon: 'el-icon-star-off', roles: ['统计分析'], breadcrumb: true,
+            //     }
+            // }
         ]
     },
     // 管理员 教师 公用模块 区分列表数据展示以及筛选条件

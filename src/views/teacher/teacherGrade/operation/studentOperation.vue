@@ -25,7 +25,10 @@
             </el-col>
             <el-col :span="10">
               <el-form-item label="性别">
-                <el-input v-model="form.gender" disabled></el-input>
+                <el-select v-model="form.gender" style="width: 100%" disabled>
+                  <el-option value="F" label="女"></el-option>
+                  <el-option value="M" label="男"></el-option>
+                </el-select>
               </el-form-item>
             </el-col>
           </el-row>
@@ -55,7 +58,7 @@
             </el-col>
             <el-col :span="10">
               <el-form-item label="入学年份" required prop="enrollmentYear">
-                <el-select v-model="form.enrollmentYear"  clearable filterable placeholder="请输入入学年份" style="width: 100%">
+                <el-select v-model="form.enrollmentYear" clearable filterable placeholder="请输入入学年份" style="width: 100%">
                   <el-option v-for="(item, index) in yearList" :key="index" :label="item.name" :value="item.name"/>
                 </el-select>
               </el-form-item>
@@ -108,13 +111,14 @@
           <div class="m-bottom">
             <span class="tip-title">首选科目（2选1）</span>
             <el-radio-group v-model="form.firstChoice">
-              <el-radio v-for="(item, index) in firstList" :label="item.name" />
+              <el-radio v-for="(item, index) in firstList" :label="item.name"/>
             </el-radio-group>
           </div>
           <div style="display: flex; align-items: center">
             <span class="tip-title">再选科目（4选2）</span>
             <el-checkbox-group v-model="checkList" :max="2">
-              <el-checkbox v-for="(item, index) in recleaningList" :label="item.name" :key="edit">{{item.name}}</el-checkbox>
+              <el-checkbox v-for="(item, index) in recleaningList" :label="item.name" :key="edit">{{ item.name }}
+              </el-checkbox>
             </el-checkbox-group>
           </div>
         </div>

@@ -54,6 +54,7 @@
           <upload-excel
               :upload-dialog="showDialog" v-if="showDialog"
               @closeFile="showDialog = !showDialog"
+              @getData="getData(params)"
           ></upload-excel>
         </div>
       </div>

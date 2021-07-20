@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import {importData} from "../../api/admin/students";
+
 export default {
   name: "index",
   props: {
@@ -39,6 +41,11 @@ export default {
       type: Boolean,
       default: false
     },
+  },
+  data() {
+    return {
+      url: process.env.VUE_APP_PATH_REWRITE
+    }
   },
   methods: {
     //上传excel表格
@@ -65,28 +72,36 @@ export default {
     },
     uploadFile(item) {
       this.file = item.file;
+      console.log(item);
     },
     postFile() {
       const fileObj = this.file;
       let fileData = new FormData();
       fileData.append("file", fileObj);
-      let headers = {
-        "Content-Type": "multipart/form-data"
-      };
-      this.uploading = true;
-      this.$ajax({
-        method: "post",
-        url: "http://localhost:6002/api/pageCont/importDateToEs",    //填写上传的接口
-        headers: headers,
-        data: fileData
-      }).then(res => {
-        if (res == 200) {
+      importData(fileData)
+      .then(res => {
+        if(res.errorCode === 200) {
           this.$message.success("读取成功");
           this.closeFile();
-        } else {
-          this.$message.error("错误！请检查上传文件内容");
+          this.$emit('getData');
+        } else if (res.success === false) {
+          this.$message.error('文件格式有误');
+          return false;
         }
       });
+      // $.ajax({
+      //   method: "post",
+      //   url: this.url + "/biz/student/importStudent",    //填写上传的接口
+      //   headers: headers,
+      //   data: fileData
+      // }).then(res => {
+      //   if (res.errorCode  === 200) {
+      //     this.$message.success("读取成功");
+      //     this.closeFile();
+      //   } else {
+      //     this.$message.error("错误！请检查上传文件内容");
+      //   }
+      // });
       setTimeout(function () {
         this.closeFile();
       }, 1500);

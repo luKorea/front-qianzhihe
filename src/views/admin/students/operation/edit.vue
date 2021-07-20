@@ -25,7 +25,10 @@
             </el-col>
             <el-col :span="10">
               <el-form-item label="性别">
-                <el-input v-model="form.gender" disabled></el-input>
+                <el-select v-model="form.gender" style="width: 100%;" disabled>
+                  <el-option value="F" label="女"></el-option>
+                  <el-option value="M" label="男"></el-option>
+                </el-select>
               </el-form-item>
             </el-col>
           </el-row>

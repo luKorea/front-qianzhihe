@@ -25,7 +25,10 @@
             </el-col>
             <el-col :span="10">
               <el-form-item label="性别">
-                <el-input v-model="info.gender" disabled></el-input>
+                <el-select v-model="info.gender" style="width: 100%" disabled>
+                   <el-option value="F" label="女"></el-option>
+                   <el-option value="M" label="男"></el-option>
+                </el-select>
               </el-form-item>
             </el-col>
           </el-row>
@@ -61,6 +64,7 @@
             </el-checkbox-group>
           </div>
         </div>
+        <span class="modal" v-if="info.gradeDto === 'null'">您暂未绑定班级，请联系管理员</span>
         <span class="modal-title" v-if="info.isChoose === false">您的班级未开启志愿征集功能，如有需要请联系班级教师</span>
       </div>
     </el-form>
