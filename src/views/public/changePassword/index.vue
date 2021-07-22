@@ -12,18 +12,20 @@
           <el-form-item label="用户名：">
             <el-input v-model="name" disabled></el-input>
           </el-form-item>
-          <el-form-item label="旧密码：">
+          <el-form-item label="旧密码：" prop="oldPassword" required>
             <el-input v-model="form.oldPassword" type="password" clearable show-password></el-input>
           </el-form-item>
-          <el-form-item label="新密码：" prop="password">
+          <el-form-item label="新密码：" prop="newPassword" required>
             <el-input v-model="form.newPassword" type="password" clearable show-password></el-input>
             <span class="tip">密码必须有8-16位，包含大写、小写字母、数字</span>
           </el-form-item>
-          <el-form-item label="再次确认密码：" prop="affirmNewPassword">
+          <el-form-item label="再次确认密码：" prop="affirmNewPassword" required>
             <el-input v-model="form.affirmNewPassword" type="password" clearable show-password></el-input>
           </el-form-item>
         </el-form>
-        <el-button type="primary" @click="editPassword">确认</el-button>
+        <el-button type="primary"
+                   :disabled="isOK(form)"
+                   @click="editPassword">确认</el-button>
       </template>
     </div>
   </basic-container>
@@ -33,6 +35,8 @@
 import {validateEditPassword} from "../../../utils/validate";
 import {mapGetters} from 'vuex'
 import {changePassword} from "../../../api/common/login";
+import {errorTip} from "../../../utils/tip";
+import {isFormReady} from "../../../utils";
 
 export default {
   name: "index",
@@ -44,7 +48,7 @@ export default {
   data() {
     let validatePass2 = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请再次输入密码'));
+        callback(new Error('再次确认密码不能为空'));
       } else if (value != this.form.newPassword) {
         callback(new Error('两次输入密码不一致!'));
       } else {
@@ -59,6 +63,17 @@ export default {
         oldPassword: "" //旧密码
       },
       formRules: {
+        oldPassword: [
+          {
+            required: true, trigger: 'blur', validator: (rule, value, callback) => {
+              if (value === '') {
+                callback(new Error('请输入密码'));
+              } else {
+                callback();
+              }
+            }
+          }
+        ],
         newPassword: [{required: true, trigger: 'blur', validator: validateEditPassword}],
         affirmNewPassword: [{required: true, trigger: 'blur', validator: validatePass2}]
       }
@@ -68,17 +83,29 @@ export default {
 
   },
   methods: {
+    // 判断学生是否输入完整
+    isOK(data) {
+      return isFormReady(data);
+    },
     editPassword() {
       console.log(this.form);
-      changePassword(this.form)
-      .then(res => {
-        if (res.errorCode === 200) {
-          this.showInfo = true;
-          setTimeout(() => {
-            this.$store.dispatch('user/logout')
-            this.$router.push(`/login`);
-            location.reload();//刷新页面，重置vue-router
-          },  3000)
+      this.$refs['form'].validate(valid => {
+        if (valid) {
+          changePassword(this.form)
+              .then(res => {
+                if (res.errorCode === 200) {
+                  this.showInfo = true;
+                  setTimeout(() => {
+                    this.$store.dispatch('user/logout')
+                    this.$router.push(`/login`);
+                    location.reload();//刷新页面，重置vue-router
+                  },  3000)
+                } else {
+                  errorTip(res.msg)
+                }
+              })
+        } else {
+          return false
         }
       })
     }

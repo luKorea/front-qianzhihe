@@ -17,7 +17,7 @@ export const validatePhone = (rule, value, callback) => {
 
 export const validateEditPassword = (rule, value, callback) => {
   if (!value) {
-    callback(new Error('密码不能为空'))
+    callback(new Error('新密码不能为空'))
   }
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\s\S]{8,16}$/.test(value) ? callback() : callback(new Error('密码格式不正确'))
 }
