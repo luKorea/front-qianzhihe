@@ -48,7 +48,7 @@
       </basic-container>
       <div class="modal">
         <span class="tip-info"></span>
-        <span class="tip-title">选科信息</span>
+        <span class="tip-title">选科征集信息</span>
         <div class="m-top">
           <div class="m-bottom">
             <span class="tip-title">首选科目（2选1）</span>

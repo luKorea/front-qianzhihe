@@ -24,8 +24,8 @@ export const updateTeacher = params => {
 }
 
 // 删除教师
-export const deleteTeacher = params => {
-    return req(`${basicUrl}/delete`)
+export const deleteTeacher = ids => {
+    return req(`${basicUrl}/delete`, ids,  'DELETE')
 }
 
 

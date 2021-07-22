@@ -8,7 +8,9 @@
         </div>
         <div class="right">
           <el-button @click="goEditGrade">编辑班级信息</el-button>
-          <el-button @click="openOrClose(info._id, false)"  type="danger" plain  v-if="info.openCourseSelectionFor">关闭选科征集</el-button>
+          <el-button @click="openOrClose(info._id, false)" type="danger" plain v-if="info.openCourseSelectionFor">
+            关闭选科征集
+          </el-button>
           <el-button @click="openOrClose(info._id, true)" v-else>开启选科征集</el-button>
         </div>
       </div>
@@ -53,18 +55,33 @@
           <el-col :span="8">
             <div>
               <span class="student-title">班主任：</span>
-              <span class="student-info">{{ info.teacherName }}</span>
+              <span class="student-info">
+                <span class="inline-text"
+                      @click="goTeacherDetail(info.teacherId)"
+                      v-if="info.teacherName !== '-'">{{ info.teacherName }}</span>
+                <span v-else>{{ info.teacherName }}</span>
+              </span>
             </div>
           </el-col>
           <el-col :span="8">
             <span class="student-title">生涯导师1：</span>
-            <span class="student-info">{{ info.teacher1Name }}</span>
+            <span class="student-info">
+              <span class="inline-text"
+                    @click="goTeacherDetail(info.teacher1Id)"
+                    v-if="info.teacher1Name !== '-'">{{ info.teacher1Name }}</span>
+                <span v-else>{{ info.teacher1Name }}</span>
+            </span>
           </el-col>
         </el-row>
         <el-row :gutter="`4`">
           <el-col :span="8">
             <span class="student-title">生涯导师2：</span>
-            <span class="student-info">{{ info.teacher2Name }}</span>
+            <span class="student-info">
+              <span class="inline-text"
+                    @click="goTeacherDetail(info.teacher2Id)"
+                    v-if="info.teacher2Name !== '-'">{{ info.teacher2Name }}</span>
+                <span v-else>{{ info.teacher2Name }}</span>
+            </span>
           </el-col>
         </el-row>
       </div>
@@ -81,28 +98,38 @@
       </div>
       <template v-if="list && list.length > 0">
         <el-table stripe :data="list" border style="width: 100%;margin: 20px 0">
-          <el-table-column prop="studentId" label="学号" align="center" />
+          <el-table-column prop="studentId" label="学号" align="center"/>
           <el-table-column label="头像" align="center">
             <template slot-scope="scope">
               <el-avatar size="32" :src="scope.row.profilePicture"></el-avatar>
             </template>
           </el-table-column>
-          <el-table-column prop="schoolUserName" label="姓名" align="center" />
-          <el-table-column label="性别" align="center">
+          <el-table-column prop="schoolUserName" label="姓名" align="center">
             <template slot-scope="scope">
-              <span>{{scope.row.gender   === 'F' ? '女' : '男'}}</span>
+            <span class="inline-text"
+                  @click="goOperationType('visit', scope.row._id, params.gradeId)"
+                  v-if="scope.row.schoolUserName !== '-'">{{ scope.row.schoolUserName }}</span>
+              <span v-else>{{ scope.row.schoolUserName }}</span>
             </template>
           </el-table-column>
-          <el-table-column prop="username" label="手机号" align="center" />
-          <el-table-column prop="enrollmentYear" label="入学年份" align="center" />
-          <el-table-column prop="firstChoice" label="首选科目" align="center" />
-          <el-table-column prop="recleaning1" label ="再选科目1" align="center" />
-          <el-table-column prop="recleaning2" label="再选科目2" align="center" />
+          <el-table-column label="性别" align="center">
+            <template slot-scope="scope">
+              <span>{{ scope.row.gender === 'F' ? '女' : '男' }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="username" label="手机号" align="center"/>
+          <el-table-column prop="enrollmentYear" label="入学年份" align="center"/>
+          <el-table-column prop="firstChoice" label="首选科目" align="center"/>
+          <el-table-column prop="recleaning1" label="再选科目1" align="center"/>
+          <el-table-column prop="recleaning2" label="再选科目2" align="center"/>
           <el-table-column label="操作" align="center" width="250">
             <template slot-scope="scope">
-              <el-button type="text" size="small" @click="goOperationType('visit', scope.row._id, params.gradeId)">查看</el-button>
-              <el-button type="text" size="small" @click="goOperationType('edit', scope.row._id, params.gradeId)">编辑</el-button>
-              <el-button type="text" style="color: red" size="small" @click="removeClassInfo(scope.row._id)">解除班级绑定</el-button>
+              <el-button type="text" size="small" @click="goOperationType('visit', scope.row._id, params.gradeId)">查看
+              </el-button>
+              <el-button type="text" size="small" @click="goOperationType('edit', scope.row._id, params.gradeId)">编辑
+              </el-button>
+              <el-button type="text" style="color: red" size="small" @click="removeClassInfo(scope.row._id)">解除班级绑定
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -158,6 +185,12 @@ export default {
             that.getInfo(this.params);
           }
         })
+      })
+    },
+    goTeacherDetail(teacherId) {
+      this.$router.push({
+        path: '/teachers/teacherDetails',
+        query: {teacherId: teacherId}
       })
     },
     goEditGrade() {
@@ -228,7 +261,7 @@ export default {
       this.getInfo(this.params);
     },
     exportData() {
-      exportStudent(this.params.gradeId, `【${this.info.name}】-学生名册`);
+      exportStudent(this.params.gradeId, `【${this.info.name}】-学生名册.xls`);
     }
   }
 }

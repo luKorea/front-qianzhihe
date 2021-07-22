@@ -22,10 +22,16 @@
         </div>
         <div style="display:flex; justify-content: space-between">
           <el-input style="margin-right: 10px"
-                    @keyup.enter.native="getData(params)"
+                    @keyup.enter.native="getData({
+                    ...params,
+                    page: 0
+                    })"
                     v-model="params.queryOrTeacherNameOrPhone" placeholder="请输入教师名称、手机号"
                     clearable="true"/>
-          <el-button type="primary" @click="getData(params)">筛选</el-button>
+          <el-button type="primary" @click="getData({
+                    ...params,
+                    page: 0
+                    })">筛选</el-button>
         </div>
       </div>
     </basic-container>
@@ -38,13 +44,24 @@
         <el-button type="primary" @click="goOperationType('add')">添加老师</el-button>
       </div>
       <el-table stripe :data="list" border style="width: 100%;margin-bottom: 20px">
-        <el-table-column prop="_id" label="教师ID" align="center" width="300" />
-        <el-table-column prop="name" label="教师名称" align="center" />
+        <el-table-column prop="_id" label="教师ID" align="center" />
+        <el-table-column prop="name" label="教师名称" align="center">
+          <template slot-scope="scope">
+            <span class="inline-text"
+                  @click="goOperationType('visit', scope.row._id)"
+                  v-if="scope.row.name !== '-'">{{scope.row.name}}</span>
+            <span v-else>{{scope.row.name}}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="teacherType" label="教师类型" align="center" />
         <el-table-column prop="phone" label="手机号" align="center" />
-        <el-table-column :show-overflow-tooltip="true"  label="代课班级" align="center">
+        <el-table-column label="代课班级" align="center">
           <template slot-scope="scope" v-if="scope.row.teacherGradeDtoList && scope.row.teacherGradeDtoList.length > 0">
-            <span v-for="item in scope.row.teacherGradeDtoList" :key="item._id">{{item.name}}；</span>
+            <span class="inline-text"
+                  @click="goGradeDetail(item._id)"
+                  v-for="item in scope.row.teacherGradeDtoList" :key="item._id">
+              {{item.name}};
+            </span>
           </template>
         </el-table-column>
         <el-table-column label="操作" align="center">
@@ -65,7 +82,7 @@
 </template>
 
 <script>
-import {getTeacherList} from "../../../api/admin/taecher";
+import {getTeacherList, deleteTeacher} from "../../../api/admin/taecher";
 import {selectTypeList} from "../../../api/common/search";
 
 export default {
@@ -91,6 +108,14 @@ export default {
     this.getTeacherType();
   },
   methods: {
+    goGradeDetail(id) {
+      this.$router.push({
+        path: '/grade/gradeDetails',
+        query: {
+          id: id
+        }
+      })
+    },
     goOperationType(type, id) {
       if (type === 'visit') {
         this.$router.push({
@@ -113,10 +138,15 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        });
+        deleteTeacher([id]).then(res => {
+          if (res.errorCode === 200) {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+            this.getData(this.params);
+          }
+        })
       }).catch(() => {
       });
     },

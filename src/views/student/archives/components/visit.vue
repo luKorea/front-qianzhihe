@@ -83,7 +83,7 @@
     </basic-container>
     <basic-container style="margin-bottom: 100px">
       <span class="tip-info"></span>
-      <span class="tip-title">选科信息</span>
+      <span class="tip-title">选科征集信息</span>
       <div style="margin-top: 20px" v-if="info.firstChoice">
         <el-row :gutter="4">
           <el-col :span="8">

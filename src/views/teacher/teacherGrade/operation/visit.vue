@@ -79,7 +79,14 @@
               <el-avatar size="32" :src="scope.row.profilePicture"></el-avatar>
             </template>
           </el-table-column>
-          <el-table-column prop="schoolUserName" label="姓名" align="center" />
+          <el-table-column prop="schoolUserName" label="姓名" align="center">
+            <template slot-scope="scope">
+            <span class="inline-text"
+                  @click="goOperationType('visit', scope.row._id, params.gradeId)"
+                  v-if="scope.row.schoolUserName !== '-'">{{scope.row.schoolUserName}}</span>
+              <span v-else>{{scope.row.schoolUserName}}</span>
+            </template>
+          </el-table-column>
           <el-table-column label="性别" align="center">
             <template slot-scope="scope">
               <span>{{scope.row.gender === 'F' ? '女' : '男'}}</span>

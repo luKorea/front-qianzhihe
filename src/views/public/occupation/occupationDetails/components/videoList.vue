@@ -1,7 +1,10 @@
 <template>
   <div class="video-wrap">
     <div class="video-left">
-      <video :src="defaultSrc" controls="controls" class="my-video">
+<!--      <div id="player" class="my-video"></div>-->
+      <video :src="defaultSrc" controls="controls"
+             oncontextmenu="return false;"
+             controlslist="nodownload" class="my-video" :poster="defaultPoster">
         您的浏览器不支持 video 标签。
       </video>
     </div>
@@ -11,7 +14,7 @@
         <div class="video-item">
           <div v-for="(item, index) in videoList"
                :class="index === selectIndex ? 'select' : ''"
-               :key="item._id" class="item" @click="changeVideo(item.videos, index)">
+               :key="item._id" class="item" @click="changeVideo(item.videos, index, item.image)">
             <div class="item-img"><img :src="item.image" alt=""></div>
             <div class="item-title">{{item.describe}}</div>
           </div>
@@ -30,24 +33,58 @@ export default {
       default: () => []
     }
   },
+  mounted() {
+    this.defaultSrc = this.videoList[0].videos;
+    this.defaultPoster = this.videoList[0].image;
+    // this.loadPlayerScript(this.loadPlayer);
+  },
   watch: {
      videoList: {
        deep: true,
-       handler() {
+       handler(val) {
          this.defaultSrc = this.videoList[0].videos
+         this.defaultPoster = this.videoList[0].image
        }
      }
   },
   data() {
     return {
       defaultSrc: '',
-      selectIndex: 0
+      defaultPoster: '',
+      selectIndex: 0,
+      vodPlayerJs: 'https://player.polyv.net/script/player.js',
     }
   },
   methods: {
-    changeVideo(video, index) {
+    loadPlayerScript(callback) {
+      if (!window.polyvPlayer) {
+        const myScript = document.createElement('script');
+        myScript.setAttribute('src', this.vodPlayerJs);
+        myScript.onload = callback;
+        document.body.appendChild(myScript);
+      } else {
+        callback();
+      }
+    },
+    loadPlayer() {
+      const polyvPlayer = window.polyvPlayer;
+      this.player = polyvPlayer({
+        wrap: '#player',
+        height: 479,
+        vid: '88083abbf5bcf1356e05d39666be527a_8',
+        hideSwitchPlayer: true,
+        screenshot: true, // 启动视频截图
+      });
+    },
+    changeVideo(video, index, image) {
       this.defaultSrc = video;
+      this.defaultPoster = image;
       this.selectIndex = index;
+    }
+  },
+  destroyed() {
+    if (this.player) {
+      this.player.destroy();
     }
   }
 }
@@ -61,9 +98,10 @@ export default {
   margin-top: 10px;
   .video-left {
     width: 73%;
+    height: 479px;
     .my-video {
       width: 100%;
-      height: 100%;
+      height: 479px;
     }
   }
   .video-right{

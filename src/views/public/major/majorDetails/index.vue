@@ -6,8 +6,6 @@
       <basic-proposal :info="proposalInfo" @changeMajor="getProposalFromComponents"/>
       <basic-employment :info="employmentInfo"/>
     </basic-container>
-
-
     <el-tooltip :content="showBackInfo ? '关闭' : '打开'" placement="top-start">
       <i
           class="flex-right-icon"

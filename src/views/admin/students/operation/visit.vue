@@ -58,7 +58,12 @@
           </el-col>
           <el-col :span="8">
             <span class="student-title">班级名称：</span>
-            <span class="student-info">{{ info.gradeDto.name }}</span>
+            <span class="student-info">
+               <span class="inline-text"
+                     @click="goGradeDetail(info.gradeDto._id)"
+                     v-if="info.gradeDto.name !== '-'">{{ info.gradeDto.name }}</span>
+                <span v-else>{{ info.gradeDto.name }}</span>
+            </span>
           </el-col>
           <el-col :span="8">
             <span class="student-title">班级类型：</span>
@@ -76,17 +81,32 @@
           </el-col>
           <el-col :span="8">
             <span class="student-title">班主任：</span>
-            <span class="student-info">{{ info.gradeDto.teacherName }}</span>
+            <span class="student-info">
+              <span class="inline-text"
+                    @click="goTeacherDetail(info.gradeDto.teacherId)"
+                    v-if="info.gradeDto.teacherName !== '-'">{{ info.gradeDto.teacherName }}</span>
+                <span v-else>{{ info.gradeDto.teacherName }}</span>
+            </span>
           </el-col>
         </el-row>
         <el-row :gutter="4" class="m-bottom">
           <el-col :span="8">
             <span class="student-title">生涯导师：</span>
-            <span class="student-info">{{ info.gradeDto.teacher1Name }}</span>
+            <span class="student-info">
+              <span class="inline-text"
+                    @click="goTeacherDetail(info.gradeDto.teacher1Id)"
+                    v-if="info.gradeDto.teacher1Name !== '-'">{{ info.gradeDto.teacher1Name }}</span>
+                <span v-else>{{ info.gradeDto.teacher1Name }}</span>
+            </span>
           </el-col>
           <el-col :span="8">
             <span class="student-title">生涯导师2：</span>
-            <span class="student-info">{{ info.gradeDto.teacher2Name }}</span>
+            <span class="student-info">
+              <span class="inline-text"
+                    @click="goTeacherDetail(info.gradeDto.teacher2Id)"
+                    v-if="info.gradeDto.teacher2Name !== '—'">{{ info.gradeDto.teacher2Name }}</span>
+                <span v-else>{{ info.gradeDto.teacher2Name }}</span>
+            </span>
           </el-col>
         </el-row>
       </div>
@@ -144,6 +164,20 @@ export default {
     this.getRecleaningData();
   },
   methods: {
+    goGradeDetail(id) {
+      this.$router.push({
+        path: '/grade/gradeDetails',
+        query: {
+          id: id
+        }
+      })
+    },
+    goTeacherDetail(teacherId) {
+      this.$router.push({
+        path: '/teachers/teacherDetails',
+        query: {teacherId: teacherId}
+      })
+    },
     getFirstSelectData() {
       selectTypeList('firstChoice')
           .then(res => {

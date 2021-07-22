@@ -21,7 +21,10 @@
           </el-select>
         </div>
         <div>
-          <el-button type="primary" @click="switchData">筛选</el-button>
+          <el-button type="primary" @click="switchData({
+          ...params,
+          page: 0
+          })">筛选</el-button>
         </div>
       </div>
 

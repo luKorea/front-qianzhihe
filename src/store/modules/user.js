@@ -54,11 +54,13 @@ const actions = {
                     commit("SET_UUID", user.teacher_id);
                     commit("SET_TOKEN", res.token);
                     commit('SET_USER_TYPE', user.role);
-                    window.localStorage.setItem(
-                        "USERINFO_" + defaultSettings.KEY,
-                        JSON.stringify(user)
-                    );
                     setToken(res.token);
+                    if (!res.isBindingPhone) {
+                        window.localStorage.setItem(
+                            "USERINFO_" + defaultSettings.KEY,
+                            JSON.stringify(user)
+                        );
+                    }
                     resolve(res);
                 })
                 .catch(function(error) {

@@ -30,9 +30,15 @@
         </div>
         <div style="display: flex; justify-content: space-between">
           <el-input style="margin-right: 10px; " v-model="params.searchText"
-                    @keyup.enter.native="getData(params)"
+                    @keyup.enter.native="getData({
+                    ...params,
+                    page: 0
+                    })"
                     placeholder="请输入班主任、生涯导师" clearable="true"/>
-          <el-button type="primary" @click="getData(params)">筛选</el-button>
+          <el-button type="primary" @click="getData({
+                    ...params,
+                    page: 0
+                    })">筛选</el-button>
         </div>
       </div>
     </basic-container>
@@ -47,20 +53,50 @@
         </div>
       </div>
       <el-table stripe :data="list" border style="width: 100%;margin: 20px 0">
-        <el-table-column prop="_id" label="班级ID" align="center" width="280px" />
-        <el-table-column prop="name" label="班级名称" align="center" width="150px"/>
-        <el-table-column prop="gradeCount" label="班级人数" align="center" />
-        <el-table-column prop="gradeType" label="班级类型" align="center" />
-        <el-table-column prop="grade" label="年级" align="center" />
-        <el-table-column prop="enrollmentYear" label="入学年份" align="center" />
-        <el-table-column prop="teacherName" label="班主任" align="center" />
-        <el-table-column prop="teacher1Name" label="生涯导师1" align="center" />
-        <el-table-column prop="teacher2Name" label="生涯导师2" align="center" />
+        <el-table-column prop="_id" label="班级ID" align="center"/>
+        <el-table-column prop="name" label="班级名称" align="center">
+          <template slot-scope="scope">
+            <span class="inline-text"
+                  @click="goOperationType('visit', scope.row._id)"
+                  v-if="scope.row.name !== '-'">{{ scope.row.name }}</span>
+            <span v-else>{{ scope.row.name }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="gradeCount" label="班级人数" align="center"/>
+        <el-table-column prop="gradeType" label="班级类型" align="center"/>
+        <el-table-column prop="grade" label="年级" align="center"/>
+        <el-table-column prop="enrollmentYear" label="入学年份" align="center"/>
+        <el-table-column prop="teacherName" label="班主任" align="center">
+          <template slot-scope="scope">
+            <span class="inline-text"
+                  @click="goTeacherDetail(scope.row.teacherId)"
+                  v-if="scope.row.teacherName !== '-'">{{ scope.row.teacherName }}</span>
+            <span v-else>{{ scope.row.teacherName }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="teacher1Name" label="生涯导师1" align="center">
+          <template slot-scope="scope">
+            <span class="inline-text"
+                  @click="goTeacherDetail(scope.row.teacher1Id)"
+                  v-if="scope.row.teacher1Name !== '-'">{{ scope.row.teacher1Name }}</span>
+            <span v-else>{{ scope.row.teacher1Name }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="teacher2Name" label="生涯导师2" align="center">
+          <template slot-scope="scope">
+            <span class="inline-text"
+                  @click="goTeacherDetail(scope.row.teacher2Id)"
+                  v-if="scope.row.teacher2Name !== '-'">{{ scope.row.teacher2Name }}</span>
+            <span v-else>{{ scope.row.teacher2Name }}</span>
+          </template>
+
+        </el-table-column>
         <el-table-column label="操作" align="center" width="250">
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="goOperationType('edit', scope.row._id)">编辑</el-button>
-            <el-button type="text" size="small" style="color: red" @click="openOrClose(scope.row._id, false)" v-if="scope.row.openCourseSelectionFor">
-             关闭选科征集
+            <el-button type="text" size="small" style="color: red" @click="openOrClose(scope.row._id, false)"
+                       v-if="scope.row.openCourseSelectionFor">
+              关闭选科征集
             </el-button>
             <el-button type="text" size="small" @click="openOrClose(scope.row._id, true)" v-else>
               开启选科征集
@@ -82,6 +118,7 @@
 import {getGradeList, updateCourseSelectionFor} from "../../../api/admin/grade";
 import {selectTypeList, selectClassList} from "../../../api/common/search";
 import {operationTip, successTip} from "../../../utils/tip";
+
 export default {
   name: "gradeList",
   data() {
@@ -125,6 +162,13 @@ export default {
         })
       })
     },
+    goTeacherDetail(teacherId) {
+      this.$router.push({
+        path: '/teachers/teacherDetails',
+        query: {teacherId: teacherId}
+      })
+
+    },
     goOperationType(type, id) {
       if (type === 'visit') {
         this.$router.push({
@@ -145,37 +189,37 @@ export default {
     },
     getGrade() {
       selectTypeList('grade')
-      .then(res => {
-        if (res.errorCode === 200) {
-          this.gradeList = res.data;
-        }
-      })
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.gradeList = res.data;
+            }
+          })
     },
     getGradeType() {
       selectTypeList('gradeType')
-      .then(res => {
-        if (res.errorCode === 200) {
-          this.gradeTypeList = res.data;
-        }
-      })
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.gradeTypeList = res.data;
+            }
+          })
     },
     getClassData() {
       selectClassList()
-      .then(res => {
-        if (res.errorCode === 200) {
-          this.classList = res.data;
-        }
-      })
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.classList = res.data;
+            }
+          })
     },
     getData(params) {
       getGradeList(params)
-      .then(res => {
-        if (res.errorCode === 200) {
-          let data = res.data;
-          this.list = data.result;
-          this.params.total = data.pageResult.total || 0;
-        }
-      })
+          .then(res => {
+            if (res.errorCode === 200) {
+              let data = res.data;
+              this.list = data.result;
+              this.params.total = data.pageResult.total || 0;
+            }
+          })
     },
     handleCurrentChange(val) {
       this.params.page = val;

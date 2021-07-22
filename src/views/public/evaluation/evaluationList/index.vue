@@ -10,7 +10,7 @@
             <template v-if="evaluationTypeList && evaluationTypeList.length > 0">
               <el-option v-for="(item, index) in evaluationTypeList"
                          :key="index"
-                         :label="item.label" :value="item.label"></el-option>
+                         :label="item.label" :value="item.value"></el-option>
             </template>
           </el-select>
         </div>
@@ -25,11 +25,17 @@
         <div class="search-item">
           <el-input style="width: 280px" v-model="params.searchText"
                     clearable
-                    @keyup.enter.native="getData(params)"
+                    @keyup.enter.native="getData({
+                    ...params,
+                    page: 0
+                    })"
                     placeholder="请输入学号、名称、手机号"/>
         </div>
         <div class="search-item">
-          <el-button type="primary" @click="getData(params)">筛选</el-button>
+          <el-button type="primary" @click="getData({
+                    ...params,
+                    page: 0
+                    })">筛选</el-button>
         </div>
       </div>
     </basic-container>
@@ -37,20 +43,34 @@
       <span class="tip-info"></span>
       <span class="tip-title">测评记录列表</span>
       <el-table stripe :data="list" border style="width: 100%;margin: 20px 0">
-        <el-table-column prop="user.studentId" label="学号" align="center"/>
+        <el-table-column prop="user.studentId" label="学号" align="center"></el-table-column>
         <el-table-column label="头像" align="center">
           <template slot-scope="scope">
             <el-avatar size="32" :src="scope.row.user.profilePicture"></el-avatar>
           </template>
         </el-table-column>
-        <el-table-column prop="user.schoolUserName" label="姓名" align="center"/>
+        <el-table-column prop="user.schoolUserName" label="姓名" align="center">
+          <template slot-scope="scope">
+            <span class="inline-text"
+                  @click="goStudentDetail(scope.row.user._id, scope.row.user.gradeId)"
+                  v-if="scope.row.user.schoolUserName !== '-'">{{ scope.row.user.schoolUserName }}</span>
+            <span v-else>{{ scope.row.user.schoolUserName }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="性别" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.user.gender === 'F' ? '女' : '男' }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="user.username" label="手机号" align="center"/>
-        <el-table-column prop="user.gradeName" label="班级" align="center"/>
+        <el-table-column prop="user.gradeName" label="班级" align="center">
+          <template slot-scope="scope">
+            <span class="inline-text"
+                  @click="goGradeDetail(scope.row.user.gradeId)"
+                  v-if="scope.row.user.gradeName !== '-'">{{ scope.row.user.gradeName }}</span>
+            <span v-else>{{ scope.row.user.gradeName }}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="name" label="测评内容" align="center"/>
         <el-table-column prop="testTime" label="测评时间" align="center"/>
         <el-table-column label="操作" align="center">
@@ -72,6 +92,7 @@
 import {selectTypeList, selectClassList} from "../../../../api/common/search";
 import {getStudentEvaluationList} from "../../../../api/common/evaluation";
 
+
 export default {
   name: "index",
   data() {
@@ -80,7 +101,7 @@ export default {
         page: 0,
         size: 10,
         searchText: '',
-        type: '不限',
+        type: '',
         total: 0,
         graduate: ''
       },
@@ -108,6 +129,46 @@ export default {
     this.getClassData();
   },
   methods: {
+    goStudentDetail(studentId, gradeId) {
+      const {user_type} = this.$store.state.user;
+      console.log(user_type);
+      if (user_type === '学校管理员') {
+        this.$router.push({
+          path: '/students/studentDetails',
+          query: {
+            studentId: studentId,
+            gradeId: gradeId ? gradeId : ''
+          }
+        })
+      } else {
+        this.$router.push({
+          path: '/teacherGrade/studentDetails',
+          query: {
+            studentId: studentId,
+            gradeId: gradeId ? gradeId : ''
+          }
+        })
+      }
+    },
+    goGradeDetail(gradeId) {
+      const {user_type} = this.$store.state.user;
+      console.log(user_type);
+      if (user_type === '学校管理员') {
+        this.$router.push({
+          path: '/grade/gradeDetails',
+          query: {
+            id: gradeId
+          }
+        })
+      } else {
+        this.$router.push({
+          path: '/teacherGrade/gradeDetails',
+          query: {
+            id: gradeId
+          }
+        })
+      }
+    },
     goDetail(id, type) {
       this.$router.push({
         path: '/evaluation/evaluationList/evaluationDetails',

@@ -26,7 +26,7 @@ export function req(url, data, type = 'GET') {
         let headers = {
             Authorization: getToken() || ''
         }
-        if (type === "POST" || type === 'PUT') {
+        if (type === "POST" || type === 'PUT' || type === 'DELETE') {
             headers["Content-Type"] = "application/json";
             data = JSON.stringify(data);
         }
@@ -89,6 +89,7 @@ export function req(url, data, type = 'GET') {
 
 export function xhrGetFile(url, name, message = '导出成功') {
     return new Promise(function (resolve, reject) {
+        showFullScreenLoading();
         var xhr = new XMLHttpRequest();
         xhr.open("GET", url, true);
         xhr.setRequestHeader("Authorization", getToken());
@@ -101,10 +102,11 @@ export function xhrGetFile(url, name, message = '导出成功') {
                         type: 'error',
                         duration: 3 * 1000
                     })
+                    tryHideFullScreenLoading();
                     return
                 } else {
                     var content = xhr.response;
-                    var fileName = `${name}.xlsx`; // 保存的文件名
+                    var fileName = `${name}`; // 保存的文件名
                     var elink = document.createElement('a');
                     elink.download = fileName;
                     elink.style.display = 'none';
@@ -116,16 +118,19 @@ export function xhrGetFile(url, name, message = '导出成功') {
                     Message({
                         message: message,
                         type: 'success'
-                    })
+                    });
+                    tryHideFullScreenLoading()
                 }
                 resolve();
             } else {
+                console.log(xhr);
+                tryHideFullScreenLoading()
                 Message({
-                    message: '服务器端响应超时,请稍后再试',
+                    message: xhr.statusText,
                     type: 'error',
                     duration: 3 * 1000
-                })
-                reject('服务器端响应超时,请稍后再试');
+                });
+                reject(xhr.statusText);
             }
 
         };

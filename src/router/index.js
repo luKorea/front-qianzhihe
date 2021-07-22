@@ -345,9 +345,9 @@ export const asyncRouterMap = [
             {
                 path: 'subjectSelectionStatistics',
                 component: () => import('../views/public/dataAnalysis/subjectSelectionStatistics'),
-                name: '选科统计',
+                name: '选科查询统计',
                 meta: {
-                    title: '选科统计',
+                    title: '选科查询统计',
                     showTag: true,
                     keepAlive: true,
                     icon: 'el-icon-star-off',

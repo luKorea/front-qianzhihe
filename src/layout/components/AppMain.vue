@@ -111,7 +111,7 @@ export default {
 }
 
 .fixed-header + .app-main {
-  padding-top: 120px;
+  padding-top: 100px;
 }
 
 .hasTagsView {
@@ -121,7 +121,7 @@ export default {
   }
 
   .fixed-header + .app-main {
-    padding-top: 120px;
+    padding-top: 100px;
   }
 }
 </style>

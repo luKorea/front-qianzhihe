@@ -2,7 +2,7 @@
   <div>
     <basic-container>
       <span class="tip-info"></span>
-      <span class="tip-title">选科统计筛选</span>
+      <span class="tip-title">选科查询统计筛选</span>
       <div class="search-wrap m-top">
         <div>
           <span class="tip">年级:</span>
@@ -21,13 +21,16 @@
           </el-select>
         </div>
         <div>
-          <el-button type="primary" @click="getData(params)">筛选</el-button>
+          <el-button type="primary" @click="getData({
+          ...params,
+          page: 0
+          })">筛选</el-button>
         </div>
       </div>
     </basic-container>
     <basic-container>
       <span class="tip-info"></span>
-      <span class="tip-title">选科数据统计</span>
+      <span class="tip-title">选科查询数据统计</span>
       <el-divider/>
       <div class="charts-flex">
         <div id="charts" class="charts"></div>

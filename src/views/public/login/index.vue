@@ -65,7 +65,7 @@
                 </el-col>
               </el-row>
               <div class="form-info">
-                <el-checkbox v-model="checked">7天免登录</el-checkbox>
+<!--                <el-checkbox v-model="checked">7天免登录</el-checkbox>-->
                 <el-link type="info" @click="showImg">忘记密码?</el-link>
               </div>
               <el-button
@@ -130,7 +130,7 @@
                 </el-col>
               </el-row>
               <div class="form-info">
-                <el-checkbox v-model="checked">7天免登录</el-checkbox>
+<!--                <el-checkbox v-model="checked">7天免登录</el-checkbox>-->
                 <el-link type="info" @click="showImg">忘记密码?</el-link>
               </div>
               <el-button
@@ -224,6 +224,7 @@ export default {
   name: 'Login',
   data() {
     return {
+      backInfo: null,
       activeName: 'teacher',
       showLoginContainer: true, // 显示登录界面，控制显示学生登录时信息填写弹框切换
       labelWidth: '80px',
@@ -370,11 +371,14 @@ export default {
               getStudentInfo(params.username)
               .then(res => {
                 if (res.errorCode === 200) {
+                  that.backInfo = user;
                   that.infoFrom['username'] = res.data.schoolUserNameLogin;
                   that.infoFrom['schoolUserName'] = res.data.schoolUserName;
                   that.infoFrom['gender'] = res.data.gender;
                   that.infoFrom['gradeName'] = res.data.gradeName;
                   this.showLoginContainer = false;
+                } else {
+                  errorTip(res.msg);
                 }
               })
             } else {
@@ -401,6 +405,10 @@ export default {
       })
       .then(res => {
         if (res.errorCode === 200) {
+          window.localStorage.setItem(
+              "USERINFO_" + defaultSettings.KEY,
+              JSON.stringify(this.backInfo)
+          );
           this.$store.dispatch('user/getControl', {}).then(() => {
             this.$router.push({ path: '/' })
           }).catch(() => {

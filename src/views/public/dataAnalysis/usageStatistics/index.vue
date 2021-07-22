@@ -47,10 +47,16 @@
         <div style="display: flex; margin-left: 20px">
           <el-input v-model="params.searchText"
                     clearable
-                    @keyup.enter.native="getHistoryData(params)"
+                    @keyup.enter.native="getHistoryData({
+                    ...params,
+                    page: 0
+                    })"
                     style="margin-right: 20px; width: 300px"
                     placeholder="请输入学号、名称、手机号"/>
-          <el-button type="primary" @click="getHistoryData(params)">筛选</el-button>
+          <el-button type="primary" @click="getHistoryData({
+          ...params,
+          page: 0
+          })">筛选</el-button>
         </div>
       </div>
     </basic-container>
@@ -64,7 +70,14 @@
             <el-avatar size="32" :src="scope.row.user.profilePicture"></el-avatar>
           </template>
         </el-table-column>
-        <el-table-column prop="user.schoolUserName" label="姓名" align="center" />
+        <el-table-column prop="user.schoolUserName" label="姓名" align="center">
+          <template slot-scope="scope">
+            <span class="inline-text"
+                  @click="goStudentDetail(scope.row.user._id, scope.row.user.gradeId)"
+                  v-if="scope.row.user.schoolUserName !== '-'">{{ scope.row.user.schoolUserName }}</span>
+            <span v-else>{{ scope.row.user.schoolUserName }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="性别" align="center">
           <template slot-scope="scope">
             <span>{{scope.row.user.gender === 'F' ? '女' : '男'}}</span>
@@ -73,8 +86,10 @@
         <el-table-column prop="user.username" label="手机号" align="center" />
         <el-table-column label="班级" align="center">
           <template slot-scope="scope">
-<!--            TODO 跳转待定-->
-            <span>{{scope.row.user.gradeName}}</span>
+            <span class="inline-text"
+                  @click="goGradeDetail(scope.row.user.gradeId)"
+                  v-if="scope.row.user.gradeName !== '-'">{{ scope.row.user.gradeName }}</span>
+            <span v-else>{{ scope.row.user.gradeName }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="activityName" label="操作日志" align="center" width="300" />
@@ -122,6 +137,46 @@ export default {
     this.getHistoryData(this.params);
   },
   methods: {
+    goStudentDetail(studentId, gradeId) {
+      const {user_type} = this.$store.state.user;
+      console.log(user_type);
+      if (user_type === '学校管理员') {
+        this.$router.push({
+          path: '/students/studentDetails',
+          query: {
+            studentId: studentId,
+            gradeId: gradeId ? gradeId : ''
+          }
+        })
+      } else {
+        this.$router.push({
+          path: '/teacherGrade/studentDetails',
+          query: {
+            studentId: studentId,
+            gradeId: gradeId ? gradeId : ''
+          }
+        })
+      }
+    },
+    goGradeDetail(gradeId) {
+      const {user_type} = this.$store.state.user;
+      console.log(user_type);
+      if (user_type === '学校管理员') {
+        this.$router.push({
+          path: '/grade/gradeDetails',
+          query: {
+            id: gradeId
+          }
+        })
+      } else {
+        this.$router.push({
+          path: '/teacherGrade/gradeDetails',
+          query: {
+            id: gradeId
+          }
+        })
+      }
+    },
     getGrade() {
       selectTypeList('grade')
           .then(res => {

@@ -402,7 +402,7 @@ export function scrollElement(selector) {
   let height = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
   //指定dom到页面顶端的距离
   let dom = document.getElementById(selector);
-  let domHeight = dom.offsetTop - 80;
+  let domHeight = dom.offsetTop - 125;
   //滚动距离计算
   var S = Number(height) - Number(domHeight);
   //判断上滚还是下滚

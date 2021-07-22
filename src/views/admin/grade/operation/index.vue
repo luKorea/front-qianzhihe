@@ -80,7 +80,7 @@
           </el-row>
         </div>
       </basic-container>
-      <basic-container>
+      <basic-container style="margin-bottom: 60px">
         <span class="tip-info"></span>
         <span class="tip-title">其他</span>
         <div class="m-top">
@@ -130,10 +130,11 @@ export default {
   },
   mounted() {
     let {type, id} = this.$route.query;
+    console.log(type);
+    this.$route.meta.title = type === 'add' ? '新增班级' : '编辑班级';
     this.type = type;
     this.id = id;
     this.text = type === 'add' ? '立即添加' : '保存';
-    this.$route.meta.title = type === 'add' ? '新增班级' : '编辑班级';
     this.getGrade();
     this.getYear();
     this.getGradeType();

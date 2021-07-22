@@ -562,3 +562,12 @@ input:-webkit-autofill:active {
     background: #4D97FF;
   }
 }
+
+.inline-text {
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #475B75;
+  border-bottom: 1px solid #475B75;
+  cursor: pointer;
+}

@@ -30,9 +30,15 @@
         </div>
         <div style="display: flex;justify-content: space-between">
           <el-input style="margin-right: 10px;" v-model="params.queryOrIdOrNameOrPhone"
-                    @keyup.enter.native="getData(params)"
+                    @keyup.enter.native="getData({
+                    ...params,
+                    page: 0
+                    })"
                     placeholder="请输入学号、名称、手机号" clearable="true"/>
-          <el-button type="primary" @click="getData(params)">筛选</el-button>
+          <el-button type="primary" @click="getData({
+                    ...params,
+                    page: 0
+                    })">筛选</el-button>
         </div>
       </div>
     </basic-container>
@@ -46,7 +52,7 @@
           <el-button type="primary" @click="goOperationType('add')">新增学生账号</el-button>
           <el-button type="warning" style="margin-right: 10px" @click="showDialog = !showDialog">批量导入学生账号</el-button>
           <el-link
-              href="https://www.careershe.com/xls/%E5%AD%A6%E7%94%9F%E6%89%B9%E9%87%8F%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx"
+              href="https://www.careershe.com/xls/%E5%AD%A6%E7%94%9F%E6%89%B9%E9%87%8F%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xls"
               icon="el-icon-download" :underline="false" class="link-btn">
             下载学生批量导入模版
           </el-link>
@@ -65,7 +71,14 @@
             <el-avatar size="32" :src="scope.row.profilePicture"></el-avatar>
           </template>
         </el-table-column>
-        <el-table-column prop="schoolUserName" label="姓名" align="center"/>
+        <el-table-column prop="schoolUserName" label="姓名" align="center">
+          <template slot-scope="scope">
+            <span class="inline-text"
+                  @click="goOperationType('visit', scope.row._id, scope.row.gradeId)"
+                  v-if="scope.row.schoolUserName !== '-'">{{ scope.row.schoolUserName }}</span>
+            <span v-else>{{ scope.row.schoolUserName }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="性别" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.gender === 'F' ? '女' : '男' }}</span>
@@ -75,7 +88,14 @@
         <el-table-column prop="activationDate" width="200" label="激活日期" align="center"/>
         <el-table-column prop="enrollmentYear" label="入学年份" align="center"/>
         <el-table-column prop="educationLevel" label="年级" align="center"/>
-        <el-table-column prop="gradeName" label="所属班级" align="center"/>
+        <el-table-column prop="gradeName" label="所属班级" align="center">
+          <template slot-scope="scope">
+            <span class="inline-text"
+                  @click="goGradeDetail(scope.row.gradeId)"
+                  v-if="scope.row.gradeName !== '-'">{{ scope.row.gradeName }}</span>
+            <span v-else>{{ scope.row.gradeName }}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="gradeType" label="班级类型" align="center"/>
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
@@ -131,6 +151,14 @@ export default {
     this.getClassType();
   },
   methods: {
+    goGradeDetail(id) {
+      this.$router.push({
+        path: '/grade/gradeDetails',
+        query: {
+          id: id
+        }
+      })
+    },
     goOperationType(type, studentId, gradeId) {
       if (type === 'visit') {
         this.$router.push({
@@ -198,8 +226,8 @@ export default {
       this.params.size = val;
       this.getData(this.params);
     },
-    downFile() {
-      xhrGetFile('https://www.careershe.com/xls/%E5%AD%A6%E7%94%9F%E6%89%B9%E9%87%8F%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx', '学生批量导入模板', '下载成功')
+      downFile() {
+        xhrGetFile('https://www.careershe.com/xls/%E5%AD%A6%E7%94%9F%E6%89%B9%E9%87%8F%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xls', '学生批量导入模板.xls', '下载成功')
           .then(res => {
           })
     }

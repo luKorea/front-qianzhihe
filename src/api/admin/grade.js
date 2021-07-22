@@ -36,7 +36,7 @@ export const updateGrade = data => {
 
 // 导出学生名单
 export const exportStudent = (gradeId, fileName) => {
-    return xhrGetFile(`/biz/student/download?gradeId=${gradeId}`, fileName)
+    return xhrGetFile(`/schoolApi/biz/student/download?gradeId=${gradeId}`, fileName)
 }
 
 // 开启选课征集 我的班级 班级管理
