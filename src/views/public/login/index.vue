@@ -250,10 +250,10 @@ export default {
         code: [{required: true, trigger: 'blur', validator: validateCode}]
       },
       infoRules: {
-        name: [{required: true, trigger: 'blur', validator: validateUsername}],
-        gender: [{required: true, trigger: 'blur', validator: validateGender}],
+        // name: [{required: true, trigger: 'blur', validator: validateUsername}],
+        // gender: [{required: true, trigger: 'blur', validator: validateGender}],
         phone: [{required: true, trigger: 'blur', validator: validatePhone}],
-        grade: [{required: true, trigger: 'blur', validator: validateClassType}]
+        // grade: [{required: true, trigger: 'blur', validator: validateClassType}]
       },
       loading: false,
       passwordType: 'password',
@@ -398,23 +398,29 @@ export default {
       });
     },
     studentLogin() {
-      bindPhone({
-        phone: this.infoFrom.phone,
-        username: this.infoFrom.username,
-        gender: this.infoFrom.gender
-      })
-      .then(res => {
-        if (res.errorCode === 200) {
-          window.localStorage.setItem(
-              "USERINFO_" + defaultSettings.KEY,
-              JSON.stringify(this.backInfo)
-          );
-          this.$store.dispatch('user/getControl', {}).then(() => {
-            this.$router.push({ path: '/' })
-          }).catch(() => {
+      this.$refs['infoForm'].validate(valid => {
+        if (valid) {
+          bindPhone({
+            phone: this.infoFrom.phone,
+            username: this.infoFrom.username,
+            gender: this.infoFrom.gender
           })
+              .then(res => {
+                if (res.errorCode === 200) {
+                  window.localStorage.setItem(
+                      "USERINFO_" + defaultSettings.KEY,
+                      JSON.stringify(this.backInfo)
+                  );
+                  this.$store.dispatch('user/getControl', {}).then(() => {
+                    this.$router.push({ path: '/' })
+                  }).catch(() => {
+                  })
+                } else {
+                  errorTip(res.msg);
+                }
+              })
         } else {
-          errorTip(res.msg);
+          return false;
         }
       })
     }
