@@ -19,7 +19,8 @@ export const getEditInfo = teacherId => {
 
 // 查看学生信息
 export const getStudentInfo = params => {
-    return req(`${basicUrl}/queryStudentUpdate?gradeId=${params.gradeId}&studentId=${params.studentId}`)
+    // return req(`${basicUrl}/queryStudentUpdate?gradeId=${params.gradeId}&studentId=${params.studentId}`)
+    return req(`${basicUrl}/queryStudentUpdate?studentId=${params.studentId}`)
 }
 
 // 移除学生班级关联

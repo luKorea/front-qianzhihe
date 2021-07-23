@@ -5,7 +5,12 @@
     <div class="search-wrap m-top">
       <div>
         <span class="tip">班级类型:</span>
-        <el-select v-model="params.gradeType" placeholder="请选择" clearable filterable>
+        <el-select v-model="params.gradeType"
+                   @change="getData({
+                   ...params,
+                   page: 0
+                   })"
+                   placeholder="请选择" clearable filterable>
           <template v-if="gradeTypeList && gradeTypeList.length > 0">
             <el-option v-for="item in gradeTypeList" :label="item.name" :value="item.name"></el-option>
           </template>
@@ -13,7 +18,12 @@
       </div>
       <div>
         <span class="tip">年级:</span>
-        <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
+        <el-select v-model="params.grade"
+                   @change="getData({
+                   ...params,
+                   page: 0
+                   })"
+                   placeholder="请选择" clearable filterable>
           <template v-if="gradeList && gradeList.length > 0">
             <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
           </template>
@@ -21,33 +31,56 @@
       </div>
       <div>
         <span class="tip">班级:</span>
-        <el-select v-model="params.graduate" placeholder="请选择" clearable filterable>
+        <el-select v-model="params.graduate"
+                   @change="getData({
+                   ...params,
+                   page: 0
+                   })"
+                   placeholder="请选择" clearable filterable>
           <template v-if="classList && classList.length > 0">
             <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
           </template>
         </el-select>
       </div>
       <div>
-        <el-button plain icon="el-icon-download">导出EXCEL</el-button>
+        <el-button plain icon="el-icon-download" @click="downStudent">导出EXCEL</el-button>
       </div>
     </div>
     <el-table
         border
-        :data="[{ date: '2016-05-02', name: '王小虎', address: '上海市普陀区金沙江路 1518 弄' }, { date: '2016-05-04', name: '王小虎', address: '上海市普陀区金沙江路 1517 弄' }]"
+        :data="list"
         style="width: 100%; margin-bottom: 20px">
-      <el-table-column prop="date" label='学号' align="center"/>
-      <el-table-column prop="date" label='姓名' align="center"/>
-      <el-table-column prop="date" label='性别' align="center"/>
-      <el-table-column prop="date" label='手机号' align="center"/>
-      <el-table-column prop="date" label='首选科目' align="center"/>
-      <el-table-column prop="date" label='再选科目1' align="center"/>
-      <el-table-column prop="date" label='再选科目2' align="center"/>
-      <el-table-column prop="date" label='年级' align="center"/>
-      <el-table-column prop="date" label='所属班级' align="center"/>
-      <el-table-column prop="date" label='班级类型' align="center"/>
+      <el-table-column prop="studentId" label="学号" align="center"/>
+      <el-table-column prop="schoolUserName" label="姓名" align="center">
+        <template slot-scope="scope">
+            <span class="inline-text"
+                  @click="goStudentDetail(scope.row._id, scope.row.gradeId)"
+                  v-if="scope.row.schoolUserName !== '-'">{{ scope.row.schoolUserName }}</span>
+          <span v-else>{{ scope.row.schoolUserName }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="性别" align="center">
+        <template slot-scope="scope">
+          <span>{{ scope.row.gender === 'F' ? '女' : '男' }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="username" label="手机号" align="center"/>
+      <el-table-column prop="firstChoice" label='首选科目' align="center"/>
+      <el-table-column prop="recleaning1" label='再选科目1' align="center"/>
+      <el-table-column prop="recleaning2" label='再选科目2' align="center"/>
+      <el-table-column prop="educationLevel" label='年级' align="center"/>
+      <el-table-column prop="gradeName" label="所属班级" align="center">
+        <template slot-scope="scope">
+            <span class="inline-text"
+                  @click="goGradeDetail(scope.row.gradeId)"
+                  v-if="scope.row.gradeName !== '-'">{{ scope.row.gradeName }}</span>
+          <span v-else>{{ scope.row.gradeName }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="gradeType" label='班级类型' align="center"/>
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
-          <el-button type="text" size="small">查看</el-button>
+          <el-button type="text" size="small" @click="goStudentDetail(scope.row._id, scope.row.gradeId)">查看</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -60,42 +93,85 @@
 </template>
 
 <script>
-import {selectClassList, selectTypeList} from "../../../../../api/common/search";
-import {getList} from "../../../../../api/common/dataAnalysis/subjectSelectionTypeStatistics";
+import {selectTypeList} from "../../../../../api/common/search";
+import {downStudentList, getList} from "../../../../../api/common/dataAnalysis/subjectSelectionTypeStatistics";
 
 export default {
   name: "student",
+  props: {
+    classList: {
+      type: Array,
+      default: () => []
+    },
+    gradeList: {
+      type: Array,
+      default: () => []
+    }
+  },
   data() {
     return {
       params: {
         page: 0,
         size: 10,
-        gradeType: '', //	年级
-        graduate: '', // 班级
-        grade: '', //班级类型
+        gradeType: '',
+        graduate: '',
+        grade: '',
         queryOrIdOrNameOrPhone: '',
         total: 0
       },
-      classList: [],
       gradeTypeList: [],
-      gradeList: [],
       list: [],
     }
   },
   mounted() {
     this.getData(this.params);
-    this.getGrade();
     this.getGradeType();
-    this.getClassData();
   },
   methods: {
-    getGrade() {
-      selectTypeList('grade')
+    downStudent() {
+      downStudentList(this.params, `学生选科征集名单.xls`)
           .then(res => {
-            if (res.errorCode === 200) {
-              this.gradeList = res.data;
-            }
           })
+    },
+    goStudentDetail(studentId, gradeId) {
+      const {user_type} = this.$store.state.user;
+      console.log(user_type);
+      if (user_type === '学校管理员') {
+        this.$router.push({
+          path: '/students/studentDetails',
+          query: {
+            studentId: studentId,
+            gradeId: gradeId ? gradeId : ''
+          }
+        })
+      } else {
+        this.$router.push({
+          path: '/teacherGrade/studentDetails',
+          query: {
+            studentId: studentId,
+            gradeId: gradeId ? gradeId : ''
+          }
+        })
+      }
+    },
+    goGradeDetail(gradeId) {
+      const {user_type} = this.$store.state.user;
+      console.log(user_type);
+      if (user_type === '学校管理员') {
+        this.$router.push({
+          path: '/grade/gradeDetails',
+          query: {
+            id: gradeId
+          }
+        })
+      } else {
+        this.$router.push({
+          path: '/teacherGrade/gradeDetails',
+          query: {
+            id: gradeId
+          }
+        })
+      }
     },
     getGradeType() {
       selectTypeList('gradeType')
@@ -105,20 +181,13 @@ export default {
             }
           })
     },
-    getClassData() {
-      selectClassList()
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.classList = res.data;
-            }
-          })
-    },
     getData(params) {
       getList(params)
           .then(res => {
             if (res.errorCode === 200) {
               console.log(res, 'data');
-              this.list = res.data;
+              this.list = res.data.result;
+              this.params.total = res.data.pageResult.total || 0;
             }
           })
     },

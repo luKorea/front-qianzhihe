@@ -37,11 +37,11 @@
         <el-row :gutter="4">
           <el-col :span="8">
             <span class="student-title">年级：</span>
-            <span class="student-info">{{ info.gradeDto.grade }}</span>
+            <span class="student-info">{{ info.educationLevel }}</span>
           </el-col>
           <el-col :span="8">
             <span class="student-title">入学年份：</span>
-            <span class="student-info">{{ info.gradeDto.enrollmentYear }}</span>
+            <span class="student-info">{{ info.enrollmentYear }}</span>
           </el-col>
         </el-row>
 
@@ -84,7 +84,7 @@
             <span class="student-info">
               <span class="inline-text"
                     @click="goTeacherDetail(info.gradeDto.teacherId)"
-                    v-if="info.gradeDto.teacherName !== '-'">{{ info.gradeDto.teacherName }}</span>
+                    v-if="info.gradeDto.teacherName !== '—'">{{ info.gradeDto.teacherName }}</span>
                 <span v-else>{{ info.gradeDto.teacherName }}</span>
             </span>
           </el-col>
@@ -95,7 +95,7 @@
             <span class="student-info">
               <span class="inline-text"
                     @click="goTeacherDetail(info.gradeDto.teacher1Id)"
-                    v-if="info.gradeDto.teacher1Name !== '-'">{{ info.gradeDto.teacher1Name }}</span>
+                    v-if="info.gradeDto.teacher1Name !== '—'">{{ info.gradeDto.teacher1Name }}</span>
                 <span v-else>{{ info.gradeDto.teacher1Name }}</span>
             </span>
           </el-col>
@@ -194,6 +194,7 @@ export default {
           })
     },
     goBack() {
+      this.$store.dispatch("tagsView/delView", this.$route);
       this.$router.go(-1);
     },
     goEdit(studentId, gradeId) {

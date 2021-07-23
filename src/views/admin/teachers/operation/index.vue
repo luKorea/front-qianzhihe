@@ -133,6 +133,7 @@ export default {
       })
     },
     goBack() {
+      this.$store.dispatch("tagsView/delView", this.$route);
       this.$router.go(-1);
     },
     operationData() {
@@ -163,7 +164,8 @@ export default {
       .then(res => {
         if (res.errorCode === 200) {
           successTip('修改成功')
-          this.goBack();
+          // this.goBack();
+          this.switchData();
         }
       })
     }

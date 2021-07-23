@@ -52,7 +52,6 @@ export const constantRoutesStart = [
                     icon: 'el-icon-collection-tag',
                     showTag: true,
                     roles: ['search'],
-                    keepAlive: true,
                     breadcrumb: true,
                 },
             }

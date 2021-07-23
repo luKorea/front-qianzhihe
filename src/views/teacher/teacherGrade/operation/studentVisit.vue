@@ -12,7 +12,7 @@
           <el-col :span="8">
             <div style="display: flex;align-items: center">
               <span class="student-title">头像：</span>
-              <el-avatar size="30" :src="info.profilePicture" style="margin-top: -20px" />
+              <el-avatar size="30" :src="info.profilePicture" style="margin-top: -20px"/>
             </div>
           </el-col>
           <el-col :span="8">
@@ -27,7 +27,7 @@
           </el-col>
           <el-col :span="8">
             <span class="student-title">手机号：</span>
-            <span class="student-info">{{info.username}}</span>
+            <span class="student-info">{{ info.username }}</span>
           </el-col>
           <el-col :span="8">
             <span class="student-title">激活日期：</span>
@@ -42,7 +42,7 @@
           </el-col>
           <el-col :span="8">
             <span class="student-title">入学年份：</span>
-            <span class="student-info">{{info.enrollmentYear}}</span>
+            <span class="student-info">{{ info.enrollmentYear }}</span>
           </el-col>
         </el-row>
 
@@ -59,7 +59,7 @@
           </el-col>
           <el-col :span="8">
             <span class="student-title">班级名称：</span>
-            <span class="student-info">{{info.gradeDto.name}}</span>
+            <span class="student-info">{{ info.gradeDto.name }}</span>
           </el-col>
           <el-col :span="8">
             <span class="student-title">班级类型：</span>
@@ -73,7 +73,7 @@
           </el-col>
           <el-col :span="8">
             <span class="student-title">入学年份：</span>
-            <span class="student-info">{{info.gradeDto.enrollmentYear}}</span>
+            <span class="student-info">{{ info.gradeDto.enrollmentYear }}</span>
           </el-col>
           <el-col :span="8">
             <span class="student-title">班主任：</span>
@@ -87,7 +87,7 @@
           </el-col>
           <el-col :span="8">
             <span class="student-title">生涯导师2：</span>
-            <span class="student-info">{{info.gradeDto.teacher2Name}}</span>
+            <span class="student-info">{{ info.gradeDto.teacher2Name }}</span>
           </el-col>
         </el-row>
       </div>
@@ -99,28 +99,28 @@
       <span class="tip-title">选科信息</span>
       <div style="margin-top: 20px" v-if="info.firstChoice">
         <el-row :gutter="4">
-         <el-col :span="8">
-           <span class="student-title">首选科目: </span>
-           <span class="student-info">{{info.firstChoice}}</span>
-         </el-col>
+          <el-col :span="8">
+            <span class="student-title">首选科目: </span>
+            <span class="student-info">{{ info.firstChoice }}</span>
+          </el-col>
           <el-col :span="8">
             <span class="student-title">再选科目: </span>
-            <span class="student-info">{{info.recleaning1}}、{{info.recleaning2}}</span>
-            </el-col>
+            <span class="student-info">{{ info.recleaning1 }}、{{ info.recleaning2 }}</span>
+          </el-col>
         </el-row>
 
-<!--        <span class="tip-title">首选科目</span>-->
-<!--        <el-select v-model="info.firstChoice" placeholder="请选择" clearable class="m-right" disabled>-->
-<!--          <el-option v-for="(item, index) in firstList" :key="index" :label="item.name" :value="item.name"/>-->
-<!--        </el-select>-->
-<!--        <span class="tip-title">再选科目1</span>-->
-<!--        <el-select v-model="info.recleaning1" placeholder="请选择" clearable class="m-right" disabled>-->
-<!--          <el-option v-for="(item, index) in recleaning1List" :key="index" :label="item.name" :value="item.name"/>-->
-<!--        </el-select>-->
-<!--        <span class="tip-title">再选科目2</span>-->
-<!--        <el-select v-model="info.recleaning2" placeholder="请选择" clearable class="m-right" disabled>-->
-<!--          <el-option v-for="(item, index) in recleaning2List" :key="index" :label="item.name" :value="item.name"/>-->
-<!--        </el-select>-->
+        <!--        <span class="tip-title">首选科目</span>-->
+        <!--        <el-select v-model="info.firstChoice" placeholder="请选择" clearable class="m-right" disabled>-->
+        <!--          <el-option v-for="(item, index) in firstList" :key="index" :label="item.name" :value="item.name"/>-->
+        <!--        </el-select>-->
+        <!--        <span class="tip-title">再选科目1</span>-->
+        <!--        <el-select v-model="info.recleaning1" placeholder="请选择" clearable class="m-right" disabled>-->
+        <!--          <el-option v-for="(item, index) in recleaning1List" :key="index" :label="item.name" :value="item.name"/>-->
+        <!--        </el-select>-->
+        <!--        <span class="tip-title">再选科目2</span>-->
+        <!--        <el-select v-model="info.recleaning2" placeholder="请选择" clearable class="m-right" disabled>-->
+        <!--          <el-option v-for="(item, index) in recleaning2List" :key="index" :label="item.name" :value="item.name"/>-->
+        <!--        </el-select>-->
       </div>
       <basic-nothing v-else title="该学生未填写选科信息"></basic-nothing>
     </basic-container>
@@ -175,6 +175,7 @@ export default {
           })
     },
     goBack() {
+      this.$store.dispatch("tagsView/delView", this.$route);
       this.$router.go(-1);
     },
     goEdit(studentId, gradeId) {

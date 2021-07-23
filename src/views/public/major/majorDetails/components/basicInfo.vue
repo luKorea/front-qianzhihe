@@ -26,8 +26,7 @@
           </div>
         </div>
       </div>
-      <el-divider/>
-    </div>
+      </div>
   </basic-container-back>
 </template>
 

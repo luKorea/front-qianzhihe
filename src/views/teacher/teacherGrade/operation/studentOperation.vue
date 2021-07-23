@@ -69,7 +69,7 @@
       <basic-container>
         <span class="tip-info"></span>
         <span class="tip-title">班级信息</span>
-        <template v-if="form.gradeDto">
+        <template v-if="form.gradeDto && form.gradeDto.name">
           <div class="table-wrap">
             <div class="table-title" style="background-color: #FFFFFF">
               <span>班级ID</span>
@@ -229,6 +229,7 @@ export default {
           })
     },
     goBack() {
+      this.$store.dispatch("tagsView/delView", this.$route);
       this.$router.go(-1);
     },
     removeClassInfo(studentId) {
@@ -251,7 +252,11 @@ export default {
     operationData() {
       let that = this;
       that.form['gender'] = this.form.gender === '男' ? 'M' : 'F';
-      that.form['gradeId'] = this.params.gradeId;
+      if (!that.form.gradeDto) {
+        that.form.gradeDto = {
+          _id: this.form.gradeId
+        };
+      }
       that.form['recleaning1'] = that.checkList[0];
       that.form['recleaning2'] = that.checkList[1];
       that.$refs['form'].validate(valid => {
@@ -260,7 +265,8 @@ export default {
               .then(res => {
                 if (res.errorCode === 200) {
                   successTip()
-                  this.goBack();
+                  this.getEditData(this.params);
+                  // this.goBack();
                 }
               })
         } else {

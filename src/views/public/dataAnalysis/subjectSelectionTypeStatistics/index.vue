@@ -21,52 +21,98 @@
           </el-select>
         </div>
         <div>
-          <el-button type="primary" @click="getData(params)">筛选</el-button>
+          <el-button type="primary" @click="getAllData(params)">筛选</el-button>
         </div>
       </div>
     </basic-container>
+    <charts-components
+        :percent-info="percentInfo"
+        :first-data="firstData"
+        :recleaning-data="recleaningData"
+    />
     <basic-container>
-      选科完成率
-    </basic-container>
-    <basic-container>
-      <student-components></student-components>
+      <student-components
+          :class-list="classList"
+          :grade-list="gradeList"
+      />
     </basic-container>
   </div>
 </template>
 
 <script>
 import {selectClassList, selectTypeList} from "../../../../api/common/search";
-import {getList} from "../../../../api/common/dataAnalysis/subjectSelectionTypeStatistics";
-
-
+import {getPercent, getPercentList} from "../../../../api/common/dataAnalysis/subjectSelectionTypeStatistics";
 import studentComponents from "./components/student";
+import chartsComponents from "./components/charts";
+import {errorTip} from "../../../../utils/tip";
 
 
 export default {
   name: "index",
   components: {
-    studentComponents
+    studentComponents,
+    chartsComponents
   },
   data() {
     return {
       params: {
         grade: '',
-        graduate: ''
+        graduate: '',
+        type: ''
       },
       classList: [],
       gradeList: [],
       list: [],
+      percentInfo: {},
+      firstData: [],
+      recleaningData: []
     }
   },
   mounted() {
-    this.getData(this.params);
+    this.getAllData(this.params);
     this.getGrade();
     this.getClassData();
-    this.$nextTick(() => {
-      this.initCharts()
-    })
   },
   methods: {
+    getAllData(params) {
+      this.getPercentData(params);
+      this.getFirst(params);
+      this.getRecleaning(params);
+    },
+    getPercentData(params) {
+      getPercent(params)
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.percentInfo = res.data;
+            } else {
+              errorTip(res.msg);
+            }
+          })
+    },
+    getFirst(params) {
+      getPercentList({
+        ...params,
+        type: 'firstChoice'
+      }).then(res => {
+        if (res.errorCode === 200) {
+          this.firstData = res.data;
+        } else {
+          errorTip(res.msg);
+        }
+      })
+    },
+    getRecleaning(params) {
+      getPercentList({
+        ...params,
+        type: 'recleaning'
+      }).then(res => {
+        if (res.errorCode === 200) {
+          this.recleaningData = res.data;
+        } else {
+          errorTip(res.msg);
+        }
+      })
+    },
     getGrade() {
       selectTypeList('grade')
           .then(res => {
@@ -82,56 +128,6 @@ export default {
               this.classList = res.data;
             }
           })
-    },
-    getData(params) {
-      getList(params)
-          .then(res => {
-            if (res.errorCode === 200) {
-              console.log(res, 'data');
-              this.list = res.data;
-            }
-          })
-    },
-    initCharts() {
-      this.charts = this.$echarts.init(document.getElementById('charts'));
-      this.setOptions(this.list);
-    },
-    setOptions(data = []) {
-      console.log(data, 'data');
-      let nameList = [],
-          valueList = [];
-      data && data.length > 0 && data.forEach(item => {
-        nameList.push(item.content);
-        valueList.push({
-          value: item.proportion,
-          name: item.content
-        })
-      })
-      this.charts.setOption({
-        tooltip: {
-          trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)'
-        },
-        legend: {
-          right: 10,
-          top: 30,
-          bottom: 20,
-          orient: 'vertical',
-          data: nameList
-        },
-        series: [
-          {
-            name: '选科统计',
-            type: 'pie',
-            roseType: 'radius',
-            radius: [15, 95],
-            center: ['50%', '40%'],
-            data: valueList,
-            animationEasing: 'cubicInOut',
-            animationDuration: 2600
-          }
-        ]
-      })
     }
   }
 }

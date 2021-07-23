@@ -144,7 +144,10 @@ export default {
               type: 'success',
               message: '删除成功!'
             });
-            this.getData(this.params);
+            this.getData({
+              ...this.params,
+              page: 0
+            });
           }
         })
       }).catch(() => {
