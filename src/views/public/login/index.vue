@@ -65,7 +65,7 @@
                 </el-col>
               </el-row>
               <div class="form-info">
-<!--                <el-checkbox v-model="checked">7天免登录</el-checkbox>-->
+                <el-checkbox v-model="checked">7天免登录</el-checkbox>
                 <el-link type="info" @click="showImg">忘记密码?</el-link>
               </div>
               <el-button
@@ -130,7 +130,7 @@
                 </el-col>
               </el-row>
               <div class="form-info">
-<!--                <el-checkbox v-model="checked">7天免登录</el-checkbox>-->
+                <el-checkbox v-model="checked">7天免登录</el-checkbox>
                 <el-link type="info" @click="showImg">忘记密码?</el-link>
               </div>
               <el-button
