@@ -4,15 +4,15 @@
       <span class="tip-info"></span>
       <span class="tip-title" id="majorDo">专业做什么</span>
       <div class="desc">{{ info.exam_direction }}</div>
+      <el-divider/>
     </template>
-    <el-divider/>
     <template v-if="info.occupationVos">
       <span class="tip-info"></span>
       <span class="tip-title" id="zhiye">推荐职业</span>
       <template v-if="info.occupationVos && info.occupationVos.length > 0">
         <div class="wrap">
           <div class="major-wrap">
-            <div class="major-list" v-for="item in info.occupationVos" :key="item._id" @click="goOccupation(item._id)">
+            <div class="major-list" v-for="item in info.occupationVos" :key="item._id" @click="goOccupation(item._id, item.title)">
               <div class="img-wrap"><img :src="item.image" alt=""></div>
               <div class="major-info">
                 <div class="major-title">{{ item.title }}</div>
@@ -28,8 +28,8 @@
           </div>
         </div>
       </template>
+      <el-divider/>
     </template>
-    <el-divider/>
     <span class="tip-info"></span>
     <span class="tip-title" id="hangye">就业行业分布</span>
     <div id="charts-one" style="width: 100%; height: 400px" v-show="showChartsOne"></div>
@@ -85,11 +85,12 @@ export default {
     })
   },
   methods: {
-    goOccupation(occupationId) {
+    goOccupation(occupationId, name) {
       this.$router.push({
         path: '/occupation/occupationDetails',
         query: {
-          occupationId: occupationId
+          occupationId: occupationId,
+          name: name
         }
       })
     },

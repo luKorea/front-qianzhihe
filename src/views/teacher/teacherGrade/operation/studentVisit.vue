@@ -23,7 +23,7 @@
         <el-row :gutter="4" style="margin-bottom: 30px">
           <el-col :span="8">
             <span class="student-title">性别：</span>
-            <span class="student-info">{{ info.gender === 'M' ? '男' : '女' }}</span>
+            <span class="student-info" v-if="info.gender">{{ info.gender === 'M' ? '男' : '女' }}</span>
           </el-col>
           <el-col :span="8">
             <span class="student-title">手机号：</span>
@@ -36,10 +36,10 @@
         </el-row>
 
         <el-row :gutter="4">
-          <el-col :span="8">
-            <span class="student-title">年级：</span>
-            <span class="student-info">{{ info.educationLevel }}</span>
-          </el-col>
+<!--          <el-col :span="8">-->
+<!--            <span class="student-title">年级：</span>-->
+<!--            <span class="student-info">{{ info.educationLevel }}</span>-->
+<!--          </el-col>-->
           <el-col :span="8">
             <span class="student-title">入学年份：</span>
             <span class="student-info">{{ info.enrollmentYear }}</span>

@@ -6,7 +6,12 @@
       <div class="search-wrap m-top">
         <div>
           <span class="tip">年级:</span>
-          <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
+          <el-select v-model="params.grade"
+                     @change="(e) => {
+                       params.graduate = ''
+                       getClassData(e)
+                     }"
+                     placeholder="请选择" clearable filterable>
             <template v-if="gradeList && gradeList.length > 0">
               <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
             </template>
@@ -21,7 +26,7 @@
           </el-select>
         </div>
         <div>
-          <el-button type="primary" @click="getAllData(params)">筛选</el-button>
+          <el-button type="primary" :loading="loading" @click="searchData">筛选</el-button>
         </div>
       </div>
     </basic-container>
@@ -31,10 +36,7 @@
         :recleaning-data="recleaningData"
     />
     <basic-container>
-      <student-components
-          :class-list="classList"
-          :grade-list="gradeList"
-      />
+      <student-components/>
     </basic-container>
   </div>
 </template>
@@ -55,6 +57,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       params: {
         grade: '',
         graduate: '',
@@ -69,46 +72,59 @@ export default {
     }
   },
   mounted() {
+    this.getClassData();
     this.getAllData(this.params);
     this.getGrade();
-    this.getClassData();
   },
   methods: {
+    searchData() {
+      this.params.page = 0;
+      this.getAllData(this.params);
+    },
     getAllData(params) {
       this.getPercentData(params);
       this.getFirst(params);
       this.getRecleaning(params);
     },
     getPercentData(params) {
+      this.loading = true;
       getPercent(params)
           .then(res => {
             if (res.errorCode === 200) {
               this.percentInfo = res.data;
+              this.loading = false;
             } else {
+              this.loading = false;
               errorTip(res.msg);
             }
           })
     },
     getFirst(params) {
+      this.loading = true;
       getPercentList({
         ...params,
         type: 'firstChoice'
       }).then(res => {
         if (res.errorCode === 200) {
+          this.loading = false;
           this.firstData = res.data;
         } else {
+          this.loading = false;
           errorTip(res.msg);
         }
       })
     },
     getRecleaning(params) {
+      this.loading = true;
       getPercentList({
         ...params,
         type: 'recleaning'
       }).then(res => {
         if (res.errorCode === 200) {
+          this.loading = false;
           this.recleaningData = res.data;
         } else {
+          this.loading = false;
           errorTip(res.msg);
         }
       })
@@ -121,8 +137,8 @@ export default {
             }
           })
     },
-    getClassData() {
-      selectClassList()
+    getClassData(grade) {
+      selectClassList(grade)
           .then(res => {
             if (res.errorCode === 200) {
               this.classList = res.data;

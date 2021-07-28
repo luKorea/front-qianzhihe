@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="person-wrap">
-      <div class="person-left">
-        <span class="tip-info"></span>
-        <span class="tip-title" id="occ-person">代表人物</span>
-        <template  v-if="info.personalityVoList && info.personalityVoList.length > 0">
+      <template v-if="info.personalityVoList && info.personalityVoList.length > 0">
+        <div class="person-left">
+          <span class="tip-info"></span>
+          <span class="tip-title" id="occ-person">代表人物</span>
           <div class="person">
             <div class="person-img" v-for="person in info.personalityVoList" :key="person._id">
               <el-image
@@ -12,31 +12,33 @@
                   :src="person.image"
                   :preview-src-list="[person.image]"
                   fit="cover"/>
-              <div class="person-title">{{person.title}}</div>
+              <div class="person-title">{{ person.title }}</div>
+            </div>
+          </div>
+        </div>
+      </template>
+      <div class="person-right">
+        <template v-if="info.hollands1">
+          <div class="top">
+            <span class="tip-info"></span>
+            <span class="tip-title" id="occ-ceshi">兴趣测试</span>
+            <div class="hobby">
+              <span class="hobby-orange-title">{{ info.hollands1.name }}</span>
+              <span class="hobby-orange-desc">{{ info.hollands1.describe }}</span>
+            </div>
+            <div class="hobby-blue">
+              <span class="hobby-blue-title">{{ info.hollands2.name }}</span>
+              <span class="hobby-blue-desc">{{ info.hollands2.describe }}</span>
             </div>
           </div>
         </template>
-      </div>
-      <div class="person-right">
-        <div class="top">
-          <span class="tip-info"></span>
-          <span class="tip-title" id="occ-ceshi">兴趣测试</span>
-          <div class="hobby">
-            <span class="hobby-orange-title">{{info.hollands1.name}}</span>
-            <span class="hobby-orange-desc">{{info.hollands1.describe}}</span>
-          </div>
-          <div class="hobby-blue">
-            <span class="hobby-blue-title">{{info.hollands2.name}}</span>
-            <span class="hobby-blue-desc">{{info.hollands2.describe}}</span>
-          </div>
-        </div>
+        <template v-if="info.characteristics && info.characteristics.length > 0">
         <div class="bottom">
           <span class="tip-info"></span>
           <span class="tip-title" id="occ-tezhi">特质</span>
-          <template v-if="info.characteristics && info.characteristics.length > 0">
-            <div class="desc-tip" v-for="(tip, index) in info.characteristics" :key="index">{{tip}}</div>
-          </template>
+            <div class="desc-tip" v-for="(tip, index) in info.characteristics" :key="index">{{ tip }}</div>
         </div>
+        </template>
       </div>
     </div>
     <el-divider/>
@@ -49,7 +51,8 @@ export default {
   props: {
     info: {
       type: Object,
-      default: () => {}
+      default: () => {
+      }
     }
   }
 }
@@ -60,17 +63,21 @@ export default {
 .person-wrap {
   display: flex;
   width: 100%;
+
   .person-left {
     width: 50%;
     margin-right: 20px;
+
     .person {
       display: flex;
       text-align: center;
+
       .person-img {
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
         margin: 10px;
+
         .person-title {
           height: 20px;
           font-size: 14px;
@@ -82,16 +89,20 @@ export default {
       }
     }
   }
+
   .person-right {
     width: 50%;
     display: flex;
     flex-direction: column;
+
     .top {
       height: 60%;
       margin-bottom: 20px;
+
       .hobby {
         display: flex;
         margin: 20px 0 2px 0;
+
         .hobby-orange-title {
           width: 30%;
           display: flex;
@@ -106,6 +117,7 @@ export default {
           font-weight: 500;
           color: #FFFFFF;
         }
+
         .hobby-orange-desc {
           width: 70%;
           //height: 65px;
@@ -118,9 +130,11 @@ export default {
           color: #FC9131;
         }
       }
+
       .hobby-blue {
         display: flex;
         margin: 2px;
+
         .hobby-blue-title {
           width: 30%;
           display: flex;
@@ -135,6 +149,7 @@ export default {
           font-weight: 500;
           color: #FFFFFF;
         }
+
         .hobby-blue-desc {
           width: 70%;
           //height: 65px;
@@ -149,8 +164,9 @@ export default {
       }
 
     }
+
     .bottom {
-       height: 40%;
+      height: 40%;
       margin-bottom: 20px;
     }
   }

@@ -27,3 +27,5 @@
    1. 专科库 (professional)
    2. 职业库 (occupationMenu)
    3. 院校库 (academy)
+6. 数据埋点 （只针对学生进行数据埋点，教师管理员通过诸葛io全局埋点）
+   1. point/pointData

@@ -4,8 +4,9 @@
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">班级列表</span>
-      <el-table  stripe :data="list" border style="width: 100%;margin: 20px 0">
-        <el-table-column prop="_id" label="班级ID" align="center" />
+      <el-table  stripe :data="list" border style="width: 100%;margin: 20px 0"  v-loading="loading">
+        <el-table-column type="index" width="60px" label="编号" align="center"/>
+<!--        <el-table-column prop="_id" label="班级ID" align="center" />-->
         <el-table-column prop="name" label="班级名称" align="center">
           <template slot-scope="scope">
             <span class="inline-text"
@@ -49,6 +50,7 @@ export default {
   name: "teacherList",
   data() {
     return {
+      loading: true,
       params: {
         page: 0,
         size: 10,
@@ -97,11 +99,13 @@ export default {
       }
     },
     getData(params) {
+      this.loading = true;
       getGradeList(params)
       .then(res => {
         if (res.errorCode === 200) {
           let data = res.data;
           this.list = data.result;
+          this.loading = false;
           this.params.total = data.pageResult.total || 0;
         }
       })

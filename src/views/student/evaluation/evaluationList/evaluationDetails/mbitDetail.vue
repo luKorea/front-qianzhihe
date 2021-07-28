@@ -38,7 +38,7 @@
       <template v-if="majorList.occupationEvaluationVoList && majorList.occupationEvaluationVoList.length > 0">
         <div class="wrap">
           <div class="major-wrap">
-            <div class="major-list" v-for="item in majorList.occupationEvaluationVoList" :key="item._id" @click="goOccupation(item._id)">
+            <div class="major-list" v-for="item in majorList.occupationEvaluationVoList" :key="item._id" @click="goOccupation(item._id, item.title)">
               <div class="img-wrap"><img :src="item.image" alt=""></div>
               <div class="major-info">
                 <div class="major-title">{{ item.title }}</div>
@@ -94,11 +94,12 @@ export default {
     }
   },
   methods: {
-    goOccupation(occupationId) {
+    goOccupation(occupationId, name) {
       this.$router.push({
         path: '/occupation/occupationDetails',
         query: {
-          occupationId: occupationId
+          occupationId: occupationId,
+          name: name
         }
       })
     }

@@ -110,11 +110,12 @@ export default {
       this.params.size = 10;
       this.params.page = 0;
     },
-    goDetails(occupationId) {
+    goDetails(occupationId, name) {
       this.$router.push({
         path: '/occupation/occupationDetails',
         query: {
-          occupationId: occupationId
+          occupationId: occupationId,
+          name: name
         }
       });
     }

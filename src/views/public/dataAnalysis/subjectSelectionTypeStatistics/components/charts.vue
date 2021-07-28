@@ -11,9 +11,9 @@
                      type="circle" class="m-bottom pre"></el-progress>
         <div class="info">
           <span class="blue-tip"></span>
-          <span class="blue-title">总人数： {{ percentInfo.uncommittedCount || 0 }}</span>
+          <span class="blue-title">未提交人数： {{ percentInfo.uncommittedCount || 0 }}</span>
           <span class="orange-tip"></span>
-          <span class="orange-title">完成人数： {{ percentInfo.committedCount || 0 }}</span>
+          <span class="orange-title">已提交人数： {{ percentInfo.committedCount || 0 }}</span>
         </div>
       </div>
     </div>

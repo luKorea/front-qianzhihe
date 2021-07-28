@@ -18,7 +18,7 @@
         <el-tab-pane label="测试题目">
           <div style="margin: 20px">
             <el-table stripe border :data="dataList" style="width: 100%; margin-top: 20px" :show-header='false'>
-              <el-table-column width="350">
+              <el-table-column width="500">
                 <template slot-scope="scope">
                   <span class="number-index">{{ scope.row.id }}</span>
                   <span>{{ scope.row.name }}</span>

@@ -6,7 +6,12 @@
       <div class="search-wrap m-top">
         <div>
           <span class="tip">年级:</span>
-          <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
+          <el-select v-model="params.grade"
+                     @change="(e) => {
+                       params.graduate = ''
+                       getClassData(e)
+                     }"
+                     placeholder="请选择" clearable filterable>
             <template v-if="gradeList && gradeList.length > 0">
               <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
             </template>
@@ -21,10 +26,7 @@
           </el-select>
         </div>
         <div>
-          <el-button type="primary" @click="switchData({
-          ...params,
-          page: 0
-          })">筛选</el-button>
+          <el-button type="primary" :loading="loading" @click="searchData">筛选</el-button>
         </div>
       </div>
     </basic-container>
@@ -61,6 +63,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       params: {
         type: '',
         grade: '',
@@ -87,6 +90,10 @@ export default {
     })
   },
   methods: {
+    searchData() {
+      this.params.page = 0;
+      this.switchData();
+    },
     switchData() {
       this.getData({
         ...this.params,
@@ -121,8 +128,8 @@ export default {
             }
           })
     },
-    getClassData() {
-      selectClassList()
+    getClassData(grade) {
+      selectClassList(grade)
           .then(res => {
             if (res.errorCode === 200) {
               this.classList = res.data;
@@ -138,9 +145,11 @@ export default {
           })
     },
     getData(params) {
+      this.loading = true;
       getList(params)
           .then(res => {
             if (res.errorCode === 200) {
+              this.loading = false;
               if (params.type === 'holland') {
                 this.hollandResultList = res.data;
               } else {
@@ -150,10 +159,12 @@ export default {
           })
     },
     getMajorOccupation(params) {
+      this.loading = true;
       getUserEvaluationOccupationOrProfession(params)
           .then(res => {
             if (res.errorCode === 200) {
               console.log(res);
+              this.loading = false;
               if (params.type === 'holland') {
                 this.occupationList = res.data.occupationEvaluationVoList;
                 this.majorList= res.data.professionEvaluationVoList;

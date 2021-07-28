@@ -36,7 +36,7 @@
                   <template v-if="one.professionalVo2s && one.professionalVo2s.length > 0">
                     <div class="major-list">
                       <div class="major-item" v-for="two in one.professionalVo2s" :key="two._id">
-                        <span class="item" @click="goDetails(two._id)">{{ two.name }}</span>
+                        <span class="item" @click="goDetails(two._id, two.name)">{{ two.name }}</span>
                       </div>
                     </div>
                   </template>
@@ -54,12 +54,10 @@
 <script>
 import {getList} from '../../../api/common/major';
 import {majorList} from "../../../utils/basicData";
-
 export default {
   name: "occupationList",
   data() {
     return {
-
       params: {
         keywords: '',
         study_category: '',
@@ -118,18 +116,12 @@ export default {
       this.params.size = 10;
       this.params.page = 0;
     },
-    goDetails(id) {
-      // const {href} = this.$router.resolve({
-      //   path: '/major/majorDetails',
-      //   query: {
-      //     _id: id
-      //   }
-      // });
-      // window.open(href, '_blank')
+    goDetails(id, name) {
       this.$router.push({
         path: '/major/majorDetails',
         query: {
-          _id: id
+          _id: id,
+          name: name
         }
       });
     }

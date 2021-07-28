@@ -100,11 +100,22 @@ export default {
     }
   },
   mounted() {
-    let {occupationId} = this.$route.query;
+    let {occupationId, name} = this.$route.query;
     this.occupationId = occupationId;
+    if (this.$store.state.user.user_type === '学生账号') {
+      this.$store.dispatch('point/pointData', {
+        url: `浏览职业 -【${name}】`,
+        date: new Date().toLocaleDateString()
+      }).then(res => {
+        console.log(res, 'data');
+      })
+    }
     this.getDetailData(this.occupationId);
   },
   methods: {
+    filterData(name) {
+      this.nameList = this.nameList.filter(item => item.id !== name);
+    },
     changeIndex(index, selector) {
       this.selectIndex = index;
       scrollElement(selector);
@@ -114,6 +125,15 @@ export default {
       .then(res => {
         if (res.errorCode === 200) {
           this.info = res.data;
+          if (!res.data.description) this.filterData('occ-desc')
+          if (!res.data.professionalArrayList) this.filterData('occ-major')
+          if (!res.data.description) this.filterData('occ-yaoqiu')
+          if (!res.data.jobKnowledgeVoList) this.filterData('occ-zhishi')
+          if (!res.data.certificateVoList || res.data.certificateVoList.length === 0) this.filterData('occ-zhengshu')
+          if (!res.data.personalityVoList) this.filterData('occ-person')
+          if (!res.data.hollands1) this.filterData('occ-ceshi')
+          if (!res.data.characteristics) this.filterData('occ-tezhi')
+          if (!res.data.tips) this.filterData('occ-tip')
         }
       })
     }

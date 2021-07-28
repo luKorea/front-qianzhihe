@@ -20,7 +20,14 @@ export const searchUniversities = params => {
 
 // 下拉筛选数据
 /**
- * dictType: {班级类型 gradeType / 年级 grade / 教师 teacherType /测试 test / 年份 vintage}
+ * dictType: {
+ * 班级类型 gradeType /
+ * 年级 grade /
+ * 教师 teacherType /
+ * 测试 test /
+ * 年份 vintage /
+ * 3+1+2选科推荐 courseSelectionComboBox /
+ * }
  */
 export const selectTypeList = dictType => {
     return req(`/biz/dictDetail?dictType=${dictType}`)

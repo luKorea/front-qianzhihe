@@ -4,7 +4,7 @@
       <div class="list-wrap">
         <div class="list-img">
           <img style="width: 78px; height: 78px" :src="info.image"/>
-          <span class="img-tip">{{info.name.slice(0, 2)}}</span>
+          <span class="img-tip" v-if="info.name">{{info.name.slice(0, 2)}}</span>
         </div>
         <div class="list-info">
           <div class="list-message" style="margin-top: 6px">

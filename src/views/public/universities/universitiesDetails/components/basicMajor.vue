@@ -46,7 +46,7 @@
           <div class="major-list" v-for="item in list" :key="item.professionalId">
             <div class="major-info">
               <template v-if="item.isProfessional">
-                <div class="major-title blue" @click="goMajor(item.professionalId)">{{item.name}}</div>
+                <div class="major-title blue" @click="goMajor(item.professionalId, item.name)">{{item.name}}</div>
               </template>
               <template v-else>
                 <div class="major-title">{{item.name}}</div>
@@ -133,11 +133,12 @@ export default {
             }
           })
     },
-    goMajor(id) {
+    goMajor(id, name) {
       this.$router.push({
         path: '/major/majorDetails',
         query: {
-          _id: id
+          _id: id,
+          name: name
         }
       })
     }

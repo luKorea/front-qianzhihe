@@ -154,14 +154,6 @@ export default {
           academyName: academyName
         }
       });
-      // const {href} = this.$router.resolve({
-      //     path: '/universities/universitiesDetails',
-      //     query: {
-      //       academyName: academyName
-      //     }
-      // });
-      // console.log(href);
-      // window.open(href,'_blank')
     }
   }
 }

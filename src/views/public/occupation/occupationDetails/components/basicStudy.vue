@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="study-wrap">
-      <div class="study-left">
+      <div class="study-left" v-if="info.jobKnowledgeVoList && info.jobKnowledgeVoList.length > 0">
         <span class="tip-info"></span>
         <span class="tip-title" id="occ-zhishi">知识储备</span>
         <div class="tableClass">
@@ -11,10 +11,10 @@
           </el-table>
         </div>
       </div>
+      <template v-if="info.certificateVoList && info.certificateVoList.length > 0">
       <div class="study-right">
         <span classz="tip-info"></span>
         <span class="tip-title" id="occ-zhengshu">相关证书</span>
-        <template v-if="info.certificateVoList && info.certificateVoList.length > 0">
         <div class="flex-img">
             <template v-for="(item, index) in info.certificateVoList">
               <div class="flex-wrap">
@@ -23,9 +23,8 @@
               </div>
             </template>
         </div>
-        </template>
-        <basic-nothing v-else></basic-nothing>
       </div>
+      </template>
     </div>
     <el-divider/>
   </div>

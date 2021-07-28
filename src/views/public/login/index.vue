@@ -71,6 +71,7 @@
               <el-button
                   type="primary"
                   style="width: 100%; margin: 20px 0 30px 0;"
+                  :loading="loading"
                   @click.native.prevent="handleLogin">登录
               </el-button>
             </el-form>
@@ -79,7 +80,7 @@
             <el-form
                 status-icon
                 ref="loginFormStudent"
-                :model="loginForm"
+                :model="studentLoginForm"
                 :rules="loginRules"
                 class="login-form"
                 auto-complete="on"
@@ -88,7 +89,7 @@
               <el-form-item prop="username">
                 <el-input
                     ref="username"
-                    v-model="loginForm.username"
+                    v-model="studentLoginForm.username"
                     placeholder="请输入用户名"
                     :clearable="true"
                     name="username"
@@ -99,7 +100,7 @@
               <el-form-item prop="password">
                 <el-input
                     ref="password"
-                    v-model="loginForm.password"
+                    v-model="studentLoginForm.password"
                     type="password"
                     :clearable="true"
                     :show-password="true"
@@ -114,7 +115,7 @@
                   <el-form-item prop="code">
                     <el-input
                         ref="code"
-                        v-model="loginForm.code"
+                        v-model="studentLoginForm.code"
                         placeholder="请输入右边验证码"
                         name="code"
                         auto-complete="on"
@@ -130,12 +131,13 @@
                 </el-col>
               </el-row>
               <div class="form-info">
-                <el-checkbox v-model="checked">7天免登录</el-checkbox>
+<!--                <el-checkbox v-model="checked">7天免登录</el-checkbox>-->
                 <el-link type="info" @click="showImg">忘记密码?</el-link>
               </div>
               <el-button
                   type="primary"
                   style="width: 100%; margin: 20px 0 30px 0;"
+                  :loading="loading"
                   @click.native.prevent="handleStudentLogin">登录
               </el-button>
             </el-form>
@@ -190,6 +192,7 @@
                 type="primary"
                 style="width: 100%; margin: 20px 0 30px 0;"
                 :disabled='isOK(infoFrom)'
+                :loading="loadingConfirm"
                 @click.native.prevent="studentLogin">确认登录
             </el-button>
           </el-form>
@@ -236,6 +239,12 @@ export default {
         code: '',
         uuid: ''
       },
+      studentLoginForm: {
+        username: '',
+        password: '',
+        code: '',
+        uuid: ''
+      },
       infoFrom: {
         schoolUserName: '',
         username: '',
@@ -256,6 +265,7 @@ export default {
         // grade: [{required: true, trigger: 'blur', validator: validateClassType}]
       },
       loading: false,
+      loadingConfirm: false,
       passwordType: 'password',
       redirect: undefined,
       checked: false,
@@ -319,6 +329,7 @@ export default {
           .then(res => {
             this.captureImg = res.img;
             this.loginForm.uuid = res.uuid;
+            this.studentLoginForm.uuid = res.uuid;
           }).catch(err => {
         console.log(err);
       })
@@ -346,6 +357,8 @@ export default {
               that.loading = false
             })
           }).catch(() => {
+            that.loading = false
+            that.getCodeData();
           })
         } else {
           //验证失败
@@ -360,10 +373,10 @@ export default {
         if (valid) {
           that.loading = true
           let params = {
-            username: that.loginForm.username,
-            password: that.loginForm.password,
-            code: that.loginForm.code,
-            uuid: that.loginForm.uuid
+            username: that.studentLoginForm.username,
+            password: that.studentLoginForm.password,
+            code: that.studentLoginForm.code,
+            uuid: that.studentLoginForm.uuid
           }
           that.$store.dispatch('user/login', params).then((res) => {
             const {user} = res;
@@ -378,6 +391,7 @@ export default {
                   that.infoFrom['gradeName'] = res.data.gradeName;
                   this.showLoginContainer = false;
                 } else {
+                  this.loading = false;
                   errorTip(res.msg);
                 }
               })
@@ -390,6 +404,8 @@ export default {
               })
             }
           }).catch(() => {
+            that.loading = false
+            that.getCodeData();
           })
         } else {
           //验证失败
@@ -400,6 +416,7 @@ export default {
     studentLogin() {
       this.$refs['infoForm'].validate(valid => {
         if (valid) {
+          this.loadingConfirm = true;
           bindPhone({
             phone: this.infoFrom.phone,
             username: this.infoFrom.username,
@@ -414,8 +431,10 @@ export default {
                   this.$store.dispatch('user/getControl', {}).then(() => {
                     this.$router.push({ path: '/' })
                   }).catch(() => {
+                    this.loadingConfirm = false;
                   })
                 } else {
+                  this.loadingConfirm = false;
                   errorTip(res.msg);
                 }
               })

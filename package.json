@@ -10,6 +10,7 @@
     "analyze": "set npm_config_report=true && npm run build"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
     "core-js": "3.6.5",
     "echarts": "^5.1.2",
     "js-cookie": "2.2.0",

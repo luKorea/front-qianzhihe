@@ -1,11 +1,11 @@
 <template>
   <basic-container>
     <template v-if="list.length > 0">
-      <div class="list-container" v-for="item in list" :key="item._id" @click="goDetails(item._id)">
+      <div class="list-container" v-for="item in list" :key="item._id" @click="goDetails(item._id, item.name)">
         <div class="list-wrap">
           <div class="list-img">
             <img style="width: 78px; height: 78px" :src="item.image"/>
-            <span class="img-tip">{{item.name.slice(0, 2)}}</span>
+            <span class="img-tip" v-if="item.name">{{item.name.slice(0, 2)}}</span>
           </div>
           <div class="list-info">
             <div class="list-message" style="margin-top: 6px">
@@ -27,7 +27,7 @@
                 </div>
               </div>
               <el-tooltip class="item" effect="dark" content="点击查看更多" placement="top-start">
-                <div class="list-right" @click="goDetails(item._id)">查看详情</div>
+                <div class="list-right" @click="goDetails(item._id, item.name)">查看详情</div>
               </el-tooltip>
             </div>
           </div>
@@ -37,6 +37,7 @@
     </template>
     <basic-nothing v-else></basic-nothing>
     <basic-pagination
+        :page="params.page + 1"
         :total="params.total"
         :hidden="params.total<=0"
         @handleCurrentChange="handleCurrentChange"
@@ -59,8 +60,8 @@ export default {
     }
   },
   methods: {
-    goDetails(id) {
-      this.$emit('goDetails', id)
+    goDetails(id, name) {
+      this.$emit('goDetails', id, name)
     },
     handleCurrentChange(val) {
       this.$emit('handleCurrentChange', val)

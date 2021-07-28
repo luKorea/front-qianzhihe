@@ -25,24 +25,18 @@
         <div class="search-item">
           <el-input style="width: 280px" v-model="params.searchText"
                     clearable
-                    @keyup.enter.native="getData({
-                    ...params,
-                    page: 0
-                    })"
+                    @keyup.enter.native="searchData"
                     placeholder="请输入学号、名称、手机号"/>
         </div>
         <div class="search-item">
-          <el-button type="primary" @click="getData({
-                    ...params,
-                    page: 0
-                    })">筛选</el-button>
+          <el-button type="primary" :loading="loading" @click="searchData">筛选</el-button>
         </div>
       </div>
     </basic-container>
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">测评记录列表</span>
-      <el-table stripe :data="list" border style="width: 100%;margin: 20px 0">
+      <el-table stripe :data="list" border style="width: 100%;margin: 20px 0" v-loading="loading">
         <el-table-column prop="user.studentId" label="学号" align="center"></el-table-column>
         <el-table-column label="头像" align="center">
           <template slot-scope="scope">
@@ -80,6 +74,7 @@
         </el-table-column>
       </el-table>
       <basic-pagination
+          :page="params.page + 1"
           :total="params.total"
           @handleCurrentChange="handleCurrentChange"
           @handleSizeChange="handleSizeChange"
@@ -97,6 +92,7 @@ export default {
   name: "index",
   data() {
     return {
+      loading: true,
       params: {
         page: 0,
         size: 10,
@@ -129,6 +125,10 @@ export default {
     this.getClassData();
   },
   methods: {
+    searchData() {
+      this.params.page = 0;
+      this.getData(this.params);
+    },
     goStudentDetail(studentId, gradeId) {
       const {user_type} = this.$store.state.user;
       console.log(user_type);
@@ -195,10 +195,12 @@ export default {
           })
     },
     getData(params) {
+      this.loading = true;
       getStudentEvaluationList(params)
           .then(res => {
             if (res.errorCode === 200) {
               this.list = res.data.result;
+              this.loading = false;
               this.params.total = res.data.pageResult.total || 0;
             }
           })

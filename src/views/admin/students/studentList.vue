@@ -14,7 +14,12 @@
         </div>
         <div>
           <span class="tip">年级:</span>
-          <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
+          <el-select v-model="params.grade"
+                     @change="(e) => {
+                       params.graduate = ''
+                       getClassType(e)
+                     }"
+                     placeholder="请选择" clearable filterable>
             <template v-if="gradeList && gradeList.length > 0">
               <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
             </template>
@@ -35,10 +40,8 @@
                     page: 0
                     })"
                     placeholder="请输入学号、名称、手机号" clearable="true"/>
-          <el-button type="primary" @click="getData({
-                    ...params,
-                    page: 0
-                    })">筛选</el-button>
+          <el-button type="primary" :loading="loading" @click="searchData">筛选
+          </el-button>
         </div>
       </div>
     </basic-container>
@@ -64,7 +67,7 @@
           ></upload-excel>
         </div>
       </div>
-      <el-table stripe :data="list" border style="width: 100%;margin: 20px 0">
+      <el-table stripe :data="list" border style="width: 100%;margin: 20px 0" v-loading="loading">
         <el-table-column prop="studentId" label="学号" align="center"/>
         <el-table-column label="头像" align="center">
           <template slot-scope="scope">
@@ -103,10 +106,12 @@
             </el-button>
             <el-button type="text" size="small" @click="goOperationType('edit', scope.row._id, scope.row.gradeId)">编辑
             </el-button>
+            <el-button type="text" size="small" style="color: red" @click="deleteData(scope.row._id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
       <basic-pagination
+          :page="params.page + 1"
           :total="params.total"
           @handleCurrentChange="handleCurrentChange"
           @handleSizeChange="handleSizeChange"
@@ -120,6 +125,7 @@ import {getStudentList} from "../../../api/admin/students";
 import {selectTypeList, selectClassList} from "../../../api/common/search";
 import {xhrGetFile} from "../../../utils/req";
 import uploadExcel from '../../../components/upload/index';
+import {deleteTeacher} from "../../../api/admin/taecher";
 
 export default {
   name: "teacherList",
@@ -128,6 +134,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       showDialog: false,
       params: {
         page: 0,
@@ -151,6 +158,10 @@ export default {
     this.getClassType();
   },
   methods: {
+    searchData() {
+      this.params.page = 0;
+      this.getData(this.params);
+    },
     goGradeDetail(id) {
       this.$router.push({
         path: '/grade/gradeDetails',
@@ -199,8 +210,8 @@ export default {
             }
           })
     },
-    getClassType() {
-      selectClassList()
+    getClassType(grade) {
+      selectClassList(grade)
           .then(res => {
             if (res.errorCode === 200) {
               this.classList = res.data;
@@ -209,11 +220,13 @@ export default {
     },
 
     getData(params) {
+      this.loading = true;
       getStudentList(params)
           .then(res => {
             if (res.errorCode === 200) {
               let data = res.data;
               this.list = data.result;
+              this.loading = false;
               this.params.total = data.pageResult.total || 0;
             }
           })
@@ -226,11 +239,31 @@ export default {
       this.params.size = val;
       this.getData(this.params);
     },
-      downFile() {
-        xhrGetFile('https://www.careershe.com/xls/%E5%AD%A6%E7%94%9F%E6%89%B9%E9%87%8F%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xls', '学生批量导入模板.xls', '下载成功')
-          .then(res => {
-          })
-    }
+    deleteData(id) {
+      this.$notify.info({
+        title: '删除学生',
+        message: '该功能即将上线'
+      });
+      // this.$confirm('此操作将永久删除该学生, 是否继续?', '删除学生', {
+      //   confirmButtonText: '确定',
+      //   cancelButtonText: '取消',
+      //   type: 'warning'
+      // }).then(() => {
+      //   deleteTeacher([id]).then(res => {
+      //     if (res.errorCode === 200) {
+      //       this.$message({
+      //         type: 'success',
+      //         message: '删除成功!'
+      //       });
+      //       this.getData({
+      //         ...this.params,
+      //         page: 0
+      //       });
+      //     }
+      //   })
+      // }).catch(() => {
+      // });
+    },
   }
 }
 </script>

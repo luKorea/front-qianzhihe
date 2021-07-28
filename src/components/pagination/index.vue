@@ -66,30 +66,35 @@ export default {
   },
   computed: {
     currentPage: {  // 计算属性返回当前页 （会改变）
-      get() {
+      get(val) {
         return this.page;
       },
-      set(val) {}
+      set(val) {
+        console.log(val);
+        this.$emit('update:page', val)
+      }
     },
     pageSize: { // 返回每页的限制条数，如每页30条，支持 .sync 修饰符实现同步更改
       get() {
         return this.limit;
       },
-      set(val) {}
+      set(val) {
+        this.$emit('update:limit', val)
+      }
     }
   },
   methods: {
     handleSizeChange(val) {
       this.$emit("handleSizeChange", val);
-      if (this.autoScroll) {
-        scrollTo(0, 800)
-      }
+      // if (this.autoScroll) {
+      //   scrollTo(0, 800)
+      // }
     },
     handleCurrentChange(val) {
       this.$emit("handleCurrentChange", val - 1);
-      if (this.autoScroll) {
-        scrollTo(0, 800)
-      }
+      // if (this.autoScroll) {
+      //   scrollTo(0, 800)
+      // }
     },
   }
 };

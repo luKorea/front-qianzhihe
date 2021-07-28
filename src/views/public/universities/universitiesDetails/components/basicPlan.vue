@@ -43,7 +43,7 @@
       <el-table stripe :data="list" style="width: 100%; margin-top: 20px" border>
         <el-table-column prop="name" label="专业名称">
           <template slot-scope="scope">
-            <span v-if="scope.row.isProfessional" class="blue" @click="goMajor(scope.row.professionalId)">{{scope.row.name}}</span>
+            <span v-if="scope.row.isProfessional" class="blue" @click="goMajor(scope.row.professionalId, scope.row.name)">{{scope.row.name}}</span>
             <span v-else>{{scope.row.name}}</span>
           </template>
         </el-table-column>
@@ -119,11 +119,12 @@ export default {
             }
           })
     },
-    goMajor(id) {
+    goMajor(id, name) {
       this.$router.push({
         path: '/major/majorDetails',
         query: {
-          _id: id
+          _id: id,
+          name: name
         }
       })
     }

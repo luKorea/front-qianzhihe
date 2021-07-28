@@ -20,7 +20,7 @@ NProgress.configure({
  * @returns {Promise<unknown>}
  */
 export function req(url, data, type = 'GET') {
-    showFullScreenLoading();
+    // showFullScreenLoading();
     NProgress.start();
     return new Promise(function (resolve, reject) {
         let headers = {
@@ -32,14 +32,14 @@ export function req(url, data, type = 'GET') {
         }
         let success = function (res) {
             NProgress.done();
-            tryHideFullScreenLoading();
+            // tryHideFullScreenLoading();
             resolve(res)
         }
 
         let error = function (err) {
             let data = JSON.parse(err.responseText);
             NProgress.done();
-            tryHideFullScreenLoading();
+            // tryHideFullScreenLoading();
             // 用户TOKEN已过期，重新登录
             if (data.status === 401) {
                 // Message({

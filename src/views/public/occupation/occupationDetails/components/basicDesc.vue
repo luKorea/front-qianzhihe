@@ -1,29 +1,27 @@
 <template>
   <div>
-    <template>
+    <template v-if="info.description">
       <span class="tip-info"></span>
       <span class="tip-title" id="occ-desc">职业介绍</span>
-      <div class="desc">{{info.description}}</div>
+      <div class="desc">{{ info.description }}</div>
+      <el-divider/>
     </template>
-    <el-divider/>
-    <template>
+    <template v-if="info.professionalArrayList && info.professionalArrayList.length > 0">
       <span class="tip-info"></span>
       <span class="tip-title" id="occ-major">推荐专业</span>
       <div class="flex-img">
-        <template v-if="info.professionalArrayList && info.professionalArrayList.length > 0">
-          <template v-for="item in info.professionalArrayList">
-            <div class="flex-wrap" @click="goMajor(item._id, item.name)">
-              <div class="img" :key="item._id">
-                <img :src="item.image" alt="">
-                <span class="img-tip">{{item.name && item.name.slice(0, 2)}}</span>
-              </div>
-              <div class="title">{{item.name}}</div>
+        <template v-for="item in info.professionalArrayList">
+          <div class="flex-wrap" @click="goMajor(item._id, item.name)">
+            <div class="img" :key="item._id">
+              <img :src="item.image" alt="">
+              <span class="img-tip" v-if="item.name">{{ item.name && item.name.slice(0, 2) }}</span>
             </div>
-          </template>
+            <div class="title">{{ item.name }}</div>
+          </div>
         </template>
       </div>
+      <el-divider />
     </template>
-    <el-divider/>
   </div>
 </template>
 
@@ -33,7 +31,8 @@ export default {
   props: {
     info: {
       type: Object,
-      default: () => {}
+      default: () => {
+      }
     }
   },
   methods: {
@@ -42,7 +41,8 @@ export default {
       this.$router.push({
         path: '/major/majorDetails',
         query: {
-          _id: id
+          _id: id,
+          name: name
         }
       })
     }
@@ -55,6 +55,7 @@ export default {
   display: flex;
   margin: 20px 0 10px 0;
   width: 100%;
+
   .flex-wrap {
     display: flex;
     flex-direction: column;
@@ -62,16 +63,19 @@ export default {
     //justify-content: space-between;
     text-align: center;
     margin-right: 40px;
+
     .img {
       width: 64px;
       height: 64px;
       position: relative;
       cursor: pointer;
       margin-bottom: 10px;
+
       img {
         width: 100%;
         height: 100%;
       }
+
       .img-tip {
         width: 64px;
         position: absolute;
@@ -86,6 +90,7 @@ export default {
         color: #FFFFFF;
       }
     }
+
     .title {
       height: 40px;
       font-size: 14px;

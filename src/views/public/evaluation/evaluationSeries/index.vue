@@ -44,7 +44,7 @@ export default {
         type: 'holland',
         name: '兴趣测试',
         time: '5~10',
-        total: '30',
+        total: '42',
         img: require('../../../../assets/hobby.png')
       },
     }

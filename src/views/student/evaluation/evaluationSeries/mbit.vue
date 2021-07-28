@@ -73,10 +73,11 @@ export default {
     },
     // 下一题
     next() {
-      this.startNumber++;
-      this.initUserSelectList(this.startNumber);
       if (this.startNumber === this.dataList.length) {
         this.submitBtn = true;
+      } else {
+        this.startNumber++;
+        this.initUserSelectList(this.startNumber);
       }
     },
     //  用户选中答案
@@ -98,7 +99,13 @@ export default {
           value: item && item.value,
           saveIndex: selectedIndex,
         });
-      }
+      };
+      this.$store.dispatch('point/pointData', {
+        url: `完成测试 -【性格测试】`,
+        date: new Date().toLocaleDateString()
+      }).then(res => {
+        console.log(res, 'data');
+      })
       this.$router.push({
         path: '/studentEvaluation/evaluationList/evaluationDetails',
         query: {

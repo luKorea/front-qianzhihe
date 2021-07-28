@@ -29,6 +29,23 @@ Vue.component('basicContainerBack', basicContainerBack);
 Vue.component('basicPagination', basicPagination);
 Vue.component('basicNothing', basicNothing);
 
+
+
+Vue.directive('debounce', {
+  inserted(el, binding, vnode) {
+    console.log(el, binding, vnode, '防抖');
+    let timer = {}
+    el.addEventListener('click', () => {
+      if (timer) {
+        clearTimeout(timer)
+      }
+      timer = setTimeout(() => {
+        binding.value()
+      }, 2000)
+    })
+  }
+})
+
 Vue.use(window.AVUE, {
   size: 'small',
   tableSize: 'small',

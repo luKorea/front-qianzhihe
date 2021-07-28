@@ -46,8 +46,8 @@
       <span class="tip-info"></span>
       <span class="tip-title">代课班级列表</span>
       <template v-if="list && list.length > 0">
-        <el-table stripe  :data="list" border style="width: 100%;margin: 20px 0">
-          <el-table-column prop="_id" label="班级ID" align="center" width="300"/>
+        <el-table stripe  :data="list" border style="width: 100%;margin: 20px 0" v-loading="loading">
+          <el-table-column type="index" label="编号" align="center" width="60"/>
           <el-table-column prop="name" label="班级名称" align="center"/>
           <el-table-column prop="gradeType" label="班级类型" align="center"/>
           <el-table-column prop="grade" label="年级" align="center"/>
@@ -84,6 +84,7 @@ export default {
   name: "visit",
   data() {
     return {
+      loading: true,
       params: {
         page: 0,
         size: 10,
@@ -105,12 +106,14 @@ export default {
       this.$router.go(-1);
     },
     getInfo(params) {
+      this.loading = true;
       getTeacherInfo(params)
           .then(res => {
             if (res.errorCode === 200) {
               let data = res.data;
               this.info = data.object;
               this.list = data.result;
+              this.loading = false;
               this.params.total = data.pageResult.total || 0;
             }
           })

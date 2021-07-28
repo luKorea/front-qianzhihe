@@ -4,8 +4,8 @@
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-desc">院校介绍</span>
       <div class="desc">{{ info.depict }}</div>
+      <el-divider/>
     </template>
-    <el-divider/>
     <template>
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-info">招生办信息</span>
@@ -31,7 +31,7 @@
       <div id="sex-charts" style="width: 200px; height: 200px"></div>
     </template>
     <el-divider/>
-    <template>
+    <template v-if="info.images">
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-photo">院校风光</span>
       <template v-if="info.images && info.images.length > 0">

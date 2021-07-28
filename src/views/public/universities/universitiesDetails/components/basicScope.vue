@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="list && list.length > 0">
     <div class="flex">
       <div class="left">
         <span class="tip-info"></span>

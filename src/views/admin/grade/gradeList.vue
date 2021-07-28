@@ -14,7 +14,12 @@
         </div>
         <div>
           <span class="tip">年级:</span>
-          <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
+          <el-select v-model="params.grade"
+                     @change="(e) => {
+                       params.graduate = ''
+                       getClassData(e)
+                     }"
+                     placeholder="请选择" clearable filterable>
             <template v-if="gradeList && gradeList.length > 0">
               <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
             </template>
@@ -35,10 +40,7 @@
                     page: 0
                     })"
                     placeholder="请输入班主任、生涯导师" clearable="true"/>
-          <el-button type="primary" @click="getData({
-                    ...params,
-                    page: 0
-                    })">筛选</el-button>
+          <el-button type="primary" :loading="loading" @click="searchData">筛选</el-button>
         </div>
       </div>
     </basic-container>
@@ -52,8 +54,8 @@
           <el-button type="primary" @click="goOperationType('add')">新增班级</el-button>
         </div>
       </div>
-      <el-table stripe :data="list" border style="width: 100%;margin: 20px 0">
-        <el-table-column prop="_id" label="班级ID" align="center"/>
+      <el-table stripe :data="list" border style="width: 100%;margin: 20px 0" v-loading="loading">
+        <el-table-column type="index" width="60px" label="编号" align="center"/>
         <el-table-column prop="name" label="班级名称" align="center">
           <template slot-scope="scope">
             <span class="inline-text"
@@ -106,6 +108,7 @@
         </el-table-column>
       </el-table>
       <basic-pagination
+          :page="params.page + 1"
           :total="params.total"
           @handleCurrentChange="handleCurrentChange"
           @handleSizeChange="handleSizeChange"
@@ -123,6 +126,7 @@ export default {
   name: "gradeList",
   data() {
     return {
+      loading: true,
       params: {
         page: 0,
         size: 10,
@@ -145,6 +149,10 @@ export default {
     this.getGrade();
   },
   methods: {
+    searchData() {
+      this.params.page = 0;
+      this.getData(this.params);
+    },
     openOrClose(id, flag) {
       let that = this;
       operationTip({
@@ -203,8 +211,8 @@ export default {
             }
           })
     },
-    getClassData() {
-      selectClassList()
+    getClassData(grade) {
+      selectClassList(grade)
           .then(res => {
             if (res.errorCode === 200) {
               this.classList = res.data;
@@ -212,11 +220,13 @@ export default {
           })
     },
     getData(params) {
+      this.loading = true;
       getGradeList(params)
           .then(res => {
             if (res.errorCode === 200) {
               let data = res.data;
               this.list = data.result;
+              this.loading = false;
               this.params.total = data.pageResult.total || 0;
             }
           })

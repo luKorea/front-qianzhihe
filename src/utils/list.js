@@ -461,1058 +461,1688 @@ export const listType = [
 export const hollandList = [
     {
         "id": 1,
-        "name": "构建橱柜",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢动手改装、修理汽车",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 2,
-        "name": "开发一种新药",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢玩拼图",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 3,
-        "name": "写书或写剧本",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我擅长独立工作",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 4,
-        "name": "帮助有个人或情感问题的人",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢团队合作",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 5,
-        "name": "管理大公司内的部门",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我是一个雄心勃勃的人，我给自己制定了很多目标",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
 
     {
         "id": 6,
-        "name": "在大型网络上的计算机之间安装软件",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢井井有条的事物（整齐的档案、整洁的桌子或办公室等）",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 7,
-        "name": "维修家用电器",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢动手制作物品",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 8,
-        "name": "研究减少水污染的方法",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢看关于艺术和音乐的文章",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 9,
-        "name": "创作或安排音乐",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢按照清晰的指引做事",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 10,
-        "name": "向人们提供职业指导",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢试图影响和说服别人",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 11,
-        "name": "开发自己的生意",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢做试验",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 12,
-        "name": "操作计算器",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢教导和训练别人",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 13,
-        "name": "组装电子零件",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢帮助别人解决他们的问题",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 14,
-        "name": "进行化学实验",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢照顾小动物",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 15,
-        "name": "为电影创建特殊效果",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我不介意每天8小时坐在办公室工作",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 16,
-        "name": "进行康复治疗",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢卖东西给别人",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 17,
-        "name": "谈判商业合同",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢创作作品",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 18,
-        "name": "保留运输和接收记录",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我对科学感兴趣",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 19,
-        "name": "驾驶卡车将包裹运输到办公室和家庭",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我能很快接手新的任务",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 20,
-        "name": "使用显微镜检查血液样本",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢研究事物是怎样工作的本",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 21,
-        "name": "设计戏剧布景",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": " 我喜欢研究事物是怎样工作的",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 22,
-        "name": "在非盈利组织做志愿者工作",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": " 我喜欢把东西砌起来或者组装起来",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 23,
-        "name": "营销新的服装系列",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": " 我是一个有创造力的人",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 24,
-        "name": "用手提电脑等级出入库记录",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": " 我会很关注细节",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 25,
-        "name": "装运前测试零件的质量",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": " 我喜欢做归档和输入的工作",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 26,
-        "name": "开发一种更好地预测天气的方法",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": " 我喜欢分析事物（问题、解决方案等）",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 27,
-        "name": "编写电影或电视节目的脚本",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢唱歌或玩乐器",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 28,
-        "name": "教一个高中班",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢了解不同的文化",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 29,
-        "name": "在百货商店出售商品",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我希望尝试自己创业",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     },
     {
         "id": 30,
-        "name": "为组织盖章、分类和分发邮件",
-        "selectA": "很喜欢",
-        "selectB": "喜欢",
-        "selectC": "不知道",
-        "selectD": "不喜欢",
-        "selectE": "很不喜欢"
+        "name": "我喜欢煮东西",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
+    },
+    {
+        "id": 31,
+        "name": "我喜欢表演戏剧",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
+    },
+    {
+        "id": 32,
+        "name": "我是一个心灵手巧的人",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
+    },
+    {
+        "id": 33,
+        "name": "我喜欢跟数字和图表打交道",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
+    },
+    {
+        "id": 34,
+        "name": "我喜欢对争论的问题展开讨论",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
+    },
+    {
+        "id": 35,
+        "name": "我很善于保存自己工作的记录",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
+    },
+    {
+        "id": 36,
+        "name": "我喜欢带领别人",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
+    },
+    {
+        "id": 37,
+        "name": "我喜欢户外工作/活动",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
+    },
+    {
+        "id": 38,
+        "name": "我喜欢在办公室里工作",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
+    },
+    {
+        "id": 39,
+        "name": "我擅长数学",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
+    },
+    {
+        "id": 40,
+        "name": "我喜欢帮助别人",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
+    },
+    {
+        "id": 41,
+        "name": "我喜欢画画",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
+    },
+    {
+        "id": 42,
+        "name": "我喜欢演讲",
+        "selectA": "非常符合",
+        "selectB": "有点符合",
+        "selectC": "不太清楚",
+        "selectD": "不太符合",
+        "selectE": "完全不符合"
     }
 ];
 export const hollandAnswerList = [
     {
         "id": 1,
-        "name": "构建橱柜",
+        "name": "我喜欢动手改装、修理汽车",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 2,
-        "name": "开发一种新药",
+        "name": "我喜欢玩拼图",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 3,
-        "name": "写书或写剧本",
+        "name": "我擅长独立工作",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 4,
-        "name": "帮助有个人或情感问题的人",
+        "name": "我喜欢团队合作",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 5,
-        "name": "管理大公司内的部门",
+        "name": "我是一个雄心勃勃的人，我给自己制定了很多目标",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
 
     {
         "id": 6,
-        "name": "在大型网络上的计算机之间安装软件",
+        "name": "我喜欢井井有条的事物（整齐的档案、整洁的桌子或办公室等）",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 7,
-        "name": "维修家用电器",
+        "name": "我喜欢动手制作物品",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 8,
-        "name": "研究减少水污染的方法",
+        "name": "我喜欢看关于艺术和音乐的文章",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 9,
-        "name": "创作或安排音乐",
+        "name": "我喜欢按照清晰的指引做事",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 10,
-        "name": "向人们提供职业指导",
+        "name": "我喜欢试图影响和说服别人",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 11,
-        "name": "开发自己的生意",
+        "name": "我喜欢做试验",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 12,
-        "name": "操作计算器",
+        "name": "我喜欢教导和训练别人",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 13,
-        "name": "组装电子零件",
+        "name": "我喜欢帮助别人解决他们的问题",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 14,
-        "name": "进行化学实验",
+        "name": "我喜欢照顾小动物",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 15,
-        "name": "为电影创建特殊效果",
+        "name": "我不介意每天8小时坐在办公室工作",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 16,
-        "name": "进行康复治疗",
+        "name": "我喜欢卖东西给别人",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 17,
-        "name": "谈判商业合同",
+        "name": "我喜欢创作作品",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 18,
-        "name": "保留运输和接收记录",
+        "name": "我对科学感兴趣",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 19,
-        "name": "驾驶卡车将包裹运输到办公室和家庭",
+        "name": "我能很快接手新的任务",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 20,
-        "name": "使用显微镜检查血液样本",
+        "name": "我喜欢研究事物是怎样工作的本",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 21,
-        "name": "设计戏剧布景",
+        "name": " 我喜欢研究事物是怎样工作的",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 22,
-        "name": "在非盈利组织做志愿者工作",
+        "name": " 我喜欢把东西砌起来或者组装起来",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 23,
-        "name": "营销新的服装系列",
+        "name": " 我是一个有创造力的人",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 24,
-        "name": "用手提电脑等级出入库记录",
+        "name": " 我会很关注细节",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 25,
-        "name": "装运前测试零件的质量",
+        "name": " 我喜欢做归档和输入的工作",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 26,
-        "name": "开发一种更好地预测天气的方法",
+        "name": " 我喜欢分析事物（问题、解决方案等）",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 27,
-        "name": "编写电影或电视节目的脚本",
+        "name": "我喜欢唱歌或玩乐器",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 28,
-        "name": "教一个高中班",
+        "name": "我喜欢了解不同的文化",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 29,
-        "name": "在百货商店出售商品",
+        "name": "我希望尝试自己创业",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
     },
     {
         "id": 30,
-        "name": "为组织盖章、分类和分发邮件",
+        "name": "我喜欢煮东西",
         answer: [
             {
                 type: 'a',
-                value: '很喜欢'
+                scope: 5,
+                value: '非常符合'
             },
             {
                 type: 'b',
-                value: '喜欢'
+                scope: 4,
+                value: '有点符合'
             },
             {
                 type: 'c',
-                value: '不知道'
+                scope: 3,
+                value: '不太清楚'
             },
             {
                 type: 'd',
-                value: '不喜欢'
+                scope: 2,
+                value: '不太符合'
             },
             {
                 type: 'e',
-                value: '很不喜欢'
+                scope: 1,
+                value: '完全不符合'
             },
         ],
-    }
+    },
+    {
+        "id": 31,
+        "name": "我喜欢表演戏剧",
+        answer: [
+            {
+                type: 'a',
+                scope: 5,
+                value: '非常符合'
+            },
+            {
+                type: 'b',
+                scope: 4,
+                value: '有点符合'
+            },
+            {
+                type: 'c',
+                scope: 3,
+                value: '不太清楚'
+            },
+            {
+                type: 'd',
+                scope: 2,
+                value: '不太符合'
+            },
+            {
+                type: 'e',
+                scope: 1,
+                value: '完全不符合'
+            },
+        ],
+    },
+    {
+        "id": 32,
+        "name": "我是一个心灵手巧的人",
+        answer: [
+            {
+                type: 'a',
+                scope: 5,
+                value: '非常符合'
+            },
+            {
+                type: 'b',
+                scope: 4,
+                value: '有点符合'
+            },
+            {
+                type: 'c',
+                scope: 3,
+                value: '不太清楚'
+            },
+            {
+                type: 'd',
+                scope: 2,
+                value: '不太符合'
+            },
+            {
+                type: 'e',
+                scope: 1,
+                value: '完全不符合'
+            },
+        ],
+    },
+    {
+        "id": 33,
+        "name": "我喜欢跟数字和图表打交道",
+        answer: [
+            {
+                type: 'a',
+                scope: 5,
+                value: '非常符合'
+            },
+            {
+                type: 'b',
+                scope: 4,
+                value: '有点符合'
+            },
+            {
+                type: 'c',
+                scope: 3,
+                value: '不太清楚'
+            },
+            {
+                type: 'd',
+                scope: 2,
+                value: '不太符合'
+            },
+            {
+                type: 'e',
+                scope: 1,
+                value: '完全不符合'
+            },
+        ],
+    },
+    {
+        "id": 34,
+        "name": "我喜欢对争论的问题展开讨论",
+        answer: [
+            {
+                type: 'a',
+                scope: 5,
+                value: '非常符合'
+            },
+            {
+                type: 'b',
+                scope: 4,
+                value: '有点符合'
+            },
+            {
+                type: 'c',
+                scope: 3,
+                value: '不太清楚'
+            },
+            {
+                type: 'd',
+                scope: 2,
+                value: '不太符合'
+            },
+            {
+                type: 'e',
+                scope: 1,
+                value: '完全不符合'
+            },
+        ],
+    },
+    {
+        "id": 35,
+        "name": "我很善于保存自己工作的记录",
+        answer: [
+            {
+                type: 'a',
+                scope: 5,
+                value: '非常符合'
+            },
+            {
+                type: 'b',
+                scope: 4,
+                value: '有点符合'
+            },
+            {
+                type: 'c',
+                scope: 3,
+                value: '不太清楚'
+            },
+            {
+                type: 'd',
+                scope: 2,
+                value: '不太符合'
+            },
+            {
+                type: 'e',
+                scope: 1,
+                value: '完全不符合'
+            },
+        ],
+    },
+    {
+        "id": 36,
+        "name": "我喜欢带领别人",
+        answer: [
+            {
+                type: 'a',
+                scope: 5,
+                value: '非常符合'
+            },
+            {
+                type: 'b',
+                scope: 4,
+                value: '有点符合'
+            },
+            {
+                type: 'c',
+                scope: 3,
+                value: '不太清楚'
+            },
+            {
+                type: 'd',
+                scope: 2,
+                value: '不太符合'
+            },
+            {
+                type: 'e',
+                scope: 1,
+                value: '完全不符合'
+            },
+        ],
+    },
+    {
+        "id": 37,
+        "name": "我喜欢户外工作/活动",
+        answer: [
+            {
+                type: 'a',
+                scope: 5,
+                value: '非常符合'
+            },
+            {
+                type: 'b',
+                scope: 4,
+                value: '有点符合'
+            },
+            {
+                type: 'c',
+                scope: 3,
+                value: '不太清楚'
+            },
+            {
+                type: 'd',
+                scope: 2,
+                value: '不太符合'
+            },
+            {
+                type: 'e',
+                scope: 1,
+                value: '完全不符合'
+            },
+        ],
+    },
+    {
+        "id": 38,
+        "name": "我喜欢在办公室里工作",
+        answer: [
+            {
+                type: 'a',
+                scope: 5,
+                value: '非常符合'
+            },
+            {
+                type: 'b',
+                scope: 4,
+                value: '有点符合'
+            },
+            {
+                type: 'c',
+                scope: 3,
+                value: '不太清楚'
+            },
+            {
+                type: 'd',
+                scope: 2,
+                value: '不太符合'
+            },
+            {
+                type: 'e',
+                scope: 1,
+                value: '完全不符合'
+            },
+        ],
+    },
+    {
+        "id": 39,
+        "name": "我擅长数学",
+        answer: [
+            {
+                type: 'a',
+                scope: 5,
+                value: '非常符合'
+            },
+            {
+                type: 'b',
+                scope: 4,
+                value: '有点符合'
+            },
+            {
+                type: 'c',
+                scope: 3,
+                value: '不太清楚'
+            },
+            {
+                type: 'd',
+                scope: 2,
+                value: '不太符合'
+            },
+            {
+                type: 'e',
+                scope: 1,
+                value: '完全不符合'
+            },
+        ],
+    },
+    {
+        "id": 40,
+        "name": "我喜欢帮助别人",
+        answer: [
+            {
+                type: 'a',
+                scope: 5,
+                value: '非常符合'
+            },
+            {
+                type: 'b',
+                scope: 4,
+                value: '有点符合'
+            },
+            {
+                type: 'c',
+                scope: 3,
+                value: '不太清楚'
+            },
+            {
+                type: 'd',
+                scope: 2,
+                value: '不太符合'
+            },
+            {
+                type: 'e',
+                scope: 1,
+                value: '完全不符合'
+            },
+        ],
+    },
+    {
+        "id": 41,
+        "name": "我喜欢画画",
+        answer: [
+            {
+                type: 'a',
+                scope: 5,
+                value: '非常符合'
+            },
+            {
+                type: 'b',
+                scope: 4,
+                value: '有点符合'
+            },
+            {
+                type: 'c',
+                scope: 3,
+                value: '不太清楚'
+            },
+            {
+                type: 'd',
+                scope: 2,
+                value: '不太符合'
+            },
+            {
+                type: 'e',
+                scope: 1,
+                value: '完全不符合'
+            },
+        ],
+    },
+    {
+        "id": 42,
+        "name": "我喜欢演讲",
+        answer: [
+            {
+                type: 'a',
+                scope: 5,
+                value: '非常符合'
+            },
+            {
+                type: 'b',
+                scope: 4,
+                value: '有点符合'
+            },
+            {
+                type: 'c',
+                scope: 3,
+                value: '不太清楚'
+            },
+            {
+                type: 'd',
+                scope: 2,
+                value: '不太符合'
+            },
+            {
+                type: 'e',
+                scope: 1,
+                value: '完全不符合'
+            },
+        ],
+    },
 ];
 export const hollandType = [
     {

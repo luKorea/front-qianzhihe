@@ -34,22 +34,30 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="4">
-            <el-col :span="10">
-              <el-form-item label="年级" required prop="educationLevel">
-                <el-select v-model="form.educationLevel"
-                           @change="getClassData(form.educationLevel)"
-                           clearable filterable placeholder="请输入年级" style="width: 100%">
-                  <el-option v-for="(item, index) in gradeList" :key="index" :label="item.name" :value="item.name"/>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
+<!--          <el-row :gutter="4">-->
+<!--            <el-col :span="10">-->
+<!--              <el-form-item label="年级" required prop="educationLevel">-->
+<!--                <el-select v-model="form.educationLevel"-->
+<!--                           @change="getClassData(form.educationLevel)"-->
+<!--                           clearable filterable placeholder="请输入年级" style="width: 100%">-->
+<!--                  <el-option v-for="(item, index) in gradeList" :key="index" :label="item.name" :value="item.name"/>-->
+<!--                </el-select>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
+<!--          </el-row>-->
         </div>
       </basic-container>
       <basic-container>
         <span class="tip-info"></span>
         <span class="tip-title">班级信息</span>
+        <div class="m-top">
+          <span class="tip-title" style="margin-right: 20px">选择年级</span>
+          <el-select v-model="form.educationLevel"
+                     @change="getClassData(form.educationLevel)"
+                     clearable filterable placeholder="请输入年级">
+            <el-option v-for="(item, index) in gradeList" :key="index" :label="item.name" :value="item.name"/>
+          </el-select>
+        </div>
         <div style="margin-top: 20px">
           <span class="tip-title" style="margin-right: 20px">选择班级</span>
           <el-select v-model="form.gradeId" placeholder="请选择" clearable filterable>
@@ -64,7 +72,7 @@
         </span>
     <div class="footer-btn">
       <el-button style="color: #475B75" @click="goBack">取消</el-button>
-      <el-button type="primary" @click="operationData">保存</el-button>
+      <el-button type="primary" :loading="loading" @click="operationData">保存</el-button>
     </div>
   </div>
 </template>
@@ -81,6 +89,7 @@ export default {
   name: "add",
   data() {
     return {
+      loading: false,
       form: {
         educationLevel: "",  //年级
         enrollmentYear: "", //入学年份
@@ -167,13 +176,16 @@ export default {
       let that = this;
       that.$refs['form'].validate(valid => {
         if (valid) {
+          that.loading = true;
           createStudentInfo(that.form)
               .then(res => {
                 if (res.errorCode === 200) {
-                  successTip()
+                  successTip();
+                  that.loading = false;
                   this.goBack();
                 } else if (!res.success) {
                   errorTip(res.msg);
+                  that.loading = false;
                   return false;
                 }
               })

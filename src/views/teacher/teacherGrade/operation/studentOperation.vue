@@ -46,16 +46,16 @@
           </el-row>
 
           <el-row :gutter="4">
-            <el-col :span="10">
-              <el-form-item label="年级" required
-                            prop="educationLevel">
-                <el-select v-model="form.educationLevel"
-                           @change="getClassData(form.educationLevel)"
-                           clearable filterable placeholder="请输入年级" style="width: 100%">
-                  <el-option v-for="(item, index) in gradeList" :key="index" :label="item.name" :value="item.name"/>
-                </el-select>
-              </el-form-item>
-            </el-col>
+<!--            <el-col :span="10">-->
+<!--              <el-form-item label="年级" required-->
+<!--                            prop="educationLevel">-->
+<!--                <el-select v-model="form.educationLevel"-->
+<!--                           @change="getClassData(form.educationLevel)"-->
+<!--                           clearable filterable placeholder="请输入年级" style="width: 100%">-->
+<!--                  <el-option v-for="(item, index) in gradeList" :key="index" :label="item.name" :value="item.name"/>-->
+<!--                </el-select>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
             <el-col :span="10">
               <el-form-item label="入学年份" required prop="enrollmentYear">
                 <el-select v-model="form.enrollmentYear" clearable filterable placeholder="请输入入学年份" style="width: 100%">
@@ -83,7 +83,7 @@
               <span>操作</span>
             </div>
             <div class="student-table-title">
-              <span>{{ form.gradeDto._id.slice(0, 12) }}</span>
+              <span v-if="form.gradeDto._id">{{ form.gradeDto._id.slice(0, 12) }}</span>
               <span>{{ form.gradeDto.name }}</span>
               <span>{{ form.gradeDto.gradeType }}</span>
               <span>{{ form.gradeDto.grade }}</span>
@@ -96,6 +96,14 @@
           </div>
         </template>
         <template v-else>
+          <div class="m-top">
+            <span class="tip-title" style="margin-right: 20px">选择年级</span>
+            <el-select v-model="form.educationLevel"
+                       @change="getClassData(form.educationLevel)"
+                       clearable filterable placeholder="请输入年级">
+              <el-option v-for="(item, index) in gradeList" :key="index" :label="item.name" :value="item.name"/>
+            </el-select>
+          </div>
           <div style="margin-top: 20px">
             <span class="tip-title" style="margin-right: 20px">选择班级</span>
             <el-select v-model="form.gradeId" placeholder="请选择" clearable filterable>
@@ -126,7 +134,7 @@
     </el-form>
     <div class="footer-btn">
       <el-button style="color: #475B75" @click="goBack">取消</el-button>
-      <el-button type="primary" @click="operationData">保存</el-button>
+      <el-button type="primary" :loading="loading" @click="operationData">保存</el-button>
     </div>
   </div>
 </template>
@@ -148,6 +156,7 @@ export default {
   name: "index",
   data() {
     return {
+      loading: false,
       params: {
         studentId: '',
         gradeId: ''
@@ -261,10 +270,12 @@ export default {
       that.form['recleaning2'] = that.checkList[1];
       that.$refs['form'].validate(valid => {
         if (valid) {
+          that.loading = true;
           updateStudentInfo(that.form)
               .then(res => {
                 if (res.errorCode === 200) {
-                  successTip()
+                  successTip();
+                  that.loading = false;
                   this.getEditData(this.params);
                   // this.goBack();
                 }

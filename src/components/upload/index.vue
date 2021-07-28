@@ -24,15 +24,19 @@
         </el-upload>
       </el-form-item>
     </el-form>
+    <div class="process" v-if="showProcess">
+      <el-progress :percentage="percentage" status="success"></el-progress>
+    </div>
     <div slot="footer" class="dialog-footer">
       <el-button @click="closeFile()">取 消</el-button>
-      <el-button type="primary" @click="postFile()" :disabled="uploading">确 定</el-button>
+      <el-button type="primary" @click="postFile()" :loading="loading">确 定</el-button>
     </div>
   </el-dialog>
 </template>
 
 <script>
 import {importData} from "../../api/admin/students";
+import {getToken} from "../../utils/auth";
 
 export default {
   name: "index",
@@ -44,6 +48,9 @@ export default {
   },
   data() {
     return {
+      showProcess: false,
+      percentage: 0,
+      loading: false,
       url: process.env.VUE_APP_PATH_REWRITE
     }
   },
@@ -75,36 +82,73 @@ export default {
       console.log(item);
     },
     postFile() {
+      this.showProcess = true;
+      this.loading = true;
       const fileObj = this.file;
       let fileData = new FormData();
       fileData.append("file", fileObj);
-      importData(fileData)
-      .then(res => {
-        if(res.errorCode === 200) {
-          this.$message.success("读取成功");
-          this.closeFile();
-          this.$emit('getData');
-        } else if (res.success === false) {
-          this.$message.error('文件格式有误');
-          return false;
-        }
+      console.log(fileObj);
+      let that = this;
+      $.ajax({
+        type: "post",
+        timeout: 120000, //超时时间设置，单位毫秒
+        url: that.url + '/biz/student/importStudent',
+        data: fileData,
+        contentType: false,
+        // 告诉jQuery不要去设置Content-Type请求头
+        processData: false,
+        // 告诉jQuery不要去处理发送的数据
+        headers: {
+          Authorization: getToken() || ''
+        },
+        xhr() {
+          let myXhr = $.ajaxSettings.xhr();
+          if (myXhr.upload) { //检查上传的文件是否存在
+            myXhr.upload.addEventListener('progress', (e) => {
+              console.log(e.loaded, e.total);
+              let loaded = e.loaded; //已经上传大小情况
+              let total = e.total; //附件总大小
+              let percent = Math.floor(100 * loaded / total); //已经上传的百分比
+              that.percentage = percent;
+            }, false); // for handling the progress of the upload
+          }
+          return myXhr;
+        },
+        success(res) {
+          console.log(res);
+          if (res.errorCode === 200) {
+            that.$refs.upload.clearFiles(); //上传成功之后清除历史记录
+            that.$message.success("导入成功");
+            that.closeFile();
+            that.loading = false;
+            that.$emit('getData');
+          } else if (res.success === false) {
+            that.$message.error('文件格式有误');
+            that.loading = false;
+            return false;
+          }
+        },
+        error(err) {
+          this.$message.error(err.statusText);
+          this.loading = false;
+        },
       });
-      // $.ajax({
-      //   method: "post",
-      //   url: this.url + "/biz/student/importStudent",    //填写上传的接口
-      //   headers: headers,
-      //   data: fileData
-      // }).then(res => {
-      //   if (res.errorCode  === 200) {
+
+      // this.progressPercent = Math.floor((uploadInfo.progress * 100).toFixed(2))
+      // importData(fileData)
+      // .then(res => {
+      //   if(res.errorCode === 200) {
+      //     this.$refs.upload.clearFiles(); //上传成功之后清除历史记录
       //     this.$message.success("读取成功");
       //     this.closeFile();
-      //   } else {
-      //     this.$message.error("错误！请检查上传文件内容");
+      //     this.loading = false;
+      //     this.$emit('getData');
+      //   } else if (res.success === false) {
+      //     this.$message.error('文件格式有误');
+      //     this.loading = false;
+      //     return false;
       //   }
       // });
-      setTimeout(function () {
-        this.closeFile();
-      }, 1500);
     },
     closeFile() {
       this.$emit('closeFile')
@@ -114,6 +158,18 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.process {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 
+  .el-progress {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
 </style>

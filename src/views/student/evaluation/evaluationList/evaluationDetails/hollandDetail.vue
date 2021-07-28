@@ -29,7 +29,7 @@
         <div class="wrap">
           <div class="major-wrap">
             <div class="major-list" v-for="item in majorList.occupationEvaluationVoList" :key="item._id"
-                 @click="goOccupation(item._id)">
+                 @click="goOccupation(item._id, item.title)">
               <div class="img-wrap"><img :src="item.image" alt=""></div>
               <div class="major-info">
                 <div class="major-title">{{ item.title }}</div>
@@ -145,11 +145,12 @@ export default {
       };
       this.charts.setOption(option);
     },
-    goOccupation(occupationId) {
+    goOccupation(occupationId, name) {
       this.$router.push({
         path: '/occupation/occupationDetails',
         query: {
-          occupationId: occupationId
+          occupationId: occupationId,
+          name: name
         }
       })
     }
@@ -162,6 +163,7 @@ export default {
   display: flex;
   width: 50%;
   flex-wrap: wrap;
+
   .item {
     display: flex;
     flex-direction: column;
@@ -173,6 +175,7 @@ export default {
     background-color: #1E81FF;
     border-radius: 4px;
     padding: 10px;
+
     .title {
       height: 24px;
       font-size: 18px;
@@ -181,6 +184,7 @@ export default {
       color: #FFFFFF;
       line-height: 24px;
     }
+
     .describe {
       font-size: 14px;
       font-family: PingFangSC-Regular, PingFang SC;
@@ -190,6 +194,7 @@ export default {
     }
   }
 }
+
 .wrap {
   display: flex;
   justify-content: space-between;

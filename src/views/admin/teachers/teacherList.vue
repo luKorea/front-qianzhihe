@@ -28,10 +28,7 @@
                     })"
                     v-model="params.queryOrTeacherNameOrPhone" placeholder="请输入教师名称、手机号"
                     clearable="true"/>
-          <el-button type="primary" @click="getData({
-                    ...params,
-                    page: 0
-                    })">筛选</el-button>
+          <el-button type="primary" :loading="loading" @click="searchData">筛选</el-button>
         </div>
       </div>
     </basic-container>
@@ -43,8 +40,10 @@
         </div>
         <el-button type="primary" @click="goOperationType('add')">添加老师</el-button>
       </div>
-      <el-table stripe :data="list" border style="width: 100%;margin-bottom: 20px">
-        <el-table-column prop="_id" label="教师ID" align="center" />
+      <el-table stripe :data="list" border style="width: 100%;margin-bottom: 20px" v-loading="loading">
+        <el-table-column type="index" width="60px" label="编号" align="center"/>
+
+        <!--        <el-table-column prop="_id" label="教师ID" align="center" />-->
         <el-table-column prop="name" label="教师名称" align="center">
           <template slot-scope="scope">
             <span class="inline-text"
@@ -73,6 +72,7 @@
         </el-table-column>
       </el-table>
       <basic-pagination
+          :page="params.page + 1"
           :total="params.total"
           @handleCurrentChange="handleCurrentChange"
           @handleSizeChange="handleSizeChange"
@@ -89,6 +89,7 @@ export default {
   name: "teacherList",
   data() {
     return {
+      loading: true,
       params: {
         page: 0,
         size: 10,
@@ -108,6 +109,10 @@ export default {
     this.getTeacherType();
   },
   methods: {
+    searchData() {
+      this.params.page = 0;
+      this.getData(this.params);
+    },
     goGradeDetail(id) {
       this.$router.push({
         path: '/grade/gradeDetails',
@@ -170,11 +175,13 @@ export default {
       })
     },
     getData(params) {
+      this.loading = true;
       getTeacherList(params)
       .then(res => {
         if (res.errorCode === 200) {
           let data = res.data;
           this.list = data.result;
+          this.loading = false;
           this.params.total = data.pageResult.total || 0;
         }
       })

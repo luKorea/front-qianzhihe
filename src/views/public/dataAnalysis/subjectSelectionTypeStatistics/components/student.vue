@@ -6,10 +6,7 @@
       <div>
         <span class="tip">班级类型:</span>
         <el-select v-model="params.gradeType"
-                   @change="getData({
-                   ...params,
-                   page: 0
-                   })"
+                   @change="confirmData"
                    placeholder="请选择" clearable filterable>
           <template v-if="gradeTypeList && gradeTypeList.length > 0">
             <el-option v-for="item in gradeTypeList" :label="item.name" :value="item.name"></el-option>
@@ -19,10 +16,7 @@
       <div>
         <span class="tip">年级:</span>
         <el-select v-model="params.grade"
-                   @change="getData({
-                   ...params,
-                   page: 0
-                   })"
+                   @change="changeGrade"
                    placeholder="请选择" clearable filterable>
           <template v-if="gradeList && gradeList.length > 0">
             <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
@@ -32,10 +26,7 @@
       <div>
         <span class="tip">班级:</span>
         <el-select v-model="params.graduate"
-                   @change="getData({
-                   ...params,
-                   page: 0
-                   })"
+                   @change="confirmData"
                    placeholder="请选择" clearable filterable>
           <template v-if="classList && classList.length > 0">
             <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
@@ -49,6 +40,7 @@
     <el-table
         border
         :data="list"
+        v-loading="loading"
         style="width: 100%; margin-bottom: 20px">
       <el-table-column prop="studentId" label="学号" align="center"/>
       <el-table-column prop="schoolUserName" label="姓名" align="center">
@@ -85,6 +77,7 @@
       </el-table-column>
     </el-table>
     <basic-pagination
+        :page="params.page"
         :total="params.total"
         @handleCurrentChange="handleCurrentChange"
         @handleSizeChange="handleSizeChange"
@@ -93,23 +86,14 @@
 </template>
 
 <script>
-import {selectTypeList} from "../../../../../api/common/search";
+import {selectClassList, selectTypeList} from "../../../../../api/common/search";
 import {downStudentList, getList} from "../../../../../api/common/dataAnalysis/subjectSelectionTypeStatistics";
 
 export default {
   name: "student",
-  props: {
-    classList: {
-      type: Array,
-      default: () => []
-    },
-    gradeList: {
-      type: Array,
-      default: () => []
-    }
-  },
   data() {
     return {
+      loading: true,
       params: {
         page: 0,
         size: 10,
@@ -119,15 +103,23 @@ export default {
         queryOrIdOrNameOrPhone: '',
         total: 0
       },
+      classList: [],
+      gradeList: [],
       gradeTypeList: [],
       list: [],
     }
   },
   mounted() {
     this.getData(this.params);
+    this.getClassData();
+    this.getGrade();
     this.getGradeType();
   },
   methods: {
+    confirmData(){
+      this.params.page = 0;
+      this.getData(this.params);
+    },
     downStudent() {
       downStudentList(this.params, `学生选科征集名单.xls`)
           .then(res => {
@@ -181,12 +173,37 @@ export default {
             }
           })
     },
+    getGrade() {
+      selectTypeList('grade')
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.gradeList = res.data;
+            }
+          })
+    },
+    getClassData(grade) {
+      selectClassList(grade)
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.classList = res.data;
+            }
+          })
+    },
+    changeGrade(value) {
+      this.getData({
+        ...this.params,
+        page: 0
+      });
+      this.getClassData(value);
+    },
     getData(params) {
+      this.loading = true;
       getList(params)
           .then(res => {
             if (res.errorCode === 200) {
               console.log(res, 'data');
               this.list = res.data.result;
+              this.loading = false;
               this.params.total = res.data.pageResult.total || 0;
             }
           })

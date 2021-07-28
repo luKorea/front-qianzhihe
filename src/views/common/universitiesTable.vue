@@ -39,6 +39,7 @@
     </template>
     <basic-nothing v-else></basic-nothing>
     <basic-pagination
+        :page="params.page + 1"
         :total="params.total"
         :hidden="params.total<=0"
         @handleCurrentChange="handleCurrentChange"

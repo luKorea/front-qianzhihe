@@ -67,11 +67,11 @@
       <span class="tip-title" id="major">相近专业</span>
       <template>
         <div class="flex-container">
-          <div class="flex-wrap"  v-for="item in info.recommendProVos" :key="item._id" @click="goMajor(item._id)">
+          <div class="flex-wrap"  v-for="item in info.recommendProVos" :key="item._id" @click="goMajor(item._id, item.name)">
             <div class="top">
               <div class="img-wrap">
                 <img :src="item.image" alt="">
-                <span class="img-tip">{{item.name && item.name.slice(0, 2)}}</span>
+                <span class="img-tip" v-if="item.name">{{item.name && item.name.slice(0, 2)}}</span>
               </div>
               <div class="info">
                 <div class="title">
@@ -94,6 +94,8 @@
 </template>
 
 <script>
+import {getBasicInfo} from "../../../../../api/common/universities";
+
 export default {
   name: "basicProposal",
   props: {
@@ -107,15 +109,25 @@ export default {
   },
   methods: {
     goUniversities(academyName) {
-      this.$router.push({
-        path: '/universities/universitiesDetails',
-        query: {
-          academyName: academyName
-        }
-      })
+      getBasicInfo(academyName)
+          .then(res => {
+            if (res.errorCode === 200 && res.data) {
+              this.$router.push({
+                path: '/universities/universitiesDetails',
+                query: {
+                  academyName: academyName
+                }
+              })
+            } else {
+              this.$notify.info({
+                title: '推荐院校',
+                message: '该院校暂未开放，敬请期待'
+              });
+            }
+          });
     },
-    goMajor(id) {
-      this.$emit('changeMajor', id)
+    goMajor(id, name) {
+      this.$emit('changeMajor', id, name)
     }
   }
 }

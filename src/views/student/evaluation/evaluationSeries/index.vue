@@ -44,26 +44,26 @@ export default {
         type: 'holland',
         name: '兴趣测试',
         time: '5~10',
-        total: '30',
+        total: '42',
         img: require('../../../../assets/hobby.png')
       },
     }
   },
   methods: {
     goDetail(type) {
-      this.$notify.info({
-        title: '即将更新',
-        message: '该功能即将更新上线'
-      });
-      // if (type === 'mbti') {
-      //   this.$router.push({
-      //     path: '/studentEvaluation/evaluationSeries/mbit'
-      //   })
-      // } else {
-      //   this.$router.push({
-      //     path: '/studentEvaluation/evaluationSeries/holland'
-      //   })
-      // }
+      // this.$notify.info({
+      //   title: '即将更新',
+      //   message: '该功能即将更新上线'
+      // });
+      if (type === 'mbti') {
+        this.$router.push({
+          path: '/studentEvaluation/evaluationSeries/mbit'
+        })
+      } else {
+        this.$router.push({
+          path: '/studentEvaluation/evaluationSeries/holland'
+        })
+      }
     }
   }
 }

@@ -5,9 +5,9 @@
       <span class="tip-title">搜索筛选</span>
       <div class="search-wrap m-top">
         <el-input v-model="params.keywords"
-                  @keyup.enter.native="switchData"
+                  @keyup.enter.native="confirmData"
                   placeholder="" clearable="true"/>
-        <el-button type="primary" @click="switchData">搜索</el-button>
+        <el-button type="primary" :loading="loading" @click="confirmData">搜索</el-button>
       </div>
     </basic-container-back>
     <div class="tabs">
@@ -52,6 +52,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       params: {
         keywords: '',
         page: 0,
@@ -110,6 +111,10 @@ export default {
         this.getUniversities(this.params);
       }
     },
+    confirmData() {
+      this.params.page = 0;
+      this.switchData();
+    },
     switchData() {
       this.resetUrl();
       switch (this.url) {
@@ -128,42 +133,49 @@ export default {
       }
     },
     getOccupation(params) {
+      this.loading = true;
       searchOccupation(params)
           .then(res => {
             if (res.errorCode === 200) {
               let data = res.data;
               this.list = data.result;
+              this.loading = false;
               this.params.total = data.pageResult.total || 0;
             }
           })
     },
     getMajor(params) {
+      this.loading = true;
       searchMajor(params)
           .then(res => {
             if (res.errorCode === 200) {
               let data = res.data;
               this.list = data.result;
+              this.loading = false;
               this.params.total = data.pageResult.total || 0;
             }
           })
     },
     getUniversities(params) {
+      this.loading = true;
       searchUniversities(params)
           .then(res => {
             if (res.errorCode === 200) {
               let data = res.data;
               this.list = data.result;
+              this.loading = false;
               this.params.total = data.pageResult.total || 0;
             }
           })
     },
-    goDetails(id) {
+    goDetails(id, name) {
       switch (this.url) {
         case 'occupation':
           this.$router.push({
             path: '/occupation/occupationDetails',
             query: {
-              occupationId: id
+              occupationId: id,
+              name: name
             }
           })
           break;
@@ -171,7 +183,8 @@ export default {
           this.$router.push({
             path: '/major/majorDetails',
             query: {
-              _id: id
+              _id: id,
+              name: name
             }
           })
           break;

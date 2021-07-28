@@ -56,7 +56,7 @@
     </el-form>
     <div class="footer-btn">
       <el-button style="color: #475B75" @click="goBack">取消</el-button>
-      <el-button type="primary" @click="operationData">{{text}}</el-button>
+      <el-button type="primary" :loading="loading" @click="operationData">{{text}}</el-button>
     </div>
   </div>
 </template>
@@ -77,6 +77,7 @@ export default {
   name: "index",
   data() {
     return {
+      loading: false,
       type: 'add',
       text: '立即添加',
       form: {
@@ -151,20 +152,24 @@ export default {
       })
     },
     addData(data) {
+      this.loading = true;
       addTeacher(data)
       .then(res => {
         if (res.errorCode === 200) {
           successTip('新增成功');
+          this.loading = false;
           this.goBack();
         }
       })
     },
     updateData(data) {
+      this.loading = true;
       updateTeacher(data)
       .then(res => {
         if (res.errorCode === 200) {
           successTip('修改成功')
           // this.goBack();
+          this.loading = false;
           this.switchData();
         }
       })

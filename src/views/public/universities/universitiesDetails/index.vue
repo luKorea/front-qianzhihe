@@ -131,9 +131,17 @@ export default {
       selectInfo: {}
     }
   },
-  created() {
+  mounted() {
     let {academyName} = this.$route.query;
     this.academyName = academyName;
+    if (this.$store.state.user.user_type === '学生账号') {
+      this.$store.dispatch('point/pointData', {
+        url: `浏览院校 -【${academyName}】`,
+        date: new Date().toLocaleDateString()
+      }).then(res => {
+        console.log(res, 'data');
+      })
+    }
     this.getDetailInfo(this.academyName);
     this.getDetailDesc(this.academyName);
     this.getRanking(this.academyName);
@@ -141,6 +149,9 @@ export default {
     this.getSelectData(this.academyName);
   },
   methods: {
+    filterData(name) {
+      this.nameList = this.nameList.filter(item => item.id !== name);
+    },
     changeIndex(index, selector) {
       this.selectIndex = index;
       scrollElement(selector);
@@ -158,6 +169,9 @@ export default {
           .then(res => {
             if (res.errorCode === 200) {
               this.descInfo = res.data;
+              if (!res.data.depict) this.filterData('uni-desc')
+              if (!res.data.man_ratio) this.filterData('uni-gender')
+              if (!res.data.image) this.filterData('uni-photo')
             }
           })
     },

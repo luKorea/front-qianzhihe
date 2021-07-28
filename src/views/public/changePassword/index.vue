@@ -25,6 +25,7 @@
         </el-form>
         <el-button type="primary"
                    :disabled="isOK(form)"
+                   :loading="loading"
                    @click="editPassword">确认</el-button>
       </template>
     </div>
@@ -56,6 +57,7 @@ export default {
       }
     };
     return {
+      loading: false,
       showInfo: false,
       form: {
         affirmNewPassword: "", //确认密码
@@ -91,16 +93,19 @@ export default {
       console.log(this.form);
       this.$refs['form'].validate(valid => {
         if (valid) {
+          this.loading = true;
           changePassword(this.form)
               .then(res => {
                 if (res.errorCode === 200) {
                   this.showInfo = true;
+                  this.loading = false;
                   setTimeout(() => {
                     this.$store.dispatch('user/logout')
                     this.$router.push(`/login`);
                     location.reload();//刷新页面，重置vue-router
                   },  3000)
                 } else {
+                  this.loading = false;
                   errorTip(res.msg)
                 }
               })

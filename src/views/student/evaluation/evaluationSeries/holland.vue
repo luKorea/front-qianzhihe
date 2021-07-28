@@ -4,10 +4,8 @@
       <span class="tip-info"></span>
       <span class="tip-title">兴趣测试</span>
       <div class="m-top percent">
-        <span class="title"
-        >测试进度：{{ startNumber }} / {{ dataList.length }}</span
-        >
-        <el-progress :percentage="startNumber / 0.3" :show-text="false"/>
+        <span class="title">测试进度：{{ startNumber }} / {{ dataList.length }}</span>
+        <el-progress :percentage="startNumber / 0.42" :show-text="false"/>
       </div>
     </basic-container>
     <basic-container>
@@ -73,10 +71,11 @@ export default {
     },
     // 下一题
     next() {
-      this.startNumber++;
-      this.initUserSelectList(this.startNumber);
       if (this.startNumber === this.dataList.length) {
         this.submitBtn = true;
+      } else {
+        this.startNumber++;
+        this.initUserSelectList(this.startNumber);
       }
     },
     //  用户选中答案
@@ -94,18 +93,27 @@ export default {
         let selectedIndex = this.oData[key].selectedIndex;
         let item = this.oData[key].answer[selectedIndex];
         this.list.push({
-          name: this.oData[key].name,
-          value: item && item.value,
-          saveIndex: selectedIndex,
+          // name: this.oData[key].name,
+          // value: item && item.value,
+          // saveIndex: selectedIndex,
+          score: item.type,
+          satisfaction: item.scope
         });
       }
-      this.$router.push({
-        path: '/studentEvaluation/evaluationList/evaluationDetails',
-        query: {
-          hollandId: '',
-          type: 'holland'
-        }
+      this.$store.dispatch('point/pointData', {
+        url: `完成测试 -【兴趣测试】`,
+        date: new Date().toLocaleDateString()
+      }).then(res => {
+        console.log(res, 'data');
       })
+      console.log(this.list);
+      // this.$router.push({
+      //   path: '/studentEvaluation/evaluationList/evaluationDetails',
+      //   query: {
+      //     hollandId: '',
+      //     type: 'holland'
+      //   }
+      // })
     },
   },
 };

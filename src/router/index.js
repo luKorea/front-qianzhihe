@@ -383,9 +383,9 @@ export const asyncRouterMap = [
             {
                 path: 'usageStatistics',
                 component: () => import('../views/public/dataAnalysis/usageStatistics'),
-                name: 'App使用情况',
+                name: '平台使用情况',
                 meta: {
-                    title: 'App使用情况',
+                    title: '平台使用情况',
                     showTag: true,
                     icon: 'el-icon-star-off',
                     roles: ['appUsage'],
@@ -614,6 +614,18 @@ export const asyncRouterMap = [
                 },
             }
         ]
+    },
+    {
+        path: '/newExam',
+        component: Layout,
+        redirect: '/newExam',
+        // hidden: true,
+        children: [{
+            path: 'newExam',
+            name: '新高考3+1+2选科',
+            component: () => import('../views/public/newExam'),
+            meta: {title: '新高考3+1+2选科', showTag: true, keepAlive: true, roles:['course'], icon: 'el-icon-date'}
+        }]
     },
     {path: '*', redirect: '/404', hidden: true, meta: {title: '404'}}
 ];

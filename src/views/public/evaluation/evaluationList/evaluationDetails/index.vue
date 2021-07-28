@@ -24,7 +24,7 @@
           <el-row :gutter="4" style="margin-bottom: 30px">
             <el-col :span="8">
               <span class="student-title">性别：</span>
-              <span class="student-info">{{ info.gender === 'F' ? '女' : '男' }}</span>
+              <span class="student-info" v-if="info.gender">{{ info.gender === 'F' ? '女' : '男' }}</span>
             </el-col>
             <el-col :span="8">
               <div>

@@ -14,7 +14,12 @@
         <div class="right">
           <div class="right-search">
             <span class="tip">年级:</span>
-            <el-select v-model="timeParams.grade" placeholder="请选择" clearable filterable>
+            <el-select v-model="timeParams.grade"
+                       @change="(e) => {
+                       timeParams.graduate = ''
+                       getClassUserData(e)
+                     }"
+                       placeholder="请选择" clearable filterable>
               <template v-if="gradeList && gradeList.length > 0">
                 <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
               </template>
@@ -27,14 +32,16 @@
                 <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
               </template>
             </el-select>
-            <el-button type="primary" style="margin-left: 20px" @click="getTimeInfo(timeParams)">筛选</el-button>
+            <el-button type="primary"
+                       :loading="timeLoading"
+                       style="margin-left: 20px" @click="getTimeInfo(timeParams)">筛选</el-button>
           </div>
         </div>
       </div>
     </basic-container>
     <basic-container>
       <span class="tip-info"></span>
-      <span class="tip-title">APP使用记录筛选</span>
+      <span class="tip-title">平台使用记录筛选</span>
       <div style="margin-top: 20px; display: flex">
         <div class="right-search">
           <span class="tip">班级:</span>
@@ -53,17 +60,14 @@
                     })"
                     style="margin-right: 20px; width: 300px"
                     placeholder="请输入学号、名称、手机号"/>
-          <el-button type="primary" @click="getHistoryData({
-          ...params,
-          page: 0
-          })">筛选</el-button>
+          <el-button type="primary" :loading="loading" @click="searchData">筛选</el-button>
         </div>
       </div>
     </basic-container>
     <basic-container>
       <span class="tip-info"></span>
-      <span class="tip-title">APP使用记录</span>
-      <el-table stripe  :data="list" border style="width: 100%;margin: 20px 0">
+      <span class="tip-title">平台使用记录</span>
+      <el-table stripe  v-loading="loading" :data="list" border style="width: 100%;margin: 20px 0">
         <el-table-column prop="user.studentId" label="学号" align="center" />
         <el-table-column label="头像" align="center" width="80">
           <template slot-scope="scope">
@@ -96,6 +100,7 @@
         <el-table-column prop="_created_at" label="操作时间" align="center" />
       </el-table>
       <basic-pagination
+          :page="params.page + 1"
           :total="params.total"
           @handleCurrentChange="handleCurrentChange"
           @handleSizeChange="handleSizeChange"
@@ -112,9 +117,12 @@ export default {
   name: "usageStatistics",
   data() {
     return {
+      timeLoading: true,
+      loading: true,
       info: '',
       list: [],
       classList: [],
+      classUserList: [],
       gradeList: [],
       timeParams: {
         graduate: '',
@@ -133,10 +141,15 @@ export default {
   mounted() {
     this.getGrade();
     this.getClassData();
+    this.getClassUserData();
     this.getTimeInfo(this.timeParams);
     this.getHistoryData(this.params);
   },
   methods: {
+    searchData() {
+      this.params.page = 0;
+      this.getHistoryData(this.params);
+    },
     goStudentDetail(studentId, gradeId) {
       const {user_type} = this.$store.state.user;
       console.log(user_type);
@@ -193,22 +206,34 @@ export default {
             }
           })
     },
+    getClassUserData(grade) {
+      selectClassList(grade)
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.classUserList = res.data;
+            }
+          })
+    },
     getTimeInfo(params) {
+      this.timeLoading = true;
       getTime(params)
           .then(res => {
             if (res.errorCode === 200) {
               this.info = res.data;
+              this.timeLoading = false;
               console.log(res.data, 'usageStatistics');
             }
           })
     },
     getHistoryData(params) {
+      this.loading = true;
       getHistory(params)
           .then(res => {
             if (res.errorCode === 200) {
               let data = res.data;
               this.list = data.result;
               console.log(res);
+              this.loading = false;
               this.params.total = data.pageResult.total || 0;
             }
           })
