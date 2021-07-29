@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <div v-if="info.organisation_and_execution_skills">
     <span class="tip-info"></span>
     <span class="tip-title" id="occ-yaoqiu">能力要求</span>
-    <div id="ability-charts" style="height: 300px; width: 500px" v-show="showCharts"></div>
-    <basic-nothing v-show="!showCharts"></basic-nothing>
+    <div id="ability-charts" style="height: 300px; width: 500px"></div>
     <el-divider />
   </div>
 </template>
@@ -21,13 +20,18 @@ export default {
     info: {
       deep: true,
       handler(val) {
-        this.draw();
+        if (document.getElementById('ability-charts')) {
+          this.draw()
+        }
       }
     }
   },
   mounted() {
+    console.log(document.getElementById('ability-charts'));
     this.$nextTick(() => {
-      this.draw();
+      setTimeout(() => {
+        this.draw();
+      }, 2000)
     })
   },
   data() {

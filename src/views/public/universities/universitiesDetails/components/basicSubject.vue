@@ -1,21 +1,20 @@
 <template>
   <div>
     <el-divider/>
-    <template>
+    <template v-if="info.courseList && info.courseList.length > 0">
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-subject">双一流学科</span>
       <div class="table-content">
         <div class="table-info">
-          <template v-if="info.courseList && info.courseList.length > 0">
+          <template>
             <span style="height: 54px; line-height: 54px; padding: 0" v-for="item in info.courseList"
                   :key="item._id">{{ item.subject }}</span>
           </template>
-          <basic-nothing v-else></basic-nothing>
         </div>
       </div>
     </template>
-    <el-divider/>
-    <template>
+    <template v-if="info.subjectList && info.subjectList.length > 0">
+      <el-divider/>
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-pre">学科评估</span>
       <div class="tableClass" style="margin-bottom: 20px">
@@ -24,19 +23,19 @@
           <el-table-column prop="type" label="评级" align="center"/>
         </el-table>
       </div>
+      <el-divider />
     </template>
-    <el-divider />
-    <template>
+    <template v-if="info.characteristicSpecialtyList && info.characteristicSpecialtyList.length > 0">
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-major">特色专业</span>
       <div class="table-content">
         <div class="table-info">
-          <template v-if="info.characteristicSpecialtyList && info.characteristicSpecialtyList.length > 0">
+          <template >
             <span v-for="item in info.characteristicSpecialtyList" :key="item._id">{{ item.profession_name }}</span>
           </template>
-          <basic-nothing v-else></basic-nothing>
         </div>
       </div>
+      <el-divider />
     </template>
   </div>
 </template>

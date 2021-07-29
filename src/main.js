@@ -12,6 +12,7 @@ import '@/permission' // permission control
 
 import basicContainer from './components/basic-container/main';
 import basicContainerBack from './components/back/index';
+import basicStudentBack from './components/sutdentBack/index';
 import basicPagination from './components/pagination/index';
 import basicNothing from './components/nothing/index';
 
@@ -25,7 +26,7 @@ Object.keys(filters).forEach(key => {
 Vue.prototype.$echarts = echarts;
 Vue.component('basicContainer', basicContainer);
 Vue.component('basicContainerBack', basicContainerBack);
-Vue.component('basicContainerBack', basicContainerBack);
+Vue.component('basicStudentBack', basicStudentBack);
 Vue.component('basicPagination', basicPagination);
 Vue.component('basicNothing', basicNothing);
 

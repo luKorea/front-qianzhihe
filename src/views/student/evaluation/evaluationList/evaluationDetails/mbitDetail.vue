@@ -1,6 +1,6 @@
 <template>
   <div>
-    <basic-container>
+    <basic-student-back @goBack="goBack">
       <div class="tip-title m-bottom" style="text-align: center">性格测试（结果）</div>
       <span class="tip-info"></span>
       <span class="tip-title">特质</span>
@@ -30,7 +30,7 @@
           <div class="info">{{ mbitInfo.disadvantages }}</div>
         </div>
       </div>
-    </basic-container>
+    </basic-student-back>
 
     <basic-container>
       <span class="tip-info"></span>
@@ -94,6 +94,11 @@ export default {
     }
   },
   methods: {
+    goBack() {
+      this.$router.push({
+        path: '/studentEvaluation/evaluationList'
+      })
+    },
     goOccupation(occupationId, name) {
       this.$router.push({
         path: '/occupation/occupationDetails',

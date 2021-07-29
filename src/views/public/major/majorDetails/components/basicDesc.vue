@@ -4,26 +4,26 @@
       <span class="tip-info"></span>
       <span class="tip-title" id="desc">专业介绍</span>
       <div class="desc">{{ info.professional_concept }}</div>
+      <el-divider/>
     </template>
-    <el-divider/>
     <template v-if="info.main_course">
       <span class="tip-info"></span>
       <span class="tip-title" id="studyList">学习课程</span>
       <div class="desc">{{ info.main_course }}</div>
+      <el-divider/>
     </template>
-    <el-divider/>
     <template v-if="info.profession_introduction">
       <span class="tip-info"></span>
       <span class="tip-title" id="mubiao">培养目标</span>
       <div class="desc">{{ info.profession_introduction }}</div>
+      <el-divider/>
     </template>
-    <el-divider/>
     <template v-if="info.skills_profile">
       <span class="tip-info"></span>
       <span class="tip-title" id="yaoqiu">培养要求</span>
       <div class="desc">{{ info.skills_profile }}</div>
+      <el-divider/>
     </template>
-    <el-divider/>
   </div>
 </template>
 

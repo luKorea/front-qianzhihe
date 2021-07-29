@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <basic-container>
+  <div class="modal">
+    <basic-student-back @goBack="goBack">
       <span class="tip-info"></span>
       <span class="tip-title">性格测试</span>
       <div class="m-top percent">
@@ -9,7 +9,7 @@
         >
         <el-progress :percentage="startNumber / 0.2" :show-text="false" />
       </div>
-    </basic-container>
+    </basic-student-back>
     <basic-container>
       <span class="tip-title">{{ selectList.id }}. {{ selectList.name }}</span>
       <div class="m-top answer-list">
@@ -31,6 +31,7 @@
       </el-button>
       <el-button @click="submitForm" v-else type="primary">提交</el-button>
     </div>
+<!--    <div class="modal-title">该功能即将完成</div>-->
   </div>
 </template>
 
@@ -58,6 +59,22 @@ export default {
     this.initUserSelectList(this.startNumber);
   },
   methods: {
+    goBack() {
+      this.$confirm('您确定退出当前测试吗?退出之后数据不会被保存', '退出测试', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$store.dispatch("tagsView/delView", this.$route);
+        this.$router.go(-1);
+      }).catch(() => {
+        this.$notify({
+          title: '性格测试',
+          message: '接着答题吧~~~~',
+          type: 'success'
+        });
+      });
+    },
     initUserSelectList(number) {
       //加载题目
       // this.selectList当前题目，应该保存一个选择状态，不然上下题 会丢失状态
@@ -159,6 +176,29 @@ export default {
   }
   .select {
     border: 1px solid #1e81ff;
+  }
+}
+.modal {
+  width: 100%;
+  position: relative;
+  .modal-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 16px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #FFFFFF;
+    border-radius: 4px;
+    z-index: 2;
   }
 }
 </style>

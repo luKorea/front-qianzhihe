@@ -1,17 +1,17 @@
 <template>
   <div>
-    <el-divider />
     <div class="further">
-      <div class="further-left">
+      <div class="further-left" v-if="info.inland_enrolment_rate">
         <span class="tip-info"></span>
         <span class="tip-title" id="uni-zhong">国内升学率</span>
         <div class="cricle">
-          <el-progress type="circle" :percentage="info.inland_enrolment_rate"
+          <el-progress type="circle"
+                       :percentage="info.inland_enrolment_rate"
                        color="#FC9131"
                        stroke-width="12"/>
         </div>
       </div>
-      <div class="further-center">
+      <div class="further-center" v-if="info.foreign_enrolment_rate">
         <span class="tip-info"></span>
         <span class="tip-title" id="uni-wai">国外升学率</span>
         <div class="cricle">
@@ -20,21 +20,21 @@
                        :percentage="info.foreign_enrolment_rate"/>
         </div>
       </div>
-      <div class="further-right">
+      <div class="further-right" v-if="info.employment_rate">
         <span class="tip-info"></span>
         <span class="tip-title" id="uni-jiu">就业率</span>
         <div style="margin-top: 20px">
           <el-progress type="circle" color="#FF6A53"
                        stroke-width="12"
-                       :percentage="info.foreign_enrolment_rate"/>
+                       :percentage="info.employment_rate"/>
         </div>
       </div>
     </div>
-    <el-divider />
-    <div>
+    <div v-if="info.obtainRegionEmploymenList && info.obtainRegionEmploymenList.length > 0">
+      <el-divider />
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-address">就业地区流向</span>
-      <template v-if="info.obtainRegionEmploymenList && info.obtainRegionEmploymenList.length > 0">
+      <template>
         <div class="wrap">
           <div class="address" v-for="(item, index) in info.obtainRegionEmploymenList" :key="index">
             <span class="title">{{ item.industry_region }}</span>
@@ -42,14 +42,12 @@
           </div>
         </div>
       </template>
-      <basic-nothing v-else></basic-nothing>
+      <el-divider />
     </div>
-    <el-divider />
-    <div class="company">
+    <div class="company" v-if="info.obtainIndustryEmploymenList">
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-company">就业单位性质</span>
-      <div id="company-charts" style="height: 400px; width: 60%; margin-top: 20px" v-show="showChart"></div>
-      <basic-nothing v-show="!showChart"></basic-nothing>
+      <div id="company-charts" style="height: 400px; width: 60%; margin-top: 20px"></div>
     </div>
   </div>
 </template>
@@ -82,7 +80,9 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.initDraw();
+      setTimeout(() => {
+        this.initDraw();
+      }, 3000)
     })
   },
   data() {

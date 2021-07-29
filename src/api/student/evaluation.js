@@ -1,7 +1,18 @@
 import {req} from "../../utils/req";
 
 
-let basicUrl = '/biz/evaluation'
+let basicUrl = '/biz/holland'
+
+
+
+// 兴趣测试题目提交
+export const examSendToHolland = data => {
+    return req(`/biz/holland/addCalculate`, data, 'POST')
+}
+// 兴趣测试推荐职业
+export const getHollandOccupation = params => {
+    return req(`/biz/holland/getHollandOccupation`)
+}
 
 
 // 兴趣测试结果类型

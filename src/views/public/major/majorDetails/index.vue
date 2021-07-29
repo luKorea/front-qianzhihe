@@ -180,6 +180,7 @@ export default {
           .then(res => {
             if (res.errorCode === 200) {
               this.employmentInfo = res.data;
+              console.log(this.employmentInfo, 'employmentInfo');
               if (!res.data.exam_direction) this.filterData('majorDo')
               if (!res.data.occupationVos) this.filterData('zhiye')
               if (!res.data.industry) this.filterData('hangye')

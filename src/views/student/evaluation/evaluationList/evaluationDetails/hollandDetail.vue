@@ -1,6 +1,6 @@
 <template>
   <div>
-    <basic-container>
+    <basic-student-back @goBack="goBack">
       <div class="tip-title m-bottom" style="text-align: center">兴趣测试（结果）</div>
       <span class="tip-info"></span>
       <span class="tip-title">兴趣分析</span>
@@ -21,14 +21,14 @@
           <div class="describe">{{ item.describe }}</div>
         </div>
       </div>
-    </basic-container>
+    </basic-student-back>
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">推荐职业</span>
-      <template v-if="majorList.occupationEvaluationVoList && majorList.occupationEvaluationVoList.length > 0">
+      <template v-if="majorList && majorList.length > 0">
         <div class="wrap">
           <div class="major-wrap">
-            <div class="major-list" v-for="item in majorList.occupationEvaluationVoList" :key="item._id"
+            <div class="major-list" v-for="item in majorList" :key="item._id"
                  @click="goOccupation(item._id, item.title)">
               <div class="img-wrap"><img :src="item.image" alt=""></div>
               <div class="major-info">
@@ -99,16 +99,23 @@ export default {
   mounted() {
     console.log(this.randomInfo);
     this.$nextTick(() => {
-      this.initCharts();
+      setTimeout(() => {
+        this.initCharts();
+      }, 100)
     })
   },
   methods: {
+    goBack() {
+      this.$router.push({
+        path: '/studentEvaluation/evaluationList'
+      })
+    },
     initCharts() {
       this.charts = this.$echarts.init(document.getElementById('random-charts'));
       this.setOptions(this.randomInfo);
     },
     setOptions(data) {
-      let max = 25;
+      let max = 35;
       let option = {
         radar: {
           indicator: [

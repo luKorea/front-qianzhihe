@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template>
+    <template v-if="info.depict">
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-desc">院校介绍</span>
       <div class="desc">{{ info.depict }}</div>
@@ -34,7 +34,6 @@
     <template v-if="info.images">
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-photo">院校风光</span>
-      <template v-if="info.images && info.images.length > 0">
         <div class="img-wrap">
           <div v-for="(item, index) in info.images" :key="index">
             <el-image
@@ -44,8 +43,6 @@
                 fit="fit"/>
           </div>
         </div>
-      </template>
-      <basic-nothing v-else></basic-nothing>
       <el-divider/>
     </template>
   </div>
@@ -72,13 +69,17 @@ export default {
     info: {
       deep: true,
       handler() {
-        this.draw()
+        // this.draw()
       }
     }
   },
   mounted() {
     this.$nextTick(() => {
-      this.draw();
+      if (document.getElementById('sex-charts')) {
+        setTimeout(() => {
+          this.draw();
+        }, 2000)
+      }
     })
   },
 

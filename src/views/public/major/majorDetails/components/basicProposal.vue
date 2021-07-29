@@ -15,53 +15,53 @@
           </div>
         </div>
       </template>
+      <el-divider/>
     </template>
-
-    <el-divider/>
-    <span class="tip-info"></span>
-    <span class="tip-title" id="school">推荐院校</span>
-    <template v-if="info.subjectA || info.subjectB || info.subjectC">
-      <div class="flex-container">
-        <div class="school-wrap">
-          <span class="tip orange">A级</span>
-          <template v-if="info.subjectA && info.subjectA.length > 0">
-            <div class="img-content" v-for="item in info.subjectA" :key="item._id"
-                 @click="goUniversities(item.school_name)">
-              <div class="info">
-                <div class="img-wrap"><img :src="item.image" alt=""></div>
-                <div class="title">{{ item.school_name }}</div>
+    <div v-if="info.subjectA || info.subjectB || info.subjectC">
+      <span class="tip-info"></span>
+      <span class="tip-title" id="school">推荐院校</span>
+      <template>
+        <div class="flex-container">
+          <div class="school-wrap">
+            <span class="tip orange">A级</span>
+            <template v-if="info.subjectA && info.subjectA.length > 0">
+              <div class="img-content" v-for="item in info.subjectA" :key="item._id"
+                   @click="goUniversities(item.school_name)">
+                <div class="info">
+                  <div class="img-wrap"><img :src="item.image" alt=""></div>
+                  <div class="title">{{ item.school_name }}</div>
+                </div>
               </div>
-            </div>
-          </template>
-        </div>
-        <div class="school-wrap">
-          <span class="tip gray-orange">B级</span>
-          <template v-if="info.subjectB && info.subjectB.length > 0">
-            <div class="img-content" v-for="item in info.subjectB" :key="item._id"
-                 @click="goUniversities(item.school_name)">
-              <div class="info">
-                <div class="img-wrap"><img :src="item.image" alt=""></div>
-                <div class="title">{{ item.school_name }}</div>
+            </template>
+          </div>
+          <div class="school-wrap">
+            <span class="tip gray-orange">B级</span>
+            <template v-if="info.subjectB && info.subjectB.length > 0">
+              <div class="img-content" v-for="item in info.subjectB" :key="item._id"
+                   @click="goUniversities(item.school_name)">
+                <div class="info">
+                  <div class="img-wrap"><img :src="item.image" alt=""></div>
+                  <div class="title">{{ item.school_name }}</div>
+                </div>
               </div>
-            </div>
-          </template>
-        </div>
-        <div class="school-wrap">
-          <span class="tip blue">C级</span>
-          <template v-if="info.subjectC && info.subjectC.length > 0">
-            <div class="img-content" v-for="item in info.subjectC" :key="item._id"
-                 @click="goUniversities(item.school_name)">
-              <div class="info">
-                <div class="img-wrap"><img :src="item.image" alt=""></div>
-                <div class="title">{{ item.school_name }}</div>
+            </template>
+          </div>
+          <div class="school-wrap">
+            <span class="tip blue">C级</span>
+            <template v-if="info.subjectC && info.subjectC.length > 0">
+              <div class="img-content" v-for="item in info.subjectC" :key="item._id"
+                   @click="goUniversities(item.school_name)">
+                <div class="info">
+                  <div class="img-wrap"><img :src="item.image" alt=""></div>
+                  <div class="title">{{ item.school_name }}</div>
+                </div>
               </div>
-            </div>
-          </template>
+            </template>
+          </div>
         </div>
-      </div>
-    </template>
-    <basic-nothing v-else></basic-nothing>
-    <el-divider/>
+      </template>
+      <el-divider/>
+    </div>
     <template v-if="info.recommendProVos && info.recommendProVos.length > 0">
       <span class="tip-info"></span>
       <span class="tip-title" id="major">相近专业</span>
@@ -88,8 +88,8 @@
           </div>
         </div>
       </template>
+      <el-divider/>
     </template>
-    <el-divider/>
   </div>
 </template>
 

@@ -30,15 +30,17 @@
       </template>
       <el-divider/>
     </template>
-    <span class="tip-info"></span>
-    <span class="tip-title" id="hangye">就业行业分布</span>
-    <div id="charts-one" style="width: 100%; height: 400px" v-show="showChartsOne"></div>
-    <basic-nothing v-show="!showChartsOne"></basic-nothing>
-    <el-divider/>
-    <span class="tip-info"></span>
-    <span class="tip-title" id="address">就业地区分布</span>
-    <div id="charts-two" style="width: 100%; height: 400px" v-show="showChartsTwo"></div>
-    <basic-nothing v-show="!showChartsTwo"></basic-nothing>
+    <template v-if="info.industry">
+      <span class="tip-info"></span>
+      <span class="tip-title" id="hangye">就业行业分布</span>
+      <div id="charts-one" style="width: 100%; height: 400px"></div>
+      <el-divider/>
+    </template>
+    <template v-if="info.region">
+      <span class="tip-info"></span>
+      <span class="tip-title" id="address">就业地区分布</span>
+      <div id="charts-two" style="width: 100%; height: 400px"></div>
+    </template>
   </div>
 </template>
 
@@ -80,8 +82,11 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.drawPageOne();
-      this.drawPageTwo();
+      console.log(document.getElementById('charts-one'), 'one');
+      setTimeout(() => {
+        this.drawPageOne();
+        this.drawPageTwo();
+      }, 1000)
     })
   },
   methods: {
@@ -95,102 +100,110 @@ export default {
       })
     },
     drawPageOne() {
-      this.chartsOne = this.$echarts.init(document.getElementById('charts-one'));
-      let name = [],
-          data = [];
-      this.info.industry && this.info.industry.forEach(item => {
-        name.push(item.industry_region);
-        data.push(item.data)
-      });
-      let option = {
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-          }
-        },
-        xAxis: {
-          type: 'category',
-          data: name,
-          axisLabel: {
-            show: true,
-            textStyle: {
-              color: '#999999',  //更改坐标轴文字颜色
-              fontSize: 13      //更改坐标轴文字大小
+      if (document.getElementById('charts-one') === null) {
+        return false;
+      } else {
+        this.chartsOne = this.$echarts.init(document.getElementById('charts-one'));
+        let name = [],
+            data = [];
+        this.info.industry && this.info.industry.forEach(item => {
+          name.push(item.industry_region);
+          data.push(item.data)
+        });
+        let option = {
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+              type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
             }
           },
-        },
-        yAxis: {
-          type: 'value'
-        },
-        series: [{
-          data: data,
-          type: 'bar',
-          barMaxWidth: '20%',
-          itemStyle: {
-            normal: {
-              color(params) {
-                const colorlist = [
-                  '#FC9131', '#40A7DF', '#36E095', '#7C6AF2', '#FF6A53', '#EEA287',
-                  '#FC9131', '#40A7DF', '#36E095', '#7C6AF2', '#FF6A53', '#EEA287',
-                  '#FC9131', '#40A7DF', '#36E095', '#7C6AF2', '#FF6A53', '#EEA287',
-                ];
-                return colorlist[params.dataIndex];
+          xAxis: {
+            type: 'category',
+            data: name,
+            axisLabel: {
+              show: true,
+              textStyle: {
+                color: '#999999',  //更改坐标轴文字颜色
+                fontSize: 13      //更改坐标轴文字大小
+              }
+            },
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [{
+            data: data,
+            type: 'bar',
+            barMaxWidth: '20%',
+            itemStyle: {
+              normal: {
+                color(params) {
+                  const colorlist = [
+                    '#FC9131', '#40A7DF', '#36E095', '#7C6AF2', '#FF6A53', '#EEA287',
+                    '#FC9131', '#40A7DF', '#36E095', '#7C6AF2', '#FF6A53', '#EEA287',
+                    '#FC9131', '#40A7DF', '#36E095', '#7C6AF2', '#FF6A53', '#EEA287',
+                  ];
+                  return colorlist[params.dataIndex];
+                }
               }
             }
-          }
-        }]
-      };
-      this.chartsOne && this.chartsOne.setOption(option);
+          }]
+        };
+        this.chartsOne && this.chartsOne.setOption(option);
+      }
     },
     drawPageTwo() {
-      this.chartsTwo = this.$echarts.init(document.getElementById('charts-two'));
-      let name = [],
-          data = [];
-      this.info.region && this.info.region.forEach(item => {
-        name.push(item.industry_region);
-        data.push(item.data)
-      });
-      let option = {
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-          }
-        },
-        xAxis: {
-          type: 'category',
-          data: name,
-          axisLabel: {
-            show: true,
-            textStyle: {
-              color: '#999999',  //更改坐标轴文字颜色
-              fontSize: 13      //更改坐标轴文字大小
+      if (document.getElementById('charts-two') === null) {
+        return false;
+      } else {
+        this.chartsTwo = document.getElementById('charts-two') && this.$echarts.init(document.getElementById('charts-two'));
+        let name = [],
+            data = [];
+        this.info.region && this.info.region.forEach(item => {
+          name.push(item.industry_region);
+          data.push(item.data)
+        });
+        let option = {
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+              type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
             }
           },
-        },
-        yAxis: {
-          type: 'value'
-        },
-        series: [{
-          data: data,
-          type: 'bar',
-          barMaxWidth: '20%',
-          itemStyle: {
-            normal: {
-              color(params) {
-                const colorlist = [
-                  '#FC9131', '#40A7DF', '#36E095', '#7C6AF2', '#FF6A53', '#EEA287',
-                  '#FC9131', '#40A7DF', '#36E095', '#7C6AF2', '#FF6A53', '#EEA287',
-                  '#FC9131', '#40A7DF', '#36E095', '#7C6AF2', '#FF6A53', '#EEA287',
-                ];
-                return colorlist[params.dataIndex];
+          xAxis: {
+            type: 'category',
+            data: name,
+            axisLabel: {
+              show: true,
+              textStyle: {
+                color: '#999999',  //更改坐标轴文字颜色
+                fontSize: 13      //更改坐标轴文字大小
+              }
+            },
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [{
+            data: data,
+            type: 'bar',
+            barMaxWidth: '20%',
+            itemStyle: {
+              normal: {
+                color(params) {
+                  const colorlist = [
+                    '#FC9131', '#40A7DF', '#36E095', '#7C6AF2', '#FF6A53', '#EEA287',
+                    '#FC9131', '#40A7DF', '#36E095', '#7C6AF2', '#FF6A53', '#EEA287',
+                    '#FC9131', '#40A7DF', '#36E095', '#7C6AF2', '#FF6A53', '#EEA287',
+                  ];
+                  return colorlist[params.dataIndex];
+                }
               }
             }
-          }
-        }]
-      };
-      this.chartsTwo && this.chartsTwo.setOption(option);
+          }]
+        };
+        this.chartsTwo && this.chartsTwo.setOption(option);
+      }
     }
   }
 }

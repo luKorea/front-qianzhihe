@@ -119,7 +119,7 @@
                         placeholder="请输入右边验证码"
                         name="code"
                         auto-complete="on"
-                        @keyup.enter.native="handleLogin"
+                        @keyup.enter.native="handleStudentLogin"
                         prefix-icon="el-icon-chat-dot-square"
                     />
                   </el-form-item>

@@ -35,7 +35,7 @@ export default {
     }
   },
   mounted() {
-    this.getData(this.params);
+    // this.getData(this.params);
   },
   methods: {
     goDetail(id, type) {

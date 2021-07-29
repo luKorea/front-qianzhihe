@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="info.chineseUniversityTopCount || info.softSeccoCount || info.wuShuTopCount">
     <template>
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-sort">院校排行</span>

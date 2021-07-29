@@ -99,7 +99,9 @@ export default {
   mounted() {
     console.log(this.randomInfo);
     this.$nextTick(() => {
-      this.initCharts();
+      setTimeout(() => {
+        this.initCharts();
+      }, 1000)
     })
   },
   methods: {
@@ -108,7 +110,7 @@ export default {
       this.setOptions(this.randomInfo);
     },
     setOptions(data) {
-      let max = 25;
+      let max = 35;
       let option = {
         radar: {
           indicator: [

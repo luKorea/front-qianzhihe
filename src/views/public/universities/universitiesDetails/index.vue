@@ -2,7 +2,7 @@
   <div>
     <basic-info :info="info"></basic-info>
     <basic-container>
-      <basic-desc :info="descInfo" />
+      <basic-desc :info="descInfo"/>
       <basic-ranking :info="rankingInfo"/>
       <basic-scope :info="selectInfo" :name="academyName"/>
       <basic-major :info="selectInfo" :name="academyName"/>
@@ -38,7 +38,13 @@ import basicMajor from "./components/basicMajor";
 import basicPlan from "./components/basicPlan";
 import basicSubject from "./components/basicSubject";
 import basicFurther from "./components/basicFurther";
-import {getBasicInfo, getBasicDesc, getAcademyTop, getFurther, getSelectUniversities} from '../../../../api/common/universities';
+import {
+  getBasicInfo,
+  getBasicDesc,
+  getAcademyTop,
+  getFurther,
+  getSelectUniversities
+} from '../../../../api/common/universities';
 import {scrollElement} from "../../../../utils";
 
 export default {
@@ -170,7 +176,6 @@ export default {
             if (res.errorCode === 200) {
               this.descInfo = res.data;
               if (!res.data.depict) this.filterData('uni-desc')
-              if (!res.data.man_ratio) this.filterData('uni-gender')
               if (!res.data.image) this.filterData('uni-photo')
             }
           })
@@ -179,25 +184,55 @@ export default {
       getAcademyTop(academyName)
           .then(res => {
             if (res.errorCode === 200) {
-              this.rankingInfo = res.data;
+              let data = res.data;
+              this.rankingInfo = data;
+              if (!data.chineseUniversityTopCount || !data.softSeccoCount || !data.wuShuTopCount) {
+                this.filterData('uni-sort')
+              } if (!data.subjectList || data.subjectList.length === 0) {
+                this.filterData('uni-pre')
+              } if (!data.courseList || data.courseList.length === 0) {
+                this.filterData('uni-major')
+              }
             }
           })
     },
     getFurtherData(academyName) {
       getFurther(academyName)
           .then(res => {
-            if (res.errorCode === 200) {
-              this.furtherInfo = res.data;
+            if (res.errorCode === 200 && res.data) {
+              let data = res.data;
+              this.furtherInfo = data;
+              if (!data.obtainRegionEmploymenList) {
+                this.filterData('uni-address')
+              }
+              if (!data.inland_enrolment_rate) {
+                this.filterData('uni-zhong')
+              }
+              if (!data.foreign_enrolment_rate) {
+                this.filterData('uni-wai')
+              }
+              if (!data.employment_rate) {
+                this.filterData('uni-jiu')
+              }
+              if (!data.obtainIndustryEmploymenList) {
+                this.filterData('uni-company')
+              }
+            } else {
+              this.filterData('uni-address')
+              this.filterData('uni-zhong')
+              this.filterData('uni-wai')
+              this.filterData('uni-jiu')
+              this.filterData('uni-company')
             }
           })
     },
     getSelectData(academyName) {
       getSelectUniversities(academyName)
-      .then(res => {
-        if (res.errorCode === 200) {
-          this.selectInfo = res.data;
-        }
-      })
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.selectInfo = res.data;
+            }
+          })
     }
   }
 }

@@ -10,6 +10,7 @@
 </template>
 <script>
 import {getEvaluationDetails, getEvaluationMajor} from "../../../../../api/student/evaluation";
+import {getHollandOccupation} from "../../../../../api/student/evaluation";
 import hollandDetail from "./hollandDetail";
 import mbitDetail from "./mbitDetail";
 
@@ -36,9 +37,16 @@ export default {
     let {type, hollandId} = this.$route.query;
     this.params.type = type;
     this.params.hollandId = hollandId;
-    this.getData(this.params);
-    this.getMajor(this.params);
-
+    if (hollandId) {
+      this.getData(this.params);
+    } else {
+      let hollandData = JSON.parse(localStorage.getItem('holland'));
+      console.log(hollandData);
+      // this.mbitInfo = hollandData.personality;
+      this.randomInfo = hollandData.spiderDiagram;
+      this.typeList = hollandData.hollandResults;
+    }
+    this.getMajor();
   },
   methods: {
     getData(params) {
@@ -52,8 +60,8 @@ export default {
             }
           })
     },
-    getMajor(params) {
-      getEvaluationMajor(params)
+    getMajor() {
+      getHollandOccupation()
           .then(res => {
             if (res.errorCode === 200) {
               this.majorList = res.data;

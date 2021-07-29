@@ -256,7 +256,7 @@ export const asyncRouterMap = [
         component: Layout,
         redirect: '/studentEvaluation/evaluationSeries',
         name: '测评中心',
-        meta: {title: '测评中心', showTag: true, icon: 'el-icon-s-order', roles: [''], breadcrumb: true},
+        meta: {title: '测评中心', showTag: true, icon: 'el-icon-s-order', roles: ['学生测评中心'], breadcrumb: true},
         children: [
             {
                 path: '/studentEvaluation/evaluationSeries',
@@ -267,13 +267,13 @@ export const asyncRouterMap = [
                 },
                 redirect: '/studentEvaluation/evaluationSeries',
                 name: '测评系列',
-                meta: {title: '测评系列', showTag: true, icon: 'el-icon-star-off', roles: [''], breadcrumb: true},
+                meta: {title: '测评系列', showTag: true, icon: 'el-icon-star-off', roles: ['学生测评中心'], breadcrumb: true},
                 children: [
                     {
                         path: '/studentEvaluation/evaluationSeries',
                         hidden: true,
                         name: '测评系列',
-                        meta: {title: '测评系列', showTag: true, icon: 'el-icon-star-off', roles: [''], breadcrumb: true},
+                        meta: {title: '测评系列', showTag: true, icon: 'el-icon-star-off', roles: ['学生测评中心'], breadcrumb: true},
                         component: () => import('../views/student/evaluation/evaluationSeries'),
                     },
                     {
@@ -281,14 +281,14 @@ export const asyncRouterMap = [
                         hidden: true,
                         component: () => import('../views/student/evaluation/evaluationSeries/mbit'),
                         name: '性格测试',
-                        meta: {title: '性格测试', icon: 'el-icon-star-off', roles: ['']}
+                        meta: {title: '性格测试', icon: 'el-icon-star-off', roles: ['学生测评中心']}
                     },
                     {
                         path: '/studentEvaluation/evaluationSeries/holland',
                         hidden: true,
                         component: () => import('../views/student/evaluation/evaluationSeries/holland'),
                         name: '兴趣测试',
-                        meta: {title: '兴趣测试', icon: 'el-icon-star-off', roles: ['']}
+                        meta: {title: '兴趣测试', icon: 'el-icon-star-off', roles: ['学生测评中心']}
                     },
                 ]
             },
@@ -301,13 +301,13 @@ export const asyncRouterMap = [
                 },
                 redirect: '/studentEvaluation/evaluationList',
                 name: '测评记录',
-                meta: {title: '测评记录', showTag: true, icon: 'el-icon-star-off', roles: [''], breadcrumb: true},
+                meta: {title: '测评记录', showTag: true, icon: 'el-icon-star-off', roles: ['学生测评中心'], breadcrumb: true},
                 children: [
                     {
                         path: '/studentEvaluation/evaluationList',
                         hidden: true,
                         name: '测评记录',
-                        meta: {title: '测评记录', showTag: true, icon: 'el-icon-star-off', roles: [''], breadcrumb: true},
+                        meta: {title: '测评记录', showTag: true, icon: 'el-icon-star-off', roles: ['学生测评中心'], breadcrumb: true},
                         component: () => import('../views/student/evaluation/evaluationList'),
                     },
                     {
@@ -315,7 +315,7 @@ export const asyncRouterMap = [
                         hidden: true,
                         component: () => import('@/views/student/evaluation/evaluationList/evaluationDetails/index'),
                         name: '测评详情',
-                        meta: {title: '测评详情', icon: 'el-icon-star-off', roles: ['']}
+                        meta: {title: '测评详情', icon: 'el-icon-star-off', roles: ['学生测评中心']}
                     },
                 ]
             },

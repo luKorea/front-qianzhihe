@@ -1,4 +1,5 @@
 <template>
+<!-- TODO 假数据 -->
   <div>
     <basic-container>
       <span class="tip-info"></span>
@@ -34,7 +35,8 @@
             </el-select>
             <el-button type="primary"
                        :loading="timeLoading"
-                       style="margin-left: 20px" @click="getTimeInfo(timeParams)">筛选</el-button>
+                       style="margin-left: 20px" @click="getTimeInfo(timeParams)">筛选
+            </el-button>
           </div>
         </div>
       </div>
@@ -67,13 +69,8 @@
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">平台使用记录</span>
-      <el-table stripe  v-loading="loading" :data="list" border style="width: 100%;margin: 20px 0">
-        <el-table-column prop="user.studentId" label="学号" align="center" />
-        <el-table-column label="头像" align="center" width="80">
-          <template slot-scope="scope">
-            <el-avatar size="32" :src="scope.row.user.profilePicture"></el-avatar>
-          </template>
-        </el-table-column>
+      <el-table stripe v-loading="loading" :data="list" border style="width: 100%;margin: 20px 0">
+        <el-table-column prop="user.studentId" label="学号" align="center"/>
         <el-table-column prop="user.schoolUserName" label="姓名" align="center">
           <template slot-scope="scope">
             <span class="inline-text"
@@ -84,10 +81,10 @@
         </el-table-column>
         <el-table-column label="性别" align="center">
           <template slot-scope="scope">
-            <span>{{scope.row.user.gender === 'F' ? '女' : '男'}}</span>
+            <span>{{ scope.row.user.gender === 'F' ? '女' : '男' }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="user.username" label="手机号" align="center" />
+        <el-table-column prop="user.username" label="手机号" align="center"/>
         <el-table-column label="班级" align="center">
           <template slot-scope="scope">
             <span class="inline-text"
@@ -96,8 +93,8 @@
             <span v-else>{{ scope.row.user.gradeName }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="activityName" label="操作日志" align="center" width="300" />
-        <el-table-column prop="_created_at" label="操作时间" align="center" />
+        <el-table-column prop="activityName" label="操作日志" align="center" width="300"/>
+        <el-table-column prop="_created_at" label="操作时间" align="center"/>
       </el-table>
       <basic-pagination
           :page="params.page + 1"
@@ -120,7 +117,74 @@ export default {
       timeLoading: true,
       loading: true,
       info: '',
-      list: [],
+      list: [
+        {
+          user: {
+            studentId: '00001',
+            schoolUserName: '张三',
+            gender: 'F',
+            username: '18817794539',
+            gradeName: '高一班'
+          },
+          activityName: '浏览专业—【经济学】',
+          _created_at: '2021-07-15'
+        },
+        {
+          user: {
+            studentId: '00001',
+            schoolUserName: '张三',
+            gender: 'F',
+            username: '18817794539',
+            gradeName: '高一班'
+          },
+          activityName: '浏览专业—【经济学】',
+          _created_at: '2021-07-15'
+        },
+        {
+          user: {
+            studentId: '00001',
+            schoolUserName: '张三',
+            gender: 'F',
+            username: '18817794539',
+            gradeName: '高一班'
+          },
+          activityName: '选科查询-【物理+化学+政治】',
+          _created_at: '2021-07-15'
+        },
+        {
+          user: {
+            studentId: '00001',
+            schoolUserName: '张三',
+            gender: 'F',
+            username: '18817794539',
+            gradeName: '高一班'
+          },
+          activityName: '完成测试-【兴趣测试】',
+          _created_at: '2021-07-15'
+        },
+        {
+          user: {
+            studentId: '00001',
+            schoolUserName: '张三',
+            gender: 'F',
+            username: '18817794539',
+            gradeName: '高一班'
+          },
+          activityName: '完成测试-【性格测试】',
+          _created_at: '2021-07-15'
+        },
+        {
+          user: {
+            studentId: '00001',
+            schoolUserName: '张三',
+            gender: 'F',
+            username: '18817794539',
+            gradeName: '高一班'
+          },
+          activityName: '浏览专业—【经济学】',
+          _created_at: '2021-07-15'
+        },
+      ],
       classList: [],
       classUserList: [],
       gradeList: [],
@@ -299,6 +363,7 @@ export default {
       }
     }
   }
+
   .right {
     display: flex;
     flex-direction: column;
@@ -306,9 +371,11 @@ export default {
     height: 144px;
   }
 }
+
 .right-search {
   display: flex;
   align-items: center;
+
   .tip {
     font-size: 14px;
     font-family: PingFangSC-Regular, PingFang SC;

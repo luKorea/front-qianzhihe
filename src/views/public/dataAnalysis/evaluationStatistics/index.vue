@@ -34,13 +34,13 @@
       <span class="tip-info"></span>
       <span class="tip-title">测评数据统计</span>
       <el-divider/>
-      <mbit-charts :list="mbitResultList"
-                   :percent-info="mbitInfo"
-                   :major-list="majorMbtiList" :occupation-list="occupationMbtiList"/>
-      <el-divider/>
       <holland-charts :list="hollandResultList"
                       :percent-info="hollandInfo"
                       :major-list="majorList" :occupation-list="occupationList"/>
+      <el-divider/>
+      <mbit-charts :list="mbitResultList"
+                   :percent-info="mbitInfo"
+                   :major-list="majorMbtiList" :occupation-list="occupationMbtiList"/>
     </basic-container>
   </div>
 </template>

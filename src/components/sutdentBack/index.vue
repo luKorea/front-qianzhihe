@@ -3,9 +3,7 @@
     <el-card>
       <div @click="goBack"
            class="back-btn" style="display: flex;justify-content: flex-end">
-        <el-tooltip class="item" effect="dark" content="关闭" placement="top-start">
-          <i class="el-icon-circle-close" style="cursor: pointer; font-size: 24px; color: #a8aaaf"></i>
-        </el-tooltip>
+        <i class="el-icon-circle-close" style="cursor: pointer; font-size: 24px; color: #a8aaaf"></i>
       </div>
       <slot></slot>
     </el-card>
@@ -14,11 +12,10 @@
 
 <script>
 export default {
-  name: "basicContainerBack",
+  name: "basicStudentBack",
   methods: {
     goBack() {
-      this.$store.dispatch("tagsView/delView", this.$route);
-      this.$router.go(-1);
+      this.$emit('goBack')
     }
   }
 };
