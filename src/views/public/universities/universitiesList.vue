@@ -41,12 +41,14 @@
       </div>
     </basic-container>
     <basic-skeleton :loading="loading" show-avatar="true"></basic-skeleton>
-    <list-table
-        :list="list" :params="params"
-        @goDetails="goDetails"
-        @handleCurrentChange="handleCurrentChange"
-        @handleSizeChange="handleSizeChange"
-    />
+    <template v-if="!loading">
+      <list-table
+          :list="list" :params="params"
+          @goDetails="goDetails"
+          @handleCurrentChange="handleCurrentChange"
+          @handleSizeChange="handleSizeChange"
+      />
+    </template>
   </div>
 </template>
 

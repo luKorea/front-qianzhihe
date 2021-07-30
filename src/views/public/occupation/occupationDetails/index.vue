@@ -1,18 +1,19 @@
 <template>
   <div>
     <basic-skeleton :loading="loading" show-avatar="true" :number="20"></basic-skeleton>
-    <basic-container-back v-if="info.videoList && info.videoList.length > 0">
-      <video-list :video-list="info.videoList"></video-list>
-    </basic-container-back>
-    <basic-info :info="info"/>
-    <basic-container>
-      <basic-desc :info="info"/>
-      <basic-ability :info="info"/>
-      <basic-study :info="info"/>
-      <basic-person-desc :info="info"/>
-      <basic-tip :info="info"/>
-    </basic-container>
-
+    <template v-if="!loading">
+      <basic-container-back v-if="info.videoList && info.videoList.length > 0">
+        <video-list :video-list="info.videoList"></video-list>
+      </basic-container-back>
+      <basic-info :info="info"/>
+      <basic-container>
+        <basic-desc :info="info"/>
+        <basic-ability :info="info"/>
+        <basic-study :info="info"/>
+        <basic-person-desc :info="info"/>
+        <basic-tip :info="info"/>
+      </basic-container>
+    </template>
 
     <el-tooltip :content="showBackInfo ? '关闭' : '打开'" placement="top-start">
       <i
@@ -153,10 +154,11 @@ export default {
           let data = res.data;
           this.info = data;
           this.loading = false;
+          console.log(this.info.jobKnowledgeVoList);
           if (!data.description) this.filterData('occ-desc')
           if (!data.professionalArrayList || data.professionalArrayList.length === 0) this.filterData('occ-major')
           if (!data.description) this.filterData('occ-yaoqiu')
-          if (!data.jobKnowledgeVoList) this.filterData('occ-zhishi')
+          if (!data.jobKnowledgeVoList || data.jobKnowledgeVoList.length === 0) this.filterData('occ-zhishi')
           if (!data.certificateVoList || data.certificateVoList.length === 0) this.filterData('occ-zhengshu')
           if (!data.personalityVoList) this.filterData('occ-person')
           if (!data.hollands1) this.filterData('occ-ceshi')

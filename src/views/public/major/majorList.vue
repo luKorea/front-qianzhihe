@@ -21,8 +21,8 @@
       </div>
     </basic-container>
 
-    <basic-skeleton :loading="loading" :rows="100"></basic-skeleton>
-    <basic-container>
+    <basic-skeleton :loading="loading"></basic-skeleton>
+    <basic-container v-if="!loading">
       <div>
         <template v-if="list && list.length > 0">
           <div class="major-wrap">

@@ -1,12 +1,14 @@
 <template>
   <div id="major-container">
     <basic-skeleton :loading="loading" show-avatar="true" :number="20"></basic-skeleton>
-    <basic-info :info="info"/>
-    <basic-container>
-      <basic-desc :info="descInfo"/>
-      <basic-proposal :info="proposalInfo" @changeMajor="getProposalFromComponents"/>
-      <basic-employment :info="employmentInfo"/>
-    </basic-container>
+    <template  v-if="!loading">
+      <basic-info :info="info"/>
+      <basic-container>
+        <basic-desc :info="descInfo"/>
+        <basic-proposal :info="proposalInfo" @changeMajor="getProposalFromComponents"/>
+        <basic-employment :info="employmentInfo"/>
+      </basic-container>
+    </template>
     <el-tooltip :content="showBackInfo ? '关闭' : '打开'" placement="top-start">
       <i
           class="flex-right-icon"

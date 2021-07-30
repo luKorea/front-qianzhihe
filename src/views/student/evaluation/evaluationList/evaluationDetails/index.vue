@@ -1,5 +1,6 @@
 <template>
   <div>
+<!--    <basic-skeleton :loading="loading" show-avatar></basic-skeleton>-->
     <holland-detail :major-list="majorList"
                     :type-list="typeList"
                     :random-info="randomInfo" v-if="params.type === 'holland'"/>
@@ -22,6 +23,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       params: {
         type: '',
         hollandId: ''

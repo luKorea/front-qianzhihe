@@ -59,7 +59,7 @@
       </div>
     </basic-container>
     <basic-skeleton :loading="loading"></basic-skeleton>
-    <basic-container>
+    <basic-container v-if="!loading">
       <span class="tip-info"></span>
       <span class="tip-title">推荐专业</span>
       <div v-if="showList">

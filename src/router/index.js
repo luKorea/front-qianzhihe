@@ -252,6 +252,18 @@ export const asyncRouterMap = [
         }]
     },
     {
+        path: '/studentSubjectSelectionType',
+        component: Layout,
+        redirect: '/studentSubjectSelectionType',
+        hidden: true,
+        children: [{
+            path: 'studentSubjectSelectionType',
+            name: '/选科征集',
+            component: () => import('../views/student/subjectSelectionType/index'),
+            meta: {title: '选科征集', showTag: true, icon: 'el-icon-s-home', roles: ['myFiles'], breadcrumb: true}
+        }]
+    },
+    {
         path: '/studentEvaluation',
         component: Layout,
         redirect: '/studentEvaluation/evaluationSeries',

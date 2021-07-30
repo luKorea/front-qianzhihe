@@ -1,16 +1,18 @@
 <template>
   <div>
     <basic-skeleton :loading="loading" show-avatar="true" :number="20"></basic-skeleton>
-    <basic-info :info="info"></basic-info>
-    <basic-container>
-      <basic-desc :info="descInfo"/>
-      <basic-ranking :info="rankingInfo"/>
-      <basic-scope :info="selectInfo" :name="academyName"/>
-      <basic-major :info="selectInfo" :name="academyName"/>
-      <basic-plan :info="selectInfo" :name="academyName"/>
-      <basic-subject :info="rankingInfo"/>
-      <basic-further :info="furtherInfo"/>
-    </basic-container>
+    <template v-if="!loading">
+      <basic-info :info="info"></basic-info>
+      <basic-container>
+        <basic-desc :info="descInfo"/>
+        <basic-ranking :info="rankingInfo"/>
+        <basic-scope :info="selectInfo" :name="academyName"/>
+        <basic-major :info="selectInfo" :name="academyName"/>
+        <basic-plan :info="selectInfo" :name="academyName"/>
+        <basic-subject :info="rankingInfo"/>
+        <basic-further :info="furtherInfo"/>
+      </basic-container>
+    </template>
     <el-tooltip :content="showBackInfo ? '关闭' : '打开'" placement="top-start">
       <i
           class="flex-right-icon"

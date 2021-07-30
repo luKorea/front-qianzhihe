@@ -18,7 +18,7 @@ export default {
     },
     showAvatar: {
       type: Boolean,
-      default: false
+      default: true
     },
     number: {
       type: Number,

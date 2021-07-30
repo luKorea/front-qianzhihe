@@ -1,80 +1,82 @@
 <template>
   <div>
-    <basic-skeleton :loading="loading" show-avatar :number="20"></basic-skeleton>
-    <basic-container-back>
-      <span class="tip-info"></span>
-      <span class="tip-title">基本信息</span>
-      <div style="margin-top: 20px">
-        <el-row :gutter="4" class="m-bottom">
-          <el-col :span="10">
-            <span class="teacher-title">教师名称：</span>
-            <span class="teacher-info">{{ info.name }}</span>
-          </el-col>
-          <el-col :span="10">
-            <span class="teacher-title">教师类型：</span>
-            <span class="teacher-info">{{ info.teacherType }}</span>
-          </el-col>
-        </el-row>
-        <el-row :gutter="4">
-          <el-col :span="10">
-            <span class="teacher-title">手机号码：</span>
-            <span class="teacher-info">{{ info.phone }}</span>
-          </el-col>
-          <el-col :span="10">
-            <span class="teacher-title">备注：</span>
-            <span class="teacher-info">{{ info.comment }}</span>
-          </el-col>
-        </el-row>
-      </div>
-    </basic-container-back>
-    <basic-container>
-      <span class="tip-info"></span>
-      <span class="tip-title">账号信息</span>
-      <div style="margin-top: 20px">
-        <el-row :gutter="4" class="m-bottom">
-          <el-col :span="10">
-            <span class="teacher-title">登录账号：</span>
-            <span class="teacher-info">{{ info.username }}</span>
-          </el-col>
-          <el-col :span="10">
-            <span class="teacher-title">登录密码：</span>
-            <span class="teacher-info">************</span>
-          </el-col>
-        </el-row>
-      </div>
-    </basic-container>
-    <basic-container style="margin-bottom: 100px">
-      <span class="tip-info"></span>
-      <span class="tip-title">代课班级列表</span>
-      <template v-if="list && list.length > 0">
-        <el-table stripe  :data="list" border style="width: 100%;margin: 20px 0" v-loading="loading">
-          <el-table-column type="index" label="编号" align="center" width="60"/>
-          <el-table-column prop="name" label="班级名称" align="center"/>
-          <el-table-column prop="gradeType" label="班级类型" align="center"/>
-          <el-table-column prop="grade" label="年级" align="center"/>
-          <el-table-column prop="enrollmentYear" label="入学年份" align="center"/>
-          <el-table-column prop="teacherName" label="班主任" align="center"/>
-          <el-table-column prop="teacher2Name" label="生涯导师1" align="center"/>
-          <el-table-column prop="teacher1Name" label="生涯导师2" align="center"/>
-          <el-table-column label="操作" align="center">
-            <template slot-scope="scope">
-              <el-button type="text" size="small" @click="goOperationType('visit', scope.row._id)">查看班级详情</el-button>
-              <el-button type="text" size="small" @click="goOperationType('edit', scope.row._id)">编辑</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+    <basic-skeleton :loading="loading" show-avatar></basic-skeleton>
+    <template v-if="!loading">
+      <basic-container-back>
+        <span class="tip-info"></span>
+        <span class="tip-title">基本信息</span>
+        <div style="margin-top: 20px">
+          <el-row :gutter="4" class="m-bottom">
+            <el-col :span="10">
+              <span class="teacher-title">教师名称：</span>
+              <span class="teacher-info">{{ info.name }}</span>
+            </el-col>
+            <el-col :span="10">
+              <span class="teacher-title">教师类型：</span>
+              <span class="teacher-info">{{ info.teacherType }}</span>
+            </el-col>
+          </el-row>
+          <el-row :gutter="4">
+            <el-col :span="10">
+              <span class="teacher-title">手机号码：</span>
+              <span class="teacher-info">{{ info.phone }}</span>
+            </el-col>
+            <el-col :span="10">
+              <span class="teacher-title">备注：</span>
+              <span class="teacher-info">{{ info.comment }}</span>
+            </el-col>
+          </el-row>
+        </div>
+      </basic-container-back>
+      <basic-container>
+        <span class="tip-info"></span>
+        <span class="tip-title">账号信息</span>
+        <div style="margin-top: 20px">
+          <el-row :gutter="4" class="m-bottom">
+            <el-col :span="10">
+              <span class="teacher-title">登录账号：</span>
+              <span class="teacher-info">{{ info.username }}</span>
+            </el-col>
+            <el-col :span="10">
+              <span class="teacher-title">登录密码：</span>
+              <span class="teacher-info">************</span>
+            </el-col>
+          </el-row>
+        </div>
+      </basic-container>
+      <basic-container style="margin-bottom: 100px">
+        <span class="tip-info"></span>
+        <span class="tip-title">代课班级列表</span>
+        <template v-if="list && list.length > 0">
+          <el-table stripe  :data="list" border style="width: 100%;margin: 20px 0" v-loading="loading">
+            <el-table-column type="index" label="编号" align="center" width="60"/>
+            <el-table-column prop="name" label="班级名称" align="center"/>
+            <el-table-column prop="gradeType" label="班级类型" align="center"/>
+            <el-table-column prop="grade" label="年级" align="center"/>
+            <el-table-column prop="enrollmentYear" label="入学年份" align="center"/>
+            <el-table-column prop="teacherName" label="班主任" align="center"/>
+            <el-table-column prop="teacher2Name" label="生涯导师1" align="center"/>
+            <el-table-column prop="teacher1Name" label="生涯导师2" align="center"/>
+            <el-table-column label="操作" align="center">
+              <template slot-scope="scope">
+                <el-button type="text" size="small" @click="goOperationType('visit', scope.row._id)">查看班级详情</el-button>
+                <el-button type="text" size="small" @click="goOperationType('edit', scope.row._id)">编辑</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
           <basic-pagination
-            :total="params.total"
-            @handleCurrentChange="handleCurrentChange"
-            @handleSizeChange="handleSizeChange"
-        />
-      </template>
-      <basic-nothing v-else title="教师绑定班级需要在 班级管理-新增/编辑班级处添加"></basic-nothing>
-    </basic-container>
-    <div class="footer-btn">
-      <el-button style="color: #475B75" @click="goBack">返回</el-button>
-      <el-button type="primary" @click="goEdit(params.teacherId)">编辑</el-button>
-    </div>
+              :total="params.total"
+              @handleCurrentChange="handleCurrentChange"
+              @handleSizeChange="handleSizeChange"
+          />
+        </template>
+        <basic-nothing v-else title="教师绑定班级需要在 班级管理-新增/编辑班级处添加"></basic-nothing>
+      </basic-container>
+      <div class="footer-btn">
+        <el-button style="color: #475B75" @click="goBack">返回</el-button>
+        <el-button type="primary" @click="goEdit(params.teacherId)">编辑</el-button>
+      </div>
+    </template>
   </div>
 </template>
 

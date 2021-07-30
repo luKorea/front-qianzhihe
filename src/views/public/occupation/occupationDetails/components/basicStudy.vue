@@ -49,10 +49,33 @@ export default {
       tableData: []
     }
   },
+  mounted() {
+    let fields = [],
+        itemmap = {},
+        list = [],
+        maxlen = 0;
+    for (let items of this.info.jobKnowledgeVoList) {
+      fields.push(items.knowledge_classification)
+      itemmap[items.knowledge_classification] = items.knowledge_names
+      maxlen = Math.max(items.knowledge_names.length)
+    }
+    for (let i = 0; i < maxlen; i++) {
+      let item = {}
+      for (let k in itemmap) {
+        item[k] = itemmap[k][i] || ''
+      }
+      list.push(item)
+    }
+    console.log(list);
+    this.headers = fields;
+    this.tableData = list;
+  },
   watch: {
     info: {
       deep: true,
-      handler() {
+      handler(val) {
+        console.log(val, 'val');
+        console.log(this.info.jobKnowledgeVoList);
         let fields = [],
             itemmap = {},
             list = [],
@@ -69,6 +92,7 @@ export default {
           }
           list.push(item)
         }
+        console.log(list);
         this.headers = fields;
         this.tableData = list;
       }
