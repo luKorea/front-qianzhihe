@@ -4,7 +4,7 @@
         <div class="right-menu">
             <el-dropdown class="avatar-container" trigger="hover">
                 <div class="avatar-wrapper">
-                  <el-avatar :size="30" :src="avatar"></el-avatar>
+                  <el-avatar :size="30" :src="avatar ? avatar : defaultImg"></el-avatar>
                     <span> {{name}}</span>
                     <i class="el-icon-caret-bottom" />
                 </div>
@@ -32,7 +32,8 @@ export default {
   },
   data() {
     return {
-      imgUrl: process.env.VUE_APP_PROXY_URL
+      imgUrl: process.env.VUE_APP_PROXY_URL,
+      defaultImg: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
     }
   },
   computed: {

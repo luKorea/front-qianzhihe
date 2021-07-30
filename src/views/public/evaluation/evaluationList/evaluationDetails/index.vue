@@ -1,5 +1,6 @@
 <template>
   <div>
+    <basic-skeleton :loading="loading" show-avatar></basic-skeleton>
     <div>
       <basic-container-back>
         <span class="tip-info"></span>
@@ -78,6 +79,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       params: {
         type: '',
         hollandId: ''
@@ -99,10 +101,12 @@ export default {
   },
   methods: {
     getData(params) {
+      this.loading = true
       getEvaluationDetails(params)
           .then(res => {
             if (res.errorCode === 200) {
               this.info = res.data.user;
+              this.loading = false;
               this.mbitInfo = res.data.personality;
               this.randomInfo = res.data.hollandType;
               this.typeList = res.data.result;

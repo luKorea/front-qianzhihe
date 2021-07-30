@@ -34,15 +34,19 @@
     <template v-if="info.images">
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-photo">院校风光</span>
-        <div class="img-wrap">
-          <div v-for="(item, index) in info.images" :key="index">
-            <el-image
-                style="width: 262px; height: 148px; border-radius: 8px; margin-bottom: 20px; margin-right: 20px"
-                :src="item"
-                :preview-src-list="info.images"
-                fit="fit"/>
-          </div>
+      <div class="img-wrap">
+        <div v-for="(item, index) in info.images" :key="index">
+          <el-image
+              style="width: 262px; height: 148px; border-radius: 8px; margin-bottom: 20px; margin-right: 20px"
+              :src="item"
+              :preview-src-list="info.images"
+              fit="fit">
+            <div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline"></i>
+            </div>
+          </el-image>
         </div>
+      </div>
       <el-divider/>
     </template>
   </div>

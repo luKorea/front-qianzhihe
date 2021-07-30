@@ -13,10 +13,10 @@
       </div>
       <div style="margin-top: 20px">
         <el-row :gutter="4" class="m-bottom">
-          <el-col :span="8">
-            <span class="student-title">班级ID：</span>
-            <span class="student-info">{{ info._id }}</span>
-          </el-col>
+<!--          <el-col :span="8">-->
+<!--            <span class="student-title">班级ID：</span>-->
+<!--            <span class="student-info">{{ info._id }}</span>-->
+<!--          </el-col>-->
           <el-col :span="8">
             <div>
               <span class="student-title">班级名称：</span>
@@ -27,12 +27,12 @@
             <span class="student-title">提交选科人数：</span>
             <span class="student-info">{{ info.name }}</span>
           </el-col>
-        </el-row>
-        <el-row :gutter="4" class="m-bottom">
           <el-col :span="8">
             <span class="student-title">班级人数：</span>
             <span class="student-info">{{ info.gradeCount }}</span>
           </el-col>
+        </el-row>
+        <el-row :gutter="4" class="m-bottom">
           <el-col :span="8">
             <div>
               <span class="student-title">班级类型：</span>
@@ -43,12 +43,12 @@
             <span class="student-title">年级：</span>
             <span class="student-info">{{ info.grade }}</span>
           </el-col>
-        </el-row>
-        <el-row :gutter="4" class="m-bottom">
           <el-col :span="8">
             <span class="student-title">入学年份：</span>
             <span class="student-info">{{ info.enrollmentYear }}</span>
           </el-col>
+        </el-row>
+        <el-row :gutter="4" class="m-bottom">
           <el-col :span="8">
             <div>
               <span class="student-title">班主任：</span>
@@ -59,8 +59,6 @@
             <span class="student-title">生涯导师1：</span>
             <span class="student-info">{{ info.teacher1Name }}</span>
           </el-col>
-        </el-row>
-        <el-row :gutter="`4`">
           <el-col :span="8">
             <span class="student-title">生涯导师2：</span>
             <span class="student-info">{{ info.teacher2Name }}</span>
@@ -101,7 +99,7 @@
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="goOperationType('visit', scope.row._id, params.gradeId)">查看</el-button>
               <el-button type="text" size="small" @click="goOperationType('edit', scope.row._id, params.gradeId)">编辑</el-button>
-              <el-button type="text" style="color: red" size="small" @click="removeClassInfo(scope.row._id)">解除班级绑定</el-button>
+              <el-button type="text" style="color: #8489A4" size="small" @click="removeClassInfo(scope.row._id)">解除班级绑定</el-button>
             </template>
           </el-table-column>
         </el-table>

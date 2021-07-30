@@ -13,7 +13,11 @@
         <template v-for="item in info.professionalArrayList">
           <div class="flex-wrap" @click="goMajor(item._id, item.name)">
             <div class="img" :key="item._id">
-              <img :src="item.image" alt="">
+              <el-image :src="item.image" alt="">
+                <div slot="error" class="image-slot">
+                  <i class="el-icon-picture-outline"></i>
+                </div>
+              </el-image>
               <span class="img-tip" v-if="item.name">{{ item.name && item.name.slice(0, 2) }}</span>
             </div>
             <div class="title">{{ item.name }}</div>

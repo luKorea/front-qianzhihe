@@ -9,8 +9,8 @@
   </div>
 </template>
 <script>
-import {getEvaluationDetails, getEvaluationMajor} from "../../../../../api/student/evaluation";
-import {getHollandOccupation} from "../../../../../api/student/evaluation";
+import {getEvaluationDetails} from "../../../../../api/student/evaluation";
+import {getHollandOccupation, getMbtiOccupation} from "../../../../../api/student/evaluation";
 import hollandDetail from "./hollandDetail";
 import mbitDetail from "./mbitDetail";
 
@@ -37,16 +37,20 @@ export default {
     let {type, hollandId} = this.$route.query;
     this.params.type = type;
     this.params.hollandId = hollandId;
+    console.log(type);
     if (hollandId) {
       this.getData(this.params);
-    } else {
+    } else if (type === 'holland') {
       let hollandData = JSON.parse(localStorage.getItem('holland'));
       console.log(hollandData);
-      // this.mbitInfo = hollandData.personality;
       this.randomInfo = hollandData.spiderDiagram;
       this.typeList = hollandData.hollandResults;
+      this.getHollandMajor();
+    } else if (type === 'mbit') {
+      let mbitData = JSON.parse(localStorage.getItem('mbit'));
+      this.mbitInfo = mbitData;
+      this.getMbtiMajor();
     }
-    this.getMajor();
   },
   methods: {
     getData(params) {
@@ -60,8 +64,16 @@ export default {
             }
           })
     },
-    getMajor() {
+    getHollandMajor() {
       getHollandOccupation()
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.majorList = res.data;
+            }
+          })
+    },
+    getMbtiMajor() {
+      getMbtiOccupation()
           .then(res => {
             if (res.errorCode === 200) {
               this.majorList = res.data;

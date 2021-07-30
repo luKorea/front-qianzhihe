@@ -30,6 +30,7 @@
         </div>
       </div>
     </basic-container>
+    <basic-skeleton :loading="loading"></basic-skeleton>
     <charts-components
         :percent-info="percentInfo"
         :first-data="firstData"

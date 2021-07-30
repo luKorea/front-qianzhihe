@@ -1,5 +1,6 @@
 <template>
   <div>
+    <basic-skeleton :loading="loading" show-avatar :number="20"></basic-skeleton>
     <basic-container-back>
       <span class="tip-info"></span>
       <span class="tip-title">基本信息</span>
@@ -52,10 +53,10 @@
       <span class="tip-title">班级信息</span>
       <div style="margin-top: 20px" v-if="info.gradeDto">
         <el-row :gutter="4" class="m-bottom">
-          <el-col :span="8">
-            <span class="student-title">班级ID：</span>
-            <span class="student-info">{{ info.gradeDto._id }}</span>
-          </el-col>
+<!--          <el-col :span="8">-->
+<!--            <span class="student-title">班级ID：</span>-->
+<!--            <span class="student-info">{{ info.gradeDto._id }}</span>-->
+<!--          </el-col>-->
           <el-col :span="8">
             <span class="student-title">班级名称：</span>
             <span class="student-info">
@@ -69,12 +70,12 @@
             <span class="student-title">班级类型：</span>
             <span class="student-info">{{ info.gradeDto.gradeType }}</span>
           </el-col>
-        </el-row>
-        <el-row :gutter="4" class="m-bottom">
           <el-col :span="8">
             <span class="student-title">年级：</span>
             <span class="student-info">{{ info.gradeDto.grade }}</span>
           </el-col>
+        </el-row>
+        <el-row :gutter="4" class="m-bottom">
           <el-col :span="8">
             <span class="student-title">入学年份：</span>
             <span class="student-info">{{ info.gradeDto.enrollmentYear }}</span>
@@ -88,8 +89,6 @@
                 <span v-else>{{ info.gradeDto.teacherName }}</span>
             </span>
           </el-col>
-        </el-row>
-        <el-row :gutter="4" class="m-bottom">
           <el-col :span="8">
             <span class="student-title">生涯导师：</span>
             <span class="student-info">
@@ -99,6 +98,8 @@
                 <span v-else>{{ info.gradeDto.teacher1Name }}</span>
             </span>
           </el-col>
+        </el-row>
+        <el-row :gutter="4" class="m-bottom">
           <el-col :span="8">
             <span class="student-title">生涯导师2：</span>
             <span class="student-info">
@@ -145,6 +146,7 @@ export default {
   name: "visit",
   data() {
     return {
+      loading: true,
       params: {
         studentId: '',
         gradeId: ''
@@ -208,10 +210,12 @@ export default {
       })
     },
     getInfo(params) {
+      this.loading = true;
       getStudentInfo(params)
           .then(res => {
             if (res.errorCode === 200) {
               this.info = res.data;
+              this.loading = false;
             }
           })
     },

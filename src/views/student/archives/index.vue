@@ -1,5 +1,6 @@
 <template>
   <div>
+    <basic-skeleton :loading="loading"></basic-skeleton>
     <visit-component v-if="showEdit" :info="info"/>
     <edit-component v-else :info="info" @changeShowEdit="showEdit = !showEdit" />
     <div class="footer-btn" v-if="showEdit">
@@ -21,6 +22,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       showEdit: true,
       info: {}
     }
@@ -30,10 +32,12 @@ export default {
   },
   methods: {
     getData() {
+      this.loading = true;
       getInfo()
       .then(res => {
         if (res.errorCode === 200) {
           this.info = res.data;
+          this.loading = false;
         }
       })
     },

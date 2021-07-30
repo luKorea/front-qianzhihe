@@ -1,5 +1,6 @@
 <template>
   <div>
+    <basic-skeleton :loading="loading" show-avatar="true" :number="20"></basic-skeleton>
     <basic-container-back v-if="info.videoList && info.videoList.length > 0">
       <video-list :video-list="info.videoList"></video-list>
     </basic-container-back>
@@ -55,6 +56,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       showBackInfo: true,
       nameList: [
         {
@@ -94,7 +96,7 @@ export default {
           id: 'occ-tip'
         }
       ],
-      selectIndex: 0,
+      selectIndex: -1,
       occupationId: '',
       info: {}
     }
@@ -111,29 +113,55 @@ export default {
       })
     }
     this.getDetailData(this.occupationId);
+    let _this = this;
+    //监听屏幕滚动
+    window.onscroll = function () {
+      //获取当前滚动条的位置
+      let top = document.documentElement.scrollTop || document.body.scrollTop;
+      //存放当前位置的id；即顺序
+      let currentId;
+      for (let i = 0; i < _this.nameList.length; i++) {
+        let itemTop = document.getElementById(_this.nameList[i].id).offsetTop;
+        if (top > itemTop - 125) {
+          currentId = i;
+        } else {
+          break;
+        }
+      }
+      _this.selectIndex = currentId;
+    }
   },
   methods: {
     filterData(name) {
       this.nameList = this.nameList.filter(item => item.id !== name);
     },
     changeIndex(index, selector) {
-      this.selectIndex = index;
       scrollElement(selector);
+      if (selector === this.nameList[this.nameList.length - 1].id) {
+        this.$notify({
+          title: '职业详情',
+          message: '人家也是有底线的啦',
+          duration: 2000
+        });
+      }
     },
     getDetailData(occupationId) {
+      this.loading = true;
       getDetail(occupationId)
       .then(res => {
         if (res.errorCode === 200) {
-          this.info = res.data;
-          if (!res.data.description) this.filterData('occ-desc')
-          if (!res.data.professionalArrayList) this.filterData('occ-major')
-          if (!res.data.description) this.filterData('occ-yaoqiu')
-          if (!res.data.jobKnowledgeVoList) this.filterData('occ-zhishi')
-          if (!res.data.certificateVoList || res.data.certificateVoList.length === 0) this.filterData('occ-zhengshu')
-          if (!res.data.personalityVoList) this.filterData('occ-person')
-          if (!res.data.hollands1) this.filterData('occ-ceshi')
-          if (!res.data.characteristics) this.filterData('occ-tezhi')
-          if (!res.data.tips) this.filterData('occ-tip')
+          let data = res.data;
+          this.info = data;
+          this.loading = false;
+          if (!data.description) this.filterData('occ-desc')
+          if (!data.professionalArrayList || data.professionalArrayList.length === 0) this.filterData('occ-major')
+          if (!data.description) this.filterData('occ-yaoqiu')
+          if (!data.jobKnowledgeVoList) this.filterData('occ-zhishi')
+          if (!data.certificateVoList || data.certificateVoList.length === 0) this.filterData('occ-zhengshu')
+          if (!data.personalityVoList) this.filterData('occ-person')
+          if (!data.hollands1) this.filterData('occ-ceshi')
+          if (!data.characteristics) this.filterData('occ-tezhi')
+          if (!data.tips) this.filterData('occ-tip')
         }
       })
     }

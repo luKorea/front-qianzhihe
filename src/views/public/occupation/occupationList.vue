@@ -20,6 +20,7 @@
         </div>
       </div>
     </basic-container>
+    <basic-skeleton :loading="loading" show-avatar="true"></basic-skeleton>
     <list-table
         :list="list" :params="params"
         @goDetails="goDetails"
@@ -40,6 +41,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       params: {
         keywords: '',
         _id: '',
@@ -83,11 +85,13 @@ export default {
           })
     },
     getListData(params) {
+      this.loading = true;
       getList(params)
           .then(res => {
             if (res.errorCode === 200) {
               let data = res.data;
               this.list = data.result;
+              this.loading = false;
               this.params.total = data.pageResult.total;
             }
           })

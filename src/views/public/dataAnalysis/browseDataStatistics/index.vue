@@ -30,9 +30,7 @@
         </div>
       </div>
     </basic-container>
-
-
-
+    <basic-skeleton :loading="loading"></basic-skeleton>
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">浏览数据统计</span>

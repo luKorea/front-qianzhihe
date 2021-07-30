@@ -130,11 +130,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我通常不假思索地说出心里的话'
+                value: '我通常不假思索地说出心里的话',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我说话之前先过一遍脑子'
+                value: '我说话之前先过一遍脑子',
+                scope: 'R'
             },
         ],
     },
@@ -144,11 +146,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我做事时更注重速度'
+                value: '我做事时更注重速度',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我做事时更注重细节'
+                value: '我做事时更注重细节',
+                scope: 'R'
             },
         ],
     },
@@ -158,11 +162,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我更擅长诉说'
+                value: '我更擅长诉说',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我更擅长聆听'
+                value: '我更擅长聆听',
+                scope: 'R'
             },
         ],
     },
@@ -172,11 +178,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我更喜欢成为焦点'
+                value: '我更喜欢成为焦点',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我更喜欢将自己融入群体'
+                value: '我更喜欢将自己融入群体',
+                scope: 'R'
             },
         ],
     },
@@ -186,11 +194,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我更擅长团队合作'
+                value: '我更擅长团队合作',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我更擅长独自工作'
+                value: '我更擅长独自工作',
+                scope: 'R'
             },
         ],
     },
@@ -200,11 +210,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我注重事实'
+                value: '我注重事实',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我注重事情的可能性'
+                value: '我注重事情的可能性',
+                scope: 'R'
             },
         ],
     },
@@ -214,11 +226,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我注重细节'
+                value: '我注重细节',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我注重形式'
+                value: '我注重形式',
+                scope: 'R'
             },
         ],
     },
@@ -228,11 +242,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我注重信息的重点是什么'
+                value: '我注重信息的重点是什么',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我注重如何使其变得与众不同'
+                value: '我注重如何使其变得与众不同',
+                scope: 'R'
             },
         ],
     },
@@ -242,11 +258,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我更喜欢运用我已学过的东西'
+                value: '我更喜欢运用我已学过的东西',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我更喜欢学习新事物'
+                value: '我更喜欢学习新事物',
+                scope: 'R'
             },
         ],
     },
@@ -256,11 +274,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我更趋向于脚踏实地'
+                value: '我更趋向于脚踏实地',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我更趋向于随时随地开始'
+                value: '我更趋向于随时随地开始',
+                scope: 'R'
             },
         ],
     },
@@ -270,11 +290,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我通常依赖我的头脑思考'
+                value: '我通常依赖我的头脑思考',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我通常随心而走'
+                value: '我通常随心而走',
+                scope: 'R'
             },
         ],
     },
@@ -284,11 +306,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我会问自己“这是个正确的选择吗”'
+                value: '我会问自己“这是个正确的选择吗”',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我会问自己“这个决定将如何影响他人呢”'
+                value: '我会问自己“这个决定将如何影响他人呢”',
+                scope: 'R'
             },
         ],
     },
@@ -298,11 +322,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '批评或者被批评对我来说都是一件很容易接受的事情'
+                value: '批评或者被批评对我来说都是一件很容易接受的事情',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我常常避免去批评他人或者被他人批评'
+                value: '我常常避免去批评他人或者被他人批评',
+                scope: 'R'
             },
         ],
     },
@@ -312,11 +338,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我通常会直接表达我的想法'
+                value: '我通常会直接表达我的想法',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我通常选择避免说出那些令人不愉快的话'
+                value: '我通常选择避免说出那些令人不愉快的话',
+                scope: 'R'
             },
         ],
     },
@@ -326,11 +354,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我通常以任务为主'
+                value: '我通常以任务为主',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我通常以人为主'
+                value: '我通常以人为主',
+                scope: 'R'
             },
         ],
     },
@@ -340,11 +370,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我喜欢计划和组织'
+                value: '我喜欢计划和组织',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我对生活会发生什么感到好奇'
+                value: '我对生活会发生什么感到好奇',
+                scope: 'R'
             },
         ],
     },
@@ -354,11 +386,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我喜欢列清单'
+                value: '我喜欢列清单',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我不喜欢列清单'
+                value: '我不喜欢列清单',
+                scope: 'R'
             },
         ],
     },
@@ -368,11 +402,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我喜欢东西整洁整齐'
+                value: '我喜欢东西整洁整齐',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我不介意事情乱七八糟'
+                value: '我不介意事情乱七八糟',
+                scope: 'R'
             },
         ],
     },
@@ -382,11 +418,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '完成任务时我会变得很开心'
+                value: '完成任务时我会变得很开心',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '任务开始前我就很开心了'
+                value: '任务开始前我就很开心了',
+                scope: 'R'
             },
         ],
     },
@@ -396,11 +434,13 @@ export const mbitAnswerList = [
         answer: [
             {
                 type: 'a',
-                value: '我通非常以稳定的速度来完成工作'
+                value: '我通非常以稳定的速度来完成工作',
+                scope: 'L'
             },
             {
                 type: 'b',
-                value: '我常常到最后一刻还在做任务'
+                value: '我常常到最后一刻还在做任务',
+                scope: 'R'
             },
         ],
     },

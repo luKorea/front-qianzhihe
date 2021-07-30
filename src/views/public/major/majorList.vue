@@ -21,32 +21,35 @@
       </div>
     </basic-container>
 
+    <basic-skeleton :loading="loading" :rows="100"></basic-skeleton>
     <basic-container>
-      <template v-if="list && list.length > 0">
-        <div class="major-wrap">
-          <div v-for="item in list" :key="item._id" class="major-content">
-            <div class="m-bottom">
-              <span class="tip-info"></span>
-              <span class="tip-title">{{ item.study_category }}</span>
-            </div>
-            <template v-if="item.professionalVo1s && item.professionalVo1s.length > 0">
-              <div v-for="one in item.professionalVo1s" :key="one._id" class="major-content">
-                <div class="m-bottom">
-                  <span class="tip-title">{{ one.subject_category }}</span>
-                  <template v-if="one.professionalVo2s && one.professionalVo2s.length > 0">
-                    <div class="major-list">
-                      <div class="major-item" v-for="two in one.professionalVo2s" :key="two._id">
-                        <span class="item" @click="goDetails(two._id, two.name)">{{ two.name }}</span>
-                      </div>
-                    </div>
-                  </template>
-                </div>
+      <div>
+        <template v-if="list && list.length > 0">
+          <div class="major-wrap">
+            <div v-for="item in list" :key="item._id" class="major-content">
+              <div class="m-bottom">
+                <span class="tip-info"></span>
+                <span class="tip-title">{{ item.study_category }}</span>
               </div>
-            </template>
+              <template v-if="item.professionalVo1s && item.professionalVo1s.length > 0">
+                <div v-for="one in item.professionalVo1s" :key="one._id" class="major-content">
+                  <div class="m-bottom">
+                    <span class="tip-title">{{ one.subject_category }}</span>
+                    <template v-if="one.professionalVo2s && one.professionalVo2s.length > 0">
+                      <div class="major-list">
+                        <div class="major-item" v-for="two in one.professionalVo2s" :key="two._id">
+                          <span class="item" @click="goDetails(two._id, two.name)">{{ two.name }}</span>
+                        </div>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+              </template>
+            </div>
           </div>
-        </div>
-      </template>
-      <basic-nothing v-else></basic-nothing>
+        </template>
+        <basic-nothing v-else></basic-nothing>
+      </div>
     </basic-container>
   </div>
 </template>
@@ -54,10 +57,12 @@
 <script>
 import {getList} from '../../../api/common/major';
 import {majorList} from "../../../utils/basicData";
+
 export default {
   name: "occupationList",
   data() {
     return {
+      loading: true,
       params: {
         keywords: '',
         study_category: '',
@@ -89,10 +94,12 @@ export default {
       })
     },
     getListData(params) {
+      this.loading = true;
       getList(params)
           .then(res => {
             if (res.errorCode === 200) {
               let data = res.data;
+              this.loading = false;
               this.list = data.oneLevels;
               // this.params.total = data.pageResult.total || 0;
             }

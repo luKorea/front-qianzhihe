@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <el-form label-width="80px" :model="form" :rules="rules" ref="form">
       <basic-container>
         <span class="tip-info"></span>

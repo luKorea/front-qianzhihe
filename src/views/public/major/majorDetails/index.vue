@@ -1,5 +1,6 @@
 <template>
   <div id="major-container">
+    <basic-skeleton :loading="loading" show-avatar="true" :number="20"></basic-skeleton>
     <basic-info :info="info"/>
     <basic-container>
       <basic-desc :info="descInfo"/>
@@ -41,6 +42,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       showBackInfo: true,
       nameList: [
         {
@@ -88,7 +90,7 @@ export default {
           id: 'address',
         },
       ],
-      selectIndex: 0,
+      selectIndex: -1,
       info: {},
       descInfo: {},
       proposalInfo: {},
@@ -110,24 +112,37 @@ export default {
     this._id = _id;
     this.name = name;
     this.switchData(this._id, this.name);
-    // this.$nextTick(() => {
-    //   window.addEventListener('scroll', e => {
-    //     let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    //     this.nameList.forEach((item, index) => {
-    //       if (scrollTop + 100 == document.getElementById(item.id).offsetTop) {
-    //         this.selectIndex = index
-    //       }
-    //     })
-    //   })
-    // })
+    let _this = this;
+    //监听屏幕滚动
+    window.onscroll = function () {
+      //获取当前滚动条的位置
+      let top = document.documentElement.scrollTop || document.body.scrollTop;
+      //存放当前位置的id；即顺序
+      let currentId;
+      for (let i = 0; i < _this.nameList.length; i++) {
+        let itemTop = document.getElementById(_this.nameList[i].id).offsetTop;
+        if (top > itemTop - 125) {
+          currentId = i;
+        } else {
+          break;
+        }
+      }
+      _this.selectIndex = currentId;
+    }
   },
   methods: {
     filterData(name) {
       this.nameList = this.nameList.filter(item => item.id !== name);
     },
     changeIndex(index, selector, all) {
-      this.selectIndex = index;
-      scrollElement(selector, all);
+      scrollElement(selector);
+      if (selector === this.nameList[this.nameList.length - 1].id) {
+        this.$notify({
+          title: '专业详情',
+          message: '人家也是有底线的啦',
+          duration: 2000
+        });
+      }
     },
     switchData(_id, name) {
       if (this.$store.state.user.user_type === '学生账号') {
@@ -138,19 +153,24 @@ export default {
           console.log(res, 'data');
         })
       }
-      this.getData(_id);
-      this.getDesc(_id);
-      this.getProposal(_id);
-      this.getEmployment(_id);
+      this.loading = true;
+      Promise.all([ this.getData(_id), this.getDesc(_id), this.getProposal(_id), this.getEmployment(_id)])
+      .then(res => {
+        this.loading = false;
+        console.log(res);
+      })
     },
     getData(id) {
-      getBasicInfo(id)
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.info = res.data;
-              if (!res.data) this.filterData('hangye')
-            }
-          })
+      return new Promise((resolve, reject) => {
+        getBasicInfo(id)
+            .then(res => {
+              if (res.errorCode === 200) {
+                this.info = res.data;
+                resolve(res)
+                if (!res.data) this.filterData('hangye')
+              } else reject(res.msg)
+            })
+      })
     },
     getDesc(id) {
       getBasicDesc(id)

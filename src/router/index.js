@@ -505,6 +505,45 @@ export const asyncRouterMap = [
     },
     // 共用模块
     {
+        path: '/universities',
+        redirect: '/universities/universitiesList',
+        component: Layout,
+        name: '院校库',
+        meta: {
+            title: '院校库',
+            showTag: true,
+            keepAlive: true,
+            icon: 'el-icon-office-building',
+            roles: ['academy'],
+            breadcrumb: true,
+        },
+        children: [
+            {
+                path: 'universitiesList',
+                name: '院校库',
+                component: () => import('../views/public/universities/universitiesList'),
+                meta: {
+                    title: '院校库',
+                    showTag: true,
+                    keepAlive: true,
+                    icon: 'el-icon-office-building',
+                    roles: ['academy'],
+                    breadcrumb: true,
+                },
+            },
+            {
+                path: 'universitiesDetails',
+                name: '院校详情',
+                hidden: true,
+                component: () => import('../views/public/universities/universitiesDetails/index'),
+                meta: {
+                    title: '院校详情',
+                    icon: 'el-icon-office-building', roles: ['academy']
+                },
+            }
+        ]
+    },
+    {
         path: '/major',
         redirect: '/major/majorList',
         component: Layout,
@@ -577,54 +616,15 @@ export const asyncRouterMap = [
         ]
     },
     {
-        path: '/universities',
-        redirect: '/universities/universitiesList',
-        component: Layout,
-        name: '院校库',
-        meta: {
-            title: '院校库',
-            showTag: true,
-            keepAlive: true,
-            icon: 'el-icon-office-building',
-            roles: ['academy'],
-            breadcrumb: true,
-        },
-        children: [
-            {
-                path: 'universitiesList',
-                name: '院校库',
-                component: () => import('../views/public/universities/universitiesList'),
-                meta: {
-                    title: '院校库',
-                    showTag: true,
-                    keepAlive: true,
-                    icon: 'el-icon-office-building',
-                    roles: ['academy'],
-                    breadcrumb: true,
-                },
-            },
-            {
-                path: 'universitiesDetails',
-                name: '院校详情',
-                hidden: true,
-                component: () => import('../views/public/universities/universitiesDetails/index'),
-                meta: {
-                    title: '院校详情',
-                    icon: 'el-icon-office-building', roles: ['academy']
-                },
-            }
-        ]
-    },
-    {
         path: '/newExam',
         component: Layout,
         redirect: '/newExam',
         // hidden: true,
         children: [{
             path: 'newExam',
-            name: '新高考3+1+2选科',
+            name: '选科查询',
             component: () => import('../views/public/newExam'),
-            meta: {title: '新高考3+1+2选科', showTag: true, keepAlive: true, roles:['course'], icon: 'el-icon-date'}
+            meta: {title: '选科查询', showTag: true, keepAlive: true, roles:['course'], icon: 'el-icon-date'}
         }]
     },
     {path: '*', redirect: '/404', hidden: true, meta: {title: '404'}}

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <basic-skeleton :loading="loading" show-avatar :number="20"></basic-skeleton>
     <basic-container-back>
       <span class="tip-info"></span>
       <span class="tip-title">基本信息</span>

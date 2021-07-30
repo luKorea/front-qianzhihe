@@ -35,10 +35,10 @@
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">推荐职业</span>
-      <template v-if="majorList.occupationEvaluationVoList && majorList.occupationEvaluationVoList.length > 0">
+      <template v-if="majorList && majorList.length > 0">
         <div class="wrap">
           <div class="major-wrap">
-            <div class="major-list" v-for="item in majorList.occupationEvaluationVoList" :key="item._id" @click="goOccupation(item._id, item.title)">
+            <div class="major-list" v-for="item in majorList" :key="item._id" @click="goOccupation(item._id, item.title)">
               <div class="img-wrap"><img :src="item.image" alt=""></div>
               <div class="major-info">
                 <div class="major-title">{{ item.title }}</div>
@@ -154,7 +154,7 @@ export default {
     .major-list {
       cursor: pointer;
       display: flex;
-      width: 340px;
+      width: 350px;
       margin-right: 20px;
       margin-bottom: 20px;
       flex-wrap: wrap;

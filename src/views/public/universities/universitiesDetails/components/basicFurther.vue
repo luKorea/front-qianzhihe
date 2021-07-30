@@ -47,17 +47,15 @@
     <div class="company" v-if="info.obtainIndustryEmploymenList">
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-company">就业单位性质</span>
-      <div id="company-charts" style="height: 400px; width: 60%; margin-top: 20px"></div>
+      <div id="company-charts" style="height: 400px; width: 50%; margin-top: 20px"></div>
     </div>
   </div>
 </template>
 
 <script>
-import resize from "../../../../../mixins/resize";
 
 export default {
   name: "basicFurther",
-  mixins: [resize],
   props: {
     info: {
       type: Object,

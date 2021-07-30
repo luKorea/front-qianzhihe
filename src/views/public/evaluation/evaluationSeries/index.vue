@@ -2,6 +2,7 @@
   <basic-container>
     <span class="tip-info"></span>
     <span class="tip-title">测评列表</span>
+    <el-divider />
     <div class="list-wrap m-top">
       <div class="img"><img :src="mbit.img" alt=""></div>
       <div class="info">

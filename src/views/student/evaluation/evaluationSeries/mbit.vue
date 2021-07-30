@@ -37,6 +37,8 @@
 
 <script>
 import { mbitAnswerList } from "../../../../utils/list";
+import {examSendToMbti} from "../../../../api/student/evaluation";
+import {errorTip} from "../../../../utils/tip";
 
 export default {
   name: "holland",
@@ -71,7 +73,8 @@ export default {
         this.$notify({
           title: '性格测试',
           message: '接着答题吧~~~~',
-          type: 'success'
+          type: 'success',
+          duration: 2000
         });
       });
     },
@@ -112,24 +115,35 @@ export default {
         let selectedIndex = this.oData[key].selectedIndex;
         let item = this.oData[key].answer[selectedIndex];
         this.list.push({
-          name: this.oData[key].name,
-          value: item && item.value,
-          saveIndex: selectedIndex,
+          score: `q${key}`,
+          satisfaction: item.scope
         });
-      };
+      }
+      console.log(this.list);
       this.$store.dispatch('point/pointData', {
         url: `完成测试 -【性格测试】`,
         date: new Date().toLocaleDateString()
       }).then(res => {
         console.log(res, 'data');
       })
-      this.$router.push({
-        path: '/studentEvaluation/evaluationList/evaluationDetails',
-        query: {
-          hollandId: '',
-          type: 'mbit'
-        }
-      })
+      examSendToMbti(this.list)
+          .then(res => {
+            console.log(res);
+            if (res.errorCode === 200) {
+              this.loading = false;
+              this.$message.success('恭喜您完成测试，快来看看您的测试结果吧')
+              localStorage.setItem('mbit', JSON.stringify(res.data))
+              this.$router.push({
+                path: '/studentEvaluation/evaluationList/evaluationDetails',
+                query: {
+                  type: 'mbit'
+                }
+              })
+            } else {
+              this.loading = false;
+              errorTip(res.msg)
+            }
+          })
     },
   },
 };

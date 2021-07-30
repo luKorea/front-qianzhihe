@@ -399,10 +399,10 @@ export function downloadFile (url, filename) {
 export function scrollElement(selector) {
   // 当前窗口正中心位置到指定dom位置的距离
   //页面滚动了的距离
-  let height = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+  let height = document.documentElement.scrollTop || document.body.scrollTop;
   //指定dom到页面顶端的距离
   let dom = document.getElementById(selector);
-  let domHeight = dom.offsetTop - 125;
+  let domHeight = dom.offsetTop - 100;
   //滚动距离计算
   var S = Number(height) - Number(domHeight);
   //判断上滚还是下滚

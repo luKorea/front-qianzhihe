@@ -2,11 +2,11 @@
   <div class="login-container">
     <!--教师管理员登录-->
     <div class="login-wrap" v-if="showLoginContainer">
-      <div class="img-wrap" v-if="showLoginImg">
+      <div class="img-wrap animate__animated animate__backInLeft" v-if="showLoginImg">
         <img :src="loginImg" alt="img">
       </div>
-      <div class="login-from">
-        <div class="form-logo">
+      <div class="login-from animate__animated animate__backInRight">
+        <div class="form-logo animate__animated animate__tada animate__delay-2s">
           <img :src="logo" alt="">
         </div>
         <div class="form-title">{{ defaultSettingsTitle }}</div>
@@ -200,8 +200,8 @@
       </div>
     </div>
     <div class="login-footer">
-      <span>{{ copyRight }}</span>
-      <span>{{ company }}</span>
+      <span class="animate__animated animate__backInUp">{{ copyRight }}</span>
+      <span class="animate__animated animate__backInUp">{{ company }}</span>
     </div>
 
   </div>
@@ -317,7 +317,8 @@ export default {
     showImg() {
       this.$notify.info({
         title: '忘记密码',
-        message: '请联系学校管理员'
+        message: '请联系学校管理员',
+        duration: 2000
       });
     },
     // 判断学生是否输入完整

@@ -2,6 +2,7 @@
   <basic-container>
     <span class="tip-info"></span>
     <span class="tip-title">测评列表</span>
+    <el-divider/>
     <div class="list-wrap m-top">
       <div class="img"><img :src="mbit.img" alt=""></div>
       <div class="info">
@@ -10,7 +11,9 @@
           <span class="tip">题目数：{{ mbit.total }}</span>
           <span class="tip time">建议用时：{{ mbit.time }}min</span>
         </div>
-        <div class="info-btn" @click="goDetail('mbti')">开始答题</div>
+        <el-popover placement="top-start" title="性格测试" trigger="hover" content="点击我开始答题吧">
+          <div class="info-btn" slot="reference" @click="goDetail('mbti')">开始答题</div>
+        </el-popover>
       </div>
     </div>
     <el-divider/>
@@ -22,7 +25,9 @@
           <span class="tip">题目数：{{ holland.total }}</span>
           <span class="tip time">建议用时：{{ holland.time }}min</span>
         </div>
-        <div class="info-btn" @click="goDetail('holland')">开始答题</div>
+        <el-popover placement="top-start" title="兴趣测试" trigger="hover" content="点击我开始答题吧">
+          <div class="info-btn" slot="reference" @click="goDetail('holland')">开始答题</div>
+        </el-popover>
       </div>
     </div>
   </basic-container>

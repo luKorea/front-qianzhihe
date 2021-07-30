@@ -11,7 +11,11 @@
                   style="width: 165px; height: 393px; margin-bottom: 20px;border-radius: 4px"
                   :src="person.image"
                   :preview-src-list="[person.image]"
-                  fit="cover"/>
+                  fit="cover">
+                <div slot="error" class="image-slot">
+                  <i class="el-icon-picture-outline"></i>
+                </div>
+              </el-image>
               <div class="person-title">{{ person.title }}</div>
             </div>
           </div>

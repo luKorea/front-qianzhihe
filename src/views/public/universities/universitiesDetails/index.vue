@@ -1,5 +1,6 @@
 <template>
   <div>
+    <basic-skeleton :loading="loading" show-avatar="true" :number="20"></basic-skeleton>
     <basic-info :info="info"></basic-info>
     <basic-container>
       <basic-desc :info="descInfo"/>
@@ -10,8 +11,6 @@
       <basic-subject :info="rankingInfo"/>
       <basic-further :info="furtherInfo"/>
     </basic-container>
-
-
     <el-tooltip :content="showBackInfo ? '关闭' : '打开'" placement="top-start">
       <i
           class="flex-right-icon"
@@ -61,6 +60,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       showBackInfo: true,
       nameList: [
         {
@@ -128,7 +128,7 @@ export default {
           id: 'uni-company'
         },
       ],
-      selectIndex: 0,
+      selectIndex: -1,
       academyName: '',
       info: {},
       descInfo: {},
@@ -153,14 +153,38 @@ export default {
     this.getRanking(this.academyName);
     this.getFurtherData(this.academyName);
     this.getSelectData(this.academyName);
+    let _this = this;
+    //监听屏幕滚动
+    window.onscroll = function () {
+      //获取当前滚动条的位置
+      let top = document.documentElement.scrollTop || document.body.scrollTop;
+      //存放当前位置的id；即顺序
+      let currentId;
+      for (let i = 0; i < _this.nameList.length; i++) {
+        let itemTop = document.getElementById(_this.nameList[i].id).offsetTop;
+        if (top > itemTop - 125) {
+          currentId = i;
+        } else {
+          break;
+        }
+      }
+      _this.selectIndex = currentId;
+    }
   },
   methods: {
     filterData(name) {
       this.nameList = this.nameList.filter(item => item.id !== name);
     },
     changeIndex(index, selector) {
-      this.selectIndex = index;
+      // this.selectIndex = index;
       scrollElement(selector);
+      if (selector === this.nameList[this.nameList.length - 1].id) {
+        this.$notify({
+          title: '院校详情',
+          message: '人家也是有底线的啦',
+          duration: 2000
+        });
+      }
     },
     getDetailInfo(academyName) {
       getBasicInfo(academyName)
@@ -176,7 +200,7 @@ export default {
             if (res.errorCode === 200) {
               this.descInfo = res.data;
               if (!res.data.depict) this.filterData('uni-desc')
-              if (!res.data.image) this.filterData('uni-photo')
+              if (!res.data.images || res.data.images.length === 0) this.filterData('uni-photo')
             }
           })
     },
@@ -197,8 +221,10 @@ export default {
           })
     },
     getFurtherData(academyName) {
+      this.loading = true;
       getFurther(academyName)
           .then(res => {
+            this.loading = false;
             if (res.errorCode === 200 && res.data) {
               let data = res.data;
               this.furtherInfo = data;

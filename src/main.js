@@ -1,9 +1,11 @@
 import * as echarts from 'echarts';
+import animated from 'animate.css';
 import '@/styles/index.scss' // global css
 
 import App from './App'
 import store from './store'
 import router from './router'
+
 
 
 import '@/icons' // icon
@@ -15,6 +17,7 @@ import basicContainerBack from './components/back/index';
 import basicStudentBack from './components/sutdentBack/index';
 import basicPagination from './components/pagination/index';
 import basicNothing from './components/nothing/index';
+import basicSkeleton from './components/skeleton/index';
 
 
 import * as filters from './utils/filters';
@@ -29,6 +32,7 @@ Vue.component('basicContainerBack', basicContainerBack);
 Vue.component('basicStudentBack', basicStudentBack);
 Vue.component('basicPagination', basicPagination);
 Vue.component('basicNothing', basicNothing);
+Vue.component('basicSkeleton', basicSkeleton);
 
 
 
@@ -52,6 +56,7 @@ Vue.use(window.AVUE, {
   tableSize: 'small',
 });
 Vue.use(ELEMENT)
+Vue.use(animated)
 
 Vue.config.productionTip = false
 

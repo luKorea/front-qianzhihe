@@ -72,7 +72,7 @@
         <template v-if="form.gradeDto && form.gradeDto.name">
           <div class="table-wrap">
             <div class="table-title" style="background-color: #FFFFFF">
-              <span>班级ID</span>
+<!--              <span>班级ID</span>-->
               <span>班级名称</span>
               <span>班级类型</span>
               <span>年级</span>
@@ -83,7 +83,7 @@
               <span>操作</span>
             </div>
             <div class="student-table-title">
-              <span v-if="form.gradeDto._id">{{ form.gradeDto._id.slice(0, 12) }}</span>
+<!--              <span v-if="form.gradeDto._id">{{ form.gradeDto._id.slice(0, 12) }}</span>-->
               <span>{{ form.gradeDto.name }}</span>
               <span>{{ form.gradeDto.gradeType }}</span>
               <span>{{ form.gradeDto.grade }}</span>
@@ -91,7 +91,7 @@
               <span>{{ form.gradeDto.teacherName }}</span>
               <span>{{ form.gradeDto.teacher1Name }}</span>
               <span>{{ form.gradeDto.teacher2Name }}</span>
-              <span style="color: #FF0000; cursor:pointer;" @click="removeClassInfo(form._id)">解除班级绑定</span>
+              <span style="color: #8489A4; cursor:pointer;" @click="removeClassInfo(form._id)">解除班级绑定</span>
             </div>
           </div>
         </template>

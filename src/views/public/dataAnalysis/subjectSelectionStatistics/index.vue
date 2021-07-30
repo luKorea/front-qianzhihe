@@ -30,6 +30,7 @@
         </div>
       </div>
     </basic-container>
+    <basic-skeleton :loading="loading"></basic-skeleton>
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">选科查询数据统计</span>

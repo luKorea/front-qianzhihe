@@ -19,7 +19,7 @@
                   <template v-if="item.tags && item.tags.length > 0">
                     <span class="list-tag" v-for="(tag, index) in item.tags" :key="index">{{ tag }}</span>
                   </template>
-                </div>,
+                </div>
                 <div class="list-money">
                   <span style="margin-right: 80px">行业：{{ item.business }}</span>
                   <span>平均薪资: {{ item.compensation }}</span>

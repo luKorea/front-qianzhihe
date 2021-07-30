@@ -121,7 +121,8 @@ export default {
             } else {
               this.$notify.info({
                 title: '推荐院校',
-                message: '该院校暂未开放，敬请期待'
+                message: '该院校暂未开放，敬请期待',
+                duration: 2000
               });
             }
           });

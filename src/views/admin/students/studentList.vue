@@ -242,7 +242,8 @@ export default {
     deleteData(id) {
       this.$notify.info({
         title: '删除学生',
-        message: '该功能即将上线'
+        message: '该功能即将上线',
+        duration: 2000
       });
       // this.$confirm('此操作将永久删除该学生, 是否继续?', '删除学生', {
       //   confirmButtonText: '确定',

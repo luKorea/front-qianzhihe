@@ -1,8 +1,13 @@
 <template>
   <div>
     <basic-container>
-      <span class="tip-info"></span>
-      <span class="tip-title">选科查询</span>
+      <div style="display: flex">
+        <span class="tip-info"></span>
+        <div>
+          <span class="one">选科查询</span>
+          <span class="two">（根据选科组合查询可填报专业）</span>
+        </div>
+      </div>
       <el-divider/>
       <div class="m-top">
         <div>
@@ -53,6 +58,7 @@
         <el-button @click="reset" plain>重置</el-button>
       </div>
     </basic-container>
+    <basic-skeleton :loading="loading"></basic-skeleton>
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">推荐专业</span>

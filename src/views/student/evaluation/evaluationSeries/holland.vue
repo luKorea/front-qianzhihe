@@ -135,6 +135,7 @@ export default {
         console.log(res);
         if (res.errorCode === 200) {
           this.loading = false;
+          this.$message.success('恭喜您完成测试，快来看看您的测试结果吧')
           localStorage.setItem('holland', JSON.stringify(res.data))
           this.$router.push({
             path: '/studentEvaluation/evaluationList/evaluationDetails',

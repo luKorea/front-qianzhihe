@@ -9,10 +9,22 @@ let basicUrl = '/biz/holland'
 export const examSendToHolland = data => {
     return req(`/biz/holland/addCalculate`, data, 'POST')
 }
-// 兴趣测试推荐职业
-export const getHollandOccupation = params => {
+// 兴趣测试结果推荐职业
+export const getHollandOccupation = () => {
     return req(`/biz/holland/getHollandOccupation`)
 }
+
+// 性格测试题目提交
+export const examSendToMbti = data => {
+    return req(`/biz/quizResult/addQuizResult`, data, 'POST')
+}
+// 性格测试结果推荐职业
+export const getMbtiOccupation = () => {
+    return req(`/biz/quizResult/getPersonalityOccupation`)
+}
+
+
+
 
 
 // 兴趣测试结果类型

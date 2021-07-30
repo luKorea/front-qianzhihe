@@ -1,7 +1,7 @@
 <template>
   <div class="video-wrap">
     <div class="video-left">
-<!--      <div id="player" class="my-video"></div>-->
+      <!--      <div id="player" class="my-video"></div>-->
       <video :src="defaultSrc" controls="controls"
              oncontextmenu="return false;"
              controlslist="nodownload" class="my-video" :poster="defaultPoster">
@@ -15,8 +15,14 @@
           <div v-for="(item, index) in videoList"
                :class="index === selectIndex ? 'select' : ''"
                :key="item._id" class="item" @click="changeVideo(item.videos, index, item.image)">
-            <div class="item-img"><img :src="item.image" alt=""></div>
-            <div class="item-title">{{item.describe}}</div>
+            <div class="item-img">
+              <el-image :src="item.image" alt="">
+                <div slot="error" class="image-slot">
+                  <i class="el-icon-picture-outline"></i>
+                </div>
+              </el-image>
+            </div>
+            <div class="item-title">{{ item.describe }}</div>
           </div>
         </div>
       </template>
@@ -39,13 +45,13 @@ export default {
     // this.loadPlayerScript(this.loadPlayer);
   },
   watch: {
-     videoList: {
-       deep: true,
-       handler(val) {
-         this.defaultSrc = this.videoList[0].videos
-         this.defaultPoster = this.videoList[0].image
-       }
-     }
+    videoList: {
+      deep: true,
+      handler(val) {
+        this.defaultSrc = this.videoList[0].videos
+        this.defaultPoster = this.videoList[0].image
+      }
+    }
   },
   data() {
     return {
@@ -96,18 +102,22 @@ export default {
   height: 479px;
   overflow: hidden;
   margin-top: 10px;
+
   .video-left {
     width: 73%;
     height: 479px;
+
     .my-video {
       width: 100%;
       height: 479px;
     }
   }
-  .video-right{
+
+  .video-right {
     width: 27%;
     background: #2E415B;
     border-radius: 0 4px 4px 0;
+
     .video-title {
       margin: 20px 20px 10px 20px;
       height: 25px;
@@ -117,12 +127,14 @@ export default {
       color: #FFFFFF;
       line-height: 25px;
     }
+
     .video-item {
       display: flex;
       flex-direction: column;
       height: 479px;
       overflow-y: scroll;
       padding-bottom: 90px;
+
       .item {
         display: flex;
         //justify-content: center;
@@ -130,15 +142,18 @@ export default {
         margin-bottom: 20px;
         cursor: pointer;
         height: 90px;
+
         .item-img {
           width: 124px;
           height: 70px;
           margin: 10px 10px 10px 20px;
+
           img {
             //width: 100%;
             height: 100%;
           }
         }
+
         .item-title {
           font-size: 16px;
           font-family: PingFangSC-Medium, PingFang SC;
@@ -148,6 +163,7 @@ export default {
           line-height: 30px;
         }
       }
+
       .select {
         width: 100%;
         height: 90px;
