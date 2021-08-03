@@ -3,7 +3,17 @@
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">学生筛选</span>
-      <div class="flex-search">
+<!--TODO 新模块-->
+<!--      <div class="flex-search">-->
+<!--        <div>-->
+<!--          <span class="tip">班级绑定:</span>-->
+<!--          <el-radio-group v-model="params.selectClass" @change="selectClassData">-->
+<!--            <el-radio :label="0">已绑定班级</el-radio>-->
+<!--            <el-radio :label="1">未绑定班级</el-radio>-->
+<!--          </el-radio-group>-->
+<!--        </div>-->
+<!--      </div>-->
+      <div class="flex-search" v-if="showDifferentSearch">
         <div>
           <span class="tip">班级类型:</span>
           <el-select v-model="params.gradeType" placeholder="请选择" clearable filterable>
@@ -42,6 +52,28 @@
                     placeholder="请输入学号、名称、手机号" clearable="true"/>
           <el-button type="primary" :loading="loading" @click="searchData">筛选
           </el-button>
+        </div>
+      </div>
+      <div class="flex-search" v-else>
+        <div style="display: flex; align-items: center">
+          <div class="m-right">
+            <span class="tip">入学年份:</span>
+            <el-select v-model="params.enrollmentYear" placeholder="请选择" clearable filterable>
+              <template v-if="yearList && yearList.length > 0">
+                <el-option v-for="item in yearList" :label="item.name" :value="item.name"></el-option>
+              </template>
+            </el-select>
+          </div>
+        <div style="display: flex;justify-content: space-between">
+          <el-input style="margin-right: 10px; width: 300px;" v-model="params.queryOrIdOrNameOrPhone"
+                    @keyup.enter.native="getData({
+                    ...params,
+                    page: 0
+                    })"
+                    placeholder="请输入学号、名称、手机号" clearable="true"/>
+          <el-button type="primary" :loading="loading" @click="searchData">筛选
+          </el-button>
+        </div>
         </div>
       </div>
     </basic-container>
@@ -136,18 +168,22 @@ export default {
     return {
       loading: true,
       showDialog: false,
+      showDifferentSearch: true,
       params: {
+        selectClass: 0,
         page: 0,
         size: 10,
         gradeType: '', //	年级
         graduate: '', // 班级
         grade: '', //班级类型
+        enrollmentYear: '',
         queryOrIdOrNameOrPhone: '',
         total: 0
       },
       classList: [],
       gradeTypeList: [],
       gradeList: [],
+      yearList: [],
       list: []
     }
   },
@@ -155,9 +191,13 @@ export default {
     this.getData(this.params);
     this.getGradeType();
     this.getGrade();
+    this.getYear();
     this.getClassType();
   },
   methods: {
+    selectClassData(e) {
+      this.showDifferentSearch = +e !== 1;
+    },
     searchData() {
       this.params.page = 0;
       this.getData(this.params);
@@ -201,6 +241,14 @@ export default {
               this.gradeList = res.data;
             }
           })
+    },
+    getYear() {
+      selectTypeList('vintage')
+      .then(res => {
+        if (res.errorCode === 200) {
+          this.yearList = res.data;
+        }
+      })
     },
     getGradeType() {
       selectTypeList('gradeType')

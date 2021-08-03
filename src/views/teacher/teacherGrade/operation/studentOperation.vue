@@ -91,7 +91,7 @@
               <span>{{ form.gradeDto.teacherName }}</span>
               <span>{{ form.gradeDto.teacher1Name }}</span>
               <span>{{ form.gradeDto.teacher2Name }}</span>
-              <span style="color: #8489A4; cursor:pointer;" @click="removeClassInfo(form._id)">解除班级绑定</span>
+              <span style="color: #B8C3D6; cursor:pointer;" @click="removeClassInfo(form._id)">解除班级绑定</span>
             </div>
           </div>
         </template>

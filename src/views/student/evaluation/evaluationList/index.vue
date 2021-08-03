@@ -2,7 +2,7 @@
   <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">测评列表</span>
-      <el-table  stripe :data="list" border style="width: 100%;margin: 20px 0">
+      <el-table  stripe :data="list" border style="width: 100%;margin: 20px 0" v-loading="loading">
         <el-table-column prop="name" label="测评内容" align="center"/>
         <el-table-column prop="testTime" label="测评时间" align="center"/>
         <el-table-column label="操作" align="center">
@@ -12,6 +12,7 @@
         </el-table-column>
       </el-table>
       <basic-pagination
+          :page="params.page + 1"
           :total="params.total"
           @handleCurrentChange="handleCurrentChange"
           @handleSizeChange="handleSizeChange"
@@ -26,6 +27,7 @@ export default {
   name: "index",
   data() {
     return {
+      loading: true,
       params: {
         page: 0,
         size: 10,
@@ -35,7 +37,7 @@ export default {
     }
   },
   mounted() {
-    // this.getData(this.params);
+    this.getData(this.params);
   },
   methods: {
     goDetail(id, type) {
@@ -48,10 +50,12 @@ export default {
       })
     },
     getData(params) {
+      this.loading = true;
       getStudentEvaluationList(params)
           .then(res => {
             if (res.errorCode === 200) {
               this.list = res.data.result;
+              this.loading = false;
               this.params.total = res.data.pageResult.total || 0;
             }
           })

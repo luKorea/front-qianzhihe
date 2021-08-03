@@ -37,6 +37,13 @@ export function req(url, data, type = 'GET') {
         }
 
         let error = function (err) {
+            console.log(err.status, 'erere');
+            if (err.status === 502) {
+                this.$notify.error({
+                    title: '系统更新',
+                    message: '系统正在重启，请稍后刷新重试'
+                });
+            }
             let data = JSON.parse(err.responseText);
             NProgress.done();
             // tryHideFullScreenLoading();

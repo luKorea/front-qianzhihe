@@ -76,20 +76,15 @@ export default {
       result: []
     }
   },
-  watch: {
-    mbitInfo: {
-      deep: true,
-      handler(val) {
-        let res = val.result ? val.result.split('') : [],
-            list = [];
-        list[0] =  res[0] === 'R' ? listType[1] : listType[0];
-        list[1] =  res[1] === 'R' ? listType[3] : listType[2];
-        list[2] =  res[2] === 'R' ? listType[5] : listType[4];
-        list[3] =  res[3] === 'R' ? listType[7] : listType[6];
-        this.result = list;
-        console.log(this.result, 'result');
-      }
-    }
+  mounted() {
+    let res = this.mbitInfo.result ?  this.mbitInfo.result.split('') : [],
+        list = [];
+    list[0] =  res[0] === 'R' ? listType[1] : listType[0];
+    list[1] =  res[1] === 'R' ? listType[3] : listType[2];
+    list[2] =  res[2] === 'R' ? listType[5] : listType[4];
+    list[3] =  res[3] === 'R' ? listType[7] : listType[6];
+    this.result = list;
+    console.log(this.result, 'result');
   },
   methods: {
     goOccupation(occupationId) {

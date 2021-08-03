@@ -77,7 +77,7 @@
       </el-table-column>
     </el-table>
     <basic-pagination
-        :page="params.page"
+        :page="params.page + 1"
         :total="params.total"
         @handleCurrentChange="handleCurrentChange"
         @handleSizeChange="handleSizeChange"

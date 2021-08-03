@@ -24,14 +24,14 @@
         </span>
       </div>
     </template>
-    <el-divider/>
-    <template>
+    <template v-if="info.man_ratio !== 0 || info.girl_ratio !== 0">
+      <el-divider/>
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-gender">男女比例</span>
       <div id="sex-charts" style="width: 200px; height: 200px"></div>
     </template>
-    <el-divider/>
     <template v-if="info.images">
+      <el-divider />
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-photo">院校风光</span>
       <div class="img-wrap">

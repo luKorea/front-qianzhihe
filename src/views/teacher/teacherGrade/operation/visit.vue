@@ -101,11 +101,12 @@
               <template slot-scope="scope">
                 <el-button type="text" size="small" @click="goOperationType('visit', scope.row._id, params.gradeId)">查看</el-button>
                 <el-button type="text" size="small" @click="goOperationType('edit', scope.row._id, params.gradeId)">编辑</el-button>
-                <el-button type="text" style="color: #8489A4" size="small" @click="removeClassInfo(scope.row._id)">解除班级绑定</el-button>
+                <el-button type="text" style="color: #B8C3D6" size="small" @click="removeClassInfo(scope.row._id)">解除班级绑定</el-button>
               </template>
             </el-table-column>
           </el-table>
           <basic-pagination
+              :page="params.page  + 1"
               :total="params.total"
               @handleCurrentChange="handleCurrentChange"
               @handleSizeChange="handleSizeChange"

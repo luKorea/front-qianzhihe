@@ -159,18 +159,20 @@ export default {
     //监听屏幕滚动
     window.onscroll = function () {
       //获取当前滚动条的位置
-      let top = document.documentElement.scrollTop || document.body.scrollTop;
-      //存放当前位置的id；即顺序
-      let currentId;
-      for (let i = 0; i < _this.nameList.length; i++) {
-        let itemTop = document.getElementById(_this.nameList[i].id).offsetTop;
-        if (top > itemTop - 125) {
-          currentId = i;
-        } else {
-          break;
+      if (_this.nameList) {
+        let top = document.documentElement.scrollTop || document.body.scrollTop;
+        //存放当前位置的id；即顺序
+        let currentId;
+        for (let i = 0; i < _this.nameList.length; i++) {
+          let itemTop = document.getElementById(_this.nameList[i].id).offsetTop;
+          if (top > itemTop - 125) {
+            currentId = i;
+          } else {
+            break;
+          }
         }
+        _this.selectIndex = currentId;
       }
-      _this.selectIndex = currentId;
     }
   },
   methods: {
@@ -202,6 +204,7 @@ export default {
             if (res.errorCode === 200) {
               this.descInfo = res.data;
               if (!res.data.depict) this.filterData('uni-desc')
+              if (res.data.girl_ratio === 0 || res.data.man_ratio === 0) this.filterData('uni-gender')
               if (!res.data.images || res.data.images.length === 0) this.filterData('uni-photo')
             }
           })
@@ -217,6 +220,8 @@ export default {
               } if (!data.subjectList || data.subjectList.length === 0) {
                 this.filterData('uni-pre')
               } if (!data.courseList || data.courseList.length === 0) {
+                this.filterData('uni-subject')
+              } if (!data.characteristicSpecialtyList || data.characteristicSpecialtyList.length === 0) {
                 this.filterData('uni-major')
               }
             }

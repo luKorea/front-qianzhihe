@@ -111,15 +111,16 @@ export default {
     //   提交用户所答的题
     submitForm() {
       this.list = [];
-      for (let key in this.oData) {
-        let selectedIndex = this.oData[key].selectedIndex;
-        let item = this.oData[key].answer[selectedIndex];
-        this.list.push({
-          score: `q${key}`,
-          satisfaction: item.scope
-        });
+      if (this.oData) {
+        for (let key in this.oData) {
+          let selectedIndex = this.oData[key].selectedIndex;
+          let item = this.oData[key].answer[selectedIndex];
+          this.list.push({
+            score: `q${key}`,
+            satisfaction: item.scope
+          });
+        }
       }
-      console.log(this.list);
       this.$store.dispatch('point/pointData', {
         url: `完成测试 -【性格测试】`,
         date: new Date().toLocaleDateString()

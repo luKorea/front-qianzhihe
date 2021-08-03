@@ -1,7 +1,7 @@
 import {req} from "../../utils/req";
 
 
-let basicUrl = '/biz/holland'
+let basicUrl = '/biz/userEvaluationRecord'
 
 
 

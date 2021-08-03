@@ -112,16 +112,15 @@ export default {
     submitForm() {
       this.list = [];
       this.loading = true;
-      for (let key in this.oData) {
-        let selectedIndex = this.oData[key].selectedIndex;
-        let item = this.oData[key].answer[selectedIndex];
-        this.list.push({
-          // name: this.oData[key].name,
-          // value: item && item.value,
-          // saveIndex: selectedIndex,
-          score: `q${key}`,
-          satisfaction: item.scope
-        });
+      if (this.oData) {
+        for (let key in this.oData) {
+          let selectedIndex = this.oData[key].selectedIndex;
+          let item = this.oData[key].answer[selectedIndex];
+          this.list.push({
+            score: `q${key}`,
+            satisfaction: item.scope
+          });
+        }
       }
       this.$store.dispatch('point/pointData', {
         url: `完成测试 -【兴趣测试】`,
