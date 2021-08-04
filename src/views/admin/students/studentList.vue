@@ -122,7 +122,7 @@
         <el-table-column prop="username" label="手机号" align="center"/>
         <el-table-column prop="activationDate" width="200" label="激活日期" align="center"/>
         <el-table-column prop="enrollmentYear" label="入学年份" align="center"/>
-        <el-table-column prop="educationLevel" label="年级" align="center"/>
+        <el-table-column prop="grade" label="年级" align="center"/>
         <el-table-column prop="gradeName" label="所属班级" align="center">
           <template slot-scope="scope">
             <span class="inline-text"

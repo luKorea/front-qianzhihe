@@ -206,7 +206,7 @@ export default {
     .major-list {
       cursor: pointer;
       display: flex;
-      width: 340px;
+      width: 350px;
       margin-right: 20px;
       margin-bottom: 20px;
       flex-wrap: wrap;

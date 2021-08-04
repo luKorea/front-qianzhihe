@@ -200,8 +200,9 @@ export default {
           this.params.first_choice
         ].splice(',').join('+');
         this.$store.dispatch('point/pointData', {
-          url: `选科查询 -【${title}】`,
-          date: new Date().toLocaleDateString()
+          activityName: `选科查询 -【${title}】`,
+          activityType: '选科查询',
+          params: this.$route.query
         }).then(res => {
           console.log(res, 'data');
         })

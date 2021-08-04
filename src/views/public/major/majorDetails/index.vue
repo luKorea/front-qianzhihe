@@ -149,8 +149,9 @@ export default {
     switchData(_id, name) {
       if (this.$store.state.user.user_type === '学生账号') {
         this.$store.dispatch('point/pointData', {
-          url: `浏览专业 -【${name}】`,
-          date: new Date().toLocaleDateString()
+          activityName: `浏览专业 -【${name}】`,
+          activityType: '专业',
+          params: this.$route.query
         }).then(res => {
           console.log(res, 'data');
         })

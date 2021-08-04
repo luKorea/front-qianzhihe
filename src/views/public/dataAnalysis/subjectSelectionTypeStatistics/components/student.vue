@@ -60,7 +60,7 @@
       <el-table-column prop="firstChoice" label='首选科目' align="center"/>
       <el-table-column prop="recleaning1" label='再选科目1' align="center"/>
       <el-table-column prop="recleaning2" label='再选科目2' align="center"/>
-      <el-table-column prop="educationLevel" label='年级' align="center"/>
+      <el-table-column prop="grade" label='年级' align="center"/>
       <el-table-column prop="gradeName" label="所属班级" align="center">
         <template slot-scope="scope">
             <span class="inline-text"

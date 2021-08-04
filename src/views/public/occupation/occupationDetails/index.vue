@@ -107,8 +107,9 @@ export default {
     this.occupationId = occupationId;
     if (this.$store.state.user.user_type === '学生账号') {
       this.$store.dispatch('point/pointData', {
-        url: `浏览职业 -【${name}】`,
-        date: new Date().toLocaleDateString()
+        activityName: `浏览职业 -【${name}】`,
+        activityType: '职业',
+        params: this.$route.query
       }).then(res => {
         console.log(res, 'data');
       })

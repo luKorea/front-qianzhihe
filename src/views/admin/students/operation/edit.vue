@@ -98,8 +98,8 @@
         <template v-else>
           <div class="m-top">
             <span class="tip-title" style="margin-right: 20px">选择年级</span>
-            <el-select v-model="form.educationLevel"
-                       @change="getClassData(form.educationLevel)"
+            <el-select v-model="form.grade"
+                       @change="getClassData(form.grade)"
                        clearable filterable placeholder="请输入年级">
               <el-option v-for="(item, index) in gradeList" :key="index" :label="item.name" :value="item.name"/>
             </el-select>
@@ -238,7 +238,7 @@ export default {
                   ? this.checkList = [this.form.recleaning1, this.form.recleaning2]
                   : this.checkList = [];
               this.form['gender'] = this.form.gender === 'F' ? '女' : '男';
-              this.getClassData(this.form.educationLevel);
+              this.getClassData(this.form.grade);
             }
           })
     },

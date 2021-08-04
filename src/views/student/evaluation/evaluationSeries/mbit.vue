@@ -122,8 +122,9 @@ export default {
         }
       }
       this.$store.dispatch('point/pointData', {
-        url: `完成测试 -【性格测试】`,
-        date: new Date().toLocaleDateString()
+        activityName: `完成测试 -【性格测试】`,
+        activityType: '性格测试',
+        params: this.$route.query
       }).then(res => {
         console.log(res, 'data');
       })
@@ -132,6 +133,7 @@ export default {
             console.log(res);
             if (res.errorCode === 200) {
               this.loading = false;
+              this.$store.dispatch("tagsView/delView", this.$route);
               this.$message.success('恭喜您完成测试，快来看看您的测试结果吧')
               localStorage.setItem('mbit', JSON.stringify(res.data))
               this.$router.push({

@@ -90,6 +90,7 @@ export default {
   },
   methods: {
     goBack() {
+      this.$store.dispatch("tagsView/delView", this.$route);
       this.$router.push({
         path: '/studentEvaluation/evaluationList'
       })

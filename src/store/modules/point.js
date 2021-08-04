@@ -16,13 +16,11 @@ const mutations = {
 const actions = {
     pointData({commit}, data) {
         return new Promise((resolve, reject) => {
-            // req('')
-            let userInfo = JSON.parse(
-                window.localStorage.getItem("USERINFO_" + defaultSettings.KEY)
-            );
-            resolve({
-                ...data,
-                ...userInfo
+            req('/biz/userActivity/addUserActivity', data, 'POST')
+                .then(res => {
+                    resolve(res);
+                }).catch(err => {
+                    reject(err);
             });
         })
     },

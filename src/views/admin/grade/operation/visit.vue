@@ -26,7 +26,7 @@
             </el-col>
             <el-col :span="8">
               <span class="student-title">提交选科人数：</span>
-              <span class="student-info">{{ info.name }}</span>
+              <span class="student-info">{{ info.chooseCount || 0}}</span>
             </el-col>
             <el-col :span="8">
               <span class="student-title">班级人数：</span>

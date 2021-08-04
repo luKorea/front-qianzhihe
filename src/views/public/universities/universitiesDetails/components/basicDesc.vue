@@ -31,7 +31,7 @@
       <div id="sex-charts" style="width: 200px; height: 200px"></div>
     </template>
     <template v-if="info.images">
-      <el-divider />
+      <el-divider/>
       <span class="tip-info"></span>
       <span class="tip-title" id="uni-photo">院校风光</span>
       <div class="img-wrap">
@@ -47,8 +47,8 @@
           </el-image>
         </div>
       </div>
-      <el-divider/>
     </template>
+    <el-divider/>
   </div>
 </template>
 

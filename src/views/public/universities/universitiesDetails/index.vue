@@ -144,8 +144,9 @@ export default {
     this.academyName = academyName;
     if (this.$store.state.user.user_type === '学生账号') {
       this.$store.dispatch('point/pointData', {
-        url: `浏览院校 -【${academyName}】`,
-        date: new Date().toLocaleDateString()
+        activityName: `浏览院校 -【${academyName}】`,
+        activityType: '院校',
+        params: this.$route.query
       }).then(res => {
         console.log(res, 'data');
       })

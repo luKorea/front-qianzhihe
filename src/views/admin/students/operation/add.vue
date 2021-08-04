@@ -52,8 +52,8 @@
         <span class="tip-title">班级信息</span>
         <div class="m-top">
           <span class="tip-title" style="margin-right: 20px">选择年级</span>
-          <el-select v-model="form.educationLevel"
-                     @change="getClassData(form.educationLevel)"
+          <el-select v-model="form.grade"
+                     @change="getClassData(form.grade)"
                      clearable filterable placeholder="请输入年级">
             <el-option v-for="(item, index) in gradeList" :key="index" :label="item.name" :value="item.name"/>
           </el-select>
@@ -91,7 +91,7 @@ export default {
     return {
       loading: false,
       form: {
-        educationLevel: "",  //年级
+        grade: "",  //年级
         enrollmentYear: "", //入学年份
         gender: "", //性别
         gradeId: "", //班级Id
@@ -128,7 +128,7 @@ export default {
             !value ? callback(new Error('入学年份不能为空')) : callback()
           }
         }],
-        educationLevel: [{
+        grade: [{
           required: true, trigger: 'blur', validator: (rule, value, callback) => {
             !value ? callback(new Error('年级不能为空')) : callback()
           }

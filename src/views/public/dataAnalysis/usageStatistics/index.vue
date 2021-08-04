@@ -117,74 +117,7 @@ export default {
       timeLoading: true,
       loading: true,
       info: '',
-      list: [
-        {
-          user: {
-            studentId: '00001',
-            schoolUserName: '张三',
-            gender: 'F',
-            username: '18817794539',
-            gradeName: '高一班'
-          },
-          activityName: '浏览专业—【经济学】',
-          _created_at: '2021-07-15'
-        },
-        {
-          user: {
-            studentId: '00001',
-            schoolUserName: '张三',
-            gender: 'F',
-            username: '18817794539',
-            gradeName: '高一班'
-          },
-          activityName: '浏览专业—【经济学】',
-          _created_at: '2021-07-15'
-        },
-        {
-          user: {
-            studentId: '00001',
-            schoolUserName: '张三',
-            gender: 'F',
-            username: '18817794539',
-            gradeName: '高一班'
-          },
-          activityName: '选科查询-【物理+化学+政治】',
-          _created_at: '2021-07-15'
-        },
-        {
-          user: {
-            studentId: '00001',
-            schoolUserName: '张三',
-            gender: 'F',
-            username: '18817794539',
-            gradeName: '高一班'
-          },
-          activityName: '完成测试-【兴趣测试】',
-          _created_at: '2021-07-15'
-        },
-        {
-          user: {
-            studentId: '00001',
-            schoolUserName: '张三',
-            gender: 'F',
-            username: '18817794539',
-            gradeName: '高一班'
-          },
-          activityName: '完成测试-【性格测试】',
-          _created_at: '2021-07-15'
-        },
-        {
-          user: {
-            studentId: '00001',
-            schoolUserName: '张三',
-            gender: 'F',
-            username: '18817794539',
-            gradeName: '高一班'
-          },
-          activityName: '浏览专业—【经济学】',
-          _created_at: '2021-07-15'
-        },
-      ],
+      list: [],
       classList: [],
       classUserList: [],
       gradeList: [],
