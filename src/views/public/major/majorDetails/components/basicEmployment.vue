@@ -134,7 +134,7 @@ export default {
           series: [{
             data: data,
             type: 'bar',
-            barMaxWidth: '20%',
+            barMaxWidth: '30px',
             itemStyle: {
               normal: {
                 color(params) {
@@ -187,7 +187,7 @@ export default {
           series: [{
             data: data,
             type: 'bar',
-            barMaxWidth: '20%',
+            barMaxWidth: '30px',
             itemStyle: {
               normal: {
                 color(params) {

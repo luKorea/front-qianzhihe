@@ -255,7 +255,6 @@ export const asyncRouterMap = [
         path: '/studentSubjectSelectionType',
         component: Layout,
         redirect: '/studentSubjectSelectionType',
-        hidden: true,
         children: [{
             path: 'studentSubjectSelectionType',
             name: '/选科征集',

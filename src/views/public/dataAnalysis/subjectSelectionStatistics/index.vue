@@ -124,8 +124,10 @@ export default {
       getList(params)
           .then(res => {
             if (res.errorCode === 200) {
-              console.log(res, 'data');
               this.loading = false;
+              if (res.data.length === 0) {
+                this.$message.info('暂时没有查到对应的数据哦')
+              }
               this.list = res.data;
             }
           })

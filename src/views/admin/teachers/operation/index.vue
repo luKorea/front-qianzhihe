@@ -71,7 +71,7 @@ import {
   validateUsername
 } from "../../../../utils/validate";
 import {addTeacher, getEditInfo, updateTeacher} from "../../../../api/admin/taecher";
-import {successTip} from "../../../../utils/tip";
+import {errorTip, successTip} from "../../../../utils/tip";
 
 export default {
   name: "index",
@@ -159,6 +159,9 @@ export default {
           successTip('新增成功');
           this.loading = false;
           this.goBack();
+        } else {
+          this.loading = false;
+          errorTip(res.msg)
         }
       })
     },
@@ -171,6 +174,9 @@ export default {
           // this.goBack();
           this.loading = false;
           this.switchData();
+        } else {
+          this.loading = false;
+          errorTip(res.msg)
         }
       })
     }

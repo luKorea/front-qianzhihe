@@ -46,27 +46,27 @@
           </el-row>
         </div>
       </basic-container>
-      <div class="modal">
-        <span class="tip-info"></span>
-        <span class="tip-title">选科征集信息</span>
-        <div class="m-top">
-          <div class="m-bottom">
-            <span class="tip-title">首选科目（2选1）</span>
-            <el-radio-group v-model="info.firstChoice">
-              <el-radio v-for="(item, index) in firstList" :label="item.name"/>
-            </el-radio-group>
-          </div>
-          <div style="display: flex; align-items: center">
-            <span class="tip-title">再选科目（4选2）</span>
-            <el-checkbox-group v-model="checkList" :max="2">
-              <el-checkbox v-for="(item, index) in recleaningList" :label="item.name" :key="index">{{ item.name }}
-              </el-checkbox>
-            </el-checkbox-group>
-          </div>
-        </div>
-        <span class="modal" v-if="info.gradeDto === 'null'">您暂未绑定班级，请联系管理员</span>
-        <span class="modal-title" v-if="info.isChoose === false">您的班级未开启志愿征集功能，如有需要请联系班级教师</span>
-      </div>
+<!--      <div class="modal">-->
+<!--        <span class="tip-info"></span>-->
+<!--        <span class="tip-title">选科征集信息</span>-->
+<!--        <div class="m-top">-->
+<!--          <div class="m-bottom">-->
+<!--            <span class="tip-title">首选科目（2选1）</span>-->
+<!--            <el-radio-group v-model="info.firstChoice">-->
+<!--              <el-radio v-for="(item, index) in firstList" :label="item.name"/>-->
+<!--            </el-radio-group>-->
+<!--          </div>-->
+<!--          <div style="display: flex; align-items: center">-->
+<!--            <span class="tip-title">再选科目（4选2）</span>-->
+<!--            <el-checkbox-group v-model="checkList" :max="2">-->
+<!--              <el-checkbox v-for="(item, index) in recleaningList" :label="item.name" :key="index">{{ item.name }}-->
+<!--              </el-checkbox>-->
+<!--            </el-checkbox-group>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <span class="modal" v-if="info.gradeDto === 'null'">您暂未绑定班级，请联系管理员</span>-->
+<!--        <span class="modal-title" v-if="info.isChoose === false">您的班级未开启志愿征集功能，如有需要请联系班级教师</span>-->
+<!--      </div>-->
     </el-form>
     <div class="footer-btn">
       <el-button style="color: #475B75" @click="goBack">取消</el-button>
@@ -133,8 +133,8 @@ export default {
     operationData() {
       let that = this;
       that.info['gender'] = this.form.gender === '男' ? 'M' : 'F';
-      that.info['recleaning1'] = that.checkList[0];
-      that.info['recleaning2'] = that.checkList[1];
+      // that.info['recleaning1'] = that.checkList[0];
+      // that.info['recleaning2'] = that.checkList[1];
       that.$refs['form'].validate(valid => {
         if (valid) {
           editInfo(that.info)

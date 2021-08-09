@@ -77,23 +77,23 @@
       </div>
       <basic-nothing v-else title="该学生未绑定任何班级"></basic-nothing>
     </basic-container>
-    <basic-container style="margin-bottom: 100px">
-      <span class="tip-info"></span>
-      <span class="tip-title">选科征集信息</span>
-      <div style="margin-top: 20px" v-if="info.firstChoice">
-        <el-row :gutter="4">
-          <el-col :span="8">
-            <span class="student-title">首选科目: </span>
-            <span class="student-info">{{info.firstChoice}}</span>
-          </el-col>
-          <el-col :span="8">
-            <span class="student-title">再选科目: </span>
-            <span class="student-info">{{info.recleaning1}}、{{info.recleaning2}}</span>
-          </el-col>
-        </el-row>
-      </div>
-      <basic-nothing v-else title="该学生未填写选科信息"></basic-nothing>
-    </basic-container>
+<!--    <basic-container style="margin-bottom: 100px">-->
+<!--      <span class="tip-info"></span>-->
+<!--      <span class="tip-title">选科征集信息</span>-->
+<!--      <div style="margin-top: 20px" v-if="info.firstChoice">-->
+<!--        <el-row :gutter="4">-->
+<!--          <el-col :span="8">-->
+<!--            <span class="student-title">首选科目: </span>-->
+<!--            <span class="student-info">{{info.firstChoice}}</span>-->
+<!--          </el-col>-->
+<!--          <el-col :span="8">-->
+<!--            <span class="student-title">再选科目: </span>-->
+<!--            <span class="student-info">{{info.recleaning1}}、{{info.recleaning2}}</span>-->
+<!--          </el-col>-->
+<!--        </el-row>-->
+<!--      </div>-->
+<!--      <basic-nothing v-else title="该学生未填写选科信息"></basic-nothing>-->
+<!--    </basic-container>-->
   </div>
 </template>
 

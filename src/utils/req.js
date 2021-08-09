@@ -31,15 +31,16 @@ export function req(url, data, type = 'GET') {
             data = JSON.stringify(data);
         }
         let success = function (res) {
+            console.log(res, 'res');
             NProgress.done();
             // tryHideFullScreenLoading();
             resolve(res)
         }
 
         let error = function (err) {
-            console.log(err.status, 'erere');
             let data = JSON.parse(err.responseText);
             NProgress.done();
+            console.log(data, 'errInfo');
             // tryHideFullScreenLoading();
             // 用户TOKEN已过期，重新登录
             if (data.status === 401) {

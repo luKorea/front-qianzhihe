@@ -119,7 +119,7 @@ export default {
         series: [{
           data: valueList,
           type: 'bar',
-          barMaxWidth: '20%',
+          barMaxWidth: '30px',
           itemStyle: {
             normal: {
               label: {
@@ -167,7 +167,7 @@ export default {
         series: [{
           data: valueList,
           type: 'bar',
-          barMaxWidth: '30%',
+          barMaxWidth: '30px',
           itemStyle: {
             normal: {
               label: {

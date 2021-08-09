@@ -1,6 +1,6 @@
 <template>
   <div>
-    <basic-skeleton :loading="loading" :number="3"></basic-skeleton>
+    <basic-skeleton :loading="loading"></basic-skeleton>
     <template v-if="!loading">
       <visit-component v-if="showEdit" :info="info"/>
       <edit-component v-else :info="info" @changeShowEdit="showEdit = !showEdit" />

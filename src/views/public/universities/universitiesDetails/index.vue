@@ -90,7 +90,7 @@ export default {
           id: 'uni-number'
         },
         {
-          name: '历年录取分数线',
+          name: '历年录取专业',
           id: 'uni-year-number'
         },
         {

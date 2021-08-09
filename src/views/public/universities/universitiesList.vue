@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="type-list">
-        <span class="type-title">院校层级:</span>
+        <span class="type-title">院校层次:</span>
         <div class="tip-wrap">
           <template v-if="schoolLevelList.length > 0">
           <span v-for="(item, index) in schoolLevelList" :key="index"

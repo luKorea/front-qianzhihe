@@ -2,91 +2,92 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
 
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-  <link rel="stylesheet" href="<%= BASE_URL %>cdn/normalize/normalize.css">
-  <link rel="stylesheet" href="<%= BASE_URL %>cdn/element-ui/2.13.2/theme/index.css">
-  <link rel="stylesheet" href="<%= BASE_URL %>cdn/avue/2.8.2/index.css">
-  <link rel="stylesheet" href="<%= BASE_URL %>cdn/swiper/swiper.min.css">
-  <title><%= webpackConfig.name %></title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="stylesheet" href="<%= BASE_URL %>cdn/normalize/normalize.css">
+    <link rel="stylesheet" href="<%= BASE_URL %>cdn/element-ui/2.13.2/theme/index.css">
+    <link rel="stylesheet" href="<%= BASE_URL %>cdn/avue/2.8.2/index.css">
+    <link rel="stylesheet" href="<%= BASE_URL %>cdn/swiper/swiper.min.css">
+    <title><%= webpackConfig.name %></title>
 </head>
 
 <body>
-  <noscript>
+<noscript>
     <strong>We're sorry but <%= webpackConfig.name %> doesn't work properly without JavaScript enabled. Please enable it
-      to continue.</strong>
-  </noscript>
-  <div id="app">
-  </div>
-  <script type = "text/javascript">
-      (function() {
-          if (window.zhuge) return;
-          window.zhuge = [];
-          window.zhuge.methods = "_init identify track trackRevenue getDid getSid getKey setSuperProperty setUserProperties setWxProperties setPlatform".split(" ");
-          window.zhuge.factory = function(b) {
-              return function() {
-                  var a = Array.prototype.slice.call(arguments);
-                  a.unshift(b);
-                  window.zhuge.push(a);
-                  return window.zhuge;
-              }
-          };
-          for (var i = 0; i < window.zhuge.methods.length; i++) {
-              var key = window.zhuge.methods[i];
-              window.zhuge[key] = window.zhuge.factory(key);
-          }
-          window.zhuge.load = function(b, x) {
-              if (!document.getElementById("zhuge-js")) {
-                  var a = document.createElement("script");
-                  var verDate = new Date();
-                  var verStr = verDate.getFullYear().toString() + verDate.getMonth().toString() + verDate.getDate().toString();
+        to continue.</strong>
+</noscript>
+<div id="app">
+</div>
+<script type="text/javascript">
+    (function () {
+        if (window.zhuge) return;
+        window.zhuge = [];
+        window.zhuge.methods = "_init identify track trackRevenue getDid getSid getKey setSuperProperty setUserProperties setWxProperties setPlatform".split(" ");
+        window.zhuge.factory = function (b) {
+            return function () {
+                var a = Array.prototype.slice.call(arguments);
+                a.unshift(b);
+                window.zhuge.push(a);
+                return window.zhuge;
+            }
+        };
+        for (var i = 0; i < window.zhuge.methods.length; i++) {
+            var key = window.zhuge.methods[i];
+            window.zhuge[key] = window.zhuge.factory(key);
+        }
+        window.zhuge.load = function (b, x) {
+            if (!document.getElementById("zhuge-js")) {
+                var a = document.createElement("script");
+                var verDate = new Date();
+                var verStr = verDate.getFullYear().toString() + verDate.getMonth().toString() + verDate.getDate().toString();
 
-                  a.type = "text/javascript";
-                  a.id = "zhuge-js";
-                  a.async = !0;
-                  a.src = 'https://zgsdk.zhugeio.com/zhuge.min.js?v=' + verStr;
-                  a.onerror = function() {
-                      window.zhuge.identify = window.zhuge.track = function(ename, props, callback) {
-                          if(callback && Object.prototype.toString.call(callback) === '[object Function]') {
-                              callback();
-                          } else if (Object.prototype.toString.call(props) === '[object Function]') {
-                              props();
-                          }
-                      };
-                  };
-                  var c = document.getElementsByTagName("script")[0];
-                  c.parentNode.insertBefore(a, c);
-                  window.zhuge._init(b, x)
-              }
-          };
-          window.zhuge.load('dab624d2eed044c787cb96a0f3f8875e', { //配置应用的AppKey
-              superProperty: { //全局的事件属性(选填)
-                  '应用名称': '诸葛io'
-              },
-              adTrack: false,//广告监测开关，默认为false
-              zgsee: false,//视屏采集开关， 默认为false
-              autoTrack: true,
-              visualizer: true,  //可视化埋点开关
-              //启用全埋点采集（选填，默认false）
-              singlePage: true //是否是单页面应用（SPA），启用autoTrack后生效（选填，默认false）
-          });
-      })();
-  </script>
-  <!-- built files will be auto injected -->
-  <script src="<%= BASE_URL %>cdn/vue/2.6.10/vue.min.js" charset="utf-8"></script>
-  <script src="<%= BASE_URL %>cdn/vuex/3.1.1/vuex.min.js" charset="utf-8"></script>
-  <script src="<%= BASE_URL %>cdn/axios/1.0.0/axios.min.js" charset="utf-8"></script>
-  <script src="<%= BASE_URL %>cdn/vue-router/3.0.1/vue-router.min.js" charset="utf-8"></script>
-  <script src="<%= BASE_URL %>cdn/element-ui/2.13.2/index.js" charset="utf-8"></script>
-  <script src="<%= BASE_URL %>cdn/avue/2.8.2/avue.min.js" charset="utf-8"></script>
-  <script src="<%= BASE_URL %>cdn/jquery/jquery-3.4.1.min.js "></script>
-  <script src="<%= BASE_URL %>cdn/md5/md5.js "></script>
-  <script src="<%= BASE_URL %>cdn/dayjs/dayjs.min.js"></script>
-  <script src="<%= BASE_URL %>cdn/swiper/swiper.min.js"></script>
+                a.type = "text/javascript";
+                a.id = "zhuge-js";
+                a.async = !0;
+                a.src = 'https://zgsdk.zhugeio.com/zhuge.min.js?v=' + verStr;
+                a.onerror = function () {
+                    window.zhuge.identify = window.zhuge.track = function (ename, props, callback) {
+                        if (callback && Object.prototype.toString.call(callback) === '[object Function]') {
+                            callback();
+                        } else if (Object.prototype.toString.call(props) === '[object Function]') {
+                            props();
+                        }
+                    };
+                };
+                var c = document.getElementsByTagName("script")[0];
+                c.parentNode.insertBefore(a, c);
+                window.zhuge._init(b, x)
+            }
+        };
+        window.zhuge.load('dab624d2eed044c787cb96a0f3f8875e', { //配置应用的AppKey
+            superProperty: { //全局的事件属性(选填)
+                '应用名称': '诸葛io'
+            },
+            duration: true,
+            adTrack: false,//广告监测开关，默认为false
+            zgsee: false,//视屏采集开关， 默认为false
+            autoTrack: true,
+            visualizer: true,  //可视化埋点开关
+            //启用全埋点采集（选填，默认false）
+            singlePage: true //是否是单页面应用（SPA），启用autoTrack后生效（选填，默认false）
+        });
+    })();
+</script>
+<!-- built files will be auto injected -->
+<script src="<%= BASE_URL %>cdn/vue/2.6.10/vue.min.js" charset="utf-8"></script>
+<script src="<%= BASE_URL %>cdn/vuex/3.1.1/vuex.min.js" charset="utf-8"></script>
+<script src="<%= BASE_URL %>cdn/axios/1.0.0/axios.min.js" charset="utf-8"></script>
+<script src="<%= BASE_URL %>cdn/vue-router/3.0.1/vue-router.min.js" charset="utf-8"></script>
+<script src="<%= BASE_URL %>cdn/element-ui/2.13.2/index.js" charset="utf-8"></script>
+<script src="<%= BASE_URL %>cdn/avue/2.8.2/avue.min.js" charset="utf-8"></script>
+<script src="<%= BASE_URL %>cdn/jquery/jquery-3.4.1.min.js "></script>
+<script src="<%= BASE_URL %>cdn/md5/md5.js "></script>
+<script src="<%= BASE_URL %>cdn/dayjs/dayjs.min.js"></script>
+<script src="<%= BASE_URL %>cdn/swiper/swiper.min.js"></script>
 </body>
 
 </html>

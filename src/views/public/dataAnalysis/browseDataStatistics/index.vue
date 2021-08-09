@@ -182,7 +182,7 @@ export default {
             show: true,
             textStyle: {
               color: '#999999',  //更改坐标轴文字颜色
-              fontSize: 6   //更改坐标轴文字大小
+              // fontSize: 6   //更改坐标轴文字大小
             }
           },
         },
@@ -192,9 +192,10 @@ export default {
         series: [{
           data: valueList,
           type: 'bar',
-          barMaxWidth: '30%',
+          barMaxWidth: '30px',
           itemStyle: {
             normal: {
+              barBorderRadius: [4,4,0,0],
               label: {
                 show: true,		//开启显示
                 position: 'top',	//在上方显示
@@ -230,7 +231,7 @@ export default {
                 show: true,
                 textStyle: {
                   color: '#999999',  //更改坐标轴文字颜色
-                  fontSize: 4      //更改坐标轴文字大小
+                  // fontSize: 4      //更改坐标轴文字大小
                 }
               },
             },
@@ -240,9 +241,10 @@ export default {
             series: [{
               data: valueList,
               type: 'bar',
-              barMaxWidth: '30%',
+              barMaxWidth: '30px',
               itemStyle: {
                 normal: {
+                  barBorderRadius: [4,4,0,0],
                   label: {
                     show: true,		//开启显示
                     position: 'top',	//在上方显示

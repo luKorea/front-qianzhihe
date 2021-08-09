@@ -22,7 +22,7 @@ export default {
     },
     number: {
       type: Number,
-      default: 10
+      default: 100
     }
   }
 }
