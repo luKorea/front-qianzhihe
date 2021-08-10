@@ -70,7 +70,6 @@ export default {
         return this.page;
       },
       set(val) {
-        console.log(val);
         this.$emit('update:page', val)
       }
     },

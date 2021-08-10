@@ -16,7 +16,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="gradeCount" label="班级人数" align="center" />
-        <el-table-column prop="gradeType" label="班级类型" align="center" />
+<!--        <el-table-column prop="gradeType" label="班级类型" align="center" />-->
         <el-table-column prop="grade" label="年级" align="center" />
         <el-table-column prop="enrollmentYear" label="入学年份" align="center" />
         <el-table-column prop="teacherName" label="班主任" align="center" />

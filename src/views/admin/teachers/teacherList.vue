@@ -38,9 +38,15 @@
           <span class="tip-info"></span>
           <span class="tip-title">教师列表</span>
         </div>
-        <el-button type="primary" @click="goOperationType('add')">添加老师</el-button>
+       <div>
+         <el-button type="primary" @click="goOperationType('add')">添加老师</el-button>
+<!--         <el-button type="danger" @click="deleteAllTeacher">批量删除</el-button>-->
+       </div>
       </div>
-      <el-table stripe :data="list" border style="width: 100%;margin-bottom: 20px" v-loading="loading">
+      <el-table stripe :data="list"
+                border style="width: 100%;margin-bottom: 20px" v-loading="loading">
+<!--        @selection-change="selectAllTeacher"-->
+<!--        <el-table-column type="selection" align="center" />-->
         <el-table-column type="index" width="60px" label="编号" align="center"/>
 
         <!--        <el-table-column prop="_id" label="教师ID" align="center" />-->
@@ -84,6 +90,7 @@
 <script>
 import {getTeacherList, deleteTeacher} from "../../../api/admin/taecher";
 import {selectTypeList} from "../../../api/common/search";
+import {errorTip} from "../../../utils/tip";
 
 export default {
   name: "teacherList",
@@ -100,7 +107,8 @@ export default {
       },
       teacherList: [],
       gradeList: [],
-      list: []
+      list: [],
+      teacherAllList: []
     }
   },
   mounted() {
@@ -143,20 +151,48 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteTeacher([id]).then(res => {
-          if (res.errorCode === 200) {
-            this.$message({
-              type: 'success',
-              message: '删除成功!'
-            });
-            this.getData({
-              ...this.params,
-              page: 0
-            });
-          }
-        })
+        this.deleteTeacherApi(id);
       }).catch(() => {
       });
+    },
+    deleteTeacherApi(ids) {
+      let id = typeof ids === 'string' ? [ids] : ids;
+      deleteTeacher([id]).then(res => {
+        if (res.errorCode === 200) {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.teacherAllList = [];
+          this.getData({
+            ...this.params,
+            page: 0
+          });
+        } else {
+          errorTip(res.msg)
+        }
+      })
+    },
+    selectAllTeacher(val) {
+      if (val.length > 0) {
+        val.forEach(item => {
+          this.teacherAllList.push(item._id);
+        })
+      }
+    },
+    deleteAllTeacher() {
+      if (this.teacherAllList.length === 0) {
+        this.$message.info('最少选择一条');
+      } else {
+        this.$confirm('此操作将永久删除该老师, 是否继续?', '删除教师', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.deleteTeacherApi(this.teacherAllList);
+        }).catch(() => {
+        });
+      }
     },
     getTeacherType() {
       selectTypeList('teacherType')

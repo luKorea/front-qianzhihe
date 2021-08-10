@@ -74,7 +74,7 @@
             <div class="table-title" style="background-color: #FFFFFF">
 <!--              <span>班级ID</span>-->
               <span>班级名称</span>
-              <span>班级类型</span>
+<!--              <span>班级类型</span>-->
               <span>年级</span>
               <span>入学年份</span>
               <span>班主任</span>
@@ -85,7 +85,7 @@
             <div class="student-table-title">
 <!--              <span v-if="form.gradeDto._id">{{ form.gradeDto._id.slice(0, 12) }}</span>-->
               <span>{{ form.gradeDto.name }}</span>
-              <span>{{ form.gradeDto.gradeType }}</span>
+<!--              <span>{{ form.gradeDto.gradeType }}</span>-->
               <span>{{ form.gradeDto.grade }}</span>
               <span>{{ form.gradeDto.enrollmentYear }}</span>
               <span>{{ form.gradeDto.teacherName }}</span>
@@ -150,7 +150,7 @@ import {
   selectClassList
 } from "../../../../api/teacher/teacherStudents";
 import {selectTypeList} from "../../../../api/common/search";
-import {operationTip, successTip} from "../../../../utils/tip";
+import {operationTip, successTip, errorTip} from "../../../../utils/tip";
 
 export default {
   name: "index",
@@ -254,6 +254,8 @@ export default {
                 // that.goBack();
                 that.params.gradeId = '';
                 that.getEditData(that.params)
+              } else {
+                errorTip(res.msg)
               }
             })
       })
@@ -278,6 +280,8 @@ export default {
                   that.loading = false;
                   this.getEditData(this.params);
                   // this.goBack();
+                } else {
+                  errorTip(res.msg)
                 }
               })
         } else {

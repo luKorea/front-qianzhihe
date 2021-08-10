@@ -42,3 +42,8 @@ export const updateStudentInfo = data => {
 export const importData = (file) => {
     return req(`${basicUrl}/importStudent`, file, 'upload')
 }
+
+// 删除学生
+export const deleteStudent = ids => {
+    return req(`${basicUrl}/delete`, ids, 'DELETE')
+}

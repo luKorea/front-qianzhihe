@@ -12,15 +12,6 @@
               </el-form-item>
             </el-col>
             <el-col :span="10">
-              <el-form-item label="班级类型" required prop="gradeType">
-                <el-select v-model="form.gradeType" placeholder="请选择" filterable clearable style="width: 100%">
-                  <el-option v-for="(item, index) in gradeTypeList" :key="index" :label="item.name" :value="item.name"/>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row :gutter="4">
-            <el-col :span="10">
               <el-form-item label="入学年份" required prop="enrollmentYear">
                 <el-select filterable v-model="form.enrollmentYear" placeholder="请选择" clearable style="width: 100%">
                   <el-option
@@ -31,6 +22,15 @@
                 </el-select>
               </el-form-item>
             </el-col>
+<!--            <el-col :span="10">-->
+<!--              <el-form-item label="班级类型" required prop="gradeType">-->
+<!--                <el-select v-model="form.gradeType" placeholder="请选择" filterable clearable style="width: 100%">-->
+<!--                  <el-option v-for="(item, index) in gradeTypeList" :key="index" :label="item.name" :value="item.name"/>-->
+<!--                </el-select>-->
+<!--              </el-form-item>-->
+<!--            </el-col>-->
+          </el-row>
+          <el-row :gutter="4">
             <el-col :span="10">
               <el-form-item label="年级" required prop="grade">
                 <el-select v-model="form.grade" filterable placeholder="请选择" clearable style="width: 100%">
@@ -102,7 +102,7 @@ import {
 } from "../../../../utils/validate";
 import {getEditInfo, addGrade, updateGrade} from "../../../../api/admin/grade";
 import {selectTypeList, selectTeacherOrTutorList} from "../../../../api/common/search";
-import {successTip} from "../../../../utils/tip";
+import {errorTip, successTip} from "../../../../utils/tip";
 
 export default {
   name: "index",
@@ -114,7 +114,7 @@ export default {
       form: {},
       rules: {
         name: [{required: true, trigger: 'blur', validator: validateClassType}],
-        gradeType: [{required: true, trigger: 'blur', validator: validateGradeType}],
+        // gradeType: [{required: true, trigger: 'blur', validator: validateGradeType}],
         enrollmentYear: [{required: true, trigger: 'blur', validator: validateYear}],
         grade: [{required: true, trigger: 'blur', validator: validateGrade}],
       },
@@ -220,6 +220,8 @@ export default {
             if (res.errorCode === 200) {
               successTip('新增成功')
               this.goBack();
+            } else {
+              errorTip(res.msg)
             }
           })
     },
@@ -230,6 +232,8 @@ export default {
               successTip('修改成功')
               // this.goBack();
               this.switchData();
+            } else {
+              errorTip(res.msg)
             }
           })
     }

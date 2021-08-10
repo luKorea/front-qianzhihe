@@ -1,7 +1,7 @@
 <template>
   <div id="major-container">
     <basic-skeleton :loading="loading" show-avatar="true" :number="20"></basic-skeleton>
-    <template  v-if="!loading">
+    <template v-if="!loading">
       <basic-info :info="info"/>
       <basic-container>
         <basic-desc :info="descInfo"/>
@@ -33,6 +33,7 @@ import basicProposal from "./components/basicProposal";
 import basicEmployment from "./components/basicEmployment";
 import {getBasicInfo, getBasicDesc, getBasicProposal, getBasicEmployment} from '../../../../api/common/major';
 import {scrollElement} from "../../../../utils";
+import {setUserHistory} from "../../../../api/common/search";
 
 export default {
   name: "index",
@@ -133,6 +134,10 @@ export default {
     }
   },
   methods: {
+    setInfo(params) {
+      setUserHistory(params)
+      .then(res => console.log(res))
+    },
     filterData(name) {
       this.nameList = this.nameList.filter(item => item.id !== name);
     },
@@ -148,6 +153,10 @@ export default {
     },
     switchData(_id, name) {
       if (this.$store.state.user.user_type === '学生账号') {
+        this.setInfo({
+          historyId: _id,
+          type: 'Profession'
+        })
         this.$store.dispatch('point/pointData', {
           activityName: `浏览专业 -【${name}】`,
           activityType: '专业',
@@ -157,11 +166,11 @@ export default {
         })
       }
       this.loading = true;
-      Promise.all([ this.getData(_id), this.getDesc(_id), this.getProposal(_id), this.getEmployment(_id)])
-      .then(res => {
-        this.loading = false;
-        console.log(res);
-      })
+      Promise.all([this.getData(_id), this.getDesc(_id), this.getProposal(_id), this.getEmployment(_id)])
+          .then(res => {
+            this.loading = false;
+            console.log(res);
+          })
     },
     getData(id) {
       return new Promise((resolve, reject) => {
@@ -270,7 +279,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-
-</style>

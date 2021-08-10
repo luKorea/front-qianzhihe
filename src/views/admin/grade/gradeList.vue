@@ -4,14 +4,14 @@
       <span class="tip-info"></span>
       <span class="tip-title">班级筛选</span>
       <div class="flex-search">
-        <div>
-          <span class="tip">班级类型:</span>
-          <el-select v-model="params.gradeType" placeholder="请选择" clearable filterable>
-            <template v-if="gradeTypeList && gradeTypeList.length > 0">
-              <el-option v-for="item in gradeTypeList" :label="item.name" :value="item.name"></el-option>
-            </template>
-          </el-select>
-        </div>
+<!--        <div>-->
+<!--          <span class="tip">班级类型:</span>-->
+<!--          <el-select v-model="params.gradeType" placeholder="请选择" clearable filterable>-->
+<!--            <template v-if="gradeTypeList && gradeTypeList.length > 0">-->
+<!--              <el-option v-for="item in gradeTypeList" :label="item.name" :value="item.name"></el-option>-->
+<!--            </template>-->
+<!--          </el-select>-->
+<!--        </div>-->
         <div>
           <span class="tip">年级:</span>
           <el-select v-model="params.grade"
@@ -65,7 +65,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="gradeCount" label="班级人数" align="center"/>
-        <el-table-column prop="gradeType" label="班级类型" align="center"/>
+<!--        <el-table-column prop="gradeType" label="班级类型" align="center"/>-->
         <el-table-column prop="grade" label="年级" align="center"/>
         <el-table-column prop="enrollmentYear" label="入学年份" align="center"/>
         <el-table-column prop="teacherName" label="班主任" align="center">

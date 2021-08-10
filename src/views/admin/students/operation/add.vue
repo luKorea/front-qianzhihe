@@ -67,8 +67,8 @@
       </basic-container>
     </el-form>
     <span class="tip-text">
-                  注意：学生登录账号为 <span style="color: red">姓名的拼音+学号</span> ，
-      例如张三的学号是202201，那么张三的登录账号为 zhangsan202201；<span style="color: red">登录初始密码为123456</span>
+                  注意：学生登录账号为 <span style="color: red">姓名的拼音首字母+学号</span> ，
+      例如张三的学号是202201，那么张三的登录账号为 zs202201；<span style="color: red">登录初始密码为123456</span>
         </span>
     <div class="footer-btn">
       <el-button style="color: #475B75" @click="goBack">取消</el-button>

@@ -43,3 +43,8 @@ export const selectClassList = (grade = '') => {
 export const selectTeacherOrTutorList = () => {
     return req('/biz/teacher/queryTeacherList')
 }
+
+// 记录用户浏览记录
+export const setUserHistory = params => {
+    return req(`/biz/browsingHistory/addUserBrowsingHistory`, params, 'POST')
+}

@@ -74,7 +74,7 @@
             <div class="table-title" style="background-color: #FFFFFF">
 <!--              <span>班级ID</span>-->
               <span>班级名称</span>
-              <span>班级类型</span>
+<!--              <span>班级类型</span>-->
               <span>年级</span>
               <span>入学年份</span>
               <span>班主任</span>
@@ -85,7 +85,7 @@
             <div class="student-table-title">
 <!--              <span>{{ form.gradeDto._id.slice(0, 12) }}</span>-->
               <span>{{ form.gradeDto.name }}</span>
-              <span>{{ form.gradeDto.gradeType }}</span>
+<!--              <span>{{ form.gradeDto.gradeType }}</span>-->
               <span>{{ form.gradeDto.grade }}</span>
               <span>{{ form.gradeDto.enrollmentYear }}</span>
               <span>{{ form.gradeDto.teacherName }}</span>
@@ -145,7 +145,7 @@ import {
 } from "../../../../utils/validate";
 import {getStudentInfo, removeStudentToClass, updateStudentInfo} from "../../../../api/admin/students";
 import {selectClassList, selectTypeList} from "../../../../api/common/search";
-import {operationTip, successTip} from "../../../../utils/tip";
+import {errorTip, operationTip, successTip} from "../../../../utils/tip";
 
 export default {
   name: "index",
@@ -258,6 +258,8 @@ export default {
                 successTip();
                 that.params.gradeId = '';
                 that.getEditData(that.params)
+              } else {
+                errorTip(res.msg)
               }
             })
       })
@@ -282,6 +284,8 @@ export default {
                   successTip();
                   that.loading = false;
                   that.getEditData(that.params)
+                } else {
+                  errorTip(res.msg)
                 }
               })
         } else {

@@ -3,25 +3,25 @@
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">学生筛选</span>
-<!--TODO 新模块-->
-<!--      <div class="flex-search">-->
-<!--        <div>-->
-<!--          <span class="tip">班级绑定:</span>-->
-<!--          <el-radio-group v-model="params.selectClass" @change="selectClassData">-->
-<!--            <el-radio :label="0">已绑定班级</el-radio>-->
-<!--            <el-radio :label="1">未绑定班级</el-radio>-->
-<!--          </el-radio-group>-->
-<!--        </div>-->
-<!--      </div>-->
-      <div class="flex-search" v-if="showDifferentSearch">
+      <!--TODO 新模块-->
+      <div class="flex-search">
         <div>
-          <span class="tip">班级类型:</span>
-          <el-select v-model="params.gradeType" placeholder="请选择" clearable filterable>
-            <template v-if="gradeTypeList && gradeTypeList.length > 0">
-              <el-option v-for="item in gradeTypeList" :label="item.name" :value="item.name"></el-option>
-            </template>
-          </el-select>
+          <span class="tip">班级绑定:</span>
+          <el-radio-group v-model="params.selectClass" @change="selectClassData">
+            <el-radio :label="0">已绑定班级</el-radio>
+            <el-radio :label="1">未绑定班级</el-radio>
+          </el-radio-group>
         </div>
+      </div>
+      <div class="flex-search" v-if="showDifferentSearch">
+        <!--        <div>-->
+        <!--          <span class="tip">班级类型:</span>-->
+        <!--          <el-select v-model="params.gradeType" placeholder="请选择" clearable filterable>-->
+        <!--            <template v-if="gradeTypeList && gradeTypeList.length > 0">-->
+        <!--              <el-option v-for="(item, index) in gradeTypeList" :key="index" :label="item.name" :value="item.name"></el-option>-->
+        <!--            </template>-->
+        <!--          </el-select>-->
+        <!--        </div>-->
         <div>
           <span class="tip">年级:</span>
           <el-select v-model="params.grade"
@@ -31,7 +31,8 @@
                      }"
                      placeholder="请选择" clearable filterable>
             <template v-if="gradeList && gradeList.length > 0">
-              <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
+              <el-option v-for="(item, index) in gradeList" :key="index" :label="item.name"
+                         :value="item.name"></el-option>
             </template>
           </el-select>
         </div>
@@ -39,7 +40,8 @@
           <span class="tip">班级:</span>
           <el-select v-model="params.graduate" placeholder="请选择" clearable filterable>
             <template v-if="classList && classList.length > 0">
-              <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
+              <el-option v-for="(item, index) in classList" :key="index" :label="item.name"
+                         :value="item.name"></el-option>
             </template>
           </el-select>
         </div>
@@ -60,20 +62,21 @@
             <span class="tip">入学年份:</span>
             <el-select v-model="params.enrollmentYear" placeholder="请选择" clearable filterable>
               <template v-if="yearList && yearList.length > 0">
-                <el-option v-for="item in yearList" :label="item.name" :value="item.name"></el-option>
+                <el-option v-for="(item, index) in yearList" :key="index" :label="item.name"
+                           :value="item.name"></el-option>
               </template>
             </el-select>
           </div>
-        <div style="display: flex;justify-content: space-between">
-          <el-input style="margin-right: 10px; width: 300px;" v-model="params.queryOrIdOrNameOrPhone"
-                    @keyup.enter.native="getData({
+          <div style="display: flex;justify-content: space-between">
+            <el-input style="margin-right: 10px; width: 300px;" v-model="params.queryOrIdOrNameOrPhone"
+                      @keyup.enter.native="getData({
                     ...params,
                     page: 0
                     })"
-                    placeholder="请输入学号、名称、手机号" clearable="true"/>
-          <el-button type="primary" :loading="loading" @click="searchData">筛选
-          </el-button>
-        </div>
+                      placeholder="请输入学号、名称、手机号" clearable="true"/>
+            <el-button type="primary" :loading="loading" @click="searchData">筛选
+            </el-button>
+          </div>
         </div>
       </div>
     </basic-container>
@@ -84,6 +87,7 @@
           <span class="tip-title">学生列表</span>
         </div>
         <div>
+<!--          <el-button type="danger" @click="deleteAllStudent">批量删除</el-button>-->
           <el-button type="primary" @click="goOperationType('add')">新增学生账号</el-button>
           <el-button type="warning" style="margin-right: 10px" @click="showDialog = !showDialog">批量导入学生账号</el-button>
           <el-link
@@ -91,7 +95,6 @@
               icon="el-icon-download" :underline="false" class="link-btn">
             下载学生批量导入模版
           </el-link>
-
           <upload-excel
               :upload-dialog="showDialog" v-if="showDialog"
               @closeFile="showDialog = !showDialog"
@@ -99,7 +102,13 @@
           ></upload-excel>
         </div>
       </div>
-      <el-table stripe :data="list" border style="width: 100%;margin: 20px 0" v-loading="loading">
+      <el-table stripe :data="list"
+                ref="student"
+                border style="width: 100%;margin: 20px 0" v-loading="loading">
+<!--        @selection-change="selectAllStudent"-->
+        <!--        <el-table-column type="selection"-->
+<!--                         :selectable="isDisabled"-->
+<!--                         align="center"/>-->
         <el-table-column prop="studentId" label="学号" align="center"/>
         <el-table-column label="头像" align="center">
           <template slot-scope="scope">
@@ -131,14 +140,16 @@
             <span v-else>{{ scope.row.gradeName }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="gradeType" label="班级类型" align="center"/>
+        <!--        <el-table-column prop="gradeType" label="班级类型" align="center"/>-->
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="goOperationType('visit', scope.row._id, scope.row.gradeId)">查看
             </el-button>
             <el-button type="text" size="small" @click="goOperationType('edit', scope.row._id, scope.row.gradeId)">编辑
             </el-button>
-            <el-button type="text" size="small" style="color: red" @click="deleteData(scope.row._id)">删除</el-button>
+            <el-button type="text" size="small" style="color: red"
+                       @click="deleteData(scope.row._id, scope.row.username)">删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -153,11 +164,10 @@
 </template>
 
 <script>
-import {getStudentList} from "../../../api/admin/students";
+import {deleteStudent, getStudentList} from "../../../api/admin/students";
 import {selectTypeList, selectClassList} from "../../../api/common/search";
-import {xhrGetFile} from "../../../utils/req";
 import uploadExcel from '../../../components/upload/index';
-import {deleteTeacher} from "../../../api/admin/taecher";
+import {errorTip} from "../../../utils/tip";
 
 export default {
   name: "teacherList",
@@ -184,7 +194,8 @@ export default {
       gradeTypeList: [],
       gradeList: [],
       yearList: [],
-      list: []
+      list: [],
+      selectAllStudentList: []
     }
   },
   mounted() {
@@ -244,11 +255,11 @@ export default {
     },
     getYear() {
       selectTypeList('vintage')
-      .then(res => {
-        if (res.errorCode === 200) {
-          this.yearList = res.data;
-        }
-      })
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.yearList = res.data;
+            }
+          })
     },
     getGradeType() {
       selectTypeList('gradeType')
@@ -287,32 +298,71 @@ export default {
       this.params.size = val;
       this.getData(this.params);
     },
-    deleteData(id) {
-      this.$notify.info({
-        title: '删除学生',
-        message: '该功能即将上线',
-        duration: 2000
-      });
-      // this.$confirm('此操作将永久删除该学生, 是否继续?', '删除学生', {
-      //   confirmButtonText: '确定',
-      //   cancelButtonText: '取消',
-      //   type: 'warning'
-      // }).then(() => {
-      //   deleteTeacher([id]).then(res => {
-      //     if (res.errorCode === 200) {
-      //       this.$message({
-      //         type: 'success',
-      //         message: '删除成功!'
-      //       });
-      //       this.getData({
-      //         ...this.params,
-      //         page: 0
-      //       });
-      //     }
-      //   })
-      // }).catch(() => {
-      // });
+    deleteData(id, phone) {
+      const _this = this;
+      console.log(id);
+      if (phone) {
+        this.$notify.error({
+          title: '删除学生',
+          message: '该账号已激活, 无法删除'
+        })
+      } else {
+        this.$confirm('此操作将永久删除该学生, 是否继续?', '删除学生', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          _this.deleteStudentApi(id);
+        }).catch(() => {
+        });
+      }
     },
+    deleteStudentApi(ids) {
+      let id = typeof ids === 'string' ? [ids] : ids;
+      deleteStudent(id).then(res => {
+        if (res.errorCode === 200) {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.selectAllStudentList = [];
+          this.getData({
+            ...this.params,
+            page: 0
+          });
+        } else {
+          errorTip(res.msg)
+        }
+      })
+    },
+    isDisabled(row) {
+      if (row.username) {
+        return 0;
+      } else {
+        return 1;
+      }
+    },
+    selectAllStudent(val) {
+      if (val.length > 0) {
+        val.forEach(item => {
+          this.selectAllStudentList.push(item._id);
+        })
+      }
+    },
+    deleteAllStudent() {
+      if (this.selectAllStudentList.length === 0) {
+        this.$message.info('最少选择一条');
+      } else {
+        this.$confirm('此操作将永久删除该学生, 是否继续?', '删除学生', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.deleteStudentApi(this.selectAllStudentList)
+        }).catch(() => {
+        });
+      }
+    }
   }
 }
 </script>

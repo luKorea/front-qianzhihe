@@ -44,6 +44,7 @@ import basicPersonDesc from "./components/basicPerson";
 import basicTip from "./components/basicTip";
 import {getDetail} from '../../../../api/common/occupation';
 import {scrollElement} from "../../../../utils";
+import {setUserHistory} from "../../../../api/common/search";
 export default {
   name: "index",
   components: {
@@ -106,6 +107,10 @@ export default {
     let {occupationId, name} = this.$route.query;
     this.occupationId = occupationId;
     if (this.$store.state.user.user_type === '学生账号') {
+      this.setInfo({
+        type: 'Occupation',
+        historyId: occupationId
+      })
       this.$store.dispatch('point/pointData', {
         activityName: `浏览职业 -【${name}】`,
         activityType: '职业',
@@ -134,6 +139,10 @@ export default {
     }
   },
   methods: {
+    setInfo(params) {
+      setUserHistory(params)
+          .then(res => console.log(res))
+    },
     filterData(name) {
       this.nameList = this.nameList.filter(item => item.id !== name);
     },

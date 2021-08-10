@@ -51,7 +51,7 @@
           <el-table stripe  :data="list" border style="width: 100%;margin: 20px 0" v-loading="loading">
             <el-table-column type="index" label="编号" align="center" width="60"/>
             <el-table-column prop="name" label="班级名称" align="center"/>
-            <el-table-column prop="gradeType" label="班级类型" align="center"/>
+<!--            <el-table-column prop="gradeType" label="班级类型" align="center"/>-->
             <el-table-column prop="grade" label="年级" align="center"/>
             <el-table-column prop="enrollmentYear" label="入学年份" align="center"/>
             <el-table-column prop="teacherName" label="班主任" align="center"/>

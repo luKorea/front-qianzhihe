@@ -35,12 +35,6 @@
           </el-row>
           <el-row :gutter="4" class="m-bottom">
             <el-col :span="8">
-              <div>
-                <span class="student-title">班级类型：</span>
-                <span class="student-info">{{ info.gradeType }}</span>
-              </div>
-            </el-col>
-            <el-col :span="8">
               <span class="student-title">年级：</span>
               <span class="student-info">{{ info.grade }}</span>
             </el-col>
@@ -48,8 +42,6 @@
               <span class="student-title">入学年份：</span>
               <span class="student-info">{{ info.enrollmentYear }}</span>
             </el-col>
-          </el-row>
-          <el-row :gutter="4" class="m-bottom">
             <el-col :span="8">
               <div>
                 <span class="student-title">班主任：</span>
@@ -61,6 +53,8 @@
               </span>
               </div>
             </el-col>
+          </el-row>
+          <el-row :gutter="4" class="m-bottom">
             <el-col :span="8">
               <span class="student-title">生涯导师1：</span>
               <span class="student-info">

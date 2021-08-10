@@ -3,16 +3,16 @@
     <span class="tip-info"></span>
     <span class="tip-title">学生列表</span>
     <div class="search-wrap m-top">
-      <div>
-        <span class="tip">班级类型:</span>
-        <el-select v-model="params.gradeType"
-                   @change="confirmData"
-                   placeholder="请选择" clearable filterable>
-          <template v-if="gradeTypeList && gradeTypeList.length > 0">
-            <el-option v-for="item in gradeTypeList" :label="item.name" :value="item.name"></el-option>
-          </template>
-        </el-select>
-      </div>
+<!--      <div>-->
+<!--        <span class="tip">班级类型:</span>-->
+<!--        <el-select v-model="params.gradeType"-->
+<!--                   @change="confirmData"-->
+<!--                   placeholder="请选择" clearable filterable>-->
+<!--          <template v-if="gradeTypeList && gradeTypeList.length > 0">-->
+<!--            <el-option v-for="item in gradeTypeList" :label="item.name" :value="item.name"></el-option>-->
+<!--          </template>-->
+<!--        </el-select>-->
+<!--      </div>-->
       <div>
         <span class="tip">年级:</span>
         <el-select v-model="params.grade"
@@ -69,7 +69,7 @@
           <span v-else>{{ scope.row.gradeName }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="gradeType" label='班级类型' align="center"/>
+<!--      <el-table-column prop="gradeType" label='班级类型' align="center"/>-->
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="goStudentDetail(scope.row._id, scope.row.gradeId)">查看</el-button>

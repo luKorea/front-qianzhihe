@@ -80,7 +80,6 @@ router.afterEach(() => {
 
 function getroles() {
   try {
-    console.log(store.state.user.roles, 'roles');
     return store.state.user.roles.filter(d => d)
   } catch (error) {
     return []
