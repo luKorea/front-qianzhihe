@@ -36,11 +36,11 @@
       <span class="tip-title">浏览数据统计</span>
       <el-divider/>
       <span class="tip-title">浏览次数Top20专业</span>
-      <div id="major-charts" style="width: 100%; height: 500px" v-show="showMajorCharts"></div>
+      <div id="major-charts" style="width: 100%; height: 700px" v-show="showMajorCharts"></div>
       <basic-nothing v-show="!showMajorCharts"></basic-nothing>
       <el-divider/>
       <span class="tip-title">浏览次数Top20职业</span>
-      <div id="occupation-charts" style="width: 100%; height: 500px" v-show="showOccupationCharts"></div>
+      <div id="occupation-charts" style="width: 100%; height: 700px" v-show="showOccupationCharts"></div>
       <basic-nothing v-show="!showOccupationCharts"></basic-nothing>
     </basic-container>
   </div>
@@ -140,7 +140,6 @@ export default {
       getList(params)
           .then(res => {
             if (res.errorCode === 200) {
-              console.log(res, 'data');
               this.loading = false;
               if (params.type === 'Occupation') {
                 this.occupationList = res.data;
@@ -162,57 +161,54 @@ export default {
     },
     setMajorOptions(data = []) {
       let nameList = [],
-          valueList = [];
-      data.forEach(item => {
+          valueList = [],
+          newData = [];
+      newData = [...data];
+      newData.sort((a, b) => a.count - b.count);
+      newData.forEach(item => {
         nameList.push(item.name);
-        valueList.push(item.count)
+        valueList.push(item.count);
       })
       this.majorCharts.setOption({
         color: ['#4D97FF'],
         tooltip: {
           trigger: 'axis',
-          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+          axisPointer: {
+            type: 'shadow'
           }
         },
         xAxis: {
-          type: 'category',
-          data: nameList,
-          axisLabel: {
-            show: true,
-            textStyle: {
-              color: '#999999',  //更改坐标轴文字颜色
-              // fontSize: 6   //更改坐标轴文字大小
-            }
-          },
+          type: 'value'
         },
         yAxis: {
-          type: 'value'
+          type: 'category',
+          data: nameList
         },
         series: [{
           data: valueList,
           type: 'bar',
-          barMaxWidth: '30px',
+          barMaxWidth: 20,
+          showBackground: true,
           itemStyle: {
-            normal: {
-              barBorderRadius: [4,4,0,0],
-              label: {
-                show: true,		//开启显示
-                position: 'top',	//在上方显示
-                textStyle: {	    //数值样式
-                  color: '#2E415B',
-                  fontSize: 12
-                },
-              }
-            }
-          }
+            color: new this.$echarts.graphic.LinearGradient(
+                1, 0, 0, 0,
+                [
+                  {offset: 0, color: '#83bff6'},
+                  {offset: 0.5, color: '#188df0'},
+                  {offset: 1, color: '#4D97FF'}
+                ]
+            )
+          },
         }]
       })
     },
     setOccupations(data = []) {
       let nameList = [],
-          valueList = [];
-      data.forEach(item => {
+          valueList = [],
+          newData = [];
+      newData = [...data];
+      newData.sort((a, b) => a.count - b.count);
+      newData.forEach(item => {
         nameList.push(item.name);
         valueList.push(item.count)
       })
@@ -220,41 +216,32 @@ export default {
             color: ['#FC9131'],
             tooltip: {
               trigger: 'axis',
-              axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+              axisPointer: {
+                type: 'shadow'
               }
             },
             xAxis: {
-              type: 'category',
-              data: nameList,
-              axisLabel: {
-                show: true,
-                textStyle: {
-                  color: '#999999',  //更改坐标轴文字颜色
-                  // fontSize: 4      //更改坐标轴文字大小
-                }
-              },
+              type: 'value'
             },
             yAxis: {
-              type: 'value'
+              type: 'category',
+              data: nameList
             },
             series: [{
               data: valueList,
               type: 'bar',
-              barMaxWidth: '30px',
+              barMaxWidth: 20,
+              showBackground: true,
               itemStyle: {
-                normal: {
-                  barBorderRadius: [4,4,0,0],
-                  label: {
-                    show: true,		//开启显示
-                    position: 'top',	//在上方显示
-                    textStyle: {	    //数值样式
-                      color: '#2E415B',
-                      fontSize: 14
-                    },
-                  }
-                }
-              }
+                color: new this.$echarts.graphic.LinearGradient(
+                    1, 0, 0, 0,
+                    [
+                      {offset: 0, color: '#f6bf8d'},
+                      {offset: 0.5, color: '#f3ac6c'},
+                      {offset: 1, color: '#FC9131'}
+                    ]
+                )
+              },
             }]
           }
       )

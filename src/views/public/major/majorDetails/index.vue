@@ -9,12 +9,10 @@
         <basic-employment :info="employmentInfo"/>
       </basic-container>
     </template>
-    <el-tooltip :content="showBackInfo ? '关闭' : '打开'" placement="top-start">
-      <i
-          class="flex-right-icon"
-          :class="showBackInfo ? 'el-icon-right' : 'el-icon-back'"
-          @click="showBackInfo = !showBackInfo"></i>
-    </el-tooltip>
+    <i
+        class="flex-right-icon"
+        :class="showBackInfo ? 'el-icon-right' : 'el-icon-back'"
+        @click="showBackInfo = !showBackInfo"></i>
     <div class="flex-right" v-if="showBackInfo">
       <div class="item"
            @click="changeIndex(index, item.id, nameList)"
@@ -23,6 +21,13 @@
         {{ item.name }}
       </div>
     </div>
+    <template v-else>
+      <div class="flex-right-progress">
+        <div class="loadbar" style="height: 340px">
+          <strong class="bar" :style="{height: processData}"></strong>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -47,6 +52,7 @@ export default {
     return {
       loading: true,
       showBackInfo: true,
+      processData: 0,
       nameList: [
         {
           name: '专业介绍',
@@ -117,8 +123,25 @@ export default {
     this.switchData(this._id, this.name);
     let _this = this;
     //监听屏幕滚动
-    window.onscroll = function () {
-      //获取当前滚动条的位置
+    if (_this.showBackInfo) {
+      window.addEventListener('scroll', this.handleScroll);
+    }
+  },
+  methods: {
+    progressScroll() {
+      // 页面的总搞得
+      let pageHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
+      // 浏览器视口高度
+      let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      // 可滚动的高度
+      let scrollAvail = pageHeight - windowHeight;
+      // 获取滚动条的高度
+      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      this.processData = (scrollTop / scrollAvail) * 100 + '%';
+    },
+    handleScroll() {
+      this.progressScroll();
+      let _this = this;
       let top = document.documentElement.scrollTop || document.body.scrollTop;
       //存放当前位置的id；即顺序
       let currentId;
@@ -131,9 +154,7 @@ export default {
         }
       }
       _this.selectIndex = currentId;
-    }
-  },
-  methods: {
+    },
     setInfo(params) {
       setUserHistory(params)
       .then(res => console.log(res))
@@ -166,23 +187,20 @@ export default {
         })
       }
       this.loading = true;
-      Promise.all([this.getData(_id), this.getDesc(_id), this.getProposal(_id), this.getEmployment(_id)])
+      Promise.all([this.getEmployment(_id), this.getData(_id), this.getDesc(_id), this.getProposal(_id)])
           .then(res => {
             this.loading = false;
             console.log(res);
           })
     },
     getData(id) {
-      return new Promise((resolve, reject) => {
-        getBasicInfo(id)
-            .then(res => {
-              if (res.errorCode === 200) {
-                this.info = res.data;
-                resolve(res)
-                if (!res.data) this.filterData('hangye')
-              } else reject(res.msg)
-            })
-      })
+      getBasicInfo(id)
+          .then(res => {
+            if (res.errorCode === 200) {
+              this.info = res.data;
+              if (!res.data) this.filterData('hangye')
+            }
+          })
     },
     getDesc(id) {
       getBasicDesc(id)
@@ -208,17 +226,20 @@ export default {
           })
     },
     getEmployment(id) {
-      getBasicEmployment(id)
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.employmentInfo = res.data;
-              console.log(this.employmentInfo, 'employmentInfo');
-              if (!res.data.exam_direction) this.filterData('majorDo')
-              if (!res.data.occupationVos) this.filterData('zhiye')
-              if (!res.data.industry) this.filterData('hangye')
-              if (!res.data.region) this.filterData('address')
-            }
-          })
+      return new Promise((resolve, reject) => {
+        getBasicEmployment(id)
+            .then(res => {
+              if (res.errorCode === 200) {
+                this.employmentInfo = res.data;
+                console.log(this.employmentInfo, 'employmentInfo');
+                if (!res.data.exam_direction) this.filterData('majorDo')
+                if (!res.data.occupationVos) this.filterData('zhiye')
+                if (!res.data.industry) this.filterData('hangye')
+                if (!res.data.region) this.filterData('address')
+                resolve(res)
+              } else reject(res.msg)
+            })
+      })
     },
     getProposalFromComponents(id, name) {
       this.$router.push({

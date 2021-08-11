@@ -7,7 +7,7 @@
       <div class="flex-search">
         <div>
           <span class="tip">班级绑定:</span>
-          <el-radio-group v-model="params.selectClass" @change="selectClassData">
+          <el-radio-group v-model="params.isBindingGrade" @change="selectClassData">
             <el-radio :label="0">已绑定班级</el-radio>
             <el-radio :label="1">未绑定班级</el-radio>
           </el-radio-group>
@@ -180,7 +180,7 @@ export default {
       showDialog: false,
       showDifferentSearch: true,
       params: {
-        selectClass: 0,
+        isBindingGrade: 0,
         page: 0,
         size: 10,
         gradeType: '', //	年级
@@ -208,6 +208,11 @@ export default {
   methods: {
     selectClassData(e) {
       this.showDifferentSearch = +e !== 1;
+      this.getData({
+        ...this.params,
+        page: 0,
+        isBindingGrade: e
+      })
     },
     searchData() {
       this.params.page = 0;

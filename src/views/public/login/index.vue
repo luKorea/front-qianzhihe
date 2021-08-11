@@ -131,7 +131,7 @@
                 </el-col>
               </el-row>
               <div class="form-info">
-<!--                <el-checkbox v-model="checked">7天免登录</el-checkbox>-->
+                <!--                <el-checkbox v-model="checked">7天免登录</el-checkbox>-->
                 <el-link type="info" @click="showImg">忘记密码?</el-link>
               </div>
               <el-button
@@ -220,6 +220,7 @@ import {
 } from "../../../utils/validate";
 import {isFormReady} from "../../../utils";
 import {errorTip} from "../../../utils/tip";
+
 /**
  * TODO:登录页面
  */
@@ -285,6 +286,14 @@ export default {
         that.screenWidth = window.screenWidth;
       })();
     }
+    if (window.history && window.history.pushState) {
+      // 向历史记录中插入了当前页
+      history.pushState(null, null, document.URL);
+      window.addEventListener('popstate', this.goBack, false);
+    }
+  },
+  destroyed () {
+    window.removeEventListener('popstate', this.goBack, false);
   },
   watch: {
     $route: {
@@ -314,6 +323,11 @@ export default {
     this.loginForm.password = window.localStorage.getItem('password_' + defaultSettings.KEY) || '';
   },
   methods: {
+    goBack () {
+      // console.log("点击了浏览器的返回按钮");
+      history.pushState(null, null, document.URL);
+      console.log(document.URL);
+    },
     showImg() {
       this.$notify.info({
         title: '忘记密码',
@@ -353,7 +367,7 @@ export default {
             const {user} = res;
             //获取权限
             that.$store.dispatch('user/getControl', {}).then(() => {
-              that.$router.push({ path: '/' })
+              that.$router.push({path: '/'})
             }).catch(() => {
               that.loading = false
             })
@@ -383,26 +397,40 @@ export default {
             const {user} = res;
             if (res.isBindingPhone) {
               getStudentInfo(params.username)
-              .then(res => {
-                if (res.errorCode === 200) {
-                  that.backInfo = user;
-                  that.infoFrom['username'] = res.data.schoolUserNameLogin;
-                  that.infoFrom['schoolUserName'] = res.data.schoolUserName;
-                  that.infoFrom['gender'] = res.data.gender;
-                  that.infoFrom['gradeName'] = res.data.gradeName;
-                  this.showLoginContainer = false;
-                } else {
-                  this.loading = false;
-                  errorTip(res.msg);
-                }
-              })
+                  .then(res => {
+                    if (res.errorCode === 200) {
+                      that.backInfo = user;
+                      that.infoFrom['username'] = res.data.schoolUserNameLogin;
+                      that.infoFrom['schoolUserName'] = res.data.schoolUserName;
+                      that.infoFrom['gender'] = res.data.gender;
+                      that.infoFrom['gradeName'] = res.data.gradeName;
+                      this.showLoginContainer = false;
+                    } else {
+                      this.loading = false;
+                      errorTip(res.msg);
+                    }
+                  })
             } else {
               //获取权限
-              that.$store.dispatch('user/getControl', {}).then(() => {
-                that.$router.push({ path: '/' })
-              }).catch(() => {
-                that.loading = false
-              })
+              console.log(user, '用户信息');
+              // 诸葛埋点
+              zhuge.track('用户登录'); //事件名称不能超过20个字符
+              zhuge.identify(user._id,
+                  {
+                    name: user.schoolUserName,
+                    '性别': user.gender,
+                    '年级': user.grade,
+                    '学校': user.createBy,
+                    '手机号': user.phone,
+                  },
+                  function () {
+                    that.$store.dispatch('user/getControl', {}).then(() => {
+                      that.$router.push({path: '/'})
+                    }).catch(() => {
+                      that.loading = false
+                    })
+                  }
+              );
             }
           }).catch(() => {
             that.loading = false
@@ -415,27 +443,42 @@ export default {
       });
     },
     studentLogin() {
-      this.$refs['infoForm'].validate(valid => {
+      let _this = this;
+      _this.$refs['infoForm'].validate(valid => {
         if (valid) {
-          this.loadingConfirm = true;
+          _this.loadingConfirm = true;
           bindPhone({
-            phone: this.infoFrom.phone,
-            username: this.infoFrom.username,
-            gender: this.infoFrom.gender
+            phone: _this.infoFrom.phone,
+            username: _this.infoFrom.username,
+            gender: _this.infoFrom.gender
           })
               .then(res => {
                 if (res.errorCode === 200) {
                   window.localStorage.setItem(
                       "USERINFO_" + defaultSettings.KEY,
-                      JSON.stringify(this.backInfo)
+                      JSON.stringify(_this.backInfo)
                   );
-                  this.$store.dispatch('user/getControl', {}).then(() => {
-                    this.$router.push({ path: '/' })
-                  }).catch(() => {
-                    this.loadingConfirm = false;
-                  })
+                  console.log('用户信息', _this.backInfo);
+                  // 诸葛埋点
+                  zhuge.track('用户登录'); //事件名称不能超过20个字符
+                  zhuge.identify(_this.backInfo._id,
+                      {
+                        name: _this.backInfo.schoolUserName,
+                        '性别': _this.backInfo.gender,
+                        '年级': _this.backInfo.grade,
+                        '学校': _this.backInfo.createBy,
+                        '手机号': _this.backInfo.phone,
+                      },
+                      function () {
+                        _this.$store.dispatch('user/getControl', {}).then(() => {
+                          _this.$router.push({path: '/'})
+                        }).catch(() => {
+                          _this.loadingConfirm = false;
+                        })
+                      }
+                  );
                 } else {
-                  this.loadingConfirm = false;
+                  _this.loadingConfirm = false;
                   errorTip(res.msg);
                 }
               })

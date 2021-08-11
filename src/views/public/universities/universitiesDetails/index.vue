@@ -13,12 +13,10 @@
         <basic-further :info="furtherInfo"/>
       </basic-container>
     </template>
-    <el-tooltip :content="showBackInfo ? '关闭' : '打开'" placement="top-start">
-      <i
-          class="flex-right-icon"
-          :class="showBackInfo ? 'el-icon-right' : 'el-icon-back'"
-          @click="showBackInfo = !showBackInfo"></i>
-    </el-tooltip>
+    <i
+        class="flex-right-icon"
+        :class="showBackInfo ? 'el-icon-right' : 'el-icon-back'"
+        @click="showBackInfo = !showBackInfo"></i>
     <div class="flex-right" v-if="showBackInfo">
       <div class="item"
            @click="changeIndex(index, item.id)"
@@ -27,6 +25,13 @@
         {{ item.name }}
       </div>
     </div>
+    <template v-else>
+      <div class="flex-right-progress">
+        <div class="loadbar" style="height: 340px">
+          <strong class="bar" :style="{height: processData}"></strong>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -63,6 +68,7 @@ export default {
   data() {
     return {
       loading: true,
+      processData: 0,
       showBackInfo: true,
       nameList: [
         {
@@ -158,25 +164,38 @@ export default {
     this.getSelectData(this.academyName);
     let _this = this;
     //监听屏幕滚动
-    window.onscroll = function () {
-      //获取当前滚动条的位置
-      if (_this.nameList) {
-        let top = document.documentElement.scrollTop || document.body.scrollTop;
-        //存放当前位置的id；即顺序
-        let currentId;
-        for (let i = 0; i < _this.nameList.length; i++) {
-          let itemTop = document.getElementById(_this.nameList[i].id).offsetTop;
-          if (top > itemTop - 125) {
-            currentId = i;
-          } else {
-            break;
-          }
-        }
-        _this.selectIndex = currentId;
-      }
+    if (_this.showBackInfo) {
+      window.addEventListener('scroll', this.handleScroll);
     }
   },
   methods: {
+    progressScroll() {
+      // 页面的总搞得
+      let pageHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
+      // 浏览器视口高度
+      let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      // 可滚动的高度
+      let scrollAvail = pageHeight - windowHeight;
+      // 获取滚动条的高度
+      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      this.processData = (scrollTop / scrollAvail) * 100 + '%';
+    },
+    handleScroll() {
+      this.progressScroll();
+      let _this = this;
+      let top = document.documentElement.scrollTop || document.body.scrollTop;
+      //存放当前位置的id；即顺序
+      let currentId;
+      for (let i = 0; i < _this.nameList.length; i++) {
+        let itemTop = document.getElementById(_this.nameList[i].id).offsetTop;
+        if (top > itemTop - 125) {
+          currentId = i;
+        } else {
+          break;
+        }
+      }
+      _this.selectIndex = currentId;
+    },
     filterData(name) {
       this.nameList = this.nameList.filter(item => item.id !== name);
     },

@@ -7,7 +7,7 @@ let basicUrl = '/biz/student';
 
 // 获取学生列表
 export const getStudentList = params => {
-    return req(`${basicUrl}/queryStudentPage?page=${params.page}&graduate=${params.graduate}&size=${params.size}&gradeType=${params.gradeType}&grade=${params.grade}&queryOrIdOrNameOrPhone=${params.queryOrIdOrNameOrPhone}`
+    return req(`${basicUrl}/queryStudentPage?page=${params.page}&graduate=${params.graduate}&size=${params.size}&gradeType=${params.gradeType}&grade=${params.grade}&queryOrIdOrNameOrPhone=${params.queryOrIdOrNameOrPhone}&isBindingGrade=${params.isBindingGrade}&enrollmentYear=${params.enrollmentYear}`
     )
 }
 

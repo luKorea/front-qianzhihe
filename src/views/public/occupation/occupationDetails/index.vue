@@ -15,13 +15,11 @@
       </basic-container>
     </template>
 
-    <el-tooltip :content="showBackInfo ? '关闭' : '打开'" placement="top-start">
-      <i
-          class="flex-right-icon"
-          :class="showBackInfo ? 'el-icon-right' : 'el-icon-back'"
-          @click="showBackInfo = !showBackInfo"></i>
-    </el-tooltip>
-    <div class="flex-right" v-if="showBackInfo">
+    <i
+        class="flex-right-icon"
+        :class="showBackInfo ? 'el-icon-right' : 'el-icon-back'"
+        @click="showBackInfo = !showBackInfo"></i>
+    <div class="flex-right" v-if="showBackInfo" ref="flexRight">
       <div class="item"
            @click="changeIndex(index, item.id)"
            :class="selectIndex === index ? 'select' : ''"
@@ -30,6 +28,13 @@
       </div>
     </div>
 
+    <template v-else>
+      <div class="flex-right-progress">
+        <div class="loadbar" style="height: 340px">
+          <strong class="bar" :style="{height: processData}"></strong>
+        </div>
+      </div>
+    </template>
 
   </div>
 </template>
@@ -45,6 +50,7 @@ import basicTip from "./components/basicTip";
 import {getDetail} from '../../../../api/common/occupation';
 import {scrollElement} from "../../../../utils";
 import {setUserHistory} from "../../../../api/common/search";
+
 export default {
   name: "index",
   components: {
@@ -60,6 +66,7 @@ export default {
     return {
       loading: true,
       showBackInfo: true,
+      processData: 0,
       nameList: [
         {
           name: '职业介绍',
@@ -122,8 +129,25 @@ export default {
     this.getDetailData(this.occupationId);
     let _this = this;
     //监听屏幕滚动
-    window.onscroll = function () {
-      //获取当前滚动条的位置
+    if (_this.showBackInfo) {
+      window.addEventListener('scroll', this.handleScroll);
+    }
+  },
+  methods: {
+    progressScroll() {
+      // 页面的总搞得
+      let pageHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
+      // 浏览器视口高度
+      let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      // 可滚动的高度
+      let scrollAvail = pageHeight - windowHeight;
+      // 获取滚动条的高度
+      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      this.processData = (scrollTop / scrollAvail) * 100 + '%';
+    },
+    handleScroll() {
+      this.progressScroll();
+      let _this = this;
       let top = document.documentElement.scrollTop || document.body.scrollTop;
       //存放当前位置的id；即顺序
       let currentId;
@@ -136,9 +160,7 @@ export default {
         }
       }
       _this.selectIndex = currentId;
-    }
-  },
-  methods: {
+    },
     setInfo(params) {
       setUserHistory(params)
           .then(res => console.log(res))
@@ -159,27 +181,24 @@ export default {
     getDetailData(occupationId) {
       this.loading = true;
       getDetail(occupationId)
-      .then(res => {
-        if (res.errorCode === 200) {
-          let data = res.data;
-          this.info = data;
-          this.loading = false;
-          console.log(this.info.jobKnowledgeVoList);
-          if (!data.description) this.filterData('occ-desc')
-          if (!data.professionalArrayList || data.professionalArrayList.length === 0) this.filterData('occ-major')
-          if (!data.description) this.filterData('occ-yaoqiu')
-          if (!data.jobKnowledgeVoList || data.jobKnowledgeVoList.length === 0) this.filterData('occ-zhishi')
-          if (!data.certificateVoList || data.certificateVoList.length === 0) this.filterData('occ-zhengshu')
-          if (!data.personalityVoList) this.filterData('occ-person')
-          if (!data.hollands1) this.filterData('occ-ceshi')
-          if (!data.characteristics) this.filterData('occ-tezhi')
-          if (!data.tips) this.filterData('occ-tip')
-        }
-      })
+          .then(res => {
+            if (res.errorCode === 200) {
+              let data = res.data;
+              this.info = data;
+              this.loading = false;
+              console.log(this.info.jobKnowledgeVoList);
+              if (!data.description) this.filterData('occ-desc')
+              if (!data.professionalArrayList || data.professionalArrayList.length === 0) this.filterData('occ-major')
+              if (!data.description) this.filterData('occ-yaoqiu')
+              if (!data.jobKnowledgeVoList || data.jobKnowledgeVoList.length === 0) this.filterData('occ-zhishi')
+              if (!data.certificateVoList || data.certificateVoList.length === 0) this.filterData('occ-zhengshu')
+              if (!data.personalityVoList) this.filterData('occ-person')
+              if (!data.hollands1) this.filterData('occ-ceshi')
+              if (!data.characteristics) this.filterData('occ-tezhi')
+              if (!data.tips) this.filterData('occ-tip')
+            }
+          })
     }
   }
 }
 </script>
-
-<style scoped lang="scss">
-</style>
