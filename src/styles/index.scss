@@ -536,7 +536,7 @@ input:-webkit-autofill:active {
   top: 51%;
   margin-top: -220px;
   z-index: 999;
-
+  cursor: pointer;
   .loadbar {
     width: 6px;
     background: rgba(57, 57, 61, 0.1);

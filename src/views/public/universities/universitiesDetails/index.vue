@@ -26,11 +26,13 @@
       </div>
     </div>
     <template v-else>
-      <div class="flex-right-progress">
-        <div class="loadbar" style="height: 340px">
-          <strong class="bar" :style="{height: processData}"></strong>
+      <el-tooltip :content="'您已经浏览了' + processData + '的页面啦'" placement="top">
+        <div class="flex-right-progress">
+          <div class="loadbar" style="height: 340px">
+            <strong class="bar" :style="{height: processData}"></strong>
+          </div>
         </div>
-      </div>
+      </el-tooltip>
     </template>
   </div>
 </template>
@@ -51,7 +53,7 @@ import {
   getFurther,
   getSelectUniversities
 } from '../../../../api/common/universities';
-import {scrollElement} from "../../../../utils";
+import {scrollElement, scrollToProgress} from "../../../../utils";
 
 export default {
   name: "index",
@@ -169,19 +171,8 @@ export default {
     }
   },
   methods: {
-    progressScroll() {
-      // 页面的总搞得
-      let pageHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
-      // 浏览器视口高度
-      let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
-      // 可滚动的高度
-      let scrollAvail = pageHeight - windowHeight;
-      // 获取滚动条的高度
-      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-      this.processData = (scrollTop / scrollAvail) * 100 + '%';
-    },
     handleScroll() {
-      this.progressScroll();
+      this.processData = scrollToProgress();
       let _this = this;
       let top = document.documentElement.scrollTop || document.body.scrollTop;
       //存放当前位置的id；即顺序
