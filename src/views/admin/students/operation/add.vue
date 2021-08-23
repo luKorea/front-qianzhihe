@@ -28,7 +28,9 @@
             </el-col>
             <el-col :span="10">
               <el-form-item label="入学年份" required prop="enrollmentYear">
-                <el-select v-model="form.enrollmentYear" clearable filterable placeholder="请输入入学年份" style="width: 100%">
+                <el-select v-model="form.enrollmentYear"
+                           :clearable="true" :filterable="true"
+                           placeholder="请输入入学年份" style="width: 100%">
                   <el-option v-for="(item, index) in yearList" :key="index" :label="item.name" :value="item.name"/>
                 </el-select>
               </el-form-item>
@@ -54,13 +56,16 @@
           <span class="tip-title" style="margin-right: 20px">选择年级</span>
           <el-select v-model="form.grade"
                      @change="getClassData(form.grade)"
-                     clearable filterable placeholder="请输入年级">
+                     :clearable="true" :filterable="true"
+                     placeholder="请输入年级">
             <el-option v-for="(item, index) in gradeList" :key="index" :label="item.name" :value="item.name"/>
           </el-select>
         </div>
         <div style="margin-top: 20px">
           <span class="tip-title" style="margin-right: 20px">选择班级</span>
-          <el-select v-model="form.gradeId" placeholder="请选择" clearable filterable>
+          <el-select v-model="form.gradeId" placeholder="请选择"
+                     :clearable="true" :filterable="true"
+          >
             <el-option v-for="item in classList" :key="item._id" :label="item.name" :value="item._id"/>
           </el-select>
         </div>
@@ -71,7 +76,7 @@
       例如张三的学号是202201，那么张三的登录账号为 zs202201；<span style="color: red">登录初始密码为123456</span>
         </span>
     <div class="footer-btn">
-      <el-button style="color: #475B75" @click="goBack">取消</el-button>
+      <el-button style="color: #475B75" @click="goBack">返回</el-button>
       <el-button type="primary" :loading="loading" @click="operationData">保存</el-button>
     </div>
   </div>

@@ -45,8 +45,13 @@ const mutations = {
 const actions = {
     // user login
     login({ commit }, userInfo) {
+        let {type} = userInfo,
+            url = '/auth/login';
+        if (type === 'student') {
+            url = '/auth/studentLogin';
+        }
         return new Promise((resolve, reject) => {
-            req("/auth/login", userInfo, "POST")
+            req(url, userInfo, "POST")
                 .then(function(res) {
                     const { user } = res;
                     commit("SET_NAME", user.nickName);
@@ -94,7 +99,8 @@ const actions = {
     // user logout
     logout({ commit, state }) {
         return new Promise((resolve, reject) => {
-            window.localStorage.removeItem("USERINFO_" + defaultSettings.KEY);
+            localStorage.clear();
+            // window.localStorage.removeItem("USERINFO_" + defaultSettings.KEY);
             removeToken();
             commit("RESET_STATE");
             resolve();

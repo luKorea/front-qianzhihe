@@ -1,6 +1,6 @@
 <template>
   <div>
-    <basic-skeleton :loading="loading" show-avatar></basic-skeleton>
+    <basic-skeleton :loading="loading"></basic-skeleton>
     <template v-if="!loading">
       <holland-detail :major-list="majorList"
                       :type-list="typeList"

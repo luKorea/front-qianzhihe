@@ -35,23 +35,26 @@
       <span class="tip-info"></span>
       <span class="tip-title">选科查询数据统计</span>
       <el-divider/>
-      <div class="charts-flex">
-        <div id="charts" class="charts"></div>
-        <div class="tip">
-          <div class="tip-number">
-            <div class="title">查询次数</div>
-            <div class="number-wrap">
-              <span v-for="(item, index) in list" :key="index">{{ item.count }}次</span>
+      <template  v-show="list && list.length > 0">
+        <div class="charts-flex">
+          <div id="charts" class="charts"></div>
+          <div class="tip">
+            <div class="tip-number">
+              <div class="title">查询次数</div>
+              <div class="number-wrap">
+                <span v-for="(item, index) in list" :key="index">{{ item.count }}次</span>
+              </div>
+            </div>
+            <div class="tip-number">
+              <div class="title">查询占比</div>
+              <div class="number-wrap">
+                <span v-for="(item, index) in list" :key="index">{{ item.contentProportion }}</span>
+              </div>
             </div>
           </div>
-          <div class="tip-number">
-            <div class="title">查询占比</div>
-            <div class="number-wrap">
-              <span v-for="(item, index) in list" :key="index">{{ item.contentProportion }}</span>
-            </div>
-          </div>
+          <basic-nothing v-if="list.length === 0" style="margin-top: 0; height: 400px; position: absolute"></basic-nothing>
         </div>
-      </div>
+      </template>
     </basic-container>
   </div>
 </template>
@@ -71,7 +74,7 @@ export default {
       },
       classList: [],
       gradeList: [],
-      charts: null,
+      charts: document.getElementById('charts'),
       list: [],
     }
   },
@@ -79,7 +82,7 @@ export default {
     list: {
       deep: true,
       handler(val) {
-        this.setOptions(val)
+        if (this.charts !== '') this.setOptions(val)
       }
     }
   },
@@ -97,6 +100,9 @@ export default {
     this.$nextTick(() => {
       this.initCharts()
     })
+    window.addEventListener("resize", () => {
+      this.charts.resize();
+    });
   },
   methods: {
     searchData() {
@@ -129,11 +135,12 @@ export default {
                 this.$message.info('暂时没有查到对应的数据哦')
               }
               this.list = res.data;
+              console.log(this.list, 'list');
             }
           })
     },
     initCharts() {
-      this.charts = this.$echarts.init(document.getElementById('charts'));
+      this.charts = this.echarts.init(document.getElementById('charts'));
       this.setOptions(this.list);
     },
     setOptions(data = []) {
@@ -192,6 +199,17 @@ export default {
   display: flex;
   width: 100%;
   height: 400px;
+  position: relative;
+
+  .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 400px;
+    position: absolute;background-color: #fff;
+    //background-color: #0a6fe8;
+  }
 
   .charts {
     width: 70%;

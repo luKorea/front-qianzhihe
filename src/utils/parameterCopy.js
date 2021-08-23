@@ -7,6 +7,7 @@
 //1.JSON方法实现  JSON.parse(JSON.stringify(obj));
 //2.用for…in实现遍历和复制
 export function DeepClone(obj) {
+    // 深度克隆，拷贝对象中所有属性，这样修改起来才不会污染原有的变量，这样才可以做这个不敢大意的是件
     let result = typeof obj.splice === "function" ? [] : {};
     if (obj && typeof obj === 'object') {
         for (let key in obj) {

@@ -13,7 +13,7 @@
           </el-radio-group>
         </div>
       </div>
-      <div class="flex-search" v-if="showDifferentSearch">
+      <div class="search-wrap m-top" v-if="showDifferentSearch">
         <!--        <div>-->
         <!--          <span class="tip">班级类型:</span>-->
         <!--          <el-select v-model="params.gradeType" placeholder="请选择" clearable filterable>-->
@@ -29,7 +29,7 @@
                        params.graduate = ''
                        getClassType(e)
                      }"
-                     placeholder="请选择" clearable filterable>
+                     placeholder="请选择" :clearable="true" :filterable="true">
             <template v-if="gradeList && gradeList.length > 0">
               <el-option v-for="(item, index) in gradeList" :key="index" :label="item.name"
                          :value="item.name"></el-option>
@@ -38,7 +38,7 @@
         </div>
         <div>
           <span class="tip">班级:</span>
-          <el-select v-model="params.graduate" placeholder="请选择" clearable filterable>
+          <el-select v-model="params.graduate" placeholder="请选择" :clearable="true" :filterable="true">
             <template v-if="classList && classList.length > 0">
               <el-option v-for="(item, index) in classList" :key="index" :label="item.name"
                          :value="item.name"></el-option>
@@ -51,7 +51,7 @@
                     ...params,
                     page: 0
                     })"
-                    placeholder="请输入学号、名称、手机号" clearable="true"/>
+                    placeholder="请输入学号、名称、手机号" :clearable="true" :filterable="true"/>
           <el-button type="primary" :loading="loading" @click="searchData">筛选
           </el-button>
         </div>
@@ -60,7 +60,7 @@
         <div style="display: flex; align-items: center">
           <div class="m-right">
             <span class="tip">入学年份:</span>
-            <el-select v-model="params.enrollmentYear" placeholder="请选择" clearable filterable>
+            <el-select v-model="params.enrollmentYear" placeholder="请选择" :clearable="true" :filterable="true">
               <template v-if="yearList && yearList.length > 0">
                 <el-option v-for="(item, index) in yearList" :key="index" :label="item.name"
                            :value="item.name"></el-option>
@@ -73,7 +73,7 @@
                     ...params,
                     page: 0
                     })"
-                      placeholder="请输入学号、名称、手机号" clearable="true"/>
+                      placeholder="请输入学号、名称、手机号" :clearable="true" :filterable="true"/>
             <el-button type="primary" :loading="loading" @click="searchData">筛选
             </el-button>
           </div>
@@ -112,7 +112,7 @@
         <el-table-column prop="studentId" label="学号" align="center"/>
         <el-table-column label="头像" align="center">
           <template slot-scope="scope">
-            <el-avatar size="32" :src="scope.row.profilePicture"></el-avatar>
+            <el-avatar :size="32" :src="scope.row.profilePicture"></el-avatar>
           </template>
         </el-table-column>
         <el-table-column prop="schoolUserName" label="姓名" align="center">
@@ -207,10 +207,20 @@ export default {
   },
   methods: {
     selectClassData(e) {
+      this.params.grade = '';
+      this.params.graduate = '';
+      this.params.enrollmentYear = '';
+      this.params.queryOrIdOrNameOrPhone = '';
       this.showDifferentSearch = +e !== 1;
       this.getData({
-        ...this.params,
         page: 0,
+        size: 10,
+        gradeType: '', //	年级
+        graduate: '', // 班级
+        grade: '', //班级类型
+        enrollmentYear: '',
+        queryOrIdOrNameOrPhone: '',
+        total: 0,
         isBindingGrade: e
       })
     },
@@ -292,6 +302,9 @@ export default {
               this.list = data.result;
               this.loading = false;
               this.params.total = data.pageResult.total || 0;
+            } else {
+              this.loading = false;
+              errorTip(res.msg)
             }
           })
     },

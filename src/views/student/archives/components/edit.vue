@@ -13,7 +13,7 @@
             </el-col>
             <el-col :span="10">
               <el-form-item label="头像">
-                <el-avatar size="30" :src="info.profilePicture"></el-avatar>
+                <el-avatar :size="30" :src="info.profilePicture"></el-avatar>
               </el-form-item>
             </el-col>
           </el-row>
@@ -69,7 +69,7 @@
 <!--      </div>-->
     </el-form>
     <div class="footer-btn">
-      <el-button style="color: #475B75" @click="goBack">取消</el-button>
+      <el-button style="color: #475B75" @click="goBack">返回</el-button>
       <el-button type="primary" @click="operationData">保存</el-button>
     </div>
   </div>

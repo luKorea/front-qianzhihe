@@ -11,6 +11,9 @@ const whiteList = ['/login'] // no redirect whitelist
 router.beforeEach(async (to, from, next) => {
   // NProgress.start()
   document.title = getPageTitle(to.meta.title)
+  if(to.meta.title){
+    document.title = to.meta.title
+  }
   async function rolesfun() {
     let roles = getroles();
     if (store.getters.init) {
@@ -54,7 +57,7 @@ router.beforeEach(async (to, from, next) => {
         }).catch(async (err) => {
           //浏览器换内核模式会有异常
           await store.dispatch('user/logout')
-          next(`/login?redirect=${to.path}`)
+          next(`/login`)
           location.reload();
         })
       }
@@ -66,7 +69,7 @@ router.beforeEach(async (to, from, next) => {
       next()
     } else {
       // other pages that do not have permission to access are redirected to the login page.
-      next(`/login?redirect=${to.path}`)
+      next(`/login`)
       // NProgress.done()
     }
   }

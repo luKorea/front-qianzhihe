@@ -45,10 +45,7 @@
 </template>
 
 <script>
-import resize from "../../../../../mixins/resize";
-
 export default {
-  mixins: [resize],
   name: "basicEmployment",
   props: {
     info: {
@@ -103,7 +100,7 @@ export default {
       if (document.getElementById('charts-one') === null) {
         return false;
       } else {
-        this.chartsOne = this.$echarts.init(document.getElementById('charts-one'));
+        this.chartsOne = this.echarts.init(document.getElementById('charts-one'));
         let name = [],
             data = [];
         this.info.industry && this.info.industry.forEach(item => {
@@ -156,7 +153,7 @@ export default {
       if (document.getElementById('charts-two') === null) {
         return false;
       } else {
-        this.chartsTwo = document.getElementById('charts-two') && this.$echarts.init(document.getElementById('charts-two'));
+        this.chartsTwo = document.getElementById('charts-two') && this.echarts.init(document.getElementById('charts-two'));
         let name = [],
             data = [];
         this.info.region && this.info.region.forEach(item => {

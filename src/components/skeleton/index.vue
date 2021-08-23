@@ -1,6 +1,6 @@
 <template>
   <basic-container v-if="loading">
-    <avue-skeleton :avatar="showAvatar" block :number="number" :rows="rows" />
+    <el-skeleton animated :count="number" :rows="6" style="width: 100%; height: 100%"></el-skeleton>
   </basic-container>
 </template>
 
@@ -10,7 +10,7 @@ export default {
   props: {
     rows: {
       type: Number,
-      default: 3
+      default: 4
     },
     loading: {
       type: Boolean,

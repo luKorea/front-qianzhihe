@@ -1,3 +1,5 @@
+import Vue from "vue";
+import VueRouter from "vue-router";
 Vue.use(VueRouter)
 
 /* Layout */
@@ -34,6 +36,18 @@ export const constantRoutesStart = [
             meta: {title: '修改密码', showTag: true, icon: 'el-icon-s-home'}
         }]
     },
+    // {
+    //     path: '/test',
+    //     component: Layout,
+    //     redirect: '/test/index',
+    //     // hidden: true,
+    //     children: [{
+    //         path: 'test',
+    //         name: '幸运大转盘',
+    //         component: () => import('../views/test/index'),
+    //         meta: {title: '幸运大转盘', showTag: true, icon: 'el-icon-s-home'}
+    //     }]
+    // },
     {
         path: '/search',
         redirect: '/search/searchList',
@@ -130,10 +144,10 @@ export const asyncRouterMap = [
             },
             {
                 path: 'teacherOperation',
-                name: '教师',
+                name: '编辑教师',
                 hidden: true,
                 component: () => import('../views/admin/teachers/operation/index'),
-                meta: {title: '教师', icon: 'el-icon-s-check', roles: ['teacher']},
+                meta: {title: '编辑教师', icon: 'el-icon-s-check', roles: ['teacher']},
             },
             {
                 path: 'teacherDetails',

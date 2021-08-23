@@ -6,7 +6,7 @@
       <div class="search-wrap m-top">
         <el-input v-model="params.keywords"
                   @keyup.enter.native="goSearch('universities', params.keywords)"
-                  placeholder="请输入院校名称" clearable="true"/>
+                  placeholder="请输入院校名称" :clearable="true"/>
         <el-button type="primary" @click="goSearch('universities', params.keywords)">搜索</el-button>
       </div>
       <div class="type-list">
@@ -40,7 +40,7 @@
         </div>
       </div>
     </basic-container>
-    <basic-skeleton :loading="loading" show-avatar="true"></basic-skeleton>
+    <basic-skeleton :loading="loading"></basic-skeleton>
     <template v-if="!loading">
       <list-table
           :list="list" :params="params"

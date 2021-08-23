@@ -1,142 +1,150 @@
 <template>
-  <div>
-    <el-form status-icon label-width="80px" :model="form" :rules="rules" ref="form">
-      <basic-container>
-        <span class="tip-info"></span>
-        <span class="tip-title">基本信息</span>
-        <div style="margin-top: 20px">
-          <el-row :gutter="4">
-            <el-col :span="10">
-              <el-form-item label="学号">
-                <el-input v-model="form.studentId" disabled/>
-              </el-form-item>
-            </el-col>
-            <el-col :span="10">
-              <el-form-item label="头像">
-                <el-avatar size="30" :src="form.profilePicture"></el-avatar>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row :gutter="4">
-            <el-col :span="10">
-              <el-form-item label="姓名" required prop="schoolUserName">
-                <el-input v-model="form.schoolUserName"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="10">
-              <el-form-item label="性别">
-                <el-select v-model="form.gender" style="width: 100%;" disabled>
-                  <el-option value="F" label="女"></el-option>
-                  <el-option value="M" label="男"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row :gutter="4">
-            <el-col :span="10">
-              <el-form-item label="手机号">
-                <el-input v-model="form.username" disabled></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="10">
-              <el-form-item label="激活日期">
-                <el-input v-model="form.activationDate" disabled></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
+ <div>
+   <basic-skeleton :loading="loading"></basic-skeleton>
+   <div v-if="!loading">
+     <el-form status-icon label-width="80px" :model="form" :rules="rules" ref="form">
+       <basic-container>
+         <span class="tip-info"></span>
+         <span class="tip-title">基本信息</span>
+         <div style="margin-top: 20px">
+           <el-row :gutter="4">
+             <el-col :span="10">
+               <el-form-item label="学号">
+                 <el-input v-model="form.studentId" disabled/>
+               </el-form-item>
+             </el-col>
+             <el-col :span="10">
+               <el-form-item label="头像">
+                 <el-avatar :size="30" :src="form.profilePicture"></el-avatar>
+               </el-form-item>
+             </el-col>
+           </el-row>
+           <el-row :gutter="4">
+             <el-col :span="10">
+               <el-form-item label="姓名" required prop="schoolUserName">
+                 <el-input v-model="form.schoolUserName"></el-input>
+               </el-form-item>
+             </el-col>
+             <el-col :span="10">
+               <el-form-item label="性别">
+                 <el-select v-model="form.gender" style="width: 100%;" disabled>
+                   <el-option value="F" label="女"></el-option>
+                   <el-option value="M" label="男"></el-option>
+                 </el-select>
+               </el-form-item>
+             </el-col>
+           </el-row>
+           <el-row :gutter="4">
+             <el-col :span="10">
+               <el-form-item label="手机号">
+                 <el-input v-model="form.username" disabled></el-input>
+               </el-form-item>
+             </el-col>
+             <el-col :span="10">
+               <el-form-item label="激活日期">
+                 <el-input v-model="form.activationDate" disabled></el-input>
+               </el-form-item>
+             </el-col>
+           </el-row>
 
-          <el-row :gutter="4">
-<!--            <el-col :span="10">-->
-<!--              <el-form-item label="年级" required-->
-<!--                            prop="educationLevel">-->
-<!--                <el-select v-model="form.educationLevel"-->
-<!--                           @change="getClassData(form.educationLevel)"-->
-<!--                           clearable filterable placeholder="请输入年级" style="width: 100%">-->
-<!--                  <el-option v-for="(item, index) in gradeList" :key="index" :label="item.name" :value="item.name"/>-->
-<!--                </el-select>-->
-<!--              </el-form-item>-->
-<!--            </el-col>-->
-            <el-col :span="10">
-              <el-form-item label="入学年份" required prop="enrollmentYear">
-                <el-select v-model="form.enrollmentYear" clearable filterable placeholder="请输入入学年份" style="width: 100%">
-                  <el-option v-for="(item, index) in yearList" :key="index" :label="item.name" :value="item.name"/>
-                </el-select>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </div>
-      </basic-container>
-      <basic-container>
-        <span class="tip-info"></span>
-        <span class="tip-title">班级信息</span>
-        <template v-if="form.gradeDto && form.gradeDto.name">
-          <div class="table-wrap">
-            <div class="table-title" style="background-color: #FFFFFF">
-<!--              <span>班级ID</span>-->
-              <span>班级名称</span>
-<!--              <span>班级类型</span>-->
-              <span>年级</span>
-              <span>入学年份</span>
-              <span>班主任</span>
-              <span>生涯导师1</span>
-              <span>生涯导师2</span>
-              <span>操作</span>
-            </div>
-            <div class="student-table-title">
-<!--              <span>{{ form.gradeDto._id.slice(0, 12) }}</span>-->
-              <span>{{ form.gradeDto.name }}</span>
-<!--              <span>{{ form.gradeDto.gradeType }}</span>-->
-              <span>{{ form.gradeDto.grade }}</span>
-              <span>{{ form.gradeDto.enrollmentYear }}</span>
-              <span>{{ form.gradeDto.teacherName }}</span>
-              <span>{{ form.gradeDto.teacher1Name }}</span>
-              <span>{{ form.gradeDto.teacher2Name }}</span>
-              <span style="color: #B8C3D6; cursor:pointer;" @click="removeClassInfo(form._id)">解除班级绑定</span>
-            </div>
-          </div>
-        </template>
-        <template v-else>
-          <div class="m-top">
-            <span class="tip-title" style="margin-right: 20px">选择年级</span>
-            <el-select v-model="form.grade"
-                       @change="getClassData(form.grade)"
-                       clearable filterable placeholder="请输入年级">
-              <el-option v-for="(item, index) in gradeList" :key="index" :label="item.name" :value="item.name"/>
-            </el-select>
-          </div>
-          <div style="margin-top: 20px">
-            <span class="tip-title" style="margin-right: 20px">选择班级</span>
-            <el-select v-model="form.gradeId" placeholder="请选择" clearable filterable>
-              <el-option v-for="item in classList" :key="item._id" :label="item.name" :value="item._id"/>
-            </el-select>
-          </div>
-        </template>
-      </basic-container>
-      <basic-container style="margin-bottom: 60px">
-        <span class="tip-info"></span>
-        <span class="tip-title">选科信息</span>
-        <div class="m-top">
-          <div class="m-bottom">
-            <span class="tip-title">首选科目（2选1）</span>
-            <el-radio-group v-model="form.firstChoice">
-              <el-radio v-for="(item, index) in firstList" :label="item.name"/>
-            </el-radio-group>
-          </div>
-          <div style="display: flex; align-items: center">
-            <span class="tip-title">再选科目（4选2）</span>
-            <el-checkbox-group v-model="checkList" :max="2">
-              <el-checkbox v-for="(item, index) in recleaningList" :label="item.name" :key="index">{{ item.name }}
-              </el-checkbox>
-            </el-checkbox-group>
-          </div>
-        </div>
-      </basic-container>
-    </el-form>
-    <div class="footer-btn">
-      <el-button style="color: #475B75" @click="goBack">取消</el-button>
-      <el-button type="primary" :loading="loading" @click="operationData">保存</el-button>
-    </div>
-  </div>
+           <el-row :gutter="4">
+             <!--            <el-col :span="10">-->
+             <!--              <el-form-item label="年级" required-->
+             <!--                            prop="educationLevel">-->
+             <!--                <el-select v-model="form.educationLevel"-->
+             <!--                           @change="getClassData(form.educationLevel)"-->
+             <!--                           clearable filterable placeholder="请输入年级" style="width: 100%">-->
+             <!--                  <el-option v-for="(item, index) in gradeList" :key="index" :label="item.name" :value="item.name"/>-->
+             <!--                </el-select>-->
+             <!--              </el-form-item>-->
+             <!--            </el-col>-->
+             <el-col :span="10">
+               <el-form-item label="入学年份" required prop="enrollmentYear">
+                 <el-select v-model="form.enrollmentYear"
+                            :clearable="true" :filterable="true"
+                            placeholder="请输入入学年份" style="width: 100%">
+                   <el-option v-for="(item, index) in yearList" :key="index" :label="item.name" :value="item.name"/>
+                 </el-select>
+               </el-form-item>
+             </el-col>
+           </el-row>
+         </div>
+       </basic-container>
+       <basic-container>
+         <span class="tip-info"></span>
+         <span class="tip-title">班级信息</span>
+         <template v-if="form.gradeDto && form.gradeDto.name">
+           <div class="table-wrap">
+             <div class="table-title" style="background-color: #FFFFFF">
+               <!--              <span>班级ID</span>-->
+               <span>班级名称</span>
+               <!--              <span>班级类型</span>-->
+               <span>年级</span>
+               <span>入学年份</span>
+               <span>班主任</span>
+               <span>生涯导师1</span>
+               <span>生涯导师2</span>
+               <span>操作</span>
+             </div>
+             <div class="student-table-title">
+               <!--              <span>{{ form.gradeDto._id.slice(0, 12) }}</span>-->
+               <span>{{ form.gradeDto.name }}</span>
+               <!--              <span>{{ form.gradeDto.gradeType }}</span>-->
+               <span>{{ form.gradeDto.grade }}</span>
+               <span>{{ form.gradeDto.enrollmentYear }}</span>
+               <span>{{ form.gradeDto.teacherName }}</span>
+               <span>{{ form.gradeDto.teacher1Name }}</span>
+               <span>{{ form.gradeDto.teacher2Name }}</span>
+               <span style="color: #B8C3D6; cursor:pointer;" @click="removeClassInfo(form._id)">解除班级绑定</span>
+             </div>
+           </div>
+         </template>
+         <template v-else>
+           <div class="m-top">
+             <span class="tip-title" style="margin-right: 20px">选择年级</span>
+             <el-select v-model="form.grade"
+                        @change="getClassData(form.grade)"
+                        :clearable="true" :filterable="true"
+                        placeholder="请输入年级">
+               <el-option v-for="(item, index) in gradeList" :key="index" :label="item.name" :value="item.name"/>
+             </el-select>
+           </div>
+           <div style="margin-top: 20px">
+             <span class="tip-title" style="margin-right: 20px">选择班级</span>
+             <el-select v-model="form.gradeId"
+                        :clearable="true" :filterable="true"
+                        placeholder="请选择">
+               <el-option v-for="item in classList" :key="item._id" :label="item.name" :value="item._id"/>
+             </el-select>
+           </div>
+         </template>
+       </basic-container>
+       <basic-container style="margin-bottom: 60px">
+         <span class="tip-info"></span>
+         <span class="tip-title">选科信息</span>
+         <div class="m-top">
+           <div class="m-bottom">
+             <span class="tip-title">首选科目（2选1）</span>
+             <el-radio-group v-model="form.firstChoice">
+               <el-radio v-for="(item, index) in firstList" :label="item.name"/>
+             </el-radio-group>
+           </div>
+           <div style="display: flex; align-items: center">
+             <span class="tip-title">再选科目（4选2）</span>
+             <el-checkbox-group v-model="checkList" :max="2">
+               <el-checkbox v-for="(item, index) in recleaningList" :label="item.name" :key="index">{{ item.name }}
+               </el-checkbox>
+             </el-checkbox-group>
+           </div>
+         </div>
+       </basic-container>
+     </el-form>
+     <div class="footer-btn">
+       <el-button style="color: #475B75" @click="goBack">返回</el-button>
+       <el-button type="primary" :loading="loading" @click="operationData">保存</el-button>
+     </div>
+   </div>
+ </div>
 </template>
 
 <script>
@@ -230,6 +238,7 @@ export default {
           })
     },
     getEditData(params) {
+      this.loading = true;
       getStudentInfo(params)
           .then(res => {
             if (res.errorCode === 200) {
@@ -237,8 +246,12 @@ export default {
               this.form.recleaning1 && this.form.recleaning2
                   ? this.checkList = [this.form.recleaning1, this.form.recleaning2]
                   : this.checkList = [];
+              this.loading = false;
               this.form['gender'] = this.form.gender === 'F' ? '女' : '男';
               this.getClassData(this.form.grade);
+            } else {
+              this.loading = false;
+              errorTip(res.msg)
             }
           })
     },
@@ -285,6 +298,7 @@ export default {
                   that.loading = false;
                   that.getEditData(that.params)
                 } else {
+                  this.loading = false;
                   errorTip(res.msg)
                 }
               })

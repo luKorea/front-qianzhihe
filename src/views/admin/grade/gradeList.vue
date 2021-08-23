@@ -3,7 +3,7 @@
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">班级筛选</span>
-      <div class="flex-search">
+      <div class="search-wrap m-top">
 <!--        <div>-->
 <!--          <span class="tip">班级类型:</span>-->
 <!--          <el-select v-model="params.gradeType" placeholder="请选择" clearable filterable>-->
@@ -19,7 +19,7 @@
                        params.graduate = ''
                        getClassData(e)
                      }"
-                     placeholder="请选择" clearable filterable>
+                     placeholder="请选择" :clearable="true" :filterable="true">
             <template v-if="gradeList && gradeList.length > 0">
               <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
             </template>
@@ -27,19 +27,22 @@
         </div>
         <div>
           <span class="tip">班级:</span>
-          <el-select v-model="params.graduate" placeholder="请选择" clearable filterable>
+          <el-select v-model="params.graduate"
+                     placeholder="请选择"
+                     :clearable="true" :filterable="true"
+          >
             <template v-if="classList && classList.length > 0">
               <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
             </template>
           </el-select>
         </div>
-        <div style="display: flex; justify-content: space-between">
-          <el-input style="margin-right: 10px; " v-model="params.searchText"
+        <div>
+          <el-input style="margin-right: 10px; width: 300px" v-model="params.searchText"
                     @keyup.enter.native="getData({
                     ...params,
                     page: 0
                     })"
-                    placeholder="请输入班主任、生涯导师" clearable="true"/>
+                    placeholder="请输入班主任、生涯导师" :clearable="true"/>
           <el-button type="primary" :loading="loading" @click="searchData">筛选</el-button>
         </div>
       </div>
@@ -120,7 +123,7 @@
 <script>
 import {getGradeList, updateCourseSelectionFor} from "../../../api/admin/grade";
 import {selectTypeList, selectClassList} from "../../../api/common/search";
-import {operationTip, successTip} from "../../../utils/tip";
+import {errorTip, operationTip, successTip} from "../../../utils/tip";
 
 export default {
   name: "gradeList",
@@ -166,6 +169,8 @@ export default {
           if (res.errorCode === 200) {
             successTip();
             that.getData(this.params);
+          } else {
+            errorTip(res.msg)
           }
         })
       })
@@ -228,6 +233,9 @@ export default {
               this.list = data.result;
               this.loading = false;
               this.params.total = data.pageResult.total || 0;
+            } else {
+              errorTip(res.msg);
+              this.loading = false;
             }
           })
     },

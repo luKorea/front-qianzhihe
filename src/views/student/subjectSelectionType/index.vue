@@ -26,7 +26,7 @@
         <span class="modal-title" v-if="info.gradeDto !== undefined && info.isChoose === false">您的班级未开启志愿征集功能，如有需要请联系班级教师</span>
       </div>
       <div class="btn">
-        <el-button v-if="!showBtn" style="color: #475B75" @click="closeBtn">取消</el-button>
+        <el-button v-if="!showBtn" style="color: #475B75" @click="closeBtn">返回</el-button>
         <el-button v-if="!showBtn" type="primary" @click="operationData">保存</el-button>
         <el-button v-if="showBtn" type="primary"
                    :disabled="!info.isChoose"

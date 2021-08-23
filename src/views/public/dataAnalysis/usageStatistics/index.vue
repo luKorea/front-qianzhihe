@@ -1,9 +1,13 @@
 <template>
-<!-- TODO 假数据 -->
   <div>
     <basic-container>
-      <span class="tip-info"></span>
-      <span class="tip-title">平均使用时长</span>
+      <div style="display: flex">
+        <span class="tip-info"></span>
+        <div>
+          <span class="one">平均使用时长</span>
+          <span class="two">（每天0点更新数据）</span>
+        </div>
+      </div>
       <div class="time-flex">
         <div class="left">
           <i class="el-icon-time close-time"></i>
@@ -109,6 +113,7 @@
 <script>
 import {getTime, getHistory} from "../../../../api/common/dataAnalysis/usageStatistics";
 import {selectTypeList, selectClassList} from "../../../../api/common/search";
+import {errorTip} from "../../../../utils/tip";
 
 export default {
   name: "usageStatistics",
@@ -226,12 +231,13 @@ export default {
       this.loading = true;
       getHistory(params)
           .then(res => {
+            this.loading = false;
             if (res.errorCode === 200) {
               let data = res.data;
               this.list = data.result;
-              console.log(res);
-              this.loading = false;
               this.params.total = data.pageResult.total || 0;
+            } else{
+              errorTip('平台使用记录: ' + res.msg)
             }
           })
     },
@@ -318,5 +324,21 @@ export default {
   }
 }
 
+.one {
+  height: 22px;
+  font-size: 16px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #2E415B;
+  line-height: 22px;
+}
 
+.two {
+  height: 22px;
+  font-size: 14px;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #8489A4;
+  line-height: 22px;
+}
 </style>

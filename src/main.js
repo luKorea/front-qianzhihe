@@ -1,13 +1,9 @@
-import * as echarts from 'echarts';
-import animated from 'animate.css';
+import Vue from "vue";
 import '@/styles/index.scss' // global css
 
 import App from './App'
 import store from './store'
 import router from './router'
-
-
-
 import '@/icons' // icon
 import '@/permission' // permission control
 
@@ -18,15 +14,24 @@ import basicStudentBack from './components/sutdentBack/index';
 import basicPagination from './components/pagination/index';
 import basicNothing from './components/nothing/index';
 import basicSkeleton from './components/skeleton/index';
-
-
 import * as filters from './utils/filters';
+
+import { printANSI } from '@/utils/screenLog';
+printANSI();
+
+import './utils/element-ui'
+import 'element-ui/lib/theme-chalk/index.css';
+import animated from 'animate.css';
+
 
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
 
-Vue.prototype.$echarts = echarts;
+
+Vue.prototype.echarts = window.echarts;
+console.log(window.echarts);
+// Vue.prototype.$echarts = echarts;
 Vue.component('basicContainer', basicContainer);
 Vue.component('basicContainerBack', basicContainerBack);
 Vue.component('basicStudentBack', basicStudentBack);
@@ -51,11 +56,11 @@ Vue.directive('debounce', {
   }
 })
 
-Vue.use(window.AVUE, {
-  size: 'small',
-  tableSize: 'small',
-});
-Vue.use(ELEMENT)
+// Vue.use(window.AVUE, {
+//   size: 'small',
+//   tableSize: 'small',
+// });
+// Vue.use(ELEMENT)
 Vue.use(animated)
 
 Vue.config.productionTip = false

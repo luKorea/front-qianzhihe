@@ -1,6 +1,6 @@
 <template>
   <div>
-    <basic-skeleton :loading="loading" show-avatar></basic-skeleton>
+    <basic-skeleton :loading="loading"></basic-skeleton>
     <template v-if="!loading">
       <div>
         <basic-container-back>
@@ -15,7 +15,7 @@
               <el-col :span="8">
                 <div style="display: flex;align-items: center; margin-top: -10px">
                   <span class="student-title">头像：</span>
-                  <el-avatar size="30" :src="info.profilePicture"/>
+                  <el-avatar :size="30" :src="info.profilePicture"/>
                 </div>
               </el-col>
               <el-col :span="8">
@@ -62,7 +62,7 @@
         />
       </div>
       <div class="footer-btn-no-fixed">
-        <el-button style="color: #475B75" @click="goBack">取消</el-button>
+        <el-button style="color: #475B75" @click="goBack">返回</el-button>
       </div>
     </template>
   </div>

@@ -86,9 +86,6 @@ export default {
     this.switchData();
     this.getGrade();
     this.getClassData();
-    this.$nextTick(() => {
-      this.initCharts()
-    })
   },
   methods: {
     searchData() {

@@ -41,7 +41,7 @@ module.exports = {
   assetsDir: '.',
 
   lintOnSave: process.env.NODE_ENV === 'development',
-  productionSourceMap: false,
+  productionSourceMap: true,
   devServer: {
     disableHostCheck: true,
     port: port,
@@ -146,11 +146,11 @@ module.exports = {
         }
       )
     config.externals({
-      'vue': 'Vue',
-      'vue-router': 'VueRouter',
-      'vuex': 'Vuex',
-      'element-ui': 'ELEMENT',
-      'axios': 'axios',
+      // 'vue': 'Vue',
+      // 'vue-router': 'VueRouter',
+      // 'vuex': 'Vuex',
+      // 'element-ui': 'ELEMENT',
+      // 'axios': 'axios',
     });
     process.env.npm_config_report ? config
       .plugin('webpack-bundle-analyzer')

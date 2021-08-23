@@ -40,7 +40,7 @@
         <el-table-column prop="user.studentId" label="学号" align="center"></el-table-column>
         <el-table-column label="头像" align="center">
           <template slot-scope="scope">
-            <el-avatar size="32" :src="scope.row.user.profilePicture"></el-avatar>
+            <el-avatar :size="32" :src="scope.row.user.profilePicture"></el-avatar>
           </template>
         </el-table-column>
         <el-table-column prop="user.schoolUserName" label="姓名" align="center">
@@ -86,6 +86,7 @@
 <script>
 import {selectTypeList, selectClassList} from "../../../../api/common/search";
 import {getStudentEvaluationList} from "../../../../api/common/evaluation";
+import {errorTip} from "../../../../utils/tip";
 
 
 export default {
@@ -106,7 +107,7 @@ export default {
       evaluationTypeList: [
         {
           label: '不限',
-          value: '不限'
+          value: ''
         },
         {
           label: '性格测试',
@@ -202,6 +203,9 @@ export default {
               this.list = res.data.result;
               this.loading = false;
               this.params.total = res.data.pageResult.total || 0;
+            } else {
+              errorTip(res.msg)
+              this.loadin = false;
             }
           })
     },

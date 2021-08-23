@@ -55,18 +55,10 @@
 <script>
 export default {
   name: "basicInfo",
-  props: {
-    info: {
-      type: {
-        type: Object,
-        default: () => {
-        }
-      }
-    }
-  },
+  props: ['info'],
   data() {
     return {
-      charts: ''
+      charts: '',
     }
   },
   watch: {
@@ -92,7 +84,7 @@ export default {
       window.open(url);
     },
     draw() {
-      this.charts = this.$echarts.init(document.getElementById('sex-charts'));
+      this.charts = this.echarts.init(document.getElementById('sex-charts'));
       let options = {
         legend: {
           top: 'center',

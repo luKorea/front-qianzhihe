@@ -1,6 +1,6 @@
 <template>
   <div>
-    <basic-skeleton :loading="loading" show-avatar="true" :number="20"></basic-skeleton>
+    <basic-skeleton :loading="loading" :number="20"></basic-skeleton>
     <template v-if="!loading">
       <basic-container-back v-if="info.videoList && info.videoList.length > 0">
         <video-list :video-list="info.videoList"></video-list>

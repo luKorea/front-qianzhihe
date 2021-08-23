@@ -15,7 +15,9 @@
           <span class="orange-title">完成人数： {{percentInfo.achieveCount || 0}}</span>
         </div>
       </div>
-      <div id="interest-charts" style="width: 100%; height: 350px"></div>
+     <template v-show="list.length > 0">
+       <div id="interest-charts" style="width: 100%; height: 350px"></div>
+     </template>
     </div>
     <div class="tip">
       <div class="tip-number">
@@ -145,7 +147,7 @@ export default {
       })
     },
     initCharts() {
-      this.charts = this.$echarts.init(document.getElementById('interest-charts'));
+      this.charts = this.echarts.init(document.getElementById('interest-charts'));
       this.setOptions(this.list);
     },
     setOptions(data = []) {

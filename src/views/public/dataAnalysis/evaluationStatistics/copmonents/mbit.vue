@@ -15,7 +15,9 @@
           <span class="orange-title">完成人数： {{ percentInfo.achieveCount || 0 }}</span>
         </div>
       </div>
-      <div id="character-charts" style="width: 100%; height: 350px"></div>
+      <template v-show="list.length > 0">
+        <div id="character-charts" style="width: 100%; height: 350px"></div>
+      </template>
     </div>
     <div class="tip">
       <div class="tip-number">
@@ -100,7 +102,7 @@ export default {
   },
   data() {
     return {
-      charts: null,
+      charts: '',
       one: require('./../../../../../assets/icon-img/one.png'),
       two: require('./../../../../../assets/icon-img/two.png'),
       three: require('./../../../../../assets/icon-img/three.png'),
@@ -123,9 +125,7 @@ export default {
   },
   mounted() {
     console.log(this.percentInfo, 'info');
-    this.$nextTick(() => {
-      this.initCharts()
-    })
+    this.initCharts()
   },
   methods: {
     format(percentage) {
@@ -149,7 +149,7 @@ export default {
       })
     },
     initCharts() {
-      this.charts = this.$echarts.init(document.getElementById('character-charts'));
+      this.charts = this.echarts.init(document.getElementById('character-charts'));
       this.setOptions(this.list);
     },
     setOptions(data = []) {

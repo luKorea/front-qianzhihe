@@ -56,7 +56,7 @@
             <div class="major-progress">
               <el-progress style="margin-bottom: 20px"
                            :percentage="setPercent(item.averageScore)"
-                           :show-text="false" stroke-width="20"/>
+                           :show-text="false" :stroke-width="20"/>
             </div>
           </div>
         </template>

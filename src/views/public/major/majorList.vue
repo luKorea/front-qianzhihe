@@ -6,7 +6,7 @@
       <div class="search-wrap m-top">
         <el-input v-model="params.keywords"
                   @keyup.enter.native="goSearch('major', params.keywords)"
-                  placeholder="请输入专业名称" clearable="true"/>
+                  placeholder="请输入专业名称" :clearable="true"/>
         <el-button type="primary" @click="goSearch('major', params.keywords)">搜索</el-button>
       </div>
       <div class="type-list">

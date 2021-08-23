@@ -91,7 +91,7 @@
             <el-table-column prop="studentId" label="学号" align="center"/>
             <el-table-column label="头像" align="center">
               <template slot-scope="scope">
-                <el-avatar size="32" :src="scope.row.profilePicture"></el-avatar>
+                <el-avatar :size="32" :src="scope.row.profilePicture"></el-avatar>
               </template>
             </el-table-column>
             <el-table-column prop="schoolUserName" label="姓名" align="center">
@@ -139,7 +139,7 @@
 <script>
 import {getGradeVisitInfo, exportStudent, updateCourseSelectionFor} from "../../../../api/admin/grade";
 import {removeStudentToClass} from "../../../../api/admin/students";
-import {operationTip, successTip} from "../../../../utils/tip";
+import {errorTip, operationTip, successTip} from "../../../../utils/tip";
 
 export default {
   name: "visit",
@@ -203,11 +203,13 @@ export default {
       this.loading = true;
       getGradeVisitInfo(params)
           .then(res => {
+            this.loading = false;
             if (res.errorCode === 200) {
-              this.loading = false;
               this.info = res.data.object;
               this.list = res.data.result;
               this.params.total = res.data.pageResult.total || 0;
+            } else {
+              errorTip(res.msg)
             }
           })
     },
@@ -243,6 +245,8 @@ export default {
                 successTip();
                 // that.params.gradeId = '';
                 that.getInfo(that.params)
+              } else {
+                errorTip(res.msg)
               }
             })
       })

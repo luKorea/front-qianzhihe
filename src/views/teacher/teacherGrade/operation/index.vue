@@ -87,7 +87,7 @@
       </basic-container>
     </el-form>
     <div class="footer-btn">
-      <el-button style="color: #475B75" @click="goBack">取消</el-button>
+      <el-button style="color: #475B75" @click="goBack">返回</el-button>
       <el-button type="primary" @click="operationData">{{ text }}</el-button>
     </div>
   </div>

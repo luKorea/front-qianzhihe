@@ -6,7 +6,7 @@
       <div class="search-wrap m-top">
         <el-input v-model="params.keywords"
                   @keyup.enter.native="confirmData"
-                  placeholder="" clearable="true"/>
+                  placeholder="" :clearable="true"/>
         <el-button type="primary" :loading="loading" @click="confirmData">搜索</el-button>
       </div>
     </basic-container-back>

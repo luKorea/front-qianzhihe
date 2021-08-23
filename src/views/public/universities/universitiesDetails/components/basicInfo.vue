@@ -35,14 +35,7 @@
 <script>
 export default {
   name: "basicInfo",
-  props: {
-    info: {
-      type: {
-        type: Object,
-        default: () => {}
-      }
-    }
-  }
+  props: ['info']
 }
 </script>
 

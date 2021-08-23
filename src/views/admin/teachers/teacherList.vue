@@ -6,7 +6,7 @@
       <div class="search-wrap m-top">
         <div>
           <span class="tip">教师类型:</span>
-          <el-select v-model="params.teacherType" placeholder="请选择" clearable filterable>
+          <el-select v-model="params.teacherType" placeholder="请选择" :clearable="true" :filterable="true">
             <template v-if="teacherList && teacherList.length > 0">
               <el-option v-for="item in teacherList" :label="item.name" :value="item.name"></el-option>
             </template>
@@ -14,20 +14,20 @@
         </div>
         <div>
           <span class="tip">代课年级:</span>
-          <el-select v-model="params.grade" placeholder="请选择" clearable filterable>
+          <el-select v-model="params.grade" placeholder="请选择" :clearable="true" :filterable="true">
             <template v-if="gradeList && gradeList.length > 0">
               <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
             </template>
           </el-select>
         </div>
-        <div style="display:flex; justify-content: space-between">
+        <div>
           <el-input style="margin-right: 10px"
                     @keyup.enter.native="getData({
                     ...params,
                     page: 0
                     })"
                     v-model="params.queryOrTeacherNameOrPhone" placeholder="请输入教师名称、手机号"
-                    clearable="true"/>
+                    :clearable="true"/>
           <el-button type="primary" :loading="loading" @click="searchData">筛选</el-button>
         </div>
       </div>
@@ -157,7 +157,7 @@ export default {
     },
     deleteTeacherApi(ids) {
       let id = typeof ids === 'string' ? [ids] : ids;
-      deleteTeacher([id]).then(res => {
+      deleteTeacher(id).then(res => {
         if (res.errorCode === 200) {
           this.$message({
             type: 'success',
@@ -214,12 +214,12 @@ export default {
       this.loading = true;
       getTeacherList(params)
       .then(res => {
+        this.loading = false;
         if (res.errorCode === 200) {
           let data = res.data;
           this.list = data.result;
-          this.loading = false;
           this.params.total = data.pageResult.total || 0;
-        }
+        } else errorTip(res.msg)
       })
     },
     handleCurrentChange(val) {

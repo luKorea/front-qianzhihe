@@ -7,7 +7,9 @@
       </div>
       <div class="login-from animate__animated animate__backInRight">
         <div class="form-logo animate__animated animate__tada animate__delay-2s">
-          <img :src="logo" alt="">
+          <el-tooltip class="item" effect="dark" content="千职鹤" placement="top">
+            <img :src="logo" alt="">
+          </el-tooltip>
         </div>
         <div class="form-title">{{ defaultSettingsTitle }}</div>
         <el-tabs v-model="activeName" stretch>
@@ -65,8 +67,12 @@
                 </el-col>
               </el-row>
               <div class="form-info">
-                <el-checkbox v-model="checked">7天免登录</el-checkbox>
-                <el-link type="info" @click="showImg">忘记密码?</el-link>
+                <el-tooltip content="勾选后可在7天内免登录进入系统" placement="top"class="item">
+                  <el-checkbox v-model="loginForm.is7Ssh">7天免登录</el-checkbox>
+                </el-tooltip>
+                <el-tooltip class="item" effect="dark" content="忘记密码" placement="top">
+                  <el-link type="info" @click="showImg">忘记密码?</el-link>
+                </el-tooltip>
               </div>
               <el-button
                   type="primary"
@@ -132,7 +138,9 @@
               </el-row>
               <div class="form-info">
                 <!--                <el-checkbox v-model="checked">7天免登录</el-checkbox>-->
-                <el-link type="info" @click="showImg">忘记密码?</el-link>
+                <el-tooltip class="item" effect="dark" content="忘记密码" placement="top">
+                  <el-link type="info" @click="showImg">忘记密码?</el-link>
+                </el-tooltip>
               </div>
               <el-button
                   type="primary"
@@ -238,7 +246,8 @@ export default {
         username: '',
         password: '',
         code: '',
-        uuid: ''
+        uuid: '',
+        is7Ssh: false
       },
       studentLoginForm: {
         username: '',
@@ -269,7 +278,6 @@ export default {
       loadingConfirm: false,
       passwordType: 'password',
       redirect: undefined,
-      checked: false,
       defaultSettingsTitle: defaultSettings.title,
       logo: require('../../../assets/logo.png'),
       loginImg: require('../../../assets/login/login-bg.png'),
@@ -361,10 +369,10 @@ export default {
             username: that.loginForm.username,
             password: that.loginForm.password,
             code: that.loginForm.code,
-            uuid: that.loginForm.uuid
+            uuid: that.loginForm.uuid,
+            is7Ssh: that.loginForm.is7Ssh
           }
           that.$store.dispatch('user/login', params).then((res) => {
-            const {user} = res;
             //获取权限
             that.$store.dispatch('user/getControl', {}).then(() => {
               that.$router.push({path: '/'})
@@ -391,7 +399,8 @@ export default {
             username: that.studentLoginForm.username,
             password: that.studentLoginForm.password,
             code: that.studentLoginForm.code,
-            uuid: that.studentLoginForm.uuid
+            uuid: that.studentLoginForm.uuid,
+            type: 'student'
           }
           that.$store.dispatch('user/login', params).then((res) => {
             const {user} = res;
@@ -414,14 +423,15 @@ export default {
               //获取权限
               console.log(user, '用户信息');
               // 诸葛埋点
-              zhuge.track('用户登录'); //事件名称不能超过20个字符
-              zhuge.identify(user._id,
+              zhuge.track('WEB端用户埋点'); //事件名称不能超过20个字符
+              console.log(zhuge);
+              zhuge.identify(String(user._id),
                   {
                     name: user.schoolUserName,
-                    '性别': user.gender,
-                    '年级': user.grade,
-                    '学校': user.createBy,
-                    '手机号': user.phone,
+                    gender: user.gender,
+                    class_level: user.grade,
+                    school: user.createBy,
+                    phone: user.phone,
                   },
                   function () {
                     that.$store.dispatch('user/getControl', {}).then(() => {
@@ -460,14 +470,14 @@ export default {
                   );
                   console.log('用户信息', _this.backInfo);
                   // 诸葛埋点
-                  zhuge.track('用户登录'); //事件名称不能超过20个字符
-                  zhuge.identify(_this.backInfo._id,
+                  zhuge.track('WEB端用户埋点'); //事件名称不能超过20个字符
+                  zhuge.identify(String(_this.backInfo._id),
                       {
                         name: _this.backInfo.schoolUserName,
-                        '性别': _this.backInfo.gender,
-                        '年级': _this.backInfo.grade,
-                        '学校': _this.backInfo.createBy,
-                        '手机号': _this.backInfo.phone,
+                        gender: _this.backInfo.gender,
+                        class_level: _this.backInfo.grade,
+                        school: _this.backInfo.createBy,
+                        phone: _this.backInfo.phone
                       },
                       function () {
                         _this.$store.dispatch('user/getControl', {}).then(() => {

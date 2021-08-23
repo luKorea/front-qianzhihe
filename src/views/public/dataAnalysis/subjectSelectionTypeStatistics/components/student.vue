@@ -17,7 +17,7 @@
         <span class="tip">年级:</span>
         <el-select v-model="params.grade"
                    @change="changeGrade"
-                   placeholder="请选择" clearable filterable>
+                   placeholder="请选择" :clearable="true" :filterable="true">
           <template v-if="gradeList && gradeList.length > 0">
             <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
           </template>
@@ -27,7 +27,7 @@
         <span class="tip">班级:</span>
         <el-select v-model="params.graduate"
                    @change="confirmData"
-                   placeholder="请选择" clearable filterable>
+                   placeholder="请选择" :clearable="true" :filterable="true">
           <template v-if="classList && classList.length > 0">
             <el-option v-for="item in classList" :label="item.name" :value="item.name"></el-option>
           </template>

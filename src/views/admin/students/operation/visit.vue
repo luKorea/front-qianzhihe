@@ -1,6 +1,6 @@
 <template>
   <div>
-    <basic-skeleton :loading="loading" show-avatar :number="20"></basic-skeleton>
+    <basic-skeleton :loading="loading" :number="20"></basic-skeleton>
     <template v-if="!loading">
       <basic-container-back>
         <span class="tip-info"></span>
@@ -14,7 +14,7 @@
             <el-col :span="8">
               <div style="display: flex;align-items: center">
                 <span class="student-title">头像：</span>
-                <el-avatar size="30" :src="info.profilePicture" style="margin-top: -20px"/>
+                <el-avatar :size="30" :src="info.profilePicture" style="margin-top: -20px"/>
               </div>
             </el-col>
             <el-col :span="8">

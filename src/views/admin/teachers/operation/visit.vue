@@ -1,6 +1,6 @@
 <template>
   <div>
-    <basic-skeleton :loading="loading" show-avatar></basic-skeleton>
+    <basic-skeleton :loading="loading"></basic-skeleton>
     <template v-if="!loading">
       <basic-container-back>
         <span class="tip-info"></span>
@@ -55,8 +55,8 @@
             <el-table-column prop="grade" label="年级" align="center"/>
             <el-table-column prop="enrollmentYear" label="入学年份" align="center"/>
             <el-table-column prop="teacherName" label="班主任" align="center"/>
-            <el-table-column prop="teacher2Name" label="生涯导师1" align="center"/>
-            <el-table-column prop="teacher1Name" label="生涯导师2" align="center"/>
+            <el-table-column prop="teacher1Name" label="生涯导师1" align="center"/>
+            <el-table-column prop="teacher2Name" label="生涯导师2" align="center"/>
             <el-table-column label="操作" align="center">
               <template slot-scope="scope">
                 <el-button type="text" size="small" @click="goOperationType('visit', scope.row._id)">查看班级详情</el-button>
@@ -83,6 +83,7 @@
 
 <script>
 import {getTeacherInfo} from "../../../../api/admin/taecher";
+import {errorTip} from "../../../../utils/tip";
 
 export default {
   name: "visit",
@@ -119,6 +120,9 @@ export default {
               this.list = data.result;
               this.loading = false;
               this.params.total = data.pageResult.total || 0;
+            } else {
+              this.loading = false;
+              errorTip(res.msg)
             }
           })
     },

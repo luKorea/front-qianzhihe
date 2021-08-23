@@ -70,7 +70,7 @@
             <el-table-column prop="studentId" label="学号" align="center" />
             <el-table-column label="头像" align="center">
               <template slot-scope="scope">
-                <el-avatar size="32" :src="scope.row.profilePicture"></el-avatar>
+                <el-avatar :size="32" :src="scope.row.profilePicture"></el-avatar>
               </template>
             </el-table-column>
             <el-table-column prop="schoolUserName" label="姓名" align="center">

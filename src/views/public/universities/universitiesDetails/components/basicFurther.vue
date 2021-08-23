@@ -8,7 +8,7 @@
           <el-progress type="circle"
                        :percentage="info.inland_enrolment_rate"
                        color="#FC9131"
-                       stroke-width="12"/>
+                       :stroke-width="12"/>
         </div>
       </div>
       <div class="further-center" v-if="info.foreign_enrolment_rate">
@@ -16,7 +16,7 @@
         <span class="tip-title" id="uni-wai">国外升学率</span>
         <div class="cricle">
           <el-progress type="circle" color="#FF6A53"
-                       stroke-width="12"
+                       :stroke-width="12"
                        :percentage="info.foreign_enrolment_rate"/>
         </div>
       </div>
@@ -25,7 +25,7 @@
         <span class="tip-title" id="uni-jiu">就业率</span>
         <div style="margin-top: 20px">
           <el-progress type="circle" color="#FF6A53"
-                       stroke-width="12"
+                       :stroke-width="12"
                        :percentage="info.employment_rate"/>
         </div>
       </div>
@@ -38,7 +38,7 @@
         <div class="wrap">
           <div class="address" v-for="(item, index) in info.obtainRegionEmploymenList" :key="index">
             <span class="title">{{ item.industry_region }}</span>
-            <el-progress :percentage="item.data" class="info" text-inside stroke-width="20"/>
+            <el-progress :percentage="item.data" class="info" text-inside :stroke-width="20"/>
           </div>
         </div>
       </template>
@@ -53,7 +53,6 @@
 </template>
 
 <script>
-
 export default {
   name: "basicFurther",
   props: {
@@ -91,7 +90,7 @@ export default {
   },
   methods: {
     initDraw() {
-      this.chart = this.$echarts.init(document.getElementById('company-charts'));
+      this.chart = this.echarts.init(document.getElementById('company-charts'));
       this.draw(this.info);
     },
     draw(info) {

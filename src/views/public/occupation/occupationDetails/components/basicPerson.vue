@@ -114,7 +114,7 @@ export default {
           align-items: center;
           text-align: center;
           background: #FC9131;
-          border-radius: 4px 0 0 0;
+          border-radius: 4px;
           margin-right: 2px;
           font-size: 14px;
           font-family: PingFangSC-Medium, PingFang SC;
@@ -127,7 +127,7 @@ export default {
           //height: 65px;
           padding: 15px;
           background: #FEE9D6;
-          border-radius: 0px 4px 0px 0px;
+          border-radius: 4px;
           font-size: 14px;
           font-family: PingFangSC-Regular, PingFang SC;
           font-weight: 400;
@@ -146,7 +146,7 @@ export default {
           align-items: center;
           text-align: center;
           background: #4D97FF;
-          border-radius: 4px 0 0 0;
+          border-radius: 4px;
           margin-right: 2px;
           font-size: 14px;
           font-family: PingFangSC-Medium, PingFang SC;
@@ -159,7 +159,7 @@ export default {
           //height: 65px;
           padding: 15px;
           background: #DBEAFF;
-          border-radius: 0px 4px 0px 0px;
+          border-radius: 4px;
           font-size: 14px;
           font-family: PingFangSC-Regular, PingFang SC;
           font-weight: 400;

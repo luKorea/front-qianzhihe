@@ -49,6 +49,7 @@
 </template>
 
 <script>
+
 import {hollandType} from "../../../../../utils/list";
 
 export default {
@@ -60,8 +61,8 @@ export default {
       }
     },
     majorList: {
-      type: Array,
-      default: () => []
+      type: Object,
+      default: () => {}
     },
     typeList: {
       type: Array,
@@ -106,12 +107,16 @@ export default {
   },
   methods: {
     initCharts() {
-      this.charts = this.$echarts.init(document.getElementById('random-charts'));
+      this.charts = this.echarts.init(document.getElementById('random-charts'));
       this.setOptions(this.randomInfo);
     },
     setOptions(data) {
       let max = 35;
       let option = {
+        "tooltip": {
+          "show": true,
+          "trigger": "item",
+        },
         radar: {
           indicator: [
             {name: '社会型', max},// s
@@ -123,6 +128,7 @@ export default {
           ]
         },
         series: [{
+          name: '测评结果(最高分35分)',
           type: 'radar',
           itemStyle: {     //此属性的颜色和下面areaStyle属性的颜色都设置成相同色即可实现
             color: '#1E81FF',

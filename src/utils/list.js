@@ -42,7 +42,7 @@ export const mbitList = [
         "id": 7,
         "name": "你是看细节还是看大框架",
         "selectA": "我注重细节",
-        "selectB": "我注重细节"
+        "selectB": "我注重形式"
     },
     {
         "id": 8,

@@ -28,7 +28,7 @@
       <el-progress :percentage="percentage" status="success"></el-progress>
     </div>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="closeFile()">取 消</el-button>
+<!--      <el-button @click="closeFile()">取 消</el-button>-->
       <el-button type="primary" @click="postFile()" :loading="loading">确 定</el-button>
     </div>
   </el-dialog>
@@ -118,7 +118,7 @@ export default {
           console.log(res);
           if (res.errorCode === 200) {
             that.$refs.upload.clearFiles(); //上传成功之后清除历史记录
-            that.$message.success("导入成功");
+            that.$message.success("上传时间大概需要1-3分钟后上传完毕，您可以先关闭页面，等上传完毕之后再查看上传的内容");
             that.closeFile();
             that.loading = false;
             that.$emit('getData');

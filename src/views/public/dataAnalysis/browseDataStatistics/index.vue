@@ -49,6 +49,8 @@
 <script>
 import {selectTypeList, selectClassList} from "../../../../api/common/search";
 import {getList} from "../../../../api/common/dataAnalysis/browseDataStatistics";
+import {errorTip} from "../../../../utils/tip";
+
 
 export default {
   name: "browseDataStatistics",
@@ -112,7 +114,11 @@ export default {
     this.getClassData();
     this.$nextTick(() => {
       this.initCharts()
-    })
+    });
+    window.addEventListener("resize", () => {
+      this.majorCharts.resize();
+      this.occupationCharts.resize();
+    });
   },
   methods: {
     searchData() {
@@ -139,13 +145,15 @@ export default {
       this.loading = true;
       getList(params)
           .then(res => {
+            this.loading = false;
             if (res.errorCode === 200) {
-              this.loading = false;
               if (params.type === 'Occupation') {
                 this.occupationList = res.data;
               } else {
                 this.majorList = res.data;
               }
+            } else {
+              errorTip(res.msg)
             }
           })
     },
@@ -154,8 +162,8 @@ export default {
       this.getData({...this.params, type: 'Occupation'});
     },
     initCharts() {
-      this.majorCharts = this.$echarts.init(document.getElementById('major-charts'));
-      this.occupationCharts = this.$echarts.init(document.getElementById('occupation-charts'));
+      this.majorCharts = this.echarts.init(document.getElementById('major-charts'));
+      this.occupationCharts = this.echarts.init(document.getElementById('occupation-charts'));
       this.setMajorOptions(this.majorList);
       this.setOccupations(this.occupationList);
     },
@@ -188,16 +196,10 @@ export default {
           data: valueList,
           type: 'bar',
           barMaxWidth: 20,
-          showBackground: true,
           itemStyle: {
-            color: new this.$echarts.graphic.LinearGradient(
-                1, 0, 0, 0,
-                [
-                  {offset: 0, color: '#83bff6'},
-                  {offset: 0.5, color: '#188df0'},
-                  {offset: 1, color: '#4D97FF'}
-                ]
-            )
+            normal: {
+              barBorderRadius: [0,30,30,0],
+            }
           },
         }]
       })
@@ -231,16 +233,11 @@ export default {
               data: valueList,
               type: 'bar',
               barMaxWidth: 20,
-              showBackground: true,
+              // showBackground: true,
               itemStyle: {
-                color: new this.$echarts.graphic.LinearGradient(
-                    1, 0, 0, 0,
-                    [
-                      {offset: 0, color: '#f6bf8d'},
-                      {offset: 0.5, color: '#f3ac6c'},
-                      {offset: 1, color: '#FC9131'}
-                    ]
-                )
+                normal: {
+                  barBorderRadius: [0,30,30,0],
+                }
               },
             }]
           }

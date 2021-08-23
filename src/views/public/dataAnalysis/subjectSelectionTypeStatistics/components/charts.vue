@@ -17,16 +17,20 @@
         </div>
       </div>
     </div>
-    <div class="item">
-      <span class="tip-info"></span>
-      <span class="tip-title">首选科目分布</span>
-      <div id="first-charts" style="width: 100%; height: 250px"></div>
-    </div>
-    <div class="item">
-      <span class="tip-info"></span>
-      <span class="tip-title">再选科目分布</span>
-      <div id="recleaning-charts" style="width: 100%; height: 250px"></div>
-    </div>
+    <template v-show="firstData.length > 0">
+      <div class="item">
+        <span class="tip-info"></span>
+        <span class="tip-title">首选科目分布</span>
+        <div id="first-charts" style="width: 100%; height: 250px"></div>
+      </div>
+    </template>
+    <template v-show="recleaningData.length > 0">
+      <div class="item">
+        <span class="tip-info"></span>
+        <span class="tip-title">再选科目分布</span>
+        <div id="recleaning-charts" style="width: 100%; height: 250px"></div>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -64,8 +68,8 @@ export default {
   },
   data() {
     return {
-      firstCharts: null,
-      recleaningCharts: null
+      firstCharts: '',
+      recleaningCharts: ''
     }
   },
   mounted() {
@@ -80,11 +84,11 @@ export default {
       return `${percentage}%\n完成率`;
     },
     initFirst() {
-      this.firstCharts = this.$echarts.init(document.getElementById('first-charts'));
+      this.firstCharts = this.echarts.init(document.getElementById('first-charts'));
       this.setFirstOptions(this.firstData);
     },
     initRecleaning() {
-      this.recleaningCharts = this.$echarts.init(document.getElementById('recleaning-charts'));
+      this.recleaningCharts = this.echarts.init(document.getElementById('recleaning-charts'));
       this.setRecleaning(this.recleaningData);
     },
     setFirstOptions(data) {

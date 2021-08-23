@@ -1,6 +1,6 @@
 <template>
   <div id="major-container">
-    <basic-skeleton :loading="loading" show-avatar="true" :number="20"></basic-skeleton>
+    <basic-skeleton :loading="loading" :number="20"></basic-skeleton>
     <template v-if="!loading">
       <basic-info :info="info"/>
       <basic-container>
