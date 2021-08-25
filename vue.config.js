@@ -1,8 +1,7 @@
 'use strict'
 const path = require('path')
 const defaultSettings = require('./src/settings.js');
-
-
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -43,10 +42,10 @@ module.exports = {
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: true,
   devServer: {
-    disableHostCheck: true,
     port: port,
     open: true,
     hot: true,
+    // 开启gzip压缩
     host: getNetworkIp(),
     overlay: {
       warnings: false,
@@ -72,9 +71,12 @@ module.exports = {
         '@': resolve('src'),
         '@@': resolve('.')
       }
-    }
+    },
   },
   chainWebpack(config) {
+    // 图形化显示打包文件体积，分析包大小
+    config.plugin('webpack-bundle-analyzer')
+        .use(BundleAnalyzerPlugin)
     // it can improve the speed of the first screen, it is recommended to turn on preload
     config.plugin('preload').tap(() => [
       {
@@ -88,7 +90,8 @@ module.exports = {
 
     // when there are many pages, it will cause too many meaningless requests
     config.plugins.delete('prefetch')
-
+    config.plugins.delete('preload')
+    config.optimization.minimize(true);
     // set svg-sprite-loader
     config.module
       .rule('svg')
@@ -125,17 +128,17 @@ module.exports = {
                   name: 'chunk-libs',
                   test: /[\\/]node_modules[\\/]/,
                   priority: 10,
-                  chunks: 'initial' // only package third parties that are initially dependent
+                  chunks: 'initial'
                 },
                 elementUI: {
-                  name: 'chunk-elementUI', // split elementUI into a single package
-                  priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
-                  test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
+                  name: 'chunk-elementUI',
+                  priority: 20,
+                  test: /[\\/]node_modules[\\/]_?element-ui(.*)/
                 },
                 commons: {
                   name: 'chunk-commons',
-                  test: resolve('src/components'), // can customize your rules
-                  minChunks: 3, //  minimum common number
+                  test: resolve('src/components'),
+                  minChunks: 3,
                   priority: 5,
                   reuseExistingChunk: true
                 }
@@ -143,17 +146,11 @@ module.exports = {
             })
           // https:// webpack.js.org/configuration/optimization/#optimizationruntimechunk
           config.optimization.runtimeChunk('single')
+
         }
       )
-    config.externals({
-      // 'vue': 'Vue',
-      // 'vue-router': 'VueRouter',
-      // 'vuex': 'Vuex',
-      // 'element-ui': 'ELEMENT',
-      // 'axios': 'axios',
-    });
     process.env.npm_config_report ? config
       .plugin('webpack-bundle-analyzer')
       .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin) : ""
-  }
+  },
 }
