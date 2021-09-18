@@ -4,7 +4,7 @@
   "description": "1",
   "author": "1",
   "scripts": {
-    "dev": "vue-cli-service serve",
+    "dev": "vue-cli-service serve --sourceMap=false",
     "build": "vue-cli-service build",
     "analyze": "set npm_config_report=true && npm run build"
   },

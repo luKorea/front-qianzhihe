@@ -48,7 +48,6 @@ import {
     Skeleton,
     SkeletonItem,
     Avatar,
-    Scrollbar,
     Loading,
     MessageBox,
     Message,

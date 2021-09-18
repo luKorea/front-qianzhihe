@@ -1,52 +1,56 @@
 <template>
   <div :class="{'has-logo':showLogo}">
     <logo v-if="showLogo" :collapse="isCollapse"/>
-    <div wrap-class="scrollbar-wrapper">
-      <el-menu :default-active="activeMenu"
-               :collapse="isCollapse" :background-color="variables.menuBg"
-               :text-color="variables.menuText" :unique-opened="true"
-               :active-text-color="variables.menuActiveText"
-               :collapse-transition="false" mode="vertical">
-        <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path"/>
+      <el-menu
+          :default-active="activeMenu"
+          :collapse="isCollapse"
+          :background-color="variables.menuBg"
+          :text-color="variables.menuText"
+          :unique-opened="false"
+          :active-text-color="variables.menuActiveText"
+          :collapse-transition="false"
+          unique-opened
+          mode="vertical"
+      >
+        <sidebar-item v-for="route in permission_routers" :key="route.path" :item="route" :base-path="route.path"/>
       </el-menu>
-    </div>
   </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 import Logo from './Logo'
 import SidebarItem from './SidebarItem'
 import variables from '@/styles/variables.scss'
 
 export default {
-  components: {SidebarItem, Logo},
+  components: { SidebarItem, Logo },
   computed: {
     ...mapGetters([
       'sidebar',
-      'permission_routers'
+      'permission_routers',
     ]),
-    routes() {
-      return this.permission_routers
-    },
-    activeMenu() {
+    activeMenu () {
       const route = this.$route
-      const {meta, path} = route
+      const { meta, path } = route
       // if set path, the sidebar will highlight the path you set
       if (meta.activeMenu) {
         return meta.activeMenu
       }
       return path
     },
-    showLogo() {
+    showLogo () {
       return this.$store.state.settings.sidebarLogo
     },
-    variables() {
+    variables () {
       return variables
     },
-    isCollapse() {
+    isCollapse () {
       return !this.sidebar.opened
-    }
+    },
+  },
+  methods: {
+
   }
 }
 </script>

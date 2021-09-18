@@ -37,7 +37,7 @@ export default {
       return {
         to: to
       }
-    }
+    },
   }
 }
 </script>

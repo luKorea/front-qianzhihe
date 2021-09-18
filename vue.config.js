@@ -1,7 +1,6 @@
 'use strict'
 const path = require('path')
 const defaultSettings = require('./src/settings.js');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -63,8 +62,6 @@ module.exports = {
     }
   },
   configureWebpack: {
-    // provide the app's title in webpack's name field, so that
-    // it can be accessed in index.html to inject the correct title.
     name: name,
     resolve: {
       alias: {
@@ -74,9 +71,6 @@ module.exports = {
     },
   },
   chainWebpack(config) {
-    // 图形化显示打包文件体积，分析包大小
-    config.plugin('webpack-bundle-analyzer')
-        .use(BundleAnalyzerPlugin)
     // it can improve the speed of the first screen, it is recommended to turn on preload
     config.plugin('preload').tap(() => [
       {
@@ -91,7 +85,7 @@ module.exports = {
     // when there are many pages, it will cause too many meaningless requests
     config.plugins.delete('prefetch')
     config.plugins.delete('preload')
-    config.optimization.minimize(true);
+    process.env.NODE_ENV === 'production' && config.optimization.minimize(true);
     // set svg-sprite-loader
     config.module
       .rule('svg')
