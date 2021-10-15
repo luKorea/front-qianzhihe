@@ -11,7 +11,6 @@ NProgress.configure({
     trickleSpeed: 1
 }) // NProgress Configuration
 
-
 /**
  *
  * @param url

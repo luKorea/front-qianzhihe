@@ -1,12 +1,13 @@
 <template>
   <section class="app-main">
     <transition name="fade-transform" mode="out-in">
-      <keep-alive v-if="$route.meta.keepAlive">
-        <router-view :key="key"/>
-      </keep-alive>
-      <keep-alive v-else>
-        <router-view :key="key"/>
-      </keep-alive>
+<!--      <keep-alive v-if="$route.meta.keepAlive">-->
+<!--        <router-view :key="key"/>-->
+<!--      </keep-alive>-->
+<!--      <keep-alive v-else>-->
+<!--        <router-view :key="key"/>-->
+<!--      </keep-alive>-->
+      <router-view/>
     </transition>
     <!--      <back-to-top transition-name="fade"/>-->
   </section>

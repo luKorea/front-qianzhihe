@@ -34,6 +34,9 @@ export default {
       NProgress.configure({ easing: 'ease', speed: 100 });
       NProgress.configure({minimum:0.0});
     }
+  },
+  deactivated (a, next) {
+
   }
 }
 </script>

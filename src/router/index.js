@@ -100,234 +100,157 @@ export const constantRoutes = constantRoutesStart;
 
 /** 异步加载Routes 根据权限 */
 export const asyncRouterMap = [
-  // 管理员
-  {
-    path: "/grade",
-    redirect: "/grade/gradeList",
-    component: Layout,
-    name: "班级管理",
-    meta: {
-      title: "班级管理",
-      showTag: true,
-      icon: "el-icon-s-data",
-      roles: ["grade"],
-      breadcrumb: true,
-    },
-    children: [
-      {
-        path: "gradeList",
-        name: "班级管理",
-        component: () => import("../views/admin/grade/gradeList"),
-        meta: {
-          title: "班级管理",
-          showTag: true,
-          icon: "el-icon-s-data",
-          roles: ["grade"],
-          breadcrumb: true,
-        },
-      },
-      {
-        path: "gradeOperation",
-        name: "编辑班级",
-        hidden: true,
-        component: () => import("../views/admin/grade/operation/index"),
-        meta: { title: "编辑班级", icon: "el-icon-s-data", roles: ["grade"] },
-      },
-      {
-        path: "gradeDetails",
-        name: "班级详情",
-        hidden: true,
-        component: () => import("../views/admin/grade/operation/visit"),
-        meta: { title: "班级详情", icon: "el-icon-s-data", roles: ["grade"] },
-      },
-    ],
-  },
-  {
-    path: "/teachers",
-    redirect: "/teachers/teacherList",
-    component: Layout,
-    name: "教师管理",
-    meta: {
-      title: "教师管理",
-      showTag: true,
-      icon: "el-icon-s-check",
-      roles: ["teacher"],
-      breadcrumb: true,
-    },
-    children: [
-      {
-        path: "teacherList",
-        name: "教师管理",
-        component: () => import("../views/admin/teachers/teacherList"),
-        meta: {
-          title: "教师管理",
-          showTag: true,
-          icon: "el-icon-s-check",
-          roles: ["teacher"],
-          breadcrumb: true,
-        },
-      },
-      {
-        path: "teacherOperation",
-        name: "编辑教师",
-        hidden: true,
-        component: () => import("../views/admin/teachers/operation/index"),
-        meta: {
-          title: "编辑教师",
-          icon: "el-icon-s-check",
-          roles: ["teacher"],
-        },
-      },
-      {
-        path: "teacherDetails",
-        name: "教师详情",
-        hidden: true,
-        component: () => import("../views/admin/teachers/operation/visit"),
-        meta: {
-          title: "教师详情",
-          icon: "el-icon-s-check",
-          roles: ["teacher"],
-        },
-      },
-    ],
-  },
-  {
-    path: "/students",
-    redirect: "/students/studentList",
-    component: Layout,
-    name: "学生管理",
-    meta: {
-      title: "学生管理",
-      showTag: true,
-      icon: "el-icon-s-custom",
-      roles: ["student"],
-      breadcrumb: true,
-    },
-    children: [
-      {
-        path: "studentList",
-        name: "学生管理",
-        component: () => import("../views/admin/students/studentList"),
-        meta: {
-          title: "学生管理",
-          showTag: true,
-          icon: "el-icon-s-custom",
-          roles: ["student"],
-          breadcrumb: true,
-        },
-      },
-      {
-        path: "studentOperation",
-        name: "编辑学生",
-        hidden: true,
-        component: () => import("../views/admin/students/operation/edit"),
-        meta: {
-          title: "编辑学生",
-          icon: "el-icon-s-custom",
-          roles: ["student"],
-        },
-      },
-      {
-        path: "studentOperationAdd",
-        name: "新增学生",
-        hidden: true,
-        component: () => import("../views/admin/students/operation/add"),
-        meta: {
-          title: "新增学生",
-          icon: "el-icon-s-custom",
-          roles: ["student"],
-        },
-      },
-      {
-        path: "studentDetails",
-        name: "学生详情",
-        hidden: true,
-        component: () => import("../views/admin/students/operation/visit"),
-        meta: {
-          title: "学生详情",
-          icon: "el-icon-s-custom",
-          roles: ["student"],
-        },
-      },
-    ],
-  },
-  // 教师
-  {
-    path: "/teacherGrade",
-    redirect: "/teacherGrade/gradeList",
-    component: Layout,
-    name: "我的班级",
-    meta: {
-      title: "我的班级",
-      showTag: true,
-      icon: "el-icon-s-data",
-      roles: ["teacherGrade"],
-      breadcrumb: true,
-    },
-    children: [
-      {
-        path: "gradeList",
-        name: "我的班级",
-        component: () => import("../views/teacher/teacherGrade/gradeList"),
-        meta: {
-          title: "我的班级",
-          showTag: true,
-          icon: "el-icon-s-data",
-          roles: ["teacherGrade"],
-          breadcrumb: true,
-        },
-      },
-      {
-        path: "gradeOperation",
-        name: "编辑班级",
-        hidden: true,
-        component: () =>
-          import("../views/teacher/teacherGrade/operation/index"),
-        meta: {
-          title: "编辑班级",
-          icon: "el-icon-s-data",
-          roles: ["teacherGrade"],
-        },
-      },
-      {
-        path: "gradeDetails",
-        name: "班级详情",
-        hidden: true,
-        component: () =>
-          import("../views/teacher/teacherGrade/operation/visit"),
-        meta: {
-          title: "班级详情",
-          icon: "el-icon-s-data",
-          roles: ["teacherGrade"],
-        },
-      },
-      {
-        path: "studentDetails",
-        name: "学生详情",
-        hidden: true,
-        component: () =>
-          import("../views/teacher/teacherGrade/operation/studentVisit"),
-        meta: {
-          title: "学生详情",
-          icon: "el-icon-s-data",
-          roles: ["teacherGrade"],
-        },
-      },
-
-      {
-        path: "studentOperation",
-        name: "编辑学生",
-        hidden: true,
-        component: () =>
-          import("../views/teacher/teacherGrade/operation/studentOperation"),
-        meta: {
-          title: "编辑学生",
-          icon: "el-icon-s-data",
-          roles: ["teacherGrade"],
-        },
-      },
-    ],
-  },
+  // {
+  //   path: "/grade",
+  //   redirect: "/grade/gradeList",
+  //   component: Layout,
+  //   name: "班级管理",
+  //   meta: {
+  //     title: "班级管理",
+  //     showTag: true,
+  //     icon: "el-icon-s-data",
+  //     roles: ["grade"],
+  //     breadcrumb: true,
+  //   },
+  //   children: [
+  //     {
+  //       path: "gradeList",
+  //       name: "班级管理",
+  //       component: () => import("../views/admin/grade/gradeList"),
+  //       meta: {
+  //         title: "班级管理",
+  //         showTag: true,
+  //         icon: "el-icon-s-data",
+  //         roles: ["grade"],
+  //         breadcrumb: true,
+  //       },
+  //     },
+  //     {
+  //       path: "gradeOperation",
+  //       name: "编辑班级",
+  //       hidden: true,
+  //       component: () => import("../views/admin/grade/operation/index"),
+  //       meta: { title: "编辑班级", icon: "el-icon-s-data", roles: ["grade"] },
+  //     },
+  //     {
+  //       path: "gradeDetails",
+  //       name: "班级详情",
+  //       hidden: true,
+  //       component: () => import("../views/admin/grade/operation/visit"),
+  //       meta: { title: "班级详情", icon: "el-icon-s-data", roles: ["grade"] },
+  //     },
+  //   ],
+  // },
+  // {
+  //   path: "/teachers",
+  //   redirect: "/teachers/teacherList",
+  //   component: Layout,
+  //   name: "教师管理",
+  //   meta: {
+  //     title: "教师管理",
+  //     showTag: true,
+  //     icon: "el-icon-s-check",
+  //     roles: ["teacher"],
+  //     breadcrumb: true,
+  //   },
+  //   children: [
+  //     {
+  //       path: "teacherList",
+  //       name: "教师管理",
+  //       component: () => import("../views/admin/teachers/teacherList"),
+  //       meta: {
+  //         title: "教师管理",
+  //         showTag: true,
+  //         icon: "el-icon-s-check",
+  //         roles: ["teacher"],
+  //         breadcrumb: true,
+  //       },
+  //     },
+  //     {
+  //       path: "teacherOperation",
+  //       name: "编辑教师",
+  //       hidden: true,
+  //       component: () => import("../views/admin/teachers/operation/index"),
+  //       meta: {
+  //         title: "编辑教师",
+  //         icon: "el-icon-s-check",
+  //         roles: ["teacher"],
+  //       },
+  //     },
+  //     {
+  //       path: "teacherDetails",
+  //       name: "教师详情",
+  //       hidden: true,
+  //       component: () => import("../views/admin/teachers/operation/visit"),
+  //       meta: {
+  //         title: "教师详情",
+  //         icon: "el-icon-s-check",
+  //         roles: ["teacher"],
+  //       },
+  //     },
+  //   ],
+  // },
+  // {
+  //   path: "/students",
+  //   redirect: "/students/studentList",
+  //   component: Layout,
+  //   name: "学生管理",
+  //   meta: {
+  //     title: "学生管理",
+  //     showTag: true,
+  //     icon: "el-icon-s-custom",
+  //     roles: ["student"],
+  //     breadcrumb: true,
+  //   },
+  //   children: [
+  //     {
+  //       path: "studentList",
+  //       name: "学生管理",
+  //       component: () => import("../views/admin/students/studentList"),
+  //       meta: {
+  //         title: "学生管理",
+  //         showTag: true,
+  //         icon: "el-icon-s-custom",
+  //         roles: ["student"],
+  //         breadcrumb: true,
+  //       },
+  //     },
+  //     {
+  //       path: "studentOperation",
+  //       name: "编辑学生",
+  //       hidden: true,
+  //       component: () => import("../views/admin/students/operation/edit"),
+  //       meta: {
+  //         title: "编辑学生",
+  //         icon: "el-icon-s-custom",
+  //         roles: ["student"],
+  //       },
+  //     },
+  //     {
+  //       path: "studentOperationAdd",
+  //       name: "新增学生",
+  //       hidden: true,
+  //       component: () => import("../views/admin/students/operation/add"),
+  //       meta: {
+  //         title: "新增学生",
+  //         icon: "el-icon-s-custom",
+  //         roles: ["student"],
+  //       },
+  //     },
+  //     {
+  //       path: "studentDetails",
+  //       name: "学生详情",
+  //       hidden: true,
+  //       component: () => import("../views/admin/students/operation/visit"),
+  //       meta: {
+  //         title: "学生详情",
+  //         icon: "el-icon-s-custom",
+  //         roles: ["student"],
+  //       },
+  //     },
+  //   ],
+  // },
+// 共用模块
 
   // 管理员 教师 公用模块 区分列表数据展示以及筛选条件
   {
@@ -447,6 +370,423 @@ export const asyncRouterMap = [
               title: "学生测评详情",
               icon: "el-icon-star-off",
               roles: ["evaluation"],
+            },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "/major",
+    redirect: "/major/majorList",
+    component: Layout,
+    name: "专业库",
+    meta: {
+      title: "专业库",
+      showTag: true,
+      keepAlive: true,
+      icon: "el-icon-medal",
+      roles: ["professional"],
+      breadcrumb: true,
+    },
+    children: [
+      {
+        path: "majorList",
+        name: "专业库",
+        component: () => import("../views/public/major/majorList"),
+        meta: {
+          title: "专业库",
+          showTag: true,
+          keepAlive: true,
+          icon: "el-icon-medal",
+          roles: ["professional"],
+          breadcrumb: true,
+        },
+      },
+      {
+        path: "majorDetails",
+        name: "专业详情",
+        hidden: true,
+        component: () => import("../views/public/major/majorDetails/index"),
+        meta: {
+          title: "专业详情",
+          icon: "el-icon-medal",
+          roles: ["professional"],
+        },
+      },
+    ],
+  },
+  {
+    path: "/universities",
+    redirect: "/universities/universitiesList",
+    component: Layout,
+    name: "院校库",
+    meta: {
+      title: "院校库",
+      showTag: true,
+      keepAlive: true,
+      icon: "el-icon-office-building",
+      roles: ["academy"],
+      breadcrumb: true,
+    },
+    children: [
+      {
+        path: "universitiesList",
+        name: "院校库",
+        component: () =>
+          import("../views/public/universities/universitiesList"),
+        meta: {
+          title: "院校库",
+          showTag: true,
+          keepAlive: true,
+          icon: "el-icon-office-building",
+          roles: ["academy"],
+          breadcrumb: true,
+        },
+      },
+      {
+        path: "universitiesDetails",
+        name: "院校详情",
+        hidden: true,
+        component: () =>
+          import("../views/public/universities/universitiesDetails/index"),
+        meta: {
+          title: "院校详情",
+          icon: "el-icon-office-building",
+          roles: ["academy"],
+        },
+      },
+    ],
+  },
+  {
+    path: "/occupation",
+    redirect: "/occupation/occupationList",
+    component: Layout,
+    name: "职业库",
+    meta: {
+      title: "职业库",
+      showTag: true,
+      icon: "el-icon-collection-tag",
+      roles: ["occupationMenu"],
+      keepAlive: true,
+      breadcrumb: true,
+    },
+    children: [
+      {
+        path: "occupationList",
+        name: "职业库",
+        component: () => import("../views/public/occupation/occupationList"),
+        meta: {
+          title: "职业库",
+          showTag: true,
+          keepAlive: true,
+          icon: "el-icon-collection-tag",
+          roles: ["occupationMenu"],
+          breadcrumb: true,
+        },
+      },
+      {
+        path: "occupationDetails",
+        name: "职业详情",
+        hidden: true,
+        component: () =>
+          import("../views/public/occupation/occupationDetails/index"),
+        meta: {
+          title: "职业详情",
+          icon: "el-icon-collection-tag",
+          roles: ["occupationMenu"],
+        },
+      },
+    ],
+  },
+  {
+    path: "/newExam",
+    component: Layout,
+    redirect: "/newExam",
+    // hidden: true,
+    children: [
+      {
+        path: "newExam",
+        name: "选科查询",
+        component: () => import("../views/public/newExam"),
+        meta: {
+          title: "选科查询",
+          showTag: true,
+          keepAlive: true,
+          roles: ["course"],
+          icon: "el-icon-date",
+        },
+      },
+    ],
+  },
+  {
+    path: "/dataAnalysis",
+    component: Layout,
+    redirect: "/dataAnalysis/evaluationStatistics",
+    name: "统计分析",
+    meta: {
+      title: "统计分析",
+      icon: "el-icon-pie-chart",
+      keepAlive: true,
+      roles: ["统计分析"],
+      breadcrumb: true,
+    },
+    children: [
+      {
+        path: "evaluationStatistics",
+        component: () =>
+          import("../views/public/dataAnalysis/evaluationStatistics"),
+        name: "测评统计",
+        meta: {
+          title: "测评统计",
+          showTag: true,
+          keepAlive: true,
+          icon: "el-icon-star-off",
+          roles: ["统计分析"],
+          breadcrumb: true,
+        },
+      },
+      {
+        path: "subjectSelectionStatistics",
+        component: () =>
+          import("../views/public/dataAnalysis/subjectSelectionStatistics"),
+        name: "选科查询统计",
+        meta: {
+          title: "选科查询统计",
+          showTag: true,
+          keepAlive: true,
+          icon: "el-icon-star-off",
+          roles: ["统计分析"],
+          breadcrumb: true,
+        },
+      },
+      {
+        path: "subjectSelectionTypeStatistics",
+        component: () =>
+          import("../views/public/dataAnalysis/subjectSelectionTypeStatistics"),
+        name: "选科征集统计",
+        meta: {
+          title: "选科征集统计",
+          showTag: true,
+          keepAlive: true,
+          icon: "el-icon-star-off",
+          roles: ["统计分析"],
+          breadcrumb: true,
+        },
+      },
+      {
+        path: "browseDataStatistics",
+        component: () =>
+          import("../views/public/dataAnalysis/browseDataStatistics"),
+        name: "浏览数据统计",
+        meta: {
+          title: "浏览数据统计",
+          showTag: true,
+          icon: "el-icon-star-off",
+          keepAlive: true,
+          roles: ["browsingHistory"],
+          breadcrumb: true,
+        },
+      },
+      {
+        path: "usageStatistics",
+        component: () => import("../views/public/dataAnalysis/usageStatistics"),
+        name: "平台使用情况",
+        meta: {
+          title: "平台使用情况",
+          showTag: true,
+          icon: "el-icon-star-off",
+          roles: ["appUsage"],
+          keepAlive: true,
+          breadcrumb: true,
+        },
+      },
+      // {
+      //     path: 'careerStatistics',
+      //     component: () => import('../views/public/dataAnalysis/careerStatistics'),
+      //     name: '生涯统计报告',
+      //     meta: {
+      //         title: '生涯统计报告', showTag: true,
+      //         keepAlive: true, icon: 'el-icon-star-off', roles: ['统计分析'], breadcrumb: true,
+      //     }
+      // }
+    ],
+  },
+  // 管理员
+  {
+    path: "/",
+    component: Layout,
+    redirect: "/grade/gradeList",
+    name: "系统管理",
+    meta: {
+      title: "系统管理",
+      keepAlive: true,
+      icon: "el-icon-s-order",
+      roles: ["grade"],
+      breadcrumb: true,
+    },
+    children: [
+      {
+        path: "/grade",
+        component: {
+          render(c) {
+            return c("router-view");
+          },
+        },
+        redirect: "/grade/gradeList",
+        name: "",
+        meta: {
+          title: "班级管理",
+          keepAlive: true,
+          showTag: true,
+          icon: "el-icon-star-off",
+          roles: ["grade"],
+          breadcrumb: true,
+        },
+        children: [
+          {
+            path: "gradeList",
+            name: "班级管理",
+            component: () => import("../views/admin/grade/gradeList"),
+            meta: {
+              title: "班级管理",
+              showTag: true,
+              icon: "el-icon-s-data",
+              roles: ["grade"],
+              breadcrumb: true,
+            },
+          },
+          {
+            path: "gradeOperation",
+            name: "编辑班级",
+            hidden: true,
+            component: () => import("../views/admin/grade/operation/index"),
+            meta: { title: "编辑班级", icon: "el-icon-s-data", roles: ["grade"] },
+          },
+          {
+            path: "gradeDetails",
+            name: "班级详情",
+            hidden: true,
+            component: () => import("../views/admin/grade/operation/visit"),
+            meta: { title: "班级详情", icon: "el-icon-s-data", roles: ["grade"] },
+          },
+        ],
+      },
+      {
+        path: "/teachers",
+        component: {
+          render(c) {
+            return c("router-view");
+          },
+        },
+        redirect: "/teachers/teacherList",
+        name: "",
+        meta: {
+          title: "教师管理",
+          keepAlive: true,
+          showTag: true,
+          icon: "el-icon-star-off",
+          roles: ["grade"],
+          breadcrumb: true,
+        },
+        children: [
+          {
+            path: "teacherList",
+            name: "教师管理",
+            component: () => import("../views/admin/teachers/teacherList"),
+            meta: {
+              title: "教师管理",
+              showTag: true,
+              icon: "el-icon-s-check",
+              roles: ["teacher"],
+              breadcrumb: true,
+            },
+          },
+          {
+            path: "teacherOperation",
+            name: "编辑教师",
+            hidden: true,
+            component: () => import("../views/admin/teachers/operation/index"),
+            meta: {
+              title: "编辑教师",
+              icon: "el-icon-s-check",
+              roles: ["teacher"],
+            },
+          },
+          {
+            path: "teacherDetails",
+            name: "教师详情",
+            hidden: true,
+            component: () => import("../views/admin/teachers/operation/visit"),
+            meta: {
+              title: "教师详情",
+              icon: "el-icon-s-check",
+              roles: ["teacher"],
+            },
+          },
+        ],
+      },
+      {
+        path: "/students",
+        component: {
+          render(c) {
+            return c("router-view");
+          },
+        },
+        redirect: "/students/studentList",
+        name: "",
+        meta: {
+          title: "学生管理",
+          keepAlive: true,
+          showTag: true,
+          icon: "el-icon-star-off",
+          roles: ["grade"],
+          breadcrumb: true,
+        },
+        children: [
+          {
+            path: "studentList",
+            name: "学生管理",
+            component: () => import("../views/admin/students/studentList"),
+            meta: {
+              title: "学生管理",
+              showTag: true,
+              icon: "el-icon-s-custom",
+              roles: ["student"],
+              breadcrumb: true,
+            },
+          },
+          {
+            path: "studentOperation",
+            name: "编辑学生",
+            hidden: true,
+            component: () => import("../views/admin/students/operation/edit"),
+            meta: {
+              title: "编辑学生",
+              icon: "el-icon-s-custom",
+              roles: ["student"],
+            },
+          },
+          {
+            path: "studentOperationAdd",
+            name: "新增学生",
+            hidden: true,
+            component: () => import("../views/admin/students/operation/add"),
+            meta: {
+              title: "新增学生",
+              icon: "el-icon-s-custom",
+              roles: ["student"],
+            },
+          },
+          {
+            path: "studentDetails",
+            name: "学生详情",
+            hidden: true,
+            component: () => import("../views/admin/students/operation/visit"),
+            meta: {
+              title: "学生详情",
+              icon: "el-icon-s-custom",
+              roles: ["student"],
             },
           },
         ],
@@ -761,100 +1101,6 @@ export const asyncRouterMap = [
       },
     ],
   },
-  // 共用模块
-  {
-    path: "/dataAnalysis",
-    component: Layout,
-    redirect: "/dataAnalysis/evaluationStatistics",
-    name: "统计分析",
-    meta: {
-      title: "统计分析",
-      icon: "el-icon-pie-chart",
-      keepAlive: true,
-      roles: ["统计分析"],
-      breadcrumb: true,
-    },
-    children: [
-      {
-        path: "evaluationStatistics",
-        component: () =>
-          import("../views/public/dataAnalysis/evaluationStatistics"),
-        name: "测评统计",
-        meta: {
-          title: "测评统计",
-          showTag: true,
-          keepAlive: true,
-          icon: "el-icon-star-off",
-          roles: ["统计分析"],
-          breadcrumb: true,
-        },
-      },
-      {
-        path: "subjectSelectionStatistics",
-        component: () =>
-          import("../views/public/dataAnalysis/subjectSelectionStatistics"),
-        name: "选科查询统计",
-        meta: {
-          title: "选科查询统计",
-          showTag: true,
-          keepAlive: true,
-          icon: "el-icon-star-off",
-          roles: ["统计分析"],
-          breadcrumb: true,
-        },
-      },
-      {
-        path: "subjectSelectionTypeStatistics",
-        component: () =>
-          import("../views/public/dataAnalysis/subjectSelectionTypeStatistics"),
-        name: "选科征集统计",
-        meta: {
-          title: "选科征集统计",
-          showTag: true,
-          keepAlive: true,
-          icon: "el-icon-star-off",
-          roles: ["统计分析"],
-          breadcrumb: true,
-        },
-      },
-      {
-        path: "browseDataStatistics",
-        component: () =>
-          import("../views/public/dataAnalysis/browseDataStatistics"),
-        name: "浏览数据统计",
-        meta: {
-          title: "浏览数据统计",
-          showTag: true,
-          icon: "el-icon-star-off",
-          keepAlive: true,
-          roles: ["browsingHistory"],
-          breadcrumb: true,
-        },
-      },
-      {
-        path: "usageStatistics",
-        component: () => import("../views/public/dataAnalysis/usageStatistics"),
-        name: "平台使用情况",
-        meta: {
-          title: "平台使用情况",
-          showTag: true,
-          icon: "el-icon-star-off",
-          roles: ["appUsage"],
-          keepAlive: true,
-          breadcrumb: true,
-        },
-      },
-      // {
-      //     path: 'careerStatistics',
-      //     component: () => import('../views/public/dataAnalysis/careerStatistics'),
-      //     name: '生涯统计报告',
-      //     meta: {
-      //         title: '生涯统计报告', showTag: true,
-      //         keepAlive: true, icon: 'el-icon-star-off', roles: ['统计分析'], breadcrumb: true,
-      //     }
-      // }
-    ],
-  },
   {
     path: "/studentArchives",
     component: Layout,
@@ -874,145 +1120,79 @@ export const asyncRouterMap = [
       },
     ],
   },
+  // 教师
   {
-    path: "/universities",
-    redirect: "/universities/universitiesList",
+    path: "/teacherGrade",
+    redirect: "/teacherGrade/gradeList",
     component: Layout,
-    name: "院校库",
+    name: "我的班级",
     meta: {
-      title: "院校库",
+      title: "我的班级",
       showTag: true,
-      keepAlive: true,
-      icon: "el-icon-office-building",
-      roles: ["academy"],
+      icon: "el-icon-s-data",
+      roles: ["teacherGrade"],
       breadcrumb: true,
     },
     children: [
       {
-        path: "universitiesList",
-        name: "院校库",
-        component: () =>
-          import("../views/public/universities/universitiesList"),
+        path: "gradeList",
+        name: "我的班级",
+        component: () => import("../views/teacher/teacherGrade/gradeList"),
         meta: {
-          title: "院校库",
+          title: "我的班级",
           showTag: true,
-          keepAlive: true,
-          icon: "el-icon-office-building",
-          roles: ["academy"],
+          icon: "el-icon-s-data",
+          roles: ["teacherGrade"],
           breadcrumb: true,
         },
       },
       {
-        path: "universitiesDetails",
-        name: "院校详情",
+        path: "gradeOperation",
+        name: "编辑班级",
         hidden: true,
         component: () =>
-          import("../views/public/universities/universitiesDetails/index"),
+          import("../views/teacher/teacherGrade/operation/index"),
         meta: {
-          title: "院校详情",
-          icon: "el-icon-office-building",
-          roles: ["academy"],
-        },
-      },
-    ],
-  },
-  {
-    path: "/major",
-    redirect: "/major/majorList",
-    component: Layout,
-    name: "专业库",
-    meta: {
-      title: "专业库",
-      showTag: true,
-      keepAlive: true,
-      icon: "el-icon-medal",
-      roles: ["professional"],
-      breadcrumb: true,
-    },
-    children: [
-      {
-        path: "majorList",
-        name: "专业库",
-        component: () => import("../views/public/major/majorList"),
-        meta: {
-          title: "专业库",
-          showTag: true,
-          keepAlive: true,
-          icon: "el-icon-medal",
-          roles: ["professional"],
-          breadcrumb: true,
+          title: "编辑班级",
+          icon: "el-icon-s-data",
+          roles: ["teacherGrade"],
         },
       },
       {
-        path: "majorDetails",
-        name: "专业详情",
-        hidden: true,
-        component: () => import("../views/public/major/majorDetails/index"),
-        meta: {
-          title: "专业详情",
-          icon: "el-icon-medal",
-          roles: ["professional"],
-        },
-      },
-    ],
-  },
-  {
-    path: "/occupation",
-    redirect: "/occupation/occupationList",
-    component: Layout,
-    name: "职业库",
-    meta: {
-      title: "职业库",
-      showTag: true,
-      icon: "el-icon-collection-tag",
-      roles: ["occupationMenu"],
-      keepAlive: true,
-      breadcrumb: true,
-    },
-    children: [
-      {
-        path: "occupationList",
-        name: "职业库",
-        component: () => import("../views/public/occupation/occupationList"),
-        meta: {
-          title: "职业库",
-          showTag: true,
-          keepAlive: true,
-          icon: "el-icon-collection-tag",
-          roles: ["occupationMenu"],
-          breadcrumb: true,
-        },
-      },
-      {
-        path: "occupationDetails",
-        name: "职业详情",
+        path: "gradeDetails",
+        name: "班级详情",
         hidden: true,
         component: () =>
-          import("../views/public/occupation/occupationDetails/index"),
+          import("../views/teacher/teacherGrade/operation/visit"),
         meta: {
-          title: "职业详情",
-          icon: "el-icon-collection-tag",
-          roles: ["occupationMenu"],
+          title: "班级详情",
+          icon: "el-icon-s-data",
+          roles: ["teacherGrade"],
         },
       },
-    ],
-  },
-  {
-    path: "/newExam",
-    component: Layout,
-    redirect: "/newExam",
-    // hidden: true,
-    children: [
       {
-        path: "newExam",
-        name: "选科查询",
-        component: () => import("../views/public/newExam"),
+        path: "studentDetails",
+        name: "学生详情",
+        hidden: true,
+        component: () =>
+          import("../views/teacher/teacherGrade/operation/studentVisit"),
         meta: {
-          title: "选科查询",
-          showTag: true,
-          keepAlive: true,
-          roles: ["course"],
-          icon: "el-icon-date",
+          title: "学生详情",
+          icon: "el-icon-s-data",
+          roles: ["teacherGrade"],
+        },
+      },
+
+      {
+        path: "studentOperation",
+        name: "编辑学生",
+        hidden: true,
+        component: () =>
+          import("../views/teacher/teacherGrade/operation/studentOperation"),
+        meta: {
+          title: "编辑学生",
+          icon: "el-icon-s-data",
+          roles: ["teacherGrade"],
         },
       },
     ],
