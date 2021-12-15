@@ -607,3 +607,62 @@ input:-webkit-autofill:active {
   color: #909399;
   font-size: 14px;
 }
+
+
+
+.left {
+  .state {
+    display: flex;
+    span {
+      margin-right: 20px;
+      display: inline-block;
+      width: 54px;
+      height: 20px;
+      line-height: 20px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: #FFFFFF;
+      text-align: center;
+    }
+    .no-start {
+      background-color: #FF5502;
+    }
+
+    .starting {
+      background-color: #87D068;
+    }
+
+    .close {
+      background-color: #D9D9D9;
+    }
+
+    .state-name {
+      font-size: 16px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      color: #2E415B;
+      line-height: 22px;
+      margin-right: 20px;
+    }
+
+    .state-time {
+      font-size: 14px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      font-weight: 500;
+      line-height: 22px;
+      color: #AFB8C6;
+    }
+  }
+}
+
+
+
+.left-nothing {
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #475B75;
+  line-height: 22px;
+}

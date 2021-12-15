@@ -12,7 +12,7 @@
           unique-opened
           mode="vertical"
       >
-        <sidebar-item v-for="route in permission_routers" :key="route.path" :item="route" :base-path="route.path"/>
+        <sidebar-item v-for="(route, index) in permission_routers" :key="index" :item="route" :base-path="route.path"/>
       </el-menu>
   </div>
 </template>

@@ -7,6 +7,8 @@ export const validateTeacherType = (rule, value, callback) => !value ? callback(
 export const validateClassType = (rule, value, callback) => !value ? callback(new Error('班级名称不能为空')) : callback();
 export const validateGradeType = (rule, value, callback) => !value ? callback(new Error('班级类型不能为空')) : callback();
 export const validateYear = (rule, value, callback) => !value ? callback(new Error('入学年份不能为空')) : callback();
+export const validateStartTime = (rule, value, callback) => !value ? callback(new Error('开始时间不能为空')) : callback();
+export const validateEndTime = (rule, value, callback) => !value ? callback(new Error('结束时间不能为空')) : callback();
 export const validateGrade = (rule, value, callback) => !value ? callback(new Error('年级不能为空')) : callback();
 export const validatePhone = (rule, value, callback) => {
   if (!value) {

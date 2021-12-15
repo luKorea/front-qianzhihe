@@ -128,7 +128,7 @@ export default {
       gradeList: [],
       timeParams: {
         graduate: '',
-        grade: '',
+        grade: '高一',
       },
       params: {
         graduate: '',
@@ -265,7 +265,6 @@ export default {
     background: linear-gradient(270deg, #4D97FF 0%, #00AAFF 100%);
     border-radius: 8px;
     margin-right: 20px;
-
     .close-time {
       display: flex;
       justify-content: center;

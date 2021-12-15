@@ -59,7 +59,7 @@ export default {
       loading: false,
       params: {
         type: '',
-        grade: '',
+        grade: '高一',
         graduate: ''
       },
       classList: [],

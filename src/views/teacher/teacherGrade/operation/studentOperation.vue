@@ -114,24 +114,64 @@
             </div>
           </template>
         </basic-container>
+<!--        <basic-container style="margin-bottom: 60px">-->
+<!--          <span class="tip-info"></span>-->
+<!--          <span class="tip-title">选科信息</span>-->
+<!--          <div class="m-top">-->
+<!--            <div class="m-bottom">-->
+<!--              <span class="tip-title">首选科目（2选1）</span>-->
+<!--              <el-radio-group v-model="form.firstChoice">-->
+<!--                <el-radio v-for="(item, index) in firstList" :label="item.name"/>-->
+<!--              </el-radio-group>-->
+<!--            </div>-->
+<!--            <div style="display: flex; align-items: center">-->
+<!--              <span class="tip-title">再选科目（4选2）</span>-->
+<!--              <el-checkbox-group v-model="checkList" :max="2">-->
+<!--                <el-checkbox v-for="(item, index) in recleaningList" :label="item.name" :key="edit">{{ item.name }}-->
+<!--                </el-checkbox>-->
+<!--              </el-checkbox-group>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </basic-container>-->
         <basic-container style="margin-bottom: 60px">
-          <span class="tip-info"></span>
-          <span class="tip-title">选科信息</span>
-          <div class="m-top">
-            <div class="m-bottom">
-              <span class="tip-title">首选科目（2选1）</span>
-              <el-radio-group v-model="form.firstChoice">
-                <el-radio v-for="(item, index) in firstList" :label="item.name"/>
-              </el-radio-group>
+          <template
+              v-if="this.form.studentCourseSelectionPlanVoList && this.form.studentCourseSelectionPlanVoList.length > 0">
+            <div class="modal" v-for="(subjectItem, index) in this.form.studentCourseSelectionPlanVoList"
+                 :key="subjectItem._id">
+              <div class="left" style="margin-bottom: 20px">
+                <div class="state">
+                  <span v-if="subjectItem.state === 1" class="no-start">未开始</span>
+                  <span v-if="subjectItem.state === 2" class="starting">进行中</span>
+                  <span v-if="subjectItem.state === 3" class="close">已截止</span>
+                  <div class="state-name">{{ subjectItem.name }}</div>
+                  <div class="state-time">(提交选科时间：{{ subjectItem.startTime }}—{{ subjectItem.endTime }})</div>
+                </div>
+                <div class="m-top">
+                  <div class="m-bottom">
+                    <span class="tip-title">首选科目（2选1）</span>
+                    <el-radio-group v-model="subjectItem.firstChoice">
+                      <el-radio
+                          :key="index" v-for="(item, index) in firstList"
+                          :label="item.name"
+                      />
+                    </el-radio-group>
+                  </div>
+                  <div style="display: flex; align-items: center">
+                    <span class="tip-title">再选科目（4选2）</span>
+                    <el-checkbox-group v-model="subjectItem.checkList" :max="2">
+                      <el-checkbox v-for="item in recleaningList"
+                                   v-model="subjectItem.checkList"
+                                   :label="item.name" :key="item.id">{{ item.name }}
+                      </el-checkbox>
+                    </el-checkbox-group>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div style="display: flex; align-items: center">
-              <span class="tip-title">再选科目（4选2）</span>
-              <el-checkbox-group v-model="checkList" :max="2">
-                <el-checkbox v-for="(item, index) in recleaningList" :label="item.name" :key="edit">{{ item.name }}
-                </el-checkbox>
-              </el-checkbox-group>
-            </div>
-          </div>
+          </template>
+          <template v-else>
+            <basic-nothing title="您的年级暂未创建模拟选科计划"></basic-nothing>
+          </template>
         </basic-container>
       </el-form>
       <div class="footer-btn">
@@ -227,6 +267,11 @@ export default {
             }
           })
     },
+    initReleaning (data) {
+      data.forEach((item, index) => {
+        this.$set(item, 'checkList', item.recleaning1 && item.recleaning2 ? [item.recleaning1, item.recleaning2] : [])
+      })
+    },
     getEditData(params) {
       this.loading = true;
       getStudentInfo(params)
@@ -234,9 +279,12 @@ export default {
             if (res.errorCode === 200) {
               this.form = res.data;
               this.loading = false;
-              this.form.recleaning1 && this.form.recleaning2
-                  ? this.checkList = [this.form.recleaning1, this.form.recleaning2]
-                  : this.checkList = [];
+              this.initReleaning(
+                  this.form.studentCourseSelectionPlanVoList ? this.form.studentCourseSelectionPlanVoList : []);
+              // this.form.recleaning1 && this.form.recleaning2
+              // this.form.recleaning1 && this.form.recleaning2
+              //     ? this.checkList = [this.form.recleaning1, this.form.recleaning2]
+              //     : this.checkList = [];
               this.form['gender'] = this.form.gender === 'M' ? '男' : '女';
               this.getClassData(this.form.grade);
             } else {
@@ -276,8 +324,10 @@ export default {
           _id: this.form.gradeId
         };
       }
-      that.form['recleaning1'] = that.checkList[0];
-      that.form['recleaning2'] = that.checkList[1];
+      that.form.studentCourseSelectionPlanVoList.forEach(item => {
+        item['recleaning1'] = item.checkList[0] !== undefined ? item.checkList[0] : '';
+        item['recleaning2'] = item.checkList[1] !== undefined ? item.checkList[1] : ''
+      })
       that.$refs['form'].validate(valid => {
         if (valid) {
           that.loading = true;

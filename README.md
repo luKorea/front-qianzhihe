@@ -6,9 +6,10 @@
    4. 班级管理 (grade)
    5. 教师管理 (teacher)
    6. 学生管理 (student)
-   7. 测评中心 ()
-   8. 统计分析 ()
-   9. 选科管理 ()
+   7. 选科征集计划 （subjectsPlain）
+   8. 测评中心 ()
+   9. 统计分析 ()
+   10. 选科管理 ()
 2. 教师
     1. 专科库 (professional)
     2. 职业库 (occupationMenu)

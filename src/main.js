@@ -7,7 +7,6 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
-
 import basicContainer from './components/basic-container/main';
 import basicContainerBack from './components/back/index';
 import basicStudentBack from './components/sutdentBack/index';
@@ -17,17 +16,16 @@ import basicSkeleton from './components/skeleton/index';
 import * as filters from './utils/filters';
 
 import { printANSI } from '@/utils/screenLog';
+
 printANSI();
 
 import './utils/element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import animated from 'animate.css';
 
-
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
-
 
 Vue.prototype.echarts = window.echarts;
 console.log(window.echarts);
@@ -39,10 +37,8 @@ Vue.component('basicPagination', basicPagination);
 Vue.component('basicNothing', basicNothing);
 Vue.component('basicSkeleton', basicSkeleton);
 
-
-
 Vue.directive('debounce', {
-  inserted(el, binding, vnode) {
+  inserted (el, binding, vnode) {
     console.log(el, binding, vnode, '防抖');
     let timer = {}
     el.addEventListener('click', () => {
@@ -53,8 +49,18 @@ Vue.directive('debounce', {
         binding.value()
       }, 2000)
     })
-  }
+  },
 })
+
+/**
+ *
+ * @param router
+ * @returns {Window}
+ */
+Vue.prototype.$openWindow = function openNewWindow (router) {
+  const { href } = this.$router.resolve(router);
+  return window.open(href, '_blank')
+}
 
 // Vue.use(window.AVUE, {
 //   size: 'small',
@@ -65,10 +71,9 @@ Vue.use(animated)
 
 Vue.config.productionTip = false
 
-
 new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
 })

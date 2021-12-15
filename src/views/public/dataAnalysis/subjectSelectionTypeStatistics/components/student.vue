@@ -13,13 +13,23 @@
 <!--          </template>-->
 <!--        </el-select>-->
 <!--      </div>-->
+<!--      <div>-->
+<!--        <span class="tip">年级:</span>-->
+<!--        <el-select v-model="params.grade"-->
+<!--                   @change="changeGrade"-->
+<!--                   placeholder="请选择" :clearable="true" :filterable="true">-->
+<!--          <template v-if="gradeList && gradeList.length > 0">-->
+<!--            <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>-->
+<!--          </template>-->
+<!--        </el-select>-->
+<!--      </div>-->
       <div>
-        <span class="tip">年级:</span>
-        <el-select v-model="params.grade"
+        <span class="tip">选科征集计划:</span>
+        <el-select v-model="params.courseSelectionPlanId"
                    @change="changeGrade"
                    placeholder="请选择" :clearable="true" :filterable="true">
-          <template v-if="gradeList && gradeList.length > 0">
-            <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
+          <template v-if="subjectList && subjectList.length > 0">
+            <el-option v-for="item in subjectList" :label="item.name" :value="item._id"></el-option>
           </template>
         </el-select>
       </div>
@@ -42,7 +52,7 @@
         :data="list"
         v-loading="loading"
         style="width: 100%; margin-bottom: 20px">
-      <el-table-column prop="studentId" label="学号" align="center"/>
+      <el-table-column prop="studentId" label="学号" align="center" width="80px"/>
       <el-table-column prop="schoolUserName" label="姓名" align="center">
         <template slot-scope="scope">
             <span class="inline-text"
@@ -51,11 +61,12 @@
           <span v-else>{{ scope.row.schoolUserName }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="性别" align="center">
+      <el-table-column label="性别" align="center" width="80px">
         <template slot-scope="scope">
           <span>{{ scope.row.gender === 'F' ? '女' : '男' }}</span>
         </template>
       </el-table-column>
+      <el-table-column prop="courseSelectionPlanName" label="选科征集计划" align="center"/>
       <el-table-column prop="username" label="手机号" align="center"/>
       <el-table-column prop="firstChoice" label='首选科目' align="center"/>
       <el-table-column prop="recleaning1" label='再选科目1' align="center"/>
@@ -87,7 +98,7 @@
 
 <script>
 import {selectClassList, selectTypeList} from "../../../../../api/common/search";
-import {downStudentList, getList} from "../../../../../api/common/dataAnalysis/subjectSelectionTypeStatistics";
+import {downStudentList, getList, getSubjectList} from "../../../../../api/common/dataAnalysis/subjectSelectionTypeStatistics";
 
 export default {
   name: "student",
@@ -99,10 +110,12 @@ export default {
         size: 10,
         gradeType: '',
         graduate: '',
-        grade: '',
+        // grade: '高一',
         queryOrIdOrNameOrPhone: '',
+        courseSelectionPlanId: '',
         total: 0
       },
+      subjectList: [],
       classList: [],
       gradeList: [],
       gradeTypeList: [],
@@ -110,12 +123,23 @@ export default {
     }
   },
   mounted() {
+    if (this.$route.query.id) {
+      this.params.courseSelectionPlanId = this.$route.query.id;
+    }
     this.getData(this.params);
     this.getClassData();
     this.getGrade();
     this.getGradeType();
+    this.getSubjectListData()
   },
   methods: {
+    getSubjectListData () {
+      getSubjectList().then(res => {
+        if (res.errorCode === 200) {
+          this.subjectList = res.data;
+        }
+      })
+    },
     confirmData(){
       this.params.page = 0;
       this.getData(this.params);

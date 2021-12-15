@@ -13,6 +13,74 @@
         </div>
         <div class="form-title">{{ defaultSettingsTitle }}</div>
         <el-tabs v-model="activeName" stretch>
+          <el-tab-pane label="学生登录" name="student">
+            <el-form
+                status-icon
+                ref="loginFormStudent"
+                :model="studentLoginForm"
+                :rules="loginRules"
+                class="login-form"
+                auto-complete="on"
+                label-position="left"
+            >
+              <el-form-item prop="username">
+                <el-input
+                    ref="username"
+                    v-model="studentLoginForm.username"
+                    placeholder="请输入用户名"
+                    :clearable="true"
+                    name="username"
+                    auto-complete="on"
+                    prefix-icon="el-icon-user"
+                />
+              </el-form-item>
+              <el-form-item prop="password">
+                <el-input
+                    ref="password"
+                    v-model="studentLoginForm.password"
+                    type="password"
+                    :clearable="true"
+                    :show-password="true"
+                    placeholder="请输入登录密码"
+                    name="password"
+                    auto-complete="on"
+                    prefix-icon="el-icon-key"
+                />
+              </el-form-item>
+              <el-row>
+                <el-col :span="15">
+                  <el-form-item prop="code">
+                    <el-input
+                        ref="code"
+                        v-model="studentLoginForm.code"
+                        placeholder="请输入右边验证码"
+                        name="code"
+                        auto-complete="on"
+                        @keyup.enter.native="handleStudentLogin"
+                        prefix-icon="el-icon-chat-dot-square"
+                    />
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <div class="codeContainer">
+                    <img :src="captureImg" alt class="codeImg" @click="getCodeData"/>
+                  </div>
+                </el-col>
+              </el-row>
+              <div class="form-info">
+                <!--                <el-checkbox v-model="checked">7天免登录</el-checkbox>-->
+                <el-tooltip class="item" effect="dark" content="忘记密码" placement="top">
+                  <el-link type="info" @click="showImg">忘记密码?</el-link>
+                </el-tooltip>
+              </div>
+              <el-button
+                  type="primary"
+                  style="width: 100%; margin: 20px 0 30px 0;"
+                  :loading="loading"
+                  @click.native.prevent="handleStudentLogin">登录
+              </el-button>
+            </el-form>
+          </el-tab-pane>
           <el-tab-pane label="教师登录" name="teacher">
             <el-form
                 ref="loginForm"
@@ -79,74 +147,6 @@
                   style="width: 100%; margin: 20px 0 30px 0;"
                   :loading="loading"
                   @click.native.prevent="handleLogin">登录
-              </el-button>
-            </el-form>
-          </el-tab-pane>
-          <el-tab-pane label="学生登录" name="student">
-            <el-form
-                status-icon
-                ref="loginFormStudent"
-                :model="studentLoginForm"
-                :rules="loginRules"
-                class="login-form"
-                auto-complete="on"
-                label-position="left"
-            >
-              <el-form-item prop="username">
-                <el-input
-                    ref="username"
-                    v-model="studentLoginForm.username"
-                    placeholder="请输入用户名"
-                    :clearable="true"
-                    name="username"
-                    auto-complete="on"
-                    prefix-icon="el-icon-user"
-                />
-              </el-form-item>
-              <el-form-item prop="password">
-                <el-input
-                    ref="password"
-                    v-model="studentLoginForm.password"
-                    type="password"
-                    :clearable="true"
-                    :show-password="true"
-                    placeholder="请输入登录密码"
-                    name="password"
-                    auto-complete="on"
-                    prefix-icon="el-icon-key"
-                />
-              </el-form-item>
-              <el-row>
-                <el-col :span="15">
-                  <el-form-item prop="code">
-                    <el-input
-                        ref="code"
-                        v-model="studentLoginForm.code"
-                        placeholder="请输入右边验证码"
-                        name="code"
-                        auto-complete="on"
-                        @keyup.enter.native="handleStudentLogin"
-                        prefix-icon="el-icon-chat-dot-square"
-                    />
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <div class="codeContainer">
-                    <img :src="captureImg" alt class="codeImg" @click="getCodeData"/>
-                  </div>
-                </el-col>
-              </el-row>
-              <div class="form-info">
-                <!--                <el-checkbox v-model="checked">7天免登录</el-checkbox>-->
-                <el-tooltip class="item" effect="dark" content="忘记密码" placement="top">
-                  <el-link type="info" @click="showImg">忘记密码?</el-link>
-                </el-tooltip>
-              </div>
-              <el-button
-                  type="primary"
-                  style="width: 100%; margin: 20px 0 30px 0;"
-                  :loading="loading"
-                  @click.native.prevent="handleStudentLogin">登录
               </el-button>
             </el-form>
           </el-tab-pane>
@@ -237,7 +237,7 @@ export default {
   data() {
     return {
       backInfo: null,
-      activeName: 'teacher',
+      activeName: 'student',
       showLoginContainer: true, // 显示登录界面，控制显示学生登录时信息填写弹框切换
       labelWidth: '80px',
       showLoginImg: true,

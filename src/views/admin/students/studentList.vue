@@ -87,7 +87,7 @@
           <span class="tip-title">学生列表</span>
         </div>
         <div>
-<!--          <el-button type="danger" @click="deleteAllStudent">批量删除</el-button>-->
+          <!--          <el-button type="danger" @click="deleteAllStudent">批量删除</el-button>-->
           <el-button type="primary" @click="goOperationType('add')">新增学生账号</el-button>
           <el-button type="warning" style="margin-right: 10px" @click="showDialog = !showDialog">批量导入学生账号</el-button>
           <el-link
@@ -105,10 +105,10 @@
       <el-table stripe :data="list"
                 ref="student"
                 border style="width: 100%;margin: 20px 0" v-loading="loading">
-<!--        @selection-change="selectAllStudent"-->
+        <!--        @selection-change="selectAllStudent"-->
         <!--        <el-table-column type="selection"-->
-<!--                         :selectable="isDisabled"-->
-<!--                         align="center"/>-->
+        <!--                         :selectable="isDisabled"-->
+        <!--                         align="center"/>-->
         <el-table-column prop="studentId" label="学号" align="center"/>
         <el-table-column label="头像" align="center">
           <template slot-scope="scope">
@@ -164,17 +164,17 @@
 </template>
 
 <script>
-import {deleteStudent, getStudentList} from "../../../api/admin/students";
-import {selectTypeList, selectClassList} from "../../../api/common/search";
+import { deleteStudent, getStudentList } from "../../../api/admin/students";
+import { selectTypeList, selectClassList } from "../../../api/common/search";
 import uploadExcel from '../../../components/upload/index';
-import {errorTip} from "../../../utils/tip";
+import { errorTip } from "../../../utils/tip";
 
 export default {
   name: "teacherList",
   components: {
-    uploadExcel
+    uploadExcel,
   },
-  data() {
+  data () {
     return {
       loading: true,
       showDialog: false,
@@ -188,17 +188,17 @@ export default {
         grade: '', //班级类型
         enrollmentYear: '',
         queryOrIdOrNameOrPhone: '',
-        total: 0
+        total: 0,
       },
       classList: [],
       gradeTypeList: [],
       gradeList: [],
       yearList: [],
       list: [],
-      selectAllStudentList: []
+      selectAllStudentList: [],
     }
   },
-  mounted() {
+  mounted () {
     this.getData(this.params);
     this.getGradeType();
     this.getGrade();
@@ -206,7 +206,7 @@ export default {
     this.getClassType();
   },
   methods: {
-    selectClassData(e) {
+    selectClassData (e) {
       this.params.grade = '';
       this.params.graduate = '';
       this.params.enrollmentYear = '';
@@ -221,23 +221,31 @@ export default {
         enrollmentYear: '',
         queryOrIdOrNameOrPhone: '',
         total: 0,
-        isBindingGrade: e
+        isBindingGrade: e,
       })
     },
-    searchData() {
+    searchData () {
       this.params.page = 0;
       this.getData(this.params);
     },
-    goGradeDetail(id) {
+    goGradeDetail (id) {
       this.$router.push({
         path: '/grade/gradeDetails',
         query: {
-          id: id
-        }
+          id: id,
+        },
       })
     },
-    goOperationType(type, studentId, gradeId) {
+    goOperationType (type, studentId, gradeId) {
       if (type === 'visit') {
+        // TODO 学生详情页新开页面
+        // this.$openWindow({
+        //   path: '/students/studentDetails',
+        //   query: {
+        //     studentId: studentId,
+        //     gradeId: gradeId ? gradeId : '',
+        //   },
+        // })
         this.$router.push({
           path: '/students/studentDetails',
           query: {
@@ -246,142 +254,145 @@ export default {
           }
         })
       } else if (type === 'edit') {
+        // this.$openWindow({
+        //   path: '/students/studentOperation',
+        //   query: {
+        //     type,
+        //     studentId,
+        //     gradeId: gradeId ? gradeId : '',
+        //   },
+        // })
         this.$router.push({
           path: '/students/studentOperation',
           query: {
             type,
             studentId,
-            gradeId: gradeId ? gradeId : ''
-          }
+            gradeId: gradeId ? gradeId : '',
+          },
         })
       } else {
         this.$router.push({
-          path: '/students/studentOperationAdd'
+          path: '/students/studentOperationAdd',
         })
       }
     },
-    getGrade() {
-      selectTypeList('grade')
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.gradeList = res.data;
-            }
-          })
+    getGrade () {
+      selectTypeList('grade').then(res => {
+        if (res.errorCode === 200) {
+          this.gradeList = res.data;
+        }
+      })
     },
-    getYear() {
-      selectTypeList('vintage')
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.yearList = res.data;
-            }
-          })
+    getYear () {
+      selectTypeList('vintage').then(res => {
+        if (res.errorCode === 200) {
+          this.yearList = res.data;
+        }
+      })
     },
-    getGradeType() {
-      selectTypeList('gradeType')
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.gradeTypeList = res.data;
-            }
-          })
+    getGradeType () {
+      selectTypeList('gradeType').then(res => {
+        if (res.errorCode === 200) {
+          this.gradeTypeList = res.data;
+        }
+      })
     },
-    getClassType(grade) {
-      selectClassList(grade)
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.classList = res.data;
-            }
-          })
+    getClassType (grade) {
+      selectClassList(grade).then(res => {
+        if (res.errorCode === 200) {
+          this.classList = res.data;
+        }
+      })
     },
 
-    getData(params) {
+    getData (params) {
       this.loading = true;
-      getStudentList(params)
-          .then(res => {
-            if (res.errorCode === 200) {
-              let data = res.data;
-              this.list = data.result;
-              this.loading = false;
-              this.params.total = data.pageResult.total || 0;
-            } else {
-              this.loading = false;
-              errorTip(res.msg)
-            }
-          })
+      getStudentList(params).then(res => {
+        if (res.errorCode === 200) {
+          let data = res.data;
+          this.list = data.result;
+          this.loading = false;
+          this.params.total = data.pageResult.total || 0;
+        } else {
+          this.loading = false;
+          errorTip(res.msg)
+        }
+      })
     },
-    handleCurrentChange(val) {
+    handleCurrentChange (val) {
       this.params.page = val;
       this.getData(this.params);
     },
-    handleSizeChange(val) {
+    handleSizeChange (val) {
       this.params.size = val;
       this.getData(this.params);
     },
-    deleteData(id, phone) {
+    deleteData (id, phone) {
       const _this = this;
       console.log(id);
       if (phone) {
         this.$notify.error({
           title: '删除学生',
-          message: '该账号已激活, 无法删除'
+          message: '该账号已激活, 无法删除',
         })
       } else {
         this.$confirm('此操作将永久删除该学生, 是否继续?', '删除学生', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
-          type: 'warning'
+          type: 'warning',
         }).then(() => {
           _this.deleteStudentApi(id);
         }).catch(() => {
         });
       }
     },
-    deleteStudentApi(ids) {
+    deleteStudentApi (ids) {
       let id = typeof ids === 'string' ? [ids] : ids;
       deleteStudent(id).then(res => {
         if (res.errorCode === 200) {
           this.$message({
             type: 'success',
-            message: '删除成功!'
+            message: '删除成功!',
           });
           this.selectAllStudentList = [];
           this.getData({
             ...this.params,
-            page: 0
+            page: 0,
           });
         } else {
           errorTip(res.msg)
         }
       })
     },
-    isDisabled(row) {
+    isDisabled (row) {
       if (row.username) {
         return 0;
       } else {
         return 1;
       }
     },
-    selectAllStudent(val) {
+    selectAllStudent (val) {
       if (val.length > 0) {
         val.forEach(item => {
           this.selectAllStudentList.push(item._id);
         })
       }
     },
-    deleteAllStudent() {
+    deleteAllStudent () {
       if (this.selectAllStudentList.length === 0) {
         this.$message.info('最少选择一条');
       } else {
         this.$confirm('此操作将永久删除该学生, 是否继续?', '删除学生', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
-          type: 'warning'
+          type: 'warning',
         }).then(() => {
           this.deleteStudentApi(this.selectAllStudentList)
         }).catch(() => {
         });
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

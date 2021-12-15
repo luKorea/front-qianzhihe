@@ -791,6 +791,52 @@ export const asyncRouterMap = [
           },
         ],
       },
+      {
+        path: "/subjectPlain",
+        component: {
+          render(c) {
+            return c("router-view");
+          },
+        },
+        redirect: "/subjectPlain/subjectPlainList",
+        name: "",
+        meta: {
+          title: "选科征集计划",
+          keepAlive: true,
+          showTag: true,
+          icon: "el-icon-star-off",
+          roles: ["grade"],
+          breadcrumb: true,
+        },
+        children: [
+          {
+            path: "subjectPlainList",
+            name: "选科征集计划",
+            component: () => import("../views/admin/subjectsPlain/subjectPlainList"),
+            meta: {
+              title: "选科征集计划",
+              showTag: true,
+              icon: "el-icon-s-data",
+              roles: ["grade"],
+              breadcrumb: true,
+            },
+          },
+          {
+            path: "subjectPlainOperation",
+            name: "编辑选科征集计划",
+            hidden: true,
+            component: () => import("../views/admin/subjectsPlain/operation"),
+            meta: { title: "编辑选科征集计划", icon: "el-icon-s-data", roles: ["grade"] },
+          },
+          // {
+          //   path: "gradeDetails",
+          //   name: "班级详情",
+          //   hidden: true,
+          //   component: () => import("../views/admin/grade/operation/visit"),
+          //   meta: { title: "班级详情", icon: "el-icon-s-data", roles: ["grade"] },
+          // },
+        ],
+      },
     ],
   },
   // 学生
@@ -1077,10 +1123,11 @@ export const asyncRouterMap = [
     children: [
       {
         path: "newExam",
-        name: "模拟选科",
+        name: "选科查询",
+        // name: "模拟选科",
         component: () => import("../views/public/newExam"),
         meta: {
-          title: "模拟选科",
+          title: "选科查询",
           showTag: true,
           keepAlive: true,
           roles: ["myFiles"],
@@ -1089,10 +1136,11 @@ export const asyncRouterMap = [
       },
       {
         path: "studentSubjectSelectionType",
-        name: "正式选科",
+        // name: "正式选科",
+        name: "模拟选科",
         component: () => import("../views/student/subjectSelectionType/index"),
         meta: {
-          title: "正式选科",
+          title: "模拟选科",
           showTag: true,
           icon: "el-icon-star-off",
           roles: ["myFiles"],

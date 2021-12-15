@@ -1,19 +1,33 @@
 <template>
   <div>
+    <basic-skeleton :loading="loading"></basic-skeleton>
     <basic-container>
       <span class="tip-info"></span>
       <span class="tip-title">选科征集统计筛选</span>
       <div class="search-wrap m-top">
+        <!--        <div>-->
+        <!--          <span class="tip">年级:</span>-->
+        <!--          <el-select v-model="params.grade"-->
+        <!--                     @change="(e) => {-->
+        <!--                       params.graduate = ''-->
+        <!--                       getClassData(e)-->
+        <!--                     }"-->
+        <!--                     placeholder="请选择" clearable filterable>-->
+        <!--            <template v-if="gradeList && gradeList.length > 0">-->
+        <!--              <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>-->
+        <!--            </template>-->
+        <!--          </el-select>-->
+        <!--        </div>-->
         <div>
-          <span class="tip">年级:</span>
-          <el-select v-model="params.grade"
-                     @change="(e) => {
-                       params.graduate = ''
-                       getClassData(e)
-                     }"
+          <span class="tip">选科征集计划:</span>
+          <!--            @change="(e) => {
+                                 params.courseSelectionPlanId = ''
+                                 getClassData(e)
+                               }"-->
+          <el-select v-model="params.courseSelectionPlanId"
                      placeholder="请选择" clearable filterable>
-            <template v-if="gradeList && gradeList.length > 0">
-              <el-option v-for="item in gradeList" :label="item.name" :value="item.name"></el-option>
+            <template v-if="subjectList && subjectList.length > 0">
+              <el-option v-for="item in subjectList" :label="item.name" :value="item._id"></el-option>
             </template>
           </el-select>
         </div>
@@ -30,7 +44,6 @@
         </div>
       </div>
     </basic-container>
-    <basic-skeleton :loading="loading"></basic-skeleton>
     <charts-components
         :percent-info="percentInfo"
         :first-data="firstData"
@@ -43,68 +56,76 @@
 </template>
 
 <script>
-import {selectClassList, selectTypeList} from "../../../../api/common/search";
-import {getPercent, getPercentList} from "../../../../api/common/dataAnalysis/subjectSelectionTypeStatistics";
+import { selectClassList, selectTypeList } from "../../../../api/common/search";
+import {
+  getPercent,
+  getPercentList,
+  getSubjectList,
+} from "../../../../api/common/dataAnalysis/subjectSelectionTypeStatistics";
 import studentComponents from "./components/student";
 import chartsComponents from "./components/charts";
-import {errorTip} from "../../../../utils/tip";
-
+import { errorTip } from "../../../../utils/tip";
 
 export default {
   name: "index",
   components: {
     studentComponents,
-    chartsComponents
+    chartsComponents,
   },
-  data() {
+  data () {
     return {
       loading: false,
       params: {
-        grade: '',
+        // grade: '高一',
         graduate: '',
-        type: ''
+        type: '',
+        courseSelectionPlanId: '',
       },
       classList: [],
       gradeList: [],
+      subjectList: [],
       list: [],
       percentInfo: {},
       firstData: [],
-      recleaningData: []
+      recleaningData: [],
     }
   },
-  mounted() {
+  mounted () {
+    if (this.$route.query.id) {
+      this.params.courseSelectionPlanId = this.$route.query.id;
+    }
     this.getClassData();
     this.getAllData(this.params);
-    this.getGrade();
+    // this.getGrade();
+    this.getSubjectListData();
   },
   methods: {
-    searchData() {
+    searchData () {
       this.params.page = 0;
       this.getAllData(this.params);
     },
-    getAllData(params) {
+    getAllData (params) {
       this.getPercentData(params);
       this.getFirst(params);
       this.getRecleaning(params);
     },
-    getPercentData(params) {
+    getPercentData (params) {
       this.loading = true;
-      getPercent(params)
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.percentInfo = res.data;
-              this.loading = false;
-            } else {
-              this.loading = false;
-              errorTip(res.msg);
-            }
-          })
+      getPercent(params).then(res => {
+        if (res.errorCode === 200) {
+          this.percentInfo = res.data;
+          this.loading = false;
+        } else {
+          this.loading = false;
+          errorTip(res.msg);
+        }
+      })
     },
-    getFirst(params) {
+    getFirst (params) {
       this.loading = true;
       getPercentList({
         ...params,
-        type: 'firstChoice'
+        type: 'firstChoice',
       }).then(res => {
         if (res.errorCode === 200) {
           this.loading = false;
@@ -115,11 +136,11 @@ export default {
         }
       })
     },
-    getRecleaning(params) {
+    getRecleaning (params) {
       this.loading = true;
       getPercentList({
         ...params,
-        type: 'recleaning'
+        type: 'recleaning',
       }).then(res => {
         if (res.errorCode === 200) {
           this.loading = false;
@@ -130,23 +151,28 @@ export default {
         }
       })
     },
-    getGrade() {
-      selectTypeList('grade')
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.gradeList = res.data;
-            }
-          })
+    getSubjectListData () {
+      getSubjectList().then(res => {
+        if (res.errorCode === 200) {
+          this.subjectList = res.data;
+        }
+      })
     },
-    getClassData(grade) {
-      selectClassList(grade)
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.classList = res.data;
-            }
-          })
-    }
-  }
+    getGrade () {
+      selectTypeList('grade').then(res => {
+        if (res.errorCode === 200) {
+          this.gradeList = res.data;
+        }
+      })
+    },
+    getClassData (grade) {
+      selectClassList(grade).then(res => {
+        if (res.errorCode === 200) {
+          this.classList = res.data;
+        }
+      })
+    },
+  },
 }
 </script>
 

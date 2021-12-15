@@ -35,24 +35,16 @@
       <span class="tip-info"></span>
       <span class="tip-title">选科查询数据统计</span>
       <el-divider/>
-      <template  v-show="list && list.length > 0">
-        <div class="charts-flex">
-          <div id="charts" class="charts"></div>
-          <div class="tip">
-            <div class="tip-number">
-              <div class="title">查询次数</div>
-              <div class="number-wrap">
-                <span v-for="(item, index) in list" :key="index">{{ item.count }}次</span>
-              </div>
+      <template v-show="list && list.length > 0">
+        <div id="charts" style="width: 100%; height: 500px"></div>
+
+        <div class="color-list">
+          <template v-if="colorNameList && colorNameList.length > 0">
+            <div class="item" v-for="(item, index) in colorNameList" :key="index">
+              <span :style="{backgroundColor: item.color}" class="color-item"></span>
+              <span class="color-title">{{ item.title }}</span>
             </div>
-            <div class="tip-number">
-              <div class="title">查询占比</div>
-              <div class="number-wrap">
-                <span v-for="(item, index) in list" :key="index">{{ item.contentProportion }}</span>
-              </div>
-            </div>
-          </div>
-          <basic-nothing v-if="list.length === 0" style="margin-top: 0; height: 400px; position: absolute"></basic-nothing>
+          </template>
         </div>
       </template>
     </basic-container>
@@ -60,127 +52,173 @@
 </template>
 
 <script>
-import {selectTypeList, selectClassList} from "../../../../api/common/search";
-import {getList} from "../../../../api/common/dataAnalysis/subjectSelectionStatistics";
+import { selectTypeList, selectClassList } from "../../../../api/common/search";
+import { getList } from "../../../../api/common/dataAnalysis/subjectSelectionStatistics";
 
 export default {
   name: "subjectSelectionStatistics",
-  data() {
+  data () {
     return {
       loading: false,
       params: {
-        grade: '',
-        graduate: ''
+        grade: '高一',
+        graduate: '',
       },
       classList: [],
       gradeList: [],
       charts: document.getElementById('charts'),
       list: [],
+      colorNameList: [],
     }
   },
   watch: {
     list: {
       deep: true,
-      handler(val) {
+      handler (val) {
         if (this.charts !== '') this.setOptions(val)
-      }
-    }
+      },
+    },
   },
-  beforeDestroy() {
+  beforeDestroy () {
     if (!this.charts) {
       return
     }
     this.charts.dispose();
     this.charts = null;
   },
-  mounted() {
+  mounted () {
     this.getData(this.params);
     this.getGrade();
     this.getClassData();
     this.$nextTick(() => {
       this.initCharts()
     })
-    window.addEventListener("resize", () => {
-      this.charts.resize();
-    });
+    // window.addEventListener("resize", () => {
+    //   this.charts.resize();
+    // });
   },
   methods: {
-    searchData() {
+    searchData () {
       this.params.page = 0;
       this.getData(this.params);
     },
-    getGrade() {
-      selectTypeList('grade')
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.gradeList = res.data;
-            }
-          })
+    getGrade () {
+      selectTypeList('grade').then(res => {
+        if (res.errorCode === 200) {
+          this.gradeList = res.data;
+        }
+      })
     },
-    getClassData(grade) {
-      selectClassList(grade)
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.classList = res.data;
-            }
-          })
+    getClassData (grade) {
+      selectClassList(grade).then(res => {
+        if (res.errorCode === 200) {
+          this.classList = res.data;
+        }
+      })
     },
-    getData(params) {
+    getData (params) {
       this.loading = true;
-      getList(params)
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.loading = false;
-              if (res.data.length === 0) {
-                this.$message.info('暂时没有查到对应的数据哦')
-              }
-              this.list = res.data;
-              console.log(this.list, 'list');
-            }
-          })
+      this.colorNameList = [];
+      this.list = [];
+      getList(params).then(res => {
+        if (res.errorCode === 200) {
+          this.loading = false;
+          if (res.data.length === 0) {
+            this.$message.info('暂时没有查到对应的数据哦')
+          } else {
+            this.list = res.data;
+            let colorList = [
+              '#FF8026', '#FFDD67', '#67E383', '#3ABCF8', '#27CABD', '#6E96FF',
+              '#FF6077', '#578CFF', '#E957FF', '#57F1FF', '#FF6A53', '#EEA287',
+              '#FC9131', '#40A7DF', '#36E095', '#7C6AF2', '#FF6A53', '#EEA287',
+            ];
+            res.data.forEach((item, index) => {
+              this.colorNameList.push({
+                title: item.content.substr(0, item.content.length - 1),
+                color: colorList[index],
+              });
+            });
+          }
+        }
+      })
     },
-    initCharts() {
+    initCharts () {
       this.charts = this.echarts.init(document.getElementById('charts'));
       this.setOptions(this.list);
     },
-    setOptions(data = []) {
+    setOptions (data = []) {
       console.log(data, 'data');
       let nameList = [],
           valueList = [];
-      data && data.length > 0 && data.forEach(item => {
-        nameList.push(item.content);
+      data.forEach(item => {
+        nameList.push(item.content.substr(0, item.content.length - 1));
         valueList.push({
           value: item.proportion,
-          name: item.content
+          label: item.count,
         })
       })
       this.charts.setOption({
         tooltip: {
-          trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)'
+          trigger: 'axis',
+          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow',        // 默认为直线，可选为：'line' | 'shadow'
+          },
+          formatter: params => {
+            return `${params[0].name}<br/>${params[0].marker}查询占比：${params[0].value}%<br/>${params[0].marker}查询次数：${params[0].data.label}次`
+          },
         },
-        legend: {
-          right: 10,
-          top: 30,
-          bottom: 20,
-          orient: 'vertical',
-          data: nameList
+        xAxis: {
+          type: 'category',
+          data: nameList,
+          axisLabel: {
+            interval: 0,//横轴信息全部显示
+            rotate: 15,// 倾斜角度
+            show: true,
+            textStyle: {
+              color: '#999999',  //更改坐标轴文字颜色
+              fontSize: 12,   //更改坐标轴文字大小
+              top: 10,
+            },
+          },
+        },
+        yAxis: {
+          type: 'value',
+          axisLabel: {
+            formatter: '{value}%',
+          },
         },
         series: [
           {
-            name: '选科统计',
-            type: 'pie',
-            roseType: 'radius',
-            radius: [15, 95],
-            center: ['50%', '40%'],
             data: valueList,
-            animationEasing: 'cubicInOut',
-            animationDuration: 2600
-          }
-        ]
+            type: 'bar',
+            barMaxWidth: '30px',
+            itemStyle: {
+              normal: {
+                color (params) {
+                  const colorlist = [
+                    '#FF8026', '#FFDD67', '#67E383', '#3ABCF8', '#27CABD', '#6E96FF',
+                    '#FF6077', '#578CFF', '#E957FF', '#57F1FF', '#FF6A53', '#EEA287',
+                    '#FC9131', '#40A7DF', '#36E095', '#7C6AF2', '#FF6A53', '#EEA287',
+                  ];
+                  return colorlist[params.dataIndex];
+                },
+                label: {
+                  show: true,		//开启显示
+                  position: 'top',	//在上方显示
+                  formatter: (params) => {
+                    return params.data.label + '次'
+                  },
+                  textStyle: {	    //数值样式
+                    color: '#2E415B',
+                    fontSize: 12,
+                  },
+                },
+              },
+            },
+          }],
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -207,7 +245,8 @@ export default {
     align-items: center;
     width: 100%;
     height: 400px;
-    position: absolute;background-color: #fff;
+    position: absolute;
+    background-color: #fff;
     //background-color: #0a6fe8;
   }
 
@@ -246,6 +285,39 @@ export default {
     }
 
     //justify-content: space-between;
+  }
+}
+
+.color-list {
+  display: flex;
+  width: 100%;
+  margin: auto;
+  //justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 40px;
+
+  .item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    margin: 0 60px 24px 80px;
+
+    .color-item {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      margin-right: 4px;
+    }
+
+    .color-title {
+      font-size: 14px;
+      font-family: PingFang-SC-Medium, PingFang-SC;
+      font-weight: 500;
+      color: #6C7293;
+      line-height: 20px;
+    }
   }
 }
 </style>

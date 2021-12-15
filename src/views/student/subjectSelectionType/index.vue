@@ -1,140 +1,184 @@
 <template>
   <div>
+    <div class="title">模拟选科</div>
     <basic-skeleton :loading="loading" :number="10"></basic-skeleton>
     <div v-if="!loading">
-      <div class="modal">
-        <span class="tip-info"></span>
-        <span class="tip-title">选科征集信息</span>
-        <div class="m-top">
-          <div class="m-bottom">
-            <span class="tip-title">首选科目（2选1）</span>
-            <el-radio-group v-model="info.firstChoice">
-              <el-radio v-for="(item, index) in firstList" :label="item.name" :disabled="showBtn"/>
-            </el-radio-group>
+      <template v-if="info && info.length > 0">
+        <div class="modal" v-for="(subjectItem, index) in info" :key="subjectItem._id">
+          <div class="left">
+            <div class="state">
+              <span v-if="subjectItem.state === 1" class="no-start">未开始</span>
+              <span v-if="subjectItem.state === 2" class="starting">已开始</span>
+              <span v-if="subjectItem.state === 3" class="close">已截止</span>
+              <div class="state-name">{{ subjectItem.name }}</div>
+              <div class="state-time">(提交选科时间：{{ subjectItem.startTime }}—{{ subjectItem.endTime }})</div>
+            </div>
+            <div class="m-top">
+              <div class="m-bottom">
+                <span class="tip-title">首选科目（2选1）</span>
+                <el-radio-group v-model="subjectItem.firstChoice">
+                  <el-radio
+                      :key="index" v-for="(item, index) in firstList"
+                      :label="item.name"
+                      :disabled="showBtn || subjectItem.state !== 2"
+                  />
+                </el-radio-group>
+              </div>
+              <div style="display: flex; align-items: center">
+                <span class="tip-title">再选科目（4选2）</span>
+                <el-checkbox-group v-model="subjectItem.checkList" :max="2" @change="handleChange">
+                  <el-checkbox v-for="item in recleaningList"
+                               v-model="subjectItem.checkList"
+                               :disabled="showBtn || subjectItem.state !== 2"
+                               :label="item.name" :key="item.id">{{ item.name }}
+                  </el-checkbox>
+                </el-checkbox-group>
+              </div>
+            </div>
           </div>
-          <div style="display: flex; align-items: center">
-            <span class="tip-title">再选科目（4选2）</span>
-            <el-checkbox-group v-model="checkList" :max="2">
-              <el-checkbox v-for="(item, index) in recleaningList"
-                           :disabled="showBtn"
-                           :label="item.name" :key="index">{{ item.name }}
-              </el-checkbox>
-            </el-checkbox-group>
+          <div class="right" v-if="subjectItem.state === 2">
+            <div class="btn">
+              <el-button v-if="!showBtn" style="color: #475B75" @click="closeBtn">取消</el-button>
+              <el-button v-if="!showBtn" type="primary" @click="operationData">保存</el-button>
+              <el-button v-if="showBtn" type="primary"
+                         @click="editOperation(subjectItem._id)">编辑
+              </el-button>
+
+            </div>
+          </div>
+          <div class="modal-title" v-if="subjectItem.state !== 2">
+            <div>{{ subjectItem.name }} ({{ subjectItem.state === 1 ? '未开始' : '已截止' }})</div>
+            <div>{{ subjectItem.startTime }}-{{ subjectItem.endTime }}</div>
           </div>
         </div>
-        <span class="modal-title" v-if="info.gradeDto === undefined">您暂未绑定班级，请联系管理员</span>
-        <span class="modal-title" v-if="info.gradeDto !== undefined && info.isChoose === false">您的班级未开启志愿征集功能，如有需要请联系班级教师</span>
-      </div>
-      <div class="btn">
-        <el-button v-if="!showBtn" style="color: #475B75" @click="closeBtn">返回</el-button>
-        <el-button v-if="!showBtn" type="primary" @click="operationData">保存</el-button>
-        <el-button v-if="showBtn" type="primary"
-                   :disabled="!info.isChoose"
-                   @click="editOperation">编辑</el-button>
-      </div>
+      </template>
+      <template v-else>
+        <basic-nothing title="您的年级暂未创建模拟选科计划"></basic-nothing>
+      </template>
     </div>
   </div>
 </template>
 <script>
-import {selectTypeList} from "../../../api/common/search";
-import {editInfo, getCourseSelection} from "../../../api/student/archives";
-import {errorTip, successTip} from "../../../utils/tip";
+import { selectTypeList } from "../../../api/common/search";
+import { editInfo, getCourseSelection } from "../../../api/student/archives";
+import { errorTip, successTip } from "../../../utils/tip";
+import { nanoid } from 'nanoid'
 
 export default {
   name: "index",
-  data() {
+  data () {
     return {
       showBtn: true,
       loading: true,
-      info: {},
+      info: [],
       firstList: [],
       recleaningList: [],
-      checkList: []
+      selectId: '',
     }
   },
-  mounted() {
+  mounted () {
     this.getData();
     this.getFirstSelectData();
     this.getRecleaningData();
   },
   methods: {
-    editOperation() {
+    handleChange (e) {
+      console.log(e, 'e')
+    },
+    editOperation (id) {
+      this.selectId = id;
       this.showBtn = false;
     },
-    closeBtn() {
+    closeBtn () {
       this.showBtn = !this.showBtn;
-      this.initValue(this.info);
+      this.initValue();
     },
-    getData() {
+    getData () {
       this.loading = true;
-      getCourseSelection()
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.info = res.data;
-              this.initValue(res.data);
-              this.loading = false;
-            }
+      getCourseSelection().then(res => {
+        if (res.errorCode === 200) {
+          console.log(res.data, 'res')
+          this.info = res.data;
+          this.initValue();
+          this.loading = false;
+        }
+      })
+    },
+    initValue () {
+      this.info.forEach((item, index) => {
+        this.$set(item, 'checkList', item.recleaning1 && item.recleaning2 ? [item.recleaning1, item.recleaning2] : [])
+      })
+    },
+    getFirstSelectData () {
+      selectTypeList('firstChoice').then(res => {
+        if (res.errorCode === 200) this.firstList = res.data;
+      })
+    },
+    getRecleaningData () {
+      selectTypeList('recleaning').then(res => {
+        if (res.errorCode === 200) {
+          res.data && res.data.length > 0 && res.data.forEach(item => {
+            item['id'] = nanoid(8);
+            this.recleaningList.push(item);
           })
+        }
+      })
     },
-    initValue(data) {
-      this.info.recleaning1 && this.info.recleaning2
-          ? this.checkList = [data.recleaning1, data.recleaning2]
-          : this.checkList = [];
-    },
-    getFirstSelectData() {
-      selectTypeList('firstChoice')
-          .then(res => {
-            if (res.errorCode === 200) this.firstList = res.data;
-          })
-    },
-    getRecleaningData() {
-      selectTypeList('recleaning')
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.recleaningList = res.data;
-            }
-          })
-    },
-    goBack() {
+    goBack () {
       this.$emit('changeShowEdit');
     },
-    operationData() {
-      if (this.checkList.length === 0) {
-        errorTip('再选科目不能为空')
-        return
-      } else if (this.checkList.length === 1) {
-        errorTip('再选科目需选择两个')
-        return;
-      }
+    operationData () {
       let that = this;
-      that.info['recleaning1'] = that.checkList[0];
-      that.info['recleaning2'] = that.checkList[1];
-      editInfo(that.info)
-          .then(res => {
-            if (res.errorCode === 200) {
-              successTip('修改成功');
-              that.showBtn = true;
-              that.getData();
-            } else {
-              errorTip(res.msg)
-            }
-          })
-    }
-  }
+      that.info.forEach(item => {
+        if (item._id === that.selectId) {
+          if (item.checkList.length === 0) {
+            errorTip('再选科目不能为空')
+          } else if (item.checkList.length === 1) {
+            errorTip('再选科目需选择两个')
+          } else {
+            item['courseSelectionPlanId'] = item._id;
+            item['recleaning1'] = item.checkList[0];
+            item['recleaning2'] = item.checkList[1];
+            editInfo(item).then(res => {
+              if (res.errorCode === 200) {
+                successTip('修改成功');
+                that.showBtn = true;
+                that.getData();
+              } else {
+                errorTip(res.msg)
+              }
+            })
+          }
+        }
+      })
+    },
+  },
 }
 </script>
 
 <style scoped lang="scss">
+.title {
+  margin-left: 10px;
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #AFB8C6;
+  line-height: 22px;
+}
+
 .modal {
   border-radius: 4px;
   position: relative;
-  margin: 6px;
+  margin: 10px 10px 20px 10px;
   padding: 20px;
   background: #FFFFFF;
   box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   .modal-title {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: absolute;
@@ -144,13 +188,14 @@ export default {
     height: 100%;
     background: rgba(0, 0, 0, 0.65);
     transform: translate(-50%, -50%);
-    text-align: center;
+    //text-align: center;
     font-size: 16px;
     font-family: PingFangSC-Regular, PingFang SC;
     font-weight: 400;
-    color: #FFFFFF;
+    color: #c1bdbd;
     border-radius: 4px;
     z-index: 2;
+    line-height: 30px;
   }
 }
 

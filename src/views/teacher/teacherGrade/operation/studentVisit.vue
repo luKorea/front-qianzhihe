@@ -85,35 +85,58 @@
         </div>
         <basic-nothing v-else title="该学生未绑定任何班级"></basic-nothing>
       </basic-container>
+      <!--      <basic-container style="margin-bottom: 100px">-->
+      <!--        <span class="tip-info"></span>-->
+      <!--        <span class="tip-title">选科信息</span>-->
+      <!--        <div style="margin-top: 20px" v-if="info.firstChoice">-->
+      <!--          <el-row :gutter="4">-->
+      <!--            <el-col :span="8">-->
+      <!--              <span class="student-title">首选科目: </span>-->
+      <!--              <span class="student-info">{{ info.firstChoice }}</span>-->
+      <!--            </el-col>-->
+      <!--            <el-col :span="8">-->
+      <!--              <span class="student-title">再选科目: </span>-->
+      <!--              <span class="student-info">{{ info.recleaning1 }}、{{ info.recleaning2 }}</span>-->
+      <!--            </el-col>-->
+      <!--          </el-row>-->
+      <!--        </div>-->
+      <!--        <basic-nothing v-else title="该学生未填写选科信息"></basic-nothing>-->
+      <!--      </basic-container>-->
       <basic-container style="margin-bottom: 100px">
         <span class="tip-info"></span>
-        <span class="tip-title">选科信息</span>
-        <div style="margin-top: 20px" v-if="info.firstChoice">
-          <el-row :gutter="4">
-            <el-col :span="8">
-              <span class="student-title">首选科目: </span>
-              <span class="student-info">{{ info.firstChoice }}</span>
-            </el-col>
-            <el-col :span="8">
-              <span class="student-title">再选科目: </span>
-              <span class="student-info">{{ info.recleaning1 }}、{{ info.recleaning2 }}</span>
-            </el-col>
-          </el-row>
-
-          <!--        <span class="tip-title">首选科目</span>-->
-          <!--        <el-select v-model="info.firstChoice" placeholder="请选择" clearable class="m-right" disabled>-->
-          <!--          <el-option v-for="(item, index) in firstList" :key="index" :label="item.name" :value="item.name"/>-->
-          <!--        </el-select>-->
-          <!--        <span class="tip-title">再选科目1</span>-->
-          <!--        <el-select v-model="info.recleaning1" placeholder="请选择" clearable class="m-right" disabled>-->
-          <!--          <el-option v-for="(item, index) in recleaning1List" :key="index" :label="item.name" :value="item.name"/>-->
-          <!--        </el-select>-->
-          <!--        <span class="tip-title">再选科目2</span>-->
-          <!--        <el-select v-model="info.recleaning2" placeholder="请选择" clearable class="m-right" disabled>-->
-          <!--          <el-option v-for="(item, index) in recleaning2List" :key="index" :label="item.name" :value="item.name"/>-->
-          <!--        </el-select>-->
+        <span class="tip-title">模拟选科</span>
+        <el-divider/>
+        <div style="margin-top: 20px"
+             v-if="info.studentCourseSelectionPlanVoList && info.studentCourseSelectionPlanVoList.length > 0">
+          <template v-for="(subjectItem, index) in info.studentCourseSelectionPlanVoList">
+            <div class="left" :key="subjectItem._id" style="margin-bottom: 20px">
+              <div class="state">
+                <span v-if="subjectItem.state === 1" class="no-start">未开始</span>
+                <span v-if="subjectItem.state === 2" class="starting">进行中</span>
+                <span v-if="subjectItem.state === 3" class="close">已截止</span>
+                <div class="state-name">{{ subjectItem.name }}</div>
+                <div class="state-time">(提交选科时间：{{ subjectItem.startTime }}—{{ subjectItem.endTime }})</div>
+              </div>
+              <div class="m-top">
+                <div class="m-bottom">
+                  <span class="tip-title">首选科目（2选1）</span>
+                  <el-radio v-if="subjectItem.firstChoice" :label="subjectItem.firstChoice"
+                            :value="subjectItem.firstChoice"/>
+                  <span v-else class="left-nothing">-</span>
+                </div>
+                <div style="display: flex; align-items: baseline">
+                  <span class="tip-title">再选科目（4选2）</span>
+                  <template v-if="subjectItem.recleaning1 && subjectItem.recleaning2">
+                    <el-radio :label="subjectItem.recleaning1" :value="subjectItem.recleaning1"/>
+                    <el-radio :label="subjectItem.recleaning2" :value="subjectItem.recleaning2"/>
+                  </template>
+                  <span v-else class="left-nothing">-</span>
+                </div>
+              </div>
+            </div>
+          </template>
         </div>
-        <basic-nothing v-else title="该学生未填写选科信息"></basic-nothing>
+        <basic-nothing v-else title="该年级未创建模拟选科计划"></basic-nothing>
       </basic-container>
       <div class="footer-btn">
         <el-button style="color: #475B75" @click="goBack">返回</el-button>
@@ -124,26 +147,26 @@
 </template>
 
 <script>
-import {getStudentInfo, selectClassList} from "../../../../api/teacher/teacherStudents";
-import {selectTypeList} from "../../../../api/common/search";
+import { getStudentInfo, selectClassList } from "../../../../api/teacher/teacherStudents";
+import { selectTypeList } from "../../../../api/common/search";
 
 export default {
   name: "visit",
-  data() {
+  data () {
     return {
       loading: false,
       params: {
         studentId: '',
-        gradeId: ''
+        gradeId: '',
       },
       info: {},
       firstList: [],
       recleaning1List: [],
-      recleaning2List: []
+      recleaning2List: [],
     }
   },
-  mounted() {
-    let {studentId, gradeId} = this.$route.query;
+  mounted () {
+    let { studentId, gradeId } = this.$route.query;
     this.params.studentId = studentId;
     this.params.gradeId = gradeId;
     this.getInfo(this.params);
@@ -151,58 +174,55 @@ export default {
     this.getRecleaningData();
   },
   methods: {
-    getFirstSelectData() {
-      selectTypeList('firstChoice')
-          .then(res => {
-            if (res.errorCode === 200) this.firstList = res.data;
-          })
+    getFirstSelectData () {
+      selectTypeList('firstChoice').then(res => {
+        if (res.errorCode === 200) this.firstList = res.data;
+      })
     },
-    getRecleaningData() {
-      selectTypeList('recleaning')
-          .then(res => {
-            console.log(res, 'sad');
-            if (res.errorCode === 200) {
-              this.recleaning1List = res.data;
-              this.recleaning2List = res.data;
-            }
-          })
+    getRecleaningData () {
+      selectTypeList('recleaning').then(res => {
+        console.log(res, 'sad');
+        if (res.errorCode === 200) {
+          this.recleaning1List = res.data;
+          this.recleaning2List = res.data;
+        }
+      })
     },
-    goBack() {
+    goBack () {
       this.$store.dispatch("tagsView/delView", this.$route);
       this.$router.go(-1);
     },
-    goEdit(studentId, gradeId) {
+    goEdit (studentId, gradeId) {
       this.$router.push({
         path: '/teacherGrade/studentOperation',
         query: {
           type: 'edit',
           studentId,
-          gradeId: gradeId ? gradeId : ''
+          gradeId: gradeId ? gradeId : '',
+        },
+      })
+    },
+    getInfo (params) {
+      this.loading = true;
+      getStudentInfo(params).then(res => {
+        if (res.errorCode === 200) {
+          this.info = res.data;
+          this.loading = false;
         }
       })
     },
-    getInfo(params) {
-      this.loading = true;
-      getStudentInfo(params)
-          .then(res => {
-            if (res.errorCode === 200) {
-              this.info = res.data;
-              this.loading = false;
-            }
-          })
-    },
-    goOperationType(type, id) {
+    goOperationType (type, id) {
       console.log(type, id);
     },
-    handleCurrentChange(val) {
+    handleCurrentChange (val) {
       this.params.page = val;
       this.getInfo(this.params);
     },
-    handleSizeChange(val) {
+    handleSizeChange (val) {
       this.params.size = val;
       this.getInfo(this.params);
-    }
-  }
+    },
+  },
 }
 </script>
 
