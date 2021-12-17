@@ -1,4 +1,4 @@
-import { Message } from 'element-ui'
+import { Message, MessageBox } from 'element-ui'
 import { getToken } from '@/utils/auth'
 import {showFullScreenLoading, tryHideFullScreenLoading} from './loading';
 import store from "../store";
@@ -41,12 +41,18 @@ export function req(url, data, type = 'GET') {
             // tryHideFullScreenLoading();
             // 用户TOKEN已过期，重新登录
             if (data.status === 401) {
-                // Message({
-                //     message: '登录信息已过期，请重新登录',
-                //     type: 'error'
-                // });
-                store.dispatch('user/logout').then(() => {
-                    window.location.href = '/';
+                MessageBox({
+                    title: '登录状态',
+                    message: '登录信息已过期，请重新登录',
+                    showClose: false,
+                    showCancelButton: false,
+                    closeOnClickModal: false,
+                    closeOnPressEscape: false,
+                    type: 'error'
+                }).then(res => {
+                    store.dispatch('user/logout').then(() => {
+                        window.location.href = '/';
+                    })
                 })
             } else {
                 Message({

@@ -18,9 +18,10 @@
                 <span class="tip-title">首选科目（2选1）</span>
                 <el-radio-group v-model="subjectItem.firstChoice">
                   <el-radio
-                      :key="index" v-for="(item, index) in firstList"
+                      v-for="item in firstList"
+                      :key="item.id"
                       :label="item.name"
-                      :disabled="showBtn || subjectItem.state !== 2"
+                      :disabled="showBtn || subjectItem.state !== 2 || selectIndex !== index"
                   />
                 </el-radio-group>
               </div>
@@ -29,7 +30,7 @@
                 <el-checkbox-group v-model="subjectItem.checkList" :max="2" @change="handleChange">
                   <el-checkbox v-for="item in recleaningList"
                                v-model="subjectItem.checkList"
-                               :disabled="showBtn || subjectItem.state !== 2"
+                               :disabled="showBtn || subjectItem.state !== 2 || selectIndex !== index"
                                :label="item.name" :key="item.id">{{ item.name }}
                   </el-checkbox>
                 </el-checkbox-group>
@@ -38,10 +39,10 @@
           </div>
           <div class="right" v-if="subjectItem.state === 2">
             <div class="btn">
-              <el-button v-if="!showBtn" style="color: #475B75" @click="closeBtn">取消</el-button>
-              <el-button v-if="!showBtn" type="primary" @click="operationData">保存</el-button>
+              <el-button v-if="!showBtn && selectIndex === index" style="color: #475B75" @click="closeBtn">取消</el-button>
+              <el-button v-if="!showBtn && selectIndex === index" type="primary" @click="operationData">保存</el-button>
               <el-button v-if="showBtn" type="primary"
-                         @click="editOperation(subjectItem._id)">编辑
+                         @click="editOperation(subjectItem._id, index)">编辑
               </el-button>
 
             </div>
@@ -74,6 +75,7 @@ export default {
       firstList: [],
       recleaningList: [],
       selectId: '',
+      selectIndex: ''
     }
   },
   mounted () {
@@ -85,9 +87,10 @@ export default {
     handleChange (e) {
       console.log(e, 'e')
     },
-    editOperation (id) {
+    editOperation (id, index) {
+      this.selectIndex = index;
       this.selectId = id;
-      this.showBtn = false;
+      this.selectIndex === index ? this.showBtn = false : this.showBtn = true;
     },
     closeBtn () {
       this.showBtn = !this.showBtn;
@@ -111,7 +114,12 @@ export default {
     },
     getFirstSelectData () {
       selectTypeList('firstChoice').then(res => {
-        if (res.errorCode === 200) this.firstList = res.data;
+        if (res.errorCode === 200) {
+          res.data.forEach(item => {
+            item['id'] = nanoid();
+          })
+          this.firstList = res.data;
+        }
       })
     },
     getRecleaningData () {

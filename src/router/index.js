@@ -1168,6 +1168,25 @@ export const asyncRouterMap = [
       },
     ],
   },
+  {
+    path: "/appDescription",
+    component: Layout,
+    redirect: "/appDescription",
+    children: [
+      {
+        path: "appDescription",
+        name: "千职鹤APP",
+        component: () => import("../views/student/app/index"),
+        meta: {
+          title: "千职鹤APP",
+          showTag: true,
+          icon: "el-icon-mobile-phone",
+          roles: ["AppIntroduce"],
+          breadcrumb: true,
+        },
+      },
+    ],
+  },
   // 教师
   {
     path: "/teacherGrade",
