@@ -68,9 +68,9 @@
       </el-table-column>
       <el-table-column prop="courseSelectionPlanName" label="选科征集计划" align="center"/>
       <el-table-column prop="username" label="手机号" align="center"/>
-      <el-table-column prop="firstChoice" label='首选科目' align="center"/>
-      <el-table-column prop="recleaning1" label='再选科目1' align="center"/>
-      <el-table-column prop="recleaning2" label='再选科目2' align="center"/>
+      <el-table-column prop="electiveSystemRecord.firstChoice" label='首选科目' align="center"/>
+      <el-table-column prop="electiveSystemRecord.recleaning1" label='再选科目1' align="center"/>
+      <el-table-column prop="electiveSystemRecord.recleaning2" label='再选科目2' align="center"/>
       <el-table-column prop="grade" label='年级' align="center"/>
       <el-table-column prop="gradeName" label="所属班级" align="center">
         <template slot-scope="scope">
@@ -218,7 +218,7 @@ export default {
         ...this.params,
         page: 0
       });
-      this.getClassData(value);
+      // this.getClassData(value);
     },
     getData(params) {
       this.loading = true;

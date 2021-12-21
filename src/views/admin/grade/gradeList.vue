@@ -99,13 +99,13 @@
         <el-table-column label="操作" align="center" width="250">
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="goOperationType('edit', scope.row._id)">编辑</el-button>
-            <el-button type="text" size="small" style="color: red" @click="openOrClose(scope.row._id, false)"
-                       v-if="scope.row.openCourseSelectionFor">
-              关闭选科征集
-            </el-button>
-            <el-button type="text" size="small" @click="openOrClose(scope.row._id, true)" v-else>
-              开启选科征集
-            </el-button>
+<!--            <el-button type="text" size="small" style="color: red" @click="openOrClose(scope.row._id, false)"-->
+<!--                       v-if="scope.row.openCourseSelectionFor">-->
+<!--              关闭选科征集-->
+<!--            </el-button>-->
+<!--            <el-button type="text" size="small" @click="openOrClose(scope.row._id, true)" v-else>-->
+<!--              开启选科征集-->
+<!--            </el-button>-->
             <el-button type="text" size="small" @click="goOperationType('visit', scope.row._id)">查看班级详情</el-button>
           </template>
         </el-table-column>

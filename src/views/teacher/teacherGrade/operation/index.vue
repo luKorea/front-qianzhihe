@@ -78,13 +78,13 @@
           </el-row>
         </div>
       </basic-container>
-      <basic-container>
-        <span class="tip-info"></span>
-        <span class="tip-title">其他</span>
-        <div class="m-top">
-          <el-switch v-model="form.openCourseSelectionFor" inactive-text="选科征集开关"/>
-        </div>
-      </basic-container>
+<!--      <basic-container>-->
+<!--        <span class="tip-info"></span>-->
+<!--        <span class="tip-title">其他</span>-->
+<!--        <div class="m-top">-->
+<!--          <el-switch v-model="form.openCourseSelectionFor" inactive-text="选科征集开关"/>-->
+<!--        </div>-->
+<!--      </basic-container>-->
     </el-form>
     <div class="footer-btn">
       <el-button style="color: #475B75" @click="goBack">返回</el-button>

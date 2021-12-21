@@ -49,7 +49,7 @@
                   ></el-image>
                 </div>
                 <div class="info">
-                  <div class="title">{{ item.type }}</div>
+                  <div class="title">{{ item.type }}({{item.resultType}})</div>
                   <div class="advantages">
                     • 优势：{{ item.advantages }}
                   </div>

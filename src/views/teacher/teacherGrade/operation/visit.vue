@@ -8,10 +8,10 @@
             <span class="tip-info"></span>
             <span class="tip-title">班级基本信息</span>
           </div>
-          <div class="right">
-            <el-button @click="openOrClose(info._id, false)" type="danger" plain>关闭选科征集</el-button>
-            <el-button @click="openOrClose(info._id, true)">开启选科征集</el-button>
-          </div>
+<!--          <div class="right">-->
+<!--            <el-button @click="openOrClose(info._id, false)" type="danger" plain>关闭选科征集</el-button>-->
+<!--            <el-button @click="openOrClose(info._id, true)">开启选科征集</el-button>-->
+<!--          </div>-->
         </div>
         <div style="margin-top: 20px">
           <el-row :gutter="4" class="m-bottom">
@@ -88,9 +88,9 @@
             </el-table-column>
             <el-table-column prop="username" label="手机号" align="center" />
             <el-table-column prop="enrollmentYear" label="入学年份" align="center" />
-            <el-table-column prop="firstChoice" label="首选科目" align="center" />
-            <el-table-column prop="recleaning1" label="再选科目1" align="center" />
-            <el-table-column prop="recleaning2" label="再选科目2" align="center" />
+<!--            <el-table-column prop="firstChoice" label="首选科目" align="center" />-->
+<!--            <el-table-column prop="recleaning1" label="再选科目1" align="center" />-->
+<!--            <el-table-column prop="recleaning2" label="再选科目2" align="center" />-->
             <el-table-column label="操作" align="center" width="250">
               <template slot-scope="scope">
                 <el-button type="text" size="small" @click="goOperationType('visit', scope.row._id, params.gradeId)">查看</el-button>

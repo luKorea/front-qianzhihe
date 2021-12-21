@@ -10,10 +10,10 @@
           </div>
           <div class="right">
             <el-button @click="goEditGrade">编辑班级信息</el-button>
-            <el-button @click="openOrClose(info._id, false)" type="danger" plain v-if="info.openCourseSelectionFor">
-              关闭选科征集
-            </el-button>
-            <el-button @click="openOrClose(info._id, true)" v-else>开启选科征集</el-button>
+<!--            <el-button @click="openOrClose(info._id, false)" type="danger" plain v-if="info.openCourseSelectionFor">-->
+<!--              关闭选科征集-->
+<!--            </el-button>-->
+<!--            <el-button @click="openOrClose(info._id, true)" v-else>开启选科征集</el-button>-->
           </div>
         </div>
         <div style="margin-top: 20px">
@@ -109,9 +109,9 @@
             </el-table-column>
             <el-table-column prop="username" label="手机号" align="center"/>
             <el-table-column prop="enrollmentYear" label="入学年份" align="center"/>
-            <el-table-column prop="firstChoice" label="首选科目" align="center"/>
-            <el-table-column prop="recleaning1" label="再选科目1" align="center"/>
-            <el-table-column prop="recleaning2" label="再选科目2" align="center"/>
+<!--            <el-table-column prop="firstChoice" label="首选科目" align="center"/>-->
+<!--            <el-table-column prop="recleaning1" label="再选科目1" align="center"/>-->
+<!--            <el-table-column prop="recleaning2" label="再选科目2" align="center"/>-->
             <el-table-column label="操作" align="center" width="250">
               <template slot-scope="scope">
                 <el-button type="text" size="small" @click="goOperationType('visit', scope.row._id, params.gradeId)">查看

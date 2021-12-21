@@ -4,7 +4,7 @@
       <span class="tip-info"></span>
       <span class="tip-title">测评结果</span>
       <div class="type-list">
-        <div class="title">{{ mbitInfo.type }}</div>
+        <div class="title">{{ mbitInfo.type }}({{mbitInfo.resultType}})</div>
         <div class="describe">{{ mbitInfo.traits }}</div>
       </div>
 
@@ -103,6 +103,7 @@ export default {
 <style scoped lang="scss">
 .type-list {
   display: flex;
+  flex-direction: column;
   width: 100%;
   flex-wrap: wrap;
   padding: 10px;

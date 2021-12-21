@@ -158,7 +158,7 @@
                   </div>
                   <div style="display: flex; align-items: center">
                     <span class="tip-title">再选科目（4选2）</span>
-                    <el-checkbox-group v-model="subjectItem.checkList" :max="2">
+                    <el-checkbox-group v-model="subjectItem.checkList" :max="2" @change="changeList">
                       <el-checkbox v-for="item in recleaningList"
                                    v-model="subjectItem.checkList"
                                    :label="item.name" :key="item.id">{{ item.name }}
@@ -176,7 +176,7 @@
       </el-form>
       <div class="footer-btn">
         <el-button style="color: #475B75" @click="goBack">返回</el-button>
-        <el-button type="primary" :loading="loading" @click="operationData">保存</el-button>
+        <el-button type="primary" :loading="loading" :disabled="editBtn" @click="operationData">保存</el-button>
       </div>
     </div>
   </div>
@@ -215,6 +215,7 @@ export default {
       checkList: [],
       gradeList: [],
       yearList: [],
+      editBtn: false
     }
   },
   mounted() {
@@ -229,6 +230,14 @@ export default {
     this.getGradeList();
   },
   methods: {
+    changeList(e) {
+      if (e.length === 1) {
+        this.editBtn = true;
+        errorTip('再选科目需要选择两项')
+      } else {
+        this.editBtn = false;
+      }
+    },
     getGradeList() {
       selectTypeList('grade')
           .then(res => {

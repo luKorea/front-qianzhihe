@@ -1137,10 +1137,10 @@ export const asyncRouterMap = [
       {
         path: "studentSubjectSelectionType",
         // name: "正式选科",
-        name: "模拟选科",
+        name: "选科征集",
         component: () => import("../views/student/subjectSelectionType/index"),
         meta: {
-          title: "模拟选科",
+          title: "选科征集",
           showTag: true,
           icon: "el-icon-star-off",
           roles: ["myFiles"],

@@ -25,7 +25,8 @@ export const getList = params => {
 
 // 导出学生选科征集学生列表
 export const downStudentList = (params, fileName) => {
-    return xhrGetFile(`/schoolApi/${basicUrl}/download?grade=${params.grade}&gradeType=${params.gradeType}&graduate=${params.graduate}`, fileName)
+    return xhrGetFile(`/schoolApi${basicUrl}/download?gradeType=${params.gradeType}&graduate=${params.graduate}&courseSelectionPlanId=${params.courseSelectionPlanId}`, fileName)
+    // return xhrGetFile(`/schoolApi/${basicUrl}/download?grade=${params.grade}&gradeType=${params.gradeType}&graduate=${params.graduate}&courseSelectionPlanId=${params.courseSelectionPlanId}`, fileName)
 }
 
 // 获取选科征集筛选列表

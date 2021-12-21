@@ -33,7 +33,7 @@
                   <el-date-picker
                       style="width: 100%"
                       v-model="form.startTime"
-                      type="date"
+                      type="datetime"
                       placeholder="选择开始时间">
                   </el-date-picker>
                 </el-form-item>
@@ -43,7 +43,7 @@
                   <el-date-picker
                       style="width: 100%"
                       v-model="form.endTime"
-                      type="date"
+                      type="datetime"
                       placeholder="选择结束时间">
                   </el-date-picker>
                 </el-form-item>
@@ -132,13 +132,18 @@ export default {
     },
     operationData () {
       let that = this;
-      that.$refs['form'].validate(valid => {
-        if (valid) {
-          that.addOrEditData(that.form)
-        } else {
-          return false;
-        }
-      })
+      console.log(new Date(that.form.startTime), new Date(that.form.startTime))
+      if (new Date(that.form.startTime) > new Date(that.form.endTime)) {
+        errorTip('开始时间不能大于结束时间')
+      } else {
+        that.$refs['form'].validate(valid => {
+          if (valid) {
+            that.addOrEditData(that.form)
+          } else {
+            return false;
+          }
+        })
+      }
     },
     addOrEditData (data) {
       addOrEditSubjectPlain(data).then(res => {
