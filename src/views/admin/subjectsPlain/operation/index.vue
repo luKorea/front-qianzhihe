@@ -34,6 +34,8 @@
                       style="width: 100%"
                       v-model="form.startTime"
                       type="datetime"
+                      format="yyyy/MM/dd HH:mm:ss"
+                      value-format="yyyy/MM/dd HH:mm:ss"
                       placeholder="选择开始时间">
                   </el-date-picker>
                 </el-form-item>
@@ -44,6 +46,8 @@
                       style="width: 100%"
                       v-model="form.endTime"
                       type="datetime"
+                      format="yyyy/MM/dd HH:mm:ss"
+                      value-format="yyyy/MM/dd HH:mm:ss"
                       placeholder="选择结束时间">
                   </el-date-picker>
                 </el-form-item>
@@ -68,6 +72,7 @@ import {
 import { selectTypeList } from "../../../../api/common/search";
 import { successTip, errorTip } from "../../../../utils/tip";
 import { addOrEditSubjectPlain, getEditInfo } from '../../../../api/admin/subjectPlain'
+import { dateFormat } from '../../../../utils/filters'
 
 export default {
   name: "index",
@@ -77,7 +82,12 @@ export default {
       text: '立即添加',
       type: '',
       id: '',
-      form: {},
+      form: {
+        name: '',
+        enrollmentYear: '',
+        startTime: null,
+        endTime: null
+      },
       rules: {
         name: [{ required: true, trigger: 'blur', validator: validateClassType }],
         enrollmentYear: [{ required: true, trigger: 'blur', validator: validateYear }],
@@ -119,6 +129,8 @@ export default {
         console.log(res, 'res')
         if (res.errorCode === 200) {
           this.form = res.data;
+          this.form['startTime'] = dateFormat(this.form.startTime, 'YYYY/MM/DD HH:mm:ss')
+          this.form['endTime'] = dateFormat(this.form.endTime, 'YYYY/MM/DD HH:mm:ss')
           this.loading = false;
         } else {
           errorTip(res.msg)

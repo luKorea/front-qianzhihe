@@ -1,7 +1,8 @@
+import moment from 'moment'
 /**
  * 格式化金钱
- * @param {*} num 
- * @returns 
+ * @param {*} num
+ * @returns
  */
 export function filtersFormatMoney(num) {
     var oldNum = num;
@@ -17,11 +18,11 @@ export function filtersFormatMoney(num) {
 }
 /**
  * 格式化金钱--avue
- * @param {*} row 
- * @param {*} value 
- * @param {*} label 
- * @param {*} column 
- * @returns 
+ * @param {*} row
+ * @param {*} value
+ * @param {*} label
+ * @param {*} column
+ * @returns
  */
 export function formatterFiltersFormatMoney(row, value, label, column) {
     return filtersFormatMoney(label)
@@ -37,7 +38,7 @@ export const percentNumber = number => {
 }
 
 // 日期格式化
-export const dateFormat = (date) => {
-    return moment(date).format("YYYY-MM-DD")
+export const dateFormat = (date, format = 'YYYY-MM-DD HH:mm:ss') => {
+    return moment(date).format(format)
 }
 

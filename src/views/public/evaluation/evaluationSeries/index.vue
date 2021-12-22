@@ -1,32 +1,34 @@
 <template>
-  <basic-container>
-    <span class="tip-info"></span>
-    <span class="tip-title">测评列表</span>
-    <el-divider />
-    <div class="list-wrap m-top">
-      <div class="img"><img :src="mbit.img" alt=""></div>
-      <div class="info">
-        <div class="title">{{ mbit.name }}</div>
-        <div class="info-number">
-          <span class="tip">题目数：{{ mbit.total }}</span>
-          <span class="tip time">建议用时：{{ mbit.time }}min</span>
+  <div>
+    <basic-container>
+      <span class="tip-info"></span>
+      <span class="tip-title">测评列表</span>
+      <el-divider />
+      <div class="list-wrap m-top">
+        <div class="img"><img :src="mbit.img" alt=""></div>
+        <div class="info">
+          <div class="title">{{ mbit.name }}</div>
+          <div class="info-number">
+            <span class="tip">题目数：{{ mbit.total }}</span>
+            <span class="tip time">建议用时：{{ mbit.time }}min</span>
+          </div>
+          <div class="info-btn" @click="goDetail('mbti')">查看详情</div>
         </div>
-        <div class="info-btn" @click="goDetail('mbti')">查看详情</div>
       </div>
-    </div>
-    <el-divider/>
-    <div class="list-wrap">
-      <div class="img"><img :src="holland.img" alt=""></div>
-      <div class="info">
-        <div class="title">{{ holland.name }}</div>
-        <div class="info-number">
-          <span class="tip">题目数：{{ holland.total }}</span>
-          <span class="tip time">建议用时：{{ holland.time }}min</span>
+      <el-divider/>
+      <div class="list-wrap">
+        <div class="img"><img :src="holland.img" alt=""></div>
+        <div class="info">
+          <div class="title">{{ holland.name }}</div>
+          <div class="info-number">
+            <span class="tip">题目数：{{ holland.total }}</span>
+            <span class="tip time">建议用时：{{ holland.time }}min</span>
+          </div>
+          <div class="info-btn" @click="goDetail('holland')">查看详情</div>
         </div>
-        <div class="info-btn" @click="goDetail('holland')">查看详情</div>
       </div>
-    </div>
-  </basic-container>
+    </basic-container>
+  </div>
 </template>
 
 <script>

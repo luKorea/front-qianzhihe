@@ -33,8 +33,8 @@
         <el-table-column prop="name" label="计划名称" align="center"></el-table-column>
         <el-table-column prop="enrollmentYear" label="入学年份" align="center"/>
         <el-table-column prop="studentCount" label="涉及学生数" align="center"/>
-        <el-table-column prop="startTime" label="开始时间" align="center"/>
-        <el-table-column prop="endTime" label="结束时间" align="center"/>
+        <el-table-column prop="startTime" label="开始时间" align="center" :formatter="formatDateStart"/>
+        <el-table-column prop="endTime" label="结束时间" align="center" :formatter="formatDateEnd"/>
         <el-table-column prop="state" label="状态" align="center">
           <template slot-scope="scope">
             <span v-if="scope.row.state === 1" style="color: #FF5502">未开始</span>
@@ -63,6 +63,7 @@
 import { getSubjectPlainList } from "../../../api/admin/subjectPlain";
 import { selectTypeList } from "../../../api/common/search";
 import { errorTip } from "../../../utils/tip";
+import {dateFormat} from '../../../utils/filters'
 
 export default {
   name: "gradeList",
@@ -84,6 +85,13 @@ export default {
     this.getYear();
   },
   methods: {
+    formatDateStart(row) {
+      console.log(row.startTime)
+      return dateFormat(row.startTime, 'YYYY/MM/DD HH:mm:ss')
+    },
+    formatDateEnd(row) {
+      return dateFormat(row.endTime, 'YYYY/MM/DD HH:mm:ss')
+    },
     searchData () {
       this.params.page = 0;
       this.getData(this.params);

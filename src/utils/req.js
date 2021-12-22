@@ -37,6 +37,12 @@ export function req(url, data, type = 'GET') {
 
         let error = function (err) {
             let data = JSON.parse(err.responseText);
+            // if (data.status === 509) {
+            //     let html = error.response.data;
+            //     let verifyWindow = window.open("","_blank","height=400,width=560");
+            //     verifyWindow.document.write(html);
+            //     verifyWindow.document.getElementById("baseUrl").value = process.env.VUE_APP_PATH_REWRITE;
+            // }
             NProgress.done();
             // tryHideFullScreenLoading();
             // 用户TOKEN已过期，重新登录

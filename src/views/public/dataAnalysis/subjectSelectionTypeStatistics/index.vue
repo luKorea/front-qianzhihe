@@ -155,6 +155,8 @@ export default {
       getSubjectList().then(res => {
         if (res.errorCode === 200) {
           this.subjectList = res.data;
+          console.log(res.data[0], 1)
+          if (!this.$route.query.id) this.params.courseSelectionPlanId = res.data[0]._id || ''
         }
       })
     },

@@ -426,7 +426,7 @@ export function scrollElement (selector) {
  * @returns {string}
  */
 export function scrollToProgress () {
-  // 页面的总搞得
+  // 页面的总高度
   let pageHeight = document.body.scrollHeight ||
     document.documentElement.scrollHeight;
   // 浏览器视口高度
@@ -438,4 +438,3 @@ export function scrollToProgress () {
   let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
   return ((scrollTop / scrollAvail) * 100).toFixed(2) + '%';
 }
-
